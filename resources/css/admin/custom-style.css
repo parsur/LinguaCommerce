@@ -1,0 +1,309 @@
+@font-face {
+    font-family: "shabnam";
+    src: url("/fonts/Shabnam.ttf") format('truetype');
+}
+@font-face {
+    font-family: "shabnam-bold";
+    src: url("/fonts/Shabnam-Bold.ttf") format('truetype');
+  }
+  
+/*---------------------------------- End of fonts ---------------------------------- */
+
+body {
+    font-family: 'shabnam' !important;
+    text-align: right;
+    direction: rtl;
+}
+
+.ltr {
+    direction:ltr;
+}
+
+ul {
+    padding-inline-start: 0px;
+}
+
+.dropdown-item {
+    text-align: right;
+}
+.dropdown-footer, .dropdown-header {
+    text-align: center;
+}
+
+.breadcrumb-item+.breadcrumb-item::before {
+    padding-left: .5rem;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: "shabnam-bold";
+}
+
+input {
+    direction: rtl;
+}
+  
+select {
+    direction: rtl;
+}
+
+.right-direction{
+    text-align: right;
+    direction:rtl;
+}
+
+/* Table Image */
+.image_form {
+    width:105px;
+    height:110px;
+}
+  
+/*------------------------------------ contacts-list ------------------------------------*/
+
+.contacts-list-img {
+    float: right;
+}
+
+.contacts-list-info {
+    margin-right: 45px;
+    margin-left: 0;
+}
+
+
+/* sidebar */
+
+.sidebar {
+    direction: ltr;
+}
+
+.sidebar > div:first-child {
+    direction: rtl;
+}
+
+.control-sidebar, .control-sidebar:before {
+    left: -250px;
+    right: auto;
+    transition: left .3s ease-in-out;
+}
+
+.control-sidebar-slide-open .control-sidebar, .control-sidebar-slide-open .control-sidebar:before {
+    left: 0;
+    right: auto;
+}
+
+.small-box .icon {
+    right:auto;
+    left:10px;
+}
+
+.nav-sidebar .nav-link>p>.right {
+    left: 1rem;
+    right: auto;
+}
+
+.nav-sidebar>.nav-item .nav-icon {
+    margin-right: 0;
+    margin-left: .2rem;
+}
+
+@media (min-width: 992px) {
+    .sidebar-mini.sidebar-collapse .content-wrapper, .sidebar-mini.sidebar-collapse .main-footer, .sidebar-mini.sidebar-collapse .main-header {
+        margin-right: 4.6rem;
+        margin-left: 0;
+    }
+}
+
+@media (min-width: 992px) {
+    .sidebar-mini.sidebar-collapse .content-wrapper, .sidebar-mini.sidebar-collapse .main-footer, .sidebar-mini.sidebar-collapse .main-header {
+        margin-left: 0rem !important;
+        margin-right: 4.6rem !important;
+        z-index:100;
+    }
+
+    .sidebar-mini.sidebar-collapse .main-sidebar, .sidebar-mini.sidebar-collapse .main-sidebar:before {
+        margin-right: 0;
+        width: 4.6rem;
+    }
+}
+
+
+@media (min-width: 768px) {
+    .content-wrapper, .main-footer, .main-header {
+        transition: margin-right .3s ease-in-out;
+        margin-right: 250px;
+        margin-left : 0;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .main-sidebar, .main-sidebar:before {
+        box-shadow: none!important;
+        margin-right: -250px;
+        margin-left: 0;
+    }
+
+    .content-wrapper, .content-wrapper:before, .main-footer, .main-footer:before, .main-header, .main-header:before {
+        margin-right: 0;
+    }
+
+    .sidebar-open .main-sidebar, .sidebar-open .main-sidebar:before {
+        margin-right: 0;
+        z-index: 4000;
+    }
+}
+
+.sidebar-collapse .main-sidebar, .sidebar-collapse .main-sidebar:before {
+    margin-right: -250px;
+}
+
+.main-sidebar {
+    left: auto;
+    right:0;
+}
+
+/* Cards */
+
+.card-header>.card-tools {
+    right:auto;
+    left:1rem;
+}
+
+.user-block img {
+     float: right;
+}
+
+.attachment-block .attachment-img {
+    float: right;
+}
+
+.attachment-block .attachment-pushed {
+    margin-left: 0px;
+    margin-right: 110px;
+}
+
+.card-comments .card-comment img, .img-lg, .img-md, .img-sm, .user-block.user-block-sm img {
+    float: right;
+}
+
+.card-comments .comment-text {
+    margin-right: 40px;
+    margin-left: 0;
+}
+
+.card-comments .card-comment img+.img-push, .img-sm+.img-push, .user-block.user-block-sm img+.img-push {
+    margin-left: 0px;
+    margin-right: 40px;
+}
+
+.user-block .comment, .user-block .description, .user-block .username {
+    margin-right: 50px;
+    margin-left: 0px;
+}
+
+.btn-group-vertical {
+    align-items: center;
+}
+
+
+/*------------------------- Form ----------------------------*/
+.select2-container .select2-search--inline {
+    float: right;
+}
+
+.select2-container--default .select2-search--inline .select2-search__field {
+    text-align: right;
+}
+
+
+.modal-footer {
+    justify-content: center;
+}
+
+.alert-success {
+    color: #155724 !important;
+}
+
+.alert-danger {
+    color: #721c24 !important;
+}
+
+/*----------------------- Extra Page ---------------------------*/
+.error-page>.headline {
+    float: right;
+}
+
+.error-page>.error-content {
+    margin-right: 190px;
+    margin-left: 0;
+}
+
+.lockscreen-image {
+    left: auto;
+    right:-10px;
+}
+
+.lockscreen-credentials {
+    margin-left: 0px;
+    margin-right: 70px;
+}
+
+.nav {
+    padding-inline-start: 0px !important;
+}
+
+/*---------------------------------- Persian Date Picker ---------------------------------- */
+
+.datepicker-plot-area {
+    font-family: 'Vazir', sans-serif;
+}
+
+/* ---------------------------------- Admin---------------------------------- */
+.admin_panel {
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 15px;
+    color: #FFF;
+}
+
+.dt_responsive {
+    width:100% !important;
+}
+
+table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td.dtr-control:before, table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>th.dtr-control:before {
+    top: 50%;
+    right: 5px;
+    height: 1em;
+    width: 1em;
+    margin-top: -9px;
+    display: block;
+    position: absolute;
+    color: white;
+    border: 0.15em solid white;
+    border-radius: 1em;
+    box-shadow: 0 0 0.2em #444;
+    box-sizing: content-box;
+    text-align: center;
+    text-indent: 0 !important;
+    font-family: 'Courier New', Courier, monospace;
+    line-height: 1em;
+    content: '+';
+    background-color: #0275d8;
+}
+
+table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td.dtr-control, table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>th.dtr-control {
+    position: relative;
+    padding-right: 30px;
+    cursor: pointer;
+}
+
+table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td.dtr-control, table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>th.dtr-control {
+    position: relative;
+    padding-right: 35px;
+    cursor: pointer;
+}
+
+div.dataTables_wrapper div.dataTables_paginate {
+    margin: 0;
+    white-space: nowrap;
+    float: right;
+}

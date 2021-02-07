@@ -1,5 +1,8 @@
 const mix = require('laravel-mix');
 
+mix.setPublicPath('public');
+mix.setResourceRoot('../');
+
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -12,6 +15,16 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .postCss('resources/css/app.css', 'public/css', [
-        //
-    ]);
+    // DataTable Persian Language
+    .js('resources/js/persian.json', 'publlic/js/persian.json')
+    // App And Authentication
+    .postCss('resources/css/app.css', 'public/css')
+    // App Css
+    .postCss('resources/css/auth.css', 'public/css/auth.css')
+    // App Sass
+    .sass('resources/sass/app.scss','public/css');
+
+// Images
+mix.copy('resources/images', 'public/images');
+// Fonts
+mix.copy('resources/fonts', 'public/fonts');

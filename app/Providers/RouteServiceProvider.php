@@ -17,7 +17,27 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/home';
+
+    public const HOME = '/';
+
+    /**
+     * Redirect User After Login
+     * 
+     * @return page
+     */
+    public function redirectTo() {
+        // Get Authentication Role
+        $role = Auth::user()->role; 
+        // Admin Or User
+        switch ($role) {
+          case 'admin':
+            return 'admin/adminHome';
+            break;
+          case 'user':
+            return '/user/userHome';
+            break; 
+        }
+    }
 
     /**
      * The controller namespace for the application.
@@ -26,7 +46,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string|null
      */
-    // protected $namespace = 'App\\Http\\Controllers';
+    protected $namespace = 'App\\Http\\Controllers';
 
     /**
      * Define your route model bindings, pattern filters, etc.

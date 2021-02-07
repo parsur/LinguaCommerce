@@ -1,0 +1,36 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+/**
+ * @property int $id
+ * @property int $category_id
+ * @property string $name
+ * @property int $status
+ * @property Category $category
+ */
+class SubCategory extends Model
+{
+    public $timestamps = false;
+    /**
+     * The table associated with the model.
+     * 
+     * @var string
+     */
+    protected $table = 'subCategories';
+
+    /**
+     * @var array
+     */
+    protected $fillable = ['category_id', 'name', 'status'];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function category()
+    {
+        return $this->belongsTo('App\Models\Category');
+    }
+}
