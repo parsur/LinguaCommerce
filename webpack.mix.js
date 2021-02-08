@@ -17,6 +17,8 @@ mix.setResourceRoot('../');
 mix.js('resources/js/app.js', 'public/js')
     // DataTable Persian Language
     .js('resources/js/persian.json', 'publlic/js/persian.json')
+    // Ajax Requests
+    .js('resources/js/requestHandler.js', 'publlic/js/requestHandler.js')
     // App And Authentication
     .postCss('resources/css/app.css', 'public/css')
     // App Css

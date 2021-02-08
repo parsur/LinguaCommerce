@@ -22,6 +22,6 @@ class Role
         if($user->role == $role)
           return $next($request);
     
-        return redirect('login');
+        return redirect('/');
     }
 }

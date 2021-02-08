@@ -27,7 +27,7 @@ class CourseDataTable extends DataTable
                 else if($course->status === Course::INVISIBLE) return 'غیر فعال';
                 else return '-';
             })
-            ->addColumn('action',function() {
+            ->addColumn('action',function(Course $course) {
                 return <<<ATAG
                             <a onclick="showConfirmationModal('{$course->id}')">
                                 <i class="fa fa-trash text-danger" aria-hidden="true"></i>

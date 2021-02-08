@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\Medium;
+use App\Models\Media;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
@@ -27,10 +27,10 @@ class MediaDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Medium $model
+     * @param \App\Models\Media $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Medium $model)
+    public function query(Media $model)
     {
         return $model->newQuery();
     }
@@ -43,7 +43,7 @@ class MediaDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-                    ->setTableId('media-table')
+                    ->setTableId('mediaTable')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('Bfrtip')

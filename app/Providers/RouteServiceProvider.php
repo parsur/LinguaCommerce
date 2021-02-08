@@ -31,10 +31,10 @@ class RouteServiceProvider extends ServiceProvider
         // Admin Or User
         switch ($role) {
           case 'admin':
-            return 'admin/adminHome';
+            return '/adminHome';
             break;
           case 'user':
-            return '/user/userHome';
+            return '/user_dashboard';
             break; 
         }
     }

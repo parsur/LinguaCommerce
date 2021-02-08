@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use App\Providers\RedirectAuthentication;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 
@@ -28,9 +29,11 @@ class LoginController extends Controller
      *
      * @var string
      */
-    public function redirectTo(RouteServiceProvider $route) {
+    public function redirectTo() {
+        $route = new RedirectAuthentication();
         $route->redirectTo();
     }
+    
     /**
      * Create a new controller instance.
      *
@@ -42,25 +45,13 @@ class LoginController extends Controller
     }
 
     /**
-     * Redirect Admin To AdminHome.
-     * 
-     * @return \Illuminate\Auth\SessionGuard
-     */
-    public function redirectPath()
-    {
-        if (auth()->user()->is_admin) {
-            return route('admin.adminHome');
-        }
-        return url('/');
-    }
-
-    /**
      * Logout
      * 
      * @return void
      */
     public function logout() 
     {
+        // Logout
         Auth::logout();
         return redirect('/');
     }

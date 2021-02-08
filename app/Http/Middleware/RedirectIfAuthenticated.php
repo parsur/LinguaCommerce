@@ -23,8 +23,7 @@ class RedirectIfAuthenticated
     //     foreach ($guards as $guard) {
     //         if (Auth::guard($guard)->check()) {
     //             return redirect('/');
-    //         }
-            
+    //         }     
     //     }
     //     return $next($request);
     // }
@@ -35,11 +34,10 @@ class RedirectIfAuthenticated
       
           switch ($role) {
             case 'admin':
-               return redirect('/admin/adminHome');
-               break;
-            case 'user':
-               return redirect('/user_dashboard');
-               break; 
+              return redirect('/adminHome');
+              break;
+            default:
+              return redirect('/user_dashboard'); 
           }
         }
         return $next($request);

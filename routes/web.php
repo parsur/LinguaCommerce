@@ -41,4 +41,4 @@ Route::get('/logout','Auth\LoginController@logout')->name('logout');
 Route::get('/', 'HomeController@index')->name('home');
 
 // User Login
-Route::get('/user_dashboard', 'User\DashboardController@index')->middleware('role:user');
+Route::get('/user_dashboard', 'UserController@index')->middleware(['auth','role:user']);

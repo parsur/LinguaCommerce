@@ -45,15 +45,22 @@
                     <!-- Sidebar Menu -->
                     <nav class="mt-2">
                         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                            {{-- Products --}}
-                            <x-admin.urlAddress text="دوره" fontAwesome="fa fa-graduation-cap" route="{{ course.list }}" />
-                            {{-- Team --}}
-                            <x-admin.urlAddress text="تیم" fontAwesome="fas fa-user-friends" route="" />
-                            {{-- Phone Number --}}
-                            <x-admin.urlAddress text="شماره همراه" fontAwesome="fas fa-phone" route="" />
                             {{-- Admin --}}
-                            <x-admin.urlAddress text="ادمین" fontAwesome="fa fa-users" route="" />
+                            <x-admin.urlAddress text="ادمین" fontAwesome="fa fa-users" route="{{ route('admin.list') }}" />
 
+                            {{-- Courses --}}
+                            <li class="nav-item has-treeview menu-open">
+                                {{-- This menu has sub menus --}}
+                                <x-admin.urlAddressParent text="دوره ها" fontAwesome="fas fa-graduation-cap" />
+
+                                <ul class="nav nav-treeview">
+                                    {{-- Categories --}}
+                                    <x-admin.urlAddress text="لیست دوره ها" fontAwesome="null" route="{{ route('course.list') }}" />
+                                    {{-- Sub Categories --}}
+                                    <x-admin.urlAddress text="افزودن توضیح دوره" fontAwesome="null" route="{{ route('course.list') }}" />
+                                </ul>
+                            </li>
+                            
                         </ul>
                     </nav>
                 </div>
@@ -83,5 +90,8 @@
     @section('scripts')
         {{-- App --}}
         <script src="{{ mix('js/app.js') }}"></script>
+        {{-- Ajax Requests --}}
+        <script src="{{ asset('js/requestHandler.js') }}"></script>
+
     @show
 </body>

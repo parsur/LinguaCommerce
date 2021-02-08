@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\VerifiesEmails;
+use App\Providers\RedirectAuthentication;
+
 
 class VerificationController extends Controller
 {
@@ -26,9 +28,11 @@ class VerificationController extends Controller
      *
      * @var string
      */
-    public function redirectTo(RouteServiceProvider $route) {
+    public function redirectTo() {
+        $route = new RedirectAuthentication();
         $route->redirectTo();
     }
+
     /**
      * Create a new controller instance.
      *
