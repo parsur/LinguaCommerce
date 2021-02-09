@@ -22,6 +22,7 @@ class CourseDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addIndexColumn()
+            ->rawColumns(['action'])
             ->editColumn('status', function(Course $course) {
                 if($course->status === Course::VISIBLE) return 'فعال';
                 else if($course->status === Course::INVISIBLE) return 'غیر فعال';
@@ -97,6 +98,13 @@ class CourseDataTable extends DataTable
                 ->addClass('column-title'),
             Column::make('status')
                 ->title('وضعیت')
+                ->addClass('column-title'),
+            Column::computed('action') // This Column is not in database
+                ->exportable(false)
+                ->searchable(false)
+                ->printable(false)
+                ->orderable(false)
+                ->title('حذف،ویرایش')
                 ->addClass('column-title')
         ];
     }

@@ -30,4 +30,12 @@ class Course extends Model
         return $this->morphMany('App\Models\Media', 'mediable');
     }
 
+    /**
+     * Get all of the course's descriptions.
+     */
+    public function descriptions() {
+        return $this->morphMany('App\Models\description','describable');
+    }
+
+
 }

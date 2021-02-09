@@ -30,12 +30,15 @@ class Action {
      * @return json_encode
      */
     public function delete($model, $id) {
-        try {
-            $model::find($id)->delete();
-            return response()->json([],200);
-        } catch(Throwable $e) {
-            return response()->json($e);
+        // Why did not try catch work?
+        $values = $model::find($id);
+        if ($values) {
+            $values->delete();
+        } else {
+            return response()->json([], 404);
         }
+        return response()->json([], 200);
+
     }
 
     /**

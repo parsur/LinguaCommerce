@@ -78,14 +78,4 @@ class RegisterController extends Controller
             'role' => 'user'
         ]);
     }
-
-    /**
-     * Get the Admin to be used during registration.
-     *
-     * @return \Illuminate\Contracts\Auth\StatefulGuard
-     */
-    protected function guard()
-    {
-        return Auth::guard('admin');
-    }
 }

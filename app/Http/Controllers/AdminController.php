@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 use App\DataTables\AdminDataTable;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreAdminRequest;
@@ -14,8 +12,6 @@ use App\Providers\SuccessMessages;
 use App\Models\Cat;
 use App\Models\User;
 use File;
-use Session;
-use DB;
 
 
 class AdminController extends Controller
@@ -73,6 +69,7 @@ class AdminController extends Controller
         $admin->name = $request->get('name');
         $admin->email = $request->get('email');
         $admin->role = 'admin';
+
         if($request->get('password') != 'رمز عبور جدید' and $request->get('password') != 'تکرار رمز عبور جدید')
             $admin->password = Hash::make($request->get('password'));
 

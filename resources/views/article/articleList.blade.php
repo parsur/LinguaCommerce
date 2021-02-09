@@ -1,9 +1,9 @@
 @extends('layouts.admin')
-@section('title','مدیریت دوره ها')
+@section('title','مدیریت مقالات')
 
 @section('content')
   {{-- Header --}}
-  <x-header pageName="دوره" buttonValue="افزودن دوره">
+  <x-header pageName="مقاله" buttonValue="افزودن مقاله">
     <x-slot name="table">
       {!! $courseTable->table(['class' => 'table table-striped table-bordered table-hover-responsive dt_responsive nowrap text-center']) !!}
     </x-slot>
@@ -48,23 +48,20 @@
 
   <script>
     $(document).ready(function () {
+      // Article DataTable
+      let dt = window.LaravelDataTables['articleTable'];
       // Actions(DataTable,Form,Url)
-      let dt = window.LaravelDataTables['courseTable'];
-      let action = new requestHandler(dt,'#courseForm','course');
-
+      let action = new requestHandler(dt,'#articleForm','article');
       // Record modal
       $('#create_record').click(function () {
         action.modal();
       });
-
       // Insert
       action.insert();
-
       // Delete
       window.showConfirmationModal = function showConfirmationModal(url) {
         action.delete(url);
       }
-
       // Edit
       window.showEditModal = function showEditModal(url) {
         edit(url);
@@ -72,16 +69,16 @@
       function edit($url) {
         var id = $url;
         $('#formModal').modal('show');
-        
+        $('#form_output').html('');
+
         $.ajax({
-          url: "{{ url('course/edit') }}",
+          url: "{{ url('article/edit') }}",
           data: {id: id},
           success: function(data) {
             $('#id').val(id);
             $('#button_action').val('update');
             $('#action').val('ویرایش');
-            $('#name').val(data.name);
-            $('#price').val(data.price);
+            $('#title').val(data.title);
             if(data.status == 0) 
               $('#status').val(0).trigger('change');
             else if(data.status == 1) 

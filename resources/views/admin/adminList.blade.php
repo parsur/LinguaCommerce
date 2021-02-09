@@ -55,7 +55,7 @@
       let dt = window.LaravelDataTables['adminTable'];
 
       // Actions
-      let action = new requestHandler('#adminForm','admin');
+      let action = new requestHandler(dt,'#adminForm','admin');
 
       // Record modal
       $('#create_record').click(function () {
@@ -63,46 +63,33 @@
       });
 
       // Insert
-      action.insert(dt);
+      action.insert();
 
       // Delete
       window.showConfirmationModal = function showConfirmationModal(url) {
         action.delete(url);
       }
-      function deleteAdmin($url) {
-        var id = $url;
-        $('#confirmModal').modal('show');
-        $('#ok_button').click(function () {
-          $.ajax({
-            url: "/admin/delete/" + id,
-            mathod: "get",
-            dataType: "json",
-            success: function(data) {
-              $('#confirmModal').modal('hide');
-              dt.draw(false);
-            }
-          })
-        });
-      }
       // Edit
       window.showEditModal = function showEditModal(url) {
-        editAdmin(url);
+        edit(url);
       }
-      function editAdmin($url) {
+      function edit($url) {
         var id = $url;
+        $('#form_output').html('');
         $('#formModal').modal('show');
+
         $.ajax({
-          url: "{{ route('admin.edit') }}",
+          url: "{{ url('admin/edit') }}",
           method: "get",
           data: {id: id},
           success: function(data) {
+            $('#id').val(id);
+            $('#action').val('ویرایش');
+            $('#button_action').val('update');
             $('#name').val(data.name);
             $('#email').val(data.email);
             $('#password').val('رمز عبور جدید');
             $('#password2').val('رمز عبور جدید');
-            $('#id').val(id);
-            $('#button_action').val('update');
-            $('#action').val('ویرایش');
           }
         })
       }

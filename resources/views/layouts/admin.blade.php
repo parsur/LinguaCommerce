@@ -46,21 +46,32 @@
                     <nav class="mt-2">
                         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                             {{-- Admin --}}
-                            <x-admin.urlAddress text="ادمین" fontAwesome="fa fa-users" route="{{ route('admin.list') }}" />
+                            <x-admin.urlAddress text="ادمین" fontAwesome="fa fa-users" route="{{ url('admin/list') }}" />
 
                             {{-- Courses --}}
                             <li class="nav-item has-treeview menu-open">
                                 {{-- This menu has sub menus --}}
-                                <x-admin.urlAddressParent text="دوره ها" fontAwesome="fas fa-graduation-cap" />
+                                <x-admin.urlAddressParent text="دوره" fontAwesome="fas fa-graduation-cap" />
 
                                 <ul class="nav nav-treeview">
-                                    {{-- Categories --}}
-                                    <x-admin.urlAddress text="لیست دوره ها" fontAwesome="null" route="{{ route('course.list') }}" />
-                                    {{-- Sub Categories --}}
-                                    <x-admin.urlAddress text="افزودن توضیح دوره" fontAwesome="null" route="{{ route('course.list') }}" />
+                                    {{-- Courses --}}
+                                    <x-admin.urlAddress text="لیست دوره ها" fontAwesome="null" route="{{ url('course/list') }}" />
+                                    {{-- Description --}}
+                                    <x-admin.urlAddress text="افزودن توضیح دوره" fontAwesome="null" route="{{ url('course/newDescription') }}" />
                                 </ul>
                             </li>
-                            
+                            {{-- Articles --}}
+                            <li class="nav-item has-treeview menu-open">
+                                {{-- This menu has sub menus --}}
+                                <x-admin.urlAddressParent text="مقاله" fontAwesome="fa fa-newspaper-o" />
+
+                                <ul class="nav nav-treeview">
+                                    {{-- Articles --}}
+                                    <x-admin.urlAddress text="لیست مقالات" fontAwesome="null" route="{{ url('article/list') }}" />
+                                    {{-- Description --}}
+                                    <x-admin.urlAddress text="افزودن توضیح دوره" fontAwesome="null" route="{{ url('article/newDescription') }}" />
+                                </ul>
+                            </li>
                         </ul>
                     </nav>
                 </div>
@@ -80,7 +91,7 @@
             <!-- To the right -->
             <div class="float-right d-none d-sm-inline">
                 <p>
-                    تمامی کپی رایت این وبسایت متعلق به مفید صنعت خواهد بود.
+                    تمامی کپی رایت این وبسایت متعلق به سارا رجبی خواهد بود.
                 </p>
             </div>
         </footer>
@@ -92,6 +103,14 @@
         <script src="{{ mix('js/app.js') }}"></script>
         {{-- Ajax Requests --}}
         <script src="{{ asset('js/requestHandler.js') }}"></script>
+        {{-- Ajax Setup --}}
+        <script>
+            // Ajax Setup
+            $.ajaxSetup({
+                processing: true,
+                dataType: "json"
+            });
+        </script>
 
     @show
 </body>

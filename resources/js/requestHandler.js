@@ -1,47 +1,40 @@
 class requestHandler {
     // Constructor
-    constructor(formId,url) {
-        // Form Id
-        this.formId = formId;
-        // Url
-        this.url = url;
+    constructor(dt,formId,url) {
+        window.dt = dt; // DataTable 
+        window.formId = formId; // Form Id
+        window.url = url; // Url
     }
 
     // modal
     modal() {
         $('#formModal').modal('show');
-        $(this.formId)[0].reset();
+        $(window.formId)[0].reset();
         $('#form_output').html('');
     }
 
     // Insert
-    insert(dt) {
-        // Ajax Setup
-        $.ajaxSetup({
-            processing: true,
-            dataType: "json"
-        });
-
-        // Form And Url
-        let form = this.formId;
-        let url = this.url;
-
+    insert() {
         // Store or Update
-        $(this.formId).on('submit', function (event) {
+        $(window.formId).on('submit', function (event) {
             event.preventDefault();
-            var form_data = $(this).serialize();
+            // Form Data
+            var form_data = new FormData(this);
+            form_data.append('file',form_data);
+
             $.ajax({
-                url: "/" + url + "/new",
+                url: "/" + window.url + "/new",
                 method: "POST",
+                contentType: false,
+                processData: false,
+                cache: false,
                 data: form_data,
                 success: function (data) { 
-                    $('#form_output').html(data.success);
-                    $('#button_action').val('insert');
-                    dt.draw(false);
-                    $(form)[0].reset();
+                    success(data);
                 },
                 error: function (data) {
-                    error(data);
+                    if(data)
+                        error(data);
                 }
             })
         });
@@ -49,26 +42,29 @@ class requestHandler {
 
     // Delete
     delete(id) {
-        // Id and Url
-        var id = id;
-        var url = this.url;
-
         $('#confirmModal').modal('show');
         $('#ok_button').click(function () {
             $.ajax({
-                url: "/" + url + "/delete/" + id,
-                mathod: "get",
+                url: "/" + window.url + "/delete/" + id,
+                method: "get",
                 success: function(data) {
                     $('#confirmModal').modal('hide');
-                    dt.draw(false);
+                    window.dt.draw(false);
                 }
             })
         });
     }
 }
 
+// Success
+function success(data) {
+    $('#form_output').html(data.success);
+    $('#button_action').val('insert');
+    window.dt.draw(false);
+    $(window.formId)[0].reset();
+}
 
-// Error Handler
+// Error
 function error(data) {
     // Parse To Json
     var data = JSON.parse(data.responseText);

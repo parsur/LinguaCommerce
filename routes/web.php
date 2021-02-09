@@ -19,19 +19,33 @@ Route::group(['middleware' => ['auth','role:admin']], function () {
     // Admin
     Route::get('adminHome', 'AdminController@admin');
     Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
-        Route::get('list', 'AdminController@list')->name('list');
+        Route::get('list', 'AdminController@list');
         Route::get('table/list', 'AdminController@adminTable')->name('list.table');
-        Route::post('new', 'AdminController@store')->name('store');
-        Route::get('edit', 'AdminController@edit')->name('edit');
-        Route::get('delete/{id}','AdminController@delete')->name('delete');
+        Route::post('new', 'AdminController@store');
+        Route::get('edit', 'AdminController@edit');
+        Route::get('delete/{id}', 'AdminController@delete');
     });
-    // Course
     Route::group(['prefix' => 'course', 'as' => 'course.'], function () {
-        Route::get('list', 'CourseController@list')->name('list');
+        // Course
+        Route::get('list', 'CourseController@list');
         Route::get('table/list', 'CourseController@courseTable')->name('list.table');
-        Route::post('new', 'CourseController@store')->name('store');
-        Route::get('edit', 'CourseController@edit')->name('edit');
-        Route::get('delete/{id}','CourseController@delete')->name('delete');
+        Route::post('new', 'CourseController@store');
+        Route::get('edit', 'CourseController@edit');
+        Route::get('delete/{id}','CourseController@delete');
+        // Description
+        Route::get('newDescription', 'CourseController@newDesc');
+        Route::post('description/new', 'CourseController@storeDesc');
+    });
+    Route::group(['prefix' => 'article', 'as' => 'article.'], function () {
+        // Article
+        Route::get('list', 'ArticleController@list');
+        Route::get('table/list', 'ArticleController@articleTable')->name('list.table');
+        Route::post('new', 'ArticleController@store');
+        Route::get('edit', 'ArticleController@edit');
+        Route::get('delete/{id}', 'ArticleController@delete');
+        // Description
+        Route::get('newDescription', 'ArticleController@newDesc');
+        Route::post('description/new', 'ArticleController@storeDesc');
     });
 });
 
