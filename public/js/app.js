@@ -1834,10 +1834,10 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./resources/js/admin.js":
-/*!*******************************!*\
-  !*** ./resources/js/admin.js ***!
-  \*******************************/
+/***/ "./resources/assets/js/admin.js":
+/*!**************************************!*\
+  !*** ./resources/assets/js/admin.js ***!
+  \**************************************/
 /***/ (function(module, exports) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;function _typeof2(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof2 = function _typeof2(obj) { return typeof obj; }; } else { _typeof2 = function _typeof2(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof2(obj); }
@@ -2606,17 +2606,17 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 
-/***/ "./resources/js/app.js":
-/*!*****************************!*\
-  !*** ./resources/js/app.js ***!
-  \*****************************/
+/***/ "./resources/assets/js/app.js":
+/*!************************************!*\
+  !*** ./resources/assets/js/app.js ***!
+  \************************************/
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
 // Axios
-__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // Bootstrap
+__webpack_require__(/*! ./bootstrap */ "./resources/assets/js/bootstrap.js"); // Bootstrap
 
 
-__webpack_require__(/*! ./admin */ "./resources/js/admin.js"); // DataTables
+__webpack_require__(/*! ./admin */ "./resources/assets/js/admin.js"); // DataTables
 
 
 window.datatables = __webpack_require__(/*! datatables.net-bs4 */ "./node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js");
@@ -2629,10 +2629,10 @@ __webpack_require__(/*! select2/dist/js/select2 */ "./node_modules/select2/dist/
 
 /***/ }),
 
-/***/ "./resources/js/bootstrap.js":
-/*!***********************************!*\
-  !*** ./resources/js/bootstrap.js ***!
-  \***********************************/
+/***/ "./resources/assets/js/bootstrap.js":
+/*!******************************************!*\
+  !*** ./resources/assets/js/bootstrap.js ***!
+  \******************************************/
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
 window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
@@ -52177,10 +52177,10 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
 
 /***/ }),
 
-/***/ "./resources/sass/app.scss":
-/*!*********************************!*\
-  !*** ./resources/sass/app.scss ***!
-  \*********************************/
+/***/ "./resources/assets/sass/app.scss":
+/*!****************************************!*\
+  !*** ./resources/assets/sass/app.scss ***!
+  \****************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -52190,10 +52190,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/css/app.css":
-/*!*******************************!*\
-  !*** ./resources/css/app.css ***!
-  \*******************************/
+/***/ "./resources/assets/css/app.css":
+/*!**************************************!*\
+  !*** ./resources/assets/css/app.css ***!
+  \**************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -52203,10 +52203,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/css/auth.css":
-/*!********************************!*\
-  !*** ./resources/css/auth.css ***!
-  \********************************/
+/***/ "./resources/assets/css/auth.css":
+/*!***************************************!*\
+  !*** ./resources/assets/css/auth.css ***!
+  \***************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -61338,10 +61338,10 @@ S2.define('jquery.select2',[
 /******/ 		};
 /******/ 		
 /******/ 		var deferredModules = [
-/******/ 			["./resources/js/app.js"],
-/******/ 			["./resources/sass/app.scss"],
-/******/ 			["./resources/css/app.css"],
-/******/ 			["./resources/css/auth.css"]
+/******/ 			["./resources/assets/js/app.js"],
+/******/ 			["./resources/assets/sass/app.scss"],
+/******/ 			["./resources/assets/css/app.css"],
+/******/ 			["./resources/assets/css/auth.css"]
 /******/ 		];
 /******/ 		// no chunk on demand loading
 /******/ 		

@@ -92,7 +92,7 @@ class CategoryDataTable extends DataTable
             Column::make('name')
             ->title('نام')
                 ->addClass('column-title'),
-            Column::computed('status') // This Column is not in database
+            Column::computed('status')
             ->title('وضعیت')
                 ->addClass('column-title'),
             Column::computed('action') // This Column is not in database

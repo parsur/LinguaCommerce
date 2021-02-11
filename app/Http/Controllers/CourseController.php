@@ -8,7 +8,7 @@ use App\Models\SubCategory;
 use App\Models\Description;
 use App\DataTables\CourseDataTable;
 use App\Http\Requests\StoreCourseRequest;
-use App\Http\Requests\StoreCourseDescriptionRequest;
+use App\Http\Requests\StoreDescriptionRequest;
 use App\Providers\Action;
 use App\Providers\SuccessMessages;
 use Illuminate\Http\Request;
@@ -57,21 +57,15 @@ class CourseController extends Controller
 
     // Add Course
     public function add($request) {
-
-        DB::beginTransaction();
-        try {
+        
+        DB::transaction(function () {
             $course = Course::updateOrCreate(
                 ['id' => $request->get('id')],
                 ['name' => $request->get('name'), 'price' => $this->convertToEnglish($request->get('price')), 
                 'category_id' => $this->subSet($request->get('categories')), 'subCategory_id' => $this->subSet($request->get('subCategories'))]
             );
             $course->statuses()->create(['status' => $request->get('status')]);
-            DB::commit();
-
-        } catch(\Excpetion $e) {
-            DB::rollback();
-            throw $e;
-        }
+        });
     }
 
     // Product SubSet
@@ -121,7 +115,7 @@ class CourseController extends Controller
     }
 
     // Store Description
-    public function storeDesc(StoreCourseDescriptionRequest $request,SuccessMessages $message) {
+    public function storeDesc(StoreDescriptionRequest $request,SuccessMessages $message) {
 
         foreach($request->get('courses') as $course) {
             Description::create([

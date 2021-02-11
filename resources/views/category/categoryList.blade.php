@@ -22,7 +22,7 @@
                 {{-- Status --}}
                 <div class="col-md-12">
                     <label for="status">وضعیت:</label>
-                    <select id="status" name="status" class="browser-default custom-select">
+                    <select id="status" name="status" class="custom-select">
                         <option value="0">فعال</option>
                         <option value="1">غیرفعال</option>
                     </select>
@@ -32,7 +32,7 @@
     </x-admin.insert>
     
     {{-- Delete --}}
-    <x-admin.delete title="آیا مایل هستید دسته بندی ۱ را حذف کنید؟" />
+    <x-admin.delete title="آیا مایل به حذف دسته بندی اول هستید؟" />
 
 @endsection
 

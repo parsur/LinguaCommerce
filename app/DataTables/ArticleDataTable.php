@@ -21,6 +21,7 @@ class ArticleDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
+            ->addIndexColumn()
             ->addColumn('action', 'articledatatable.action');
     }
 
@@ -65,15 +66,40 @@ class ArticleDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+            Column::make('DT_RowIndex')
+            ->title('#')
+                ->addClass('column-title')
+                ->searchable(false)
+                ->orderable(false),
+            Column::make('title')
+            ->title('تیتر')
+                ->addClass('column-title'),
+            Column::computed('media_id')
+            ->title('پستر یا ویدئو')
+                ->addClass('column-title'),
+            Column::computed('description_id')
+            ->title('توضیحات')
+                ->addClass('column-title'),
+            Column::make('category_id')
+            ->title('دسته بندی اول')
+                ->addClass('column-title'),
+            Column::make('subCategory_id')
+            ->title('دسته بندی دوم')
+                ->addClass('column-title'),
+            Column::make('created_at')
+                ->title('تاریخ انتشار')
+                    ->addClass('column-title'),
+            Column::make('created_at')
+                ->title('تاریخ ویرایش شده')
+                    ->addClass('column-title'),
+
+            Column::computed('action') // This Column is not in database
+                ->exportable(false)
+                ->searchable(false)
+                ->printable(false)
+                ->orderable(false)
+                ->title('حذف،ویرایش')
+                ->addClass('column-title')
         ];
     }
 

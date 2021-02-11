@@ -46,20 +46,15 @@ class CategoryController extends Controller
 
     // Store
     public function add($request) {
-        DB::beginTransaction();
-        try {
+
+        DB::transaction(function () {
             $category = Category::updateOrCreate(
                 ['id' => $request->get('id')],
                 ['name' => $request->get('name')]
             );
 
             $category->statuses()->create(['status' => $request->get('status')]);
-            DB::commit();
-
-        } catch(\Excpetion $e) {
-            DB::rollback();
-            throw $e;
-        }
+        });
     }
 
     // Edit

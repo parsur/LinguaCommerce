@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Article;
+use App\Models\Category;
+use App\Models\SubCategory;
 use App\DataTables\ArticleDataTable;
 
 class ArticleController extends Controller
@@ -15,6 +17,10 @@ class ArticleController extends Controller
 
         // Article Table
         $vars['articleTable'] = $dataTable->html();
+        // Categories
+        $vars['categories'] = Category::select('id','name')->get();
+        // Sub Categories
+        $vars['subCategories'] = SubCategory::select('id','name')->get();
 
         return view('article.articleList', $vars);
     }
@@ -43,20 +49,14 @@ class ArticleController extends Controller
 
     // Store
     public function add($request) {
-        DB::beginTransaction();
-        try {
+        DB::transaction(function () {
             $category = Article::updateOrCreate(
                 ['id' => $request->get('id')],
                 ['name' => $request->get('name')]
             );
 
             $category->statuses()->create(['status' => $request->get('status')]);
-            DB::commit();
-
-        } catch(\Excpetion $e) {
-            DB::rollback();
-            throw $e;
-        }
+        });
     }
 
     // Edit

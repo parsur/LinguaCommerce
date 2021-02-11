@@ -28,7 +28,7 @@
         {{-- Status --}}
         <div class="col-md-12 mb-3">
           <label for="status">وضعیت:</label>
-          <select id="status" name="status" class="browser-default custom-select">
+          <select id="status" name="status" class="custom-select">
             <option value="0">فعال</option>
             <option value="1">غیرفعال</option>
           </select>
@@ -38,7 +38,7 @@
         {{-- Category --}}
         <div class="col-md-6 mb-3"> 
           <label for="categories">دسته بندی سطح-۱</label>
-          <select name="categories" id="categories" class="browser-default custom-select">
+          <select name="categories" id="categories" class="custom-select">
             <option value="">دسته بندی سطح-۱</option>
             @foreach($categories as $category)
               <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -48,7 +48,7 @@
         {{-- Sub Category --}}
         <div class="col-md-6">
           <label for="subCategories">دسته بندی سطح-۲</label>
-          <select name="subCategories" id="subCategories" class="browser-default custom-select">
+          <select name="subCategories" id="subCategories" class="custom-select">
             <option value="">دسته بندی سطح-۲</option>
             @foreach($subCategories as $subCategory)
               <option value="{{ $subCategory->id }}">{{ $subCategory->name }}</option>
@@ -60,7 +60,7 @@
   </x-admin.insert>
 
   {{-- Delete Modal --}}
-  <x-admin.delete title="آیا از حذف دوره مطمئن هستید؟"/>
+  <x-admin.delete title="آیا مایل به حذف دوره هستید؟"/>
 @endsection
 
 

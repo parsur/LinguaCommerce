@@ -5,46 +5,66 @@
   {{-- Header --}}
   <x-header pageName="مقاله" buttonValue="افزودن مقاله">
     <x-slot name="table">
-      {!! $courseTable->table(['class' => 'table table-striped table-bordered table-hover-responsive dt_responsive nowrap text-center']) !!}
+      {!! $articleTable->table(['class' => 'table table-striped table-bordered table-hover-responsive dt_responsive nowrap text-center']) !!}
     </x-slot>
   </x-header>
 
   {{-- Insert Modal --}}
   <x-admin.insert size="modal-l" formId="courseForm">
     <x-slot name="content">
-      {{-- Name --}}
+      {{-- Title --}}
       <div class="row">
         <div class="col-md-12 mb-3">
-          <label for="name">نام:</label>
-          <input name="name" id="name" type="text" placeholder="نام">
+          <label for="title">تیتر:</label>
+          <input name="title" id="title" type="text" placeholder="نام">
         </div>
-        {{--  --}}
-        <div class="col-md-12 mb-3">
-          <label for="price">هزینه:</label>
-          <input name="price" id="price" type="text" placeholder="هزینه">
+      </div>
+      {{-- Categories --}}
+      <div class="row">
+        <div class="col-md-6 mb-3"> 
+          <label for="categories">دسته بندی سطح-۱</label>
+          <select name="categories" id="categories" class="custom-select">
+            <option value="">دسته بندی سطح-۱</option>
+            @foreach($categories as $category)
+              <option value="{{ $category->id }}">{{ $category->name }}</option>
+            @endforeach
+          </select>
         </div>
-        {{-- Status --}}
+        {{-- Sub Categories --}}
+        <div class="col-md-6 mb-3"> 
+          <label for="categories">دسته بندی سطح-۲</label>
+          <select name="categories" id="subCategories" class="custom-select">
+            <option value="">دسته بندی سطح-۲</option>
+            @foreach($categories as $category)
+              <option value="{{ $category->id }}">{{ $category->name }}</option>
+            @endforeach
+          </select>
+        </div>
+      </div>
+      {{-- Status --}}
+      <div class="row">
         <div class="col-md-12 mb-3">
           <label for="status">وضعیت:</label>
-          <select id="status" name="status" class="browser-default custom-select">
+          <select id="status" name="status" class="custom-select">
             <option value="0">فعال</option>
             <option value="1">غیرفعال</option>
           </select>
         </div>
       </div>
+      
     </x-slot>
   </x-admin.insert>
 
   {{-- Delete Modal --}}
-  <x-admin.delete title="آیا از حذف ادمین مطمئن هستید؟"/>
+  <x-admin.delete title="آیا مایل به حذف ادمین هستید؟"/>
 @endsection
 
 
 @section('scripts')
   @parent
 
-  {{-- Course Table --}}
-  {!! $courseTable->scripts() !!}
+  {{-- Article Table --}}
+  {!! $articleTable->scripts() !!}
 
   <script>
     $(document).ready(function () {
