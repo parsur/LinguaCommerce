@@ -6,36 +6,57 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
+ * @property int $c_id
+ * @property int $sc_id
  * @property string $name
  * @property float $price
- * @property int $status
- * @property int $coursable_id
- * @property string $coursable_type
+ * @property Category $category
+ * @property SubCategory $subCategory
  */
 class Course extends Model
 {
-    Const VISIBLE = 0;
-    Const INVISIBLE = 1;
-    
     public $timestamps = false;
+
     /**
      * @var array
      */
-    protected $fillable = ['name', 'price', 'status', 'coursable_id', 'coursable_type'];
+    protected $fillable = ['category_id', 'subCategory_id', 'name', 'price'];
 
     /**
-     * Get all of the Course's media.
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function media() {
-        return $this->morphMany('App\Models\Media', 'mediable');
+    public function category()
+    {
+        return $this->belongsTo('App\Models\Category', 'category_id');
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function subCategory()
+    {
+        return $this->belongsTo('App\Models\SubCategory', 'subCategory_id');
+    }
+
+    /*
+     * Get all of the course's media.
+     */
+    public function media() {
+       return $this->morphMany('App\Models\Media', 'mediable');
+    }
+
+    /*
      * Get all of the course's descriptions.
      */
     public function descriptions() {
-        return $this->morphMany('App\Models\description','describable');
+        return $this->morphMany('App\Models\Description','description');
     }
 
+    /*
+     * Get all of the course's status.
+     */
+    public function statuses() {
+        return $this->morphOne('App\Models\Status', 'status');
+    }
 
 }

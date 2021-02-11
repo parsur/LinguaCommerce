@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\Course;
+use App\Models\SubCategory;
 use App\Models\Status;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
@@ -10,7 +10,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class CourseDataTable extends DataTable
+class SubCategoryDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -23,47 +23,35 @@ class CourseDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addIndexColumn()
-            ->rawColumns(['action'])
-            ->editColumn('price', function(Course $course) {
-                return $course->price . ' تومان';
+            ->rawColumns(['action','status'])
+            ->addColumn('status', function (SubCategory $subCategory) {
+                if($subCategory->statuses->status == Status::VISIBLE) return "فعال";
+                else if($subCategory->statuses->status == Status::INVISIBLE) return 'غیر فعال';
+                else '-';
             })
-            ->editColumn('category_id', function(Course $course) {
-                return optional($course->category)->name;
+            ->editColumn('c_id', function (SubCategory $subCategory) {
+                return $subCategory->category->name;
             })
-            ->editColumn('subCategory_id', function(Course $course) {
-                return optional($course->subCategory)->name;
-            })
-            ->addColumn('status', function(Course $course) {
-                if($course->statuses->status === Status::VISIBLE) return 'فعال';
-                else if($course->statuses->status === Status::INVISIBLE) return 'غیر فعال';
-                else return '-';
-            })
-            ->editColumn('course_id', function(Course $course) {
-                foreach($course->descriptions as $description) {
-                    return $description->description;
-                }
-            })
-            ->addColumn('action',function(Course $course) {
+            ->addColumn('action', function (SubCategory $subCategory) {
                 return <<<ATAG
-                            <a onclick="showConfirmationModal('{$course->id}')">
+                            <a onclick="showConfirmationModal('{$subCategory->id}')">
                                 <i class="fa fa-trash text-danger" aria-hidden="true"></i>
                             </a>
                             &nbsp;
-                            <a onclick="showEditModal('{$course->id}')">
+                            <a onclick="showEditModal('{$subCategory->id}')">
                                 <i class="fa fa-edit text-danger" aria-hidden="true"></i>
                             </a>
-                        ATAG; 
-
+                        ATAG;      
             });
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Course $model
+     * @param \App\Models\SubCategory $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Course $model)
+    public function query(SubCategory $model)
     {
         return $model->newQuery();
     }
@@ -76,20 +64,22 @@ class CourseDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-            ->setTableId('courseTable')
+            ->setTableId('subCategoryTable')
             ->columns($this->getColumns())
-            ->minifiedAjax(route('course.list.table'))
+            ->minifiedAjax(route('subCategory.list.table'))
+            ->dom('Bfrtip')
+            ->orderBy(1)
             ->columnDefs(
                 [
                     ["className" => 'dt-center text-center', "target" => '_all'],
                 ]
             )
-            ->searching(false)
+            ->searching(true)
             ->info(false)
             ->responsive(true)
             ->dom('PBCfrtip')
             ->orderBy(1)
-            ->language(asset('js/persian.json'));
+            ->language(asset('js/Persian.json'));
     }
 
     /**
@@ -107,28 +97,19 @@ class CourseDataTable extends DataTable
                 ->orderable(false),
             Column::make('name')
             ->title('نام')
-                ->addCLass("column-title"),
-            Column::make('price')
-            ->title('هزینه')
                 ->addClass('column-title'),
             Column::computed('status')
             ->title('وضعیت')
                 ->addClass('column-title'),
-            Column::make('category_id')
+            Column::make('c_id')
             ->title('دسته بندی اول')
-                ->class('column-title'),
-            Column::make('subCategory_id')
-            ->title('دسته بندی دوم')
-                ->class('column-title'),
-            Column::make('course_id')
-            ->title('توضیحات')
                 ->addClass('column-title'),
-            Column::computed('action') // This Column is not in database
+            Column::computed('action') // This column is not in database
+            ->title('حذف،ویرایش')
                 ->exportable(false)
                 ->searchable(false)
                 ->printable(false)
                 ->orderable(false)
-                ->title('حذف،ویرایش')
                 ->addClass('column-title')
         ];
     }
@@ -140,6 +121,6 @@ class CourseDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'Course_' . date('YmdHis');
+        return 'SubCategory_' . date('YmdHis');
     }
 }

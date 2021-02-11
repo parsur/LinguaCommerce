@@ -17,21 +17,21 @@
       <div class="row">
         <div class="col-md-12 mb-3">
           <label for="name">نام:</label>
-          <input name="name" id="name" type="text" class="form-control" placeholder="نام">
+          <input name="name" id="name" type="text" placeholder="نام"/>
         </div>
         {{-- Email --}}
         <div class="col-md-12 mb-3">
           <label for="email">ایمیل:</label>
-          <input name="email" id="email" type="email" class="form-control" placeholder="ایمیل">
+          <input name="email" id="email" type="email" placeholder="ایمیل">
         </div>
         {{-- Passwords --}}
         <div class="col-md-12 mb-3">
           <label for="password">رمز جدید:</label>
-          <input name="password" id="password" class="form-control" placeholder="رمز جدید">
+          <input name="password" id="password"  type="text" placeholder="رمز جدید">
         </div>
         <div class="col-md-12 mb-3">
           <label for="password2">تکرار رمز جدید:</label>
-          <input name="password2" id="password2"  class="form-control" placeholder="تکرار رمز جدید">
+          <input name="password2" id="password2" type="text" placeholder="تکرار رمز جدید">
         </div>
       </div>
     </x-slot>
@@ -51,10 +51,8 @@
 
   <script>
     $(document).ready(function () {
-      // Admin DataTable
+      // Admin DataTable And Action Object
       let dt = window.LaravelDataTables['adminTable'];
-
-      // Actions
       let action = new requestHandler(dt,'#adminForm','admin');
 
       // Record modal

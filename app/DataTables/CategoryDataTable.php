@@ -2,18 +2,15 @@
 
 namespace App\DataTables;
 
-use App\Models\User;
+use App\Models\Category;
+use App\Models\Status;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
-use Morilog\Jalali\Jalalian;
-use Carbon\Carbon;
 
-
-
-class AdminDataTable extends DataTable
+class CategoryDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -27,19 +24,18 @@ class AdminDataTable extends DataTable
             ->eloquent($query)
             ->addIndexColumn()
             ->rawColumns(['action'])
-            ->editColumn('created_at', function(User $user){
-                date_default_timezone_set('Asia/Tehran');
-                return Jalalian::forge($user->created_at)->format('%A, %d %B %y');
+            ->addColumn('status', function (Category $category) {
+                if($category->statuses->status == Status::VISIBLE) return "فعال";
+                else if($category->statuses->status == Status::INVISIBLE) return 'غیر فعال';
+                else '-';
             })
-            ->editColumn('updated_at', function(User $user){
-                return Jalalian::forge($user->updated_at)->format('%A, %d %B %y');
-            })->addColumn('action', function (User $user){
+            ->addColumn('action', function (Category $category){
                 return <<<ATAG
-                            <a onclick="showConfirmationModal('{$user->id}')">
+                            <a onclick="showConfirmationModal('{$category->id}')">
                                 <i class="fa fa-trash text-danger" aria-hidden="true"></i>
                             </a>
                             &nbsp;
-                            <a onclick="showEditModal('{$user->id}')">
+                            <a onclick="showEditModal('{$category->id}')">
                                 <i class="fa fa-edit text-danger" aria-hidden="true"></i>
                             </a>
                         ATAG;
@@ -49,12 +45,12 @@ class AdminDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\User $model
+     * @param \App\Models\Category $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(User $model)
+    public function query(Category $model)
     {
-        return $model->where('role',$model::ADMIN);
+        return $model->newQuery();
     }
 
     /**
@@ -65,14 +61,10 @@ class AdminDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-                ->setTableId('adminTable')
-                ->minifiedAjax(route('admin.list.table'))
+                ->setTableId('categoryTable')
+                ->minifiedAjax(route('category.list.table'))
                 ->columns($this->getColumns())
-                ->columnDefs(
-                    [
-                        ["className" => 'dt-center text-center', "target" => '_all'],
-                    ]
-                )
+                ->columnDefs([["className" => 'dt-center text-center', "target" => '_all']])
                 ->searching(true)
                 // ->lengthMenu([10,25,40])a
                 ->info(false)
@@ -100,14 +92,8 @@ class AdminDataTable extends DataTable
             Column::make('name')
             ->title('نام')
                 ->addClass('column-title'),
-            Column::make('email')
-            ->title('ایمیل')
-                ->addClass('column-title'),
-            Column::make('created_at')
-            ->title('ساخته شده در')
-                ->addClass('column-title'),
-            Column::make('updated_at')
-            ->title('بروز شده در')
+            Column::computed('status') // This Column is not in database
+            ->title('وضعیت')
                 ->addClass('column-title'),
             Column::computed('action') // This Column is not in database
                 ->exportable(false)
@@ -126,6 +112,6 @@ class AdminDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'Admin_' . date('YmdHis');
+        return 'Category_' . date('YmdHis');
     }
 }

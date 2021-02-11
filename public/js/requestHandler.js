@@ -33,7 +33,7 @@ class requestHandler {
                     success(data);
                 },
                 error: function (data) {
-                    if(data.responseText) 
+                    if(data)
                         error(data);
                 }
             })

@@ -18,11 +18,25 @@ class Category extends Model
      */
     protected $fillable = ['name', 'status'];
 
+
+    /**
+     * Get all of the category courses.
+     */
+    public function courses() {
+        return $this->hasMany('App\Models\Course');
+    }
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function subCategories()
     {
         return $this->hasMany('App\Models\SubCategory');
+    }
+
+    /*
+     * Get all of the category status.
+     */
+    public function statuses() {
+        return $this->morphOne('App\Models\Status', 'status');
     }
 }

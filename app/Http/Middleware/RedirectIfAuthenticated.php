@@ -22,7 +22,9 @@ class RedirectIfAuthenticated
       $guards = empty($guards) ? [null] : $guards;
       foreach ($guards as $guard) {
           if(Auth::guard($guard)->check()) {
-            switch (Auth::user()->role) {
+            $role = Auth::user()->role;
+
+            switch ($role) {
               case 'admin':
                 return redirect('/adminHome');
                 break;

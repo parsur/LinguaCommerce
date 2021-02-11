@@ -25,7 +25,7 @@
                 </div>
                 <div class="col-md-12 mb-2">
                     <label for="courses"></label>
-                    <select class="browser-default custom-select" name="courses" id="courses">
+                    <select class="browser-default custom-select" name="courses[]" id="courses" multiple>
                         @foreach($courses as $course)
                             <option value="{{ $course->id }}">{{ $course->name }}</option>
                         @endforeach
@@ -43,6 +43,9 @@
 @section('scripts')
     @parent
     <script>
+        // Courses
+        $('#courses').select2({width: '100%'});
+
         $(document).ready(function () {
             // Actions(DataTable,Form,Url)
             let action = new requestHandler('','#courseDescription','course/description');

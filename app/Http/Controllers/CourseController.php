@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\Category;
+use App\Models\SubCategory;
 use App\Models\Description;
 use App\DataTables\CourseDataTable;
 use App\Http\Requests\StoreCourseRequest;
@@ -10,11 +12,10 @@ use App\Http\Requests\StoreCourseDescriptionRequest;
 use App\Providers\Action;
 use App\Providers\SuccessMessages;
 use Illuminate\Http\Request;
+use DB;
 
 class CourseController extends Controller
 {
-    public $course = 'App\Models\Course';
-    
     // Datatable To blade
     public function list() {
         // dataTable
@@ -22,6 +23,10 @@ class CourseController extends Controller
 
         // Course Table
         $vars['courseTable'] = $dataTable->html();
+        // Categories
+        $vars['categories'] = Category::select('name','id')->get();
+        // Sub Categories
+        $vars['subCategories'] = SubCategory::select('name','id')->get();
 
         return view('course.courseList', $vars);
     }
@@ -36,13 +41,12 @@ class CourseController extends Controller
 
         // Insert
         if($request->get('button_action') == 'insert') {
-            $this->addCourse($request);
+            $this->add($request);
             $success_message = $message->getInsert();
-
         }
         // Update
         if($request->get('button_action') == 'update') {
-            $this->addCourse($request);
+            $this->add($request);
             $success_message = $message->getUpdate();
         }
 
@@ -52,27 +56,61 @@ class CourseController extends Controller
     }
 
     // Add Course
-    public function addCourse($request) {
-        // Edit
-        $course = Course::find($request->get('id'));
-        if(!$course) {
-            $course = new Course();
+    public function add($request) {
+
+        DB::beginTransaction();
+        try {
+            $course = Course::updateOrCreate(
+                ['id' => $request->get('id')],
+                ['name' => $request->get('name'), 'price' => $this->convertToEnglish($request->get('price')), 
+                'category_id' => $this->subSet($request->get('categories')), 'subCategory_id' => $this->subSet($request->get('subCategories'))]
+            );
+            $course->statuses()->create(['status' => $request->get('status')]);
+            DB::commit();
+
+        } catch(\Excpetion $e) {
+            DB::rollback();
+            throw $e;
         }
-        $course->name = $request->get('name');
-        $course->price = $request->get('price');
-        $course->status = $request->get('status');
-        
-        $course->save();
+    }
+
+    // Product SubSet
+    public function subSet($request) {
+        // Category Or Sub Category
+        switch($request) {
+            case '':
+                return null;
+                break;
+            default:
+                return $request;
+        }
+    }
+
+    // Convert To English
+    public function convertToEnglish($number) {
+        $newNumbers = range(0,9);
+        // 1. Persian Numeric
+        $persian = array('۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹');
+
+        return str_replace($persian, $newNumbers, $number); 
     }
 
     // Delete Each Course
     public function delete(Action $action, $id) {
-        return $action->delete($this->course,$id);
+        return $action->delete(Course::class,$id);
     }
 
     // Edit Course
     public function edit(Action $action,Request $request) {
-        return $action->edit($this->course,$request->get('id'));
+        return $action->editRelation(Course::class,$request->get('id'),'statuses');
+    }
+
+    // Sub Categories based on categories
+    public function ajax_subCategory(Request $request) {
+        $c_id = $request->get('category_id');
+        $subCategory = SubCategory::where('category_id', $c_id)->get();
+
+        return json_encode($subCategory);
     }
 
     // Get Course Description Page
@@ -85,11 +123,13 @@ class CourseController extends Controller
     // Store Description
     public function storeDesc(StoreCourseDescriptionRequest $request,SuccessMessages $message) {
 
-        Description::create([
-            'description' => $request->get('description'),
-            'description_id' => $request->get('courses'),
-            'description_type' => $request->get('model')
-        ]);
+        foreach($request->get('courses') as $course) {
+            Description::create([
+                'description' => $request->get('description'),
+                'description_id' => $course,
+                'description_type' => $request->get('model')
+            ]);
+        }
 
         $success_message = $message->getInsert();
         $output = array('success' => $success_message);

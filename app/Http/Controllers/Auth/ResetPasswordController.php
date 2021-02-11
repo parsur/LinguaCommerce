@@ -31,15 +31,4 @@ class ResetPasswordController extends Controller
         $route = new RedirectAuthentication();
         $route->redirectTo();
     }
-
-    /**
-     * Using an Admin Guard for the Auth.
-     * 
-     * @return \Illuminate\Auth\SessionGuard
-     */
-    protected function guard()
-    {
-        return Auth::guard('admin');
-    }
-
 }

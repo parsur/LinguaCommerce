@@ -16,12 +16,12 @@
       <div class="row">
         <div class="col-md-12 mb-3">
           <label for="name">نام:</label>
-          <input name="name" id="name" type="text" class="form-control" placeholder="نام">
+          <input name="name" id="name" type="text" placeholder="نام">
         </div>
         {{--  --}}
         <div class="col-md-12 mb-3">
           <label for="price">هزینه:</label>
-          <input name="price" id="price" type="text" class="form-control" placeholder="هزینه">
+          <input name="price" id="price" type="text" placeholder="هزینه">
         </div>
         {{-- Status --}}
         <div class="col-md-12 mb-3">

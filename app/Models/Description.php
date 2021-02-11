@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @property int $id
  * @property string $description
- * @property string $description_type
- * @property int $description_id
+ * @property string $describable_type
+ * @property int $describable_id
  */
 class Description extends Model
 {
@@ -22,7 +22,7 @@ class Description extends Model
     /**
      * Get The parent description_type model (Course, Article)
      */
-    public function describable() {
+    public function description() {
         return $this->morphTo();
     }
 

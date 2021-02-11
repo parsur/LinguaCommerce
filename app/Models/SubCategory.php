@@ -33,4 +33,18 @@ class SubCategory extends Model
     {
         return $this->belongsTo('App\Models\Category');
     }
+
+    /**
+     * Get all of the sub category courses.
+     */
+    public function courses() {
+        return $this->hasMany('App\Models\Course');
+    }
+
+    /*
+     * Get all of the category status.
+     */
+    public function statuses() {
+        return $this->morphOne('App\Models\Status', 'status');
+    }
 }

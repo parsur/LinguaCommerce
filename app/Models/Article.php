@@ -29,4 +29,19 @@ class Article extends Model
         return $this->morphMany('App\Models\Media', 'mediable');
     }
 
+    /**
+     * Get all of the article's descriptions.
+     */
+    public function descriptions()
+    {
+        return $this->morphMany('App\Models\Description', 'description');
+    }
+
+    /*
+     * Get all of the article's status.
+     */
+    public function statuses() {
+        return $this->morphOne('App\Models\Status', 'status');
+    }
+
 }

@@ -25,6 +25,8 @@ Route::group(['middleware' => ['auth','role:admin']], function () {
         Route::get('edit', 'AdminController@edit');
         Route::get('delete/{id}', 'AdminController@delete');
     });
+    // Sub Categories based on Categories
+    Route::get('/subCategory', 'CourseController@ajax_subCategory');
     Route::group(['prefix' => 'course', 'as' => 'course.'], function () {
         // Course
         Route::get('list', 'CourseController@list');
@@ -46,6 +48,22 @@ Route::group(['middleware' => ['auth','role:admin']], function () {
         // Description
         Route::get('newDescription', 'ArticleController@newDesc');
         Route::post('description/new', 'ArticleController@storeDesc');
+    });
+    // Categories
+    Route::group(['prefix' => 'category', 'as' => 'category.'], function () {
+        Route::get('list', 'CategoryController@list');
+        Route::get('table/list', 'CategoryController@categoryTable')->name('list.table');
+        Route::post('new', 'CategoryController@store');
+        Route::get('edit', 'CategoryController@edit');
+        Route::get('delete/{id}','CategoryController@delete');
+    });
+     // Sub Categories
+     Route::group(['prefix' => 'subCategory', 'as' => 'subCategory.'], function() {
+        Route::get('list','SubCategoryController@list');
+        Route::get('table/list','SubCategoryController@subCategoryTable')->name('list.table');
+        Route::post('new','SubCategoryController@store');
+        Route::get('edit','SubCategoryController@edit');
+        Route::get('delete/{id}','SubCategoryController@delete');
     });
 });
 

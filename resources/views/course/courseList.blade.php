@@ -10,19 +10,21 @@
   </x-header>
 
   {{-- Insert Modal --}}
-  <x-admin.insert size="modal-l" formId="courseForm">
+  <x-admin.insert size="modal-lg" formId="courseForm">
     <x-slot name="content">
       {{-- Name --}}
       <div class="row">
-        <div class="col-md-12 mb-3">
+        <div class="col-md-6 mb-3">
           <label for="name">نام:</label>
-          <input name="name" id="name" type="text" class="form-control" placeholder="نام">
+          <input name="name" id="name" type="text" placeholder="نام">
         </div>
-        {{--  --}}
-        <div class="col-md-12 mb-3">
+        {{-- Price --}}
+        <div class="col-md-6 mb-3">
           <label for="price">هزینه:</label>
-          <input name="price" id="price" type="text" class="form-control" placeholder="هزینه">
+          <input name="price" id="price" type="text" placeholder="هزینه">
         </div>
+      </div>
+      <div class="row">
         {{-- Status --}}
         <div class="col-md-12 mb-3">
           <label for="status">وضعیت:</label>
@@ -32,11 +34,33 @@
           </select>
         </div>
       </div>
+      <div class="row">
+        {{-- Category --}}
+        <div class="col-md-6 mb-3"> 
+          <label for="categories">دسته بندی سطح-۱</label>
+          <select name="categories" id="categories" class="browser-default custom-select">
+            <option value="">دسته بندی سطح-۱</option>
+            @foreach($categories as $category)
+              <option value="{{ $category->id }}">{{ $category->name }}</option>
+            @endforeach
+          </select>
+        </div>
+        {{-- Sub Category --}}
+        <div class="col-md-6">
+          <label for="subCategories">دسته بندی سطح-۲</label>
+          <select name="subCategories" id="subCategories" class="browser-default custom-select">
+            <option value="">دسته بندی سطح-۲</option>
+            @foreach($subCategories as $subCategory)
+              <option value="{{ $subCategory->id }}">{{ $subCategory->name }}</option>
+            @endforeach
+          </select>
+        </div>
+      </div>
     </x-slot>
   </x-admin.insert>
 
   {{-- Delete Modal --}}
-  <x-admin.delete title="آیا از حذف ادمین مطمئن هستید؟"/>
+  <x-admin.delete title="آیا از حذف دوره مطمئن هستید؟"/>
 @endsection
 
 
@@ -48,6 +72,7 @@
 
   <script>
     $(document).ready(function () {
+      
       // Actions(DataTable,Form,Url)
       let dt = window.LaravelDataTables['courseTable'];
       let action = new requestHandler(dt,'#courseForm','course');
@@ -72,23 +97,39 @@
       function edit($url) {
         var id = $url;
         $('#formModal').modal('show');
-        
+        $('#form_output').html('');
+
         $.ajax({
           url: "{{ url('course/edit') }}",
           data: {id: id},
           success: function(data) {
+            console.log(data.statuses.status);
             $('#id').val(id);
             $('#button_action').val('update');
             $('#action').val('ویرایش');
             $('#name').val(data.name);
             $('#price').val(data.price);
-            if(data.status == 0) 
-              $('#status').val(0).trigger('change');
-            else if(data.status == 1) 
-              $('#status').val(1).trigger('change');
+            $('#status').val(data.statuses.status).trigger('change');
+            $('#subCategories').val(data.subCategory_id).trigger('change');
+            $('#categories').val(data.category_id).trigger('change');
           }
         })
       }
+
+      // Ajax/ Categories based on Sub Categories
+      $('#categories').on('change', function (e) {
+        console.log(e);
+        var c_id = e.target.value;
+        $.get('/subCategory?category_id=' + c_id, function (data) {
+          $('#subCategories').empty();
+          $("#subCategories").append('<option value="">دسته بندی سطح-۲</option>');
+          $.each(data, function (index, subCat) {
+            $("#subCategories").append('<option value="' + subCat.id + '">' + subCat.name + '</option>');
+          });
+        });
+      });
+
+
     });
   </script>
 @endsection

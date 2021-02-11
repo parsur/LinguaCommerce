@@ -37,7 +37,9 @@
             <!-- Brand Logo -->
             <a href="/" class="brand-link text-center">
                 <i class="fa fa-user"></i>
-                <span class="brand-text font-weight-light">{{ Auth::user()->name }}</span>
+                @if(Route::has('login'))
+                    <span class="brand-text font-weight-light">{{ Auth::user()->name }}</span>
+                @endif
             </a>
             <!-- Sidebar -->
             <div class="sidebar">
@@ -49,29 +51,35 @@
                             <x-admin.urlAddress text="ادمین" fontAwesome="fa fa-users" route="{{ url('admin/list') }}" />
 
                             {{-- Courses --}}
-                            <li class="nav-item has-treeview menu-open">
-                                {{-- This menu has sub menus --}}
-                                <x-admin.urlAddressParent text="دوره" fontAwesome="fas fa-graduation-cap" />
-
-                                <ul class="nav nav-treeview">
+                            <x-admin.urlAddressParent text="دوره" fontAwesome="fas fa-graduation-cap">
+                                <x-slot name="content">
                                     {{-- Courses --}}
                                     <x-admin.urlAddress text="لیست دوره ها" fontAwesome="null" route="{{ url('course/list') }}" />
                                     {{-- Description --}}
                                     <x-admin.urlAddress text="افزودن توضیح دوره" fontAwesome="null" route="{{ url('course/newDescription') }}" />
-                                </ul>
-                            </li>
-                            {{-- Articles --}}
-                            <li class="nav-item has-treeview menu-open">
-                                {{-- This menu has sub menus --}}
-                                <x-admin.urlAddressParent text="مقاله" fontAwesome="fa fa-newspaper-o" />
+                                </x-slot>
+                            </x-admin.urlAddressParent>
 
-                                <ul class="nav nav-treeview">
+                            {{-- Articles --}}
+                            <x-admin.urlAddressParent text="مقالات" fontAwesome="fas fa-newspaper">
+                                <x-slot name="content">
                                     {{-- Articles --}}
                                     <x-admin.urlAddress text="لیست مقالات" fontAwesome="null" route="{{ url('article/list') }}" />
                                     {{-- Description --}}
                                     <x-admin.urlAddress text="افزودن توضیح دوره" fontAwesome="null" route="{{ url('article/newDescription') }}" />
-                                </ul>
-                            </li>
+                                </x-slot>
+                            </x-admin.urlAddressParent>
+
+                            {{-- Categories --}}
+                            <x-admin.urlAddressParent Text="دسته بندی ها" fontAwesome="fa fa-list">
+                                <x-slot name="content">
+                                    {{-- Categories --}}
+                                    <x-admin.urlAddress text="دسته بندی سطح-۱" fontAwesome="null" route="{{ url('category/list') }}" />
+                                    {{-- Sub Categories --}}
+                                    <x-admin.urlAddress text="دسته بندی سطح-۲" fontAwesome="null" route="{{ url('subCategory/list') }}" />
+                                </x-slot>
+                            </x-admin.urlAddressParent>
+
                         </ul>
                     </nav>
                 </div>

@@ -60,20 +60,14 @@ class AdminController extends Controller
 
     // Add Or Update Admin
     public function addAdmin($request) {
-        // Edit
-        $admin = User::find($request->get('id'));
-        if(!$admin) {
-            // Insert
-            $admin = new User();
+
+        if($request->get('password') != 'رمز عبور جدید' and $request->get('password') != 'تکرار رمز عبور جدید') {
+            $password = Hash::make($request->get('password'));
+            User::updateOrCreate(
+                ['id' => $request->get('id')],
+                ['name' => $request->get('name'), 'email' => $request->get('email'), 'role' => 'admin', 'password' => $password]
+            );
         }
-        $admin->name = $request->get('name');
-        $admin->email = $request->get('email');
-        $admin->role = 'admin';
-
-        if($request->get('password') != 'رمز عبور جدید' and $request->get('password') != 'تکرار رمز عبور جدید')
-            $admin->password = Hash::make($request->get('password'));
-
-        $admin->save();
     }
     // Delete Each Admin
     public function delete(Action $action, $id) {
