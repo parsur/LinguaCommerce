@@ -26,15 +26,15 @@ class Action {
      * 
      * @return json_encode
      */
-    public function editRelation($model,$id,$relation) {
-        try{
-            $values = $model::where('id',$id)->with($relation)->first();
-            return json_encode($values);
+    // public function editRelation($model,$id,$relation) {
+    //     try{
+    //         $values = $model::where('id',$id)->with($relation)->first();
+    //         return json_encode($values);
 
-        } catch(Throwable $e) {
-            return response()->json($e);
-        }
-    }
+    //     } catch(Throwable $e) {
+    //         return response()->json($e);
+    //     }
+    // }
 
     /**
      * Delete

@@ -32,9 +32,9 @@ class Article extends Model
     /**
      * Get all of the article's descriptions.
      */
-    public function descriptions()
+    public function description()
     {
-        return $this->morphMany('App\Models\Description', 'description');
+        return $this->morphMany('App\Models\Description', 'description_type');
     }
 
     /*

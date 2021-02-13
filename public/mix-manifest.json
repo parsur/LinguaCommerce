@@ -1,10 +1,13 @@
 {
     "/js/app.js": "/js/app.js",
-    "/js/persian.json.js": "/js/persian.json.js",
+    "/js/tinymce.js": "/js/tinymce.js",
     "/css/app.css": "/css/app.css",
     "/css/auth.css": "/css/auth.css",
-    "/images/logo_pic.jpg": "/images/logo_pic.jpg",
+    "/js/persian.json": "/js/persian.json",
+    "/js/tinymceInit.js": "/js/tinymceInit.js",
+    "/js/requestHandler.js": "/js/requestHandler.js",
     "/fonts/Shabnam-Bold.ttf": "/fonts/Shabnam-Bold.ttf",
     "/fonts/Shabnam.ttf": "/fonts/Shabnam.ttf",
-    "/js/requestHandler.js": "/js/requestHandler.js"
+    "/fonts/dambeldor.ttf": "/fonts/dambeldor.ttf",
+    "/images/logo_pic.jpg": "/images/logo_pic.jpg"
 }

@@ -1,6 +1,6 @@
 /* Body */
 body {
-    font-family: 'BYekan';
+    font-family: 'Shabnam';
     height: 100vh;
     background: url("/images/logo_pic.jpg") 50% fixed;
     background-size: cover;
@@ -19,7 +19,6 @@ body {
 
 /* Wrapper and Parent Div */
 .wrapper {
-    font-family: 'BYekan';
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -136,6 +135,6 @@ body {
 
 /* Font Family BYekan */
 @font-face {
-    font-family: "BYekan";
-    src: url("/fonts/BYekan.ttf") format('truetype');
+    font-family: "Shabnam";
+    src: url("/fonts/Shabnam.ttf") format('truetype');
 }

@@ -18120,6 +18120,13 @@ input[type=text],input[type=email],input[type=password] {
     border-radius: 0.25rem;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+
+/* Background Style  */
+.background_table{
+    background-color: #e9ecef;
+    border-radius:5px;
+    padding: 17px;
+}
   
 /*------------------------------------ contacts-list ------------------------------------*/
 
@@ -18916,4 +18923,7 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>td.child,table.dataTable.dtr-inlin
 /* Admin Dashboard */
 /* DataTables */
 /* Select2 */
-
+/* Tinymce */
+/* @import '~tinymce/skins/content/default/content.min.css'; */
+/* @import '~tinymce/skins/ui/oxide/skin.css'; */
+/* @import '~tinymce/skins/ui/oxide/content.inline.css'; */

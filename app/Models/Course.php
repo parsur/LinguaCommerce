@@ -48,8 +48,8 @@ class Course extends Model
     /*
      * Get all of the course's descriptions.
      */
-    public function descriptions() {
-        return $this->morphMany('App\Models\Description','description');
+    public function description_type() {
+        return $this->morphOne('App\Models\Description','description');
     }
 
     /*

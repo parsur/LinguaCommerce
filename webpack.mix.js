@@ -16,17 +16,21 @@ mix.setResourceRoot('../');
 
 mix.js('resources/assets/js/app.js', 'public/js')
     // DataTable Persian Language
-    .js('resources/assets/js/persian.json', 'public/js/persian.json')
+    .copy('resources/assets/js/persian.json', 'public/js/persian.json')
+    // Tinymce initialization
+    .copy('resources/assets/js/tinymceInit.js', 'public/js/tinymceInit.js')
+    // Ajax Request Handler
+    .copy('resources/assets/js/requestHandler.js', 'public/js/requestHandler.js')
+    // Fonts
+    .copy('resources/assets/fonts', 'public/fonts')
+    // Images
+    .copy('resources/assets/images', 'public/images')
+    // Tinymce
+    .js('resources/assets/js/tinymce.js', 'public/js/tinymce.js')
     // App And Authentication
-    .postCss('resources/assets/css/app.css', 'public/css')
+    .css('resources/assets/css/app.css', 'public/css')
     // App Css
-    .postCss('resources/assets/css/auth.css', 'public/css/auth.css')
+    .css('resources/assets/css/auth.css', 'public/css/auth.css')
     // App Sass
     .sass('resources/assets/sass/app.scss','public/css');
 
-// Images
-mix.copy('resources/assets/images', 'public/images');
-// Fonts
-mix.copy('resources/assets/fonts', 'public/fonts');
-// Request Handler
-mix.copy('resources/assets/js/requestHandler.js', 'public/js/requestHandler.js')

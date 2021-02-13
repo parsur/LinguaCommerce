@@ -44,7 +44,7 @@ class ArticleDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-                    ->setTableId('articledatatable-table')
+                    ->setTableId('articleTable')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('Bfrtip')

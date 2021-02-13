@@ -40,7 +40,8 @@ class CategoryController extends Controller
             $success_output = $message->getUpdate();
         }
 
-        $output = array('success'   =>  $success_output);
+        $output = array('success' => $success_output);
+        
         return json_encode($output);
     }
 

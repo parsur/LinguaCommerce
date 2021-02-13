@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Requests;
-
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreCourseRequest extends FormRequest
@@ -21,12 +21,15 @@ class StoreCourseRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(Request $request)
     {
         return [
             'name' => 'required',
-            'price' => 'required|numeric',
-            'status' => 'required'
+            'price' => 'nullable|numeric',
+            'status' => 'required',
+            'description' => 'required',
+            'image' => 'required_without:aparat_url'
+
         ];
     }
 }

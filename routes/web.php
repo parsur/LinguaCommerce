@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 
+Route::post('/home/profile/about/img', function(){
+    return json_encode(['location' => '/storage/app/public/pictures/bestAvatar.png' ]);
+});
+
 // Middleware
 Route::group(['middleware' => ['auth','role:admin']], function () {
     // Admin
@@ -31,23 +35,21 @@ Route::group(['middleware' => ['auth','role:admin']], function () {
         // Course
         Route::get('list', 'CourseController@list');
         Route::get('table/list', 'CourseController@courseTable')->name('list.table');
-        Route::post('new', 'CourseController@store');
+        Route::get('newCourse', 'CourseController@new')->name('newCourse');
         Route::get('edit', 'CourseController@edit');
+        Route::post('new', 'CourseController@store');
         Route::get('delete/{id}','CourseController@delete');
         // Description
-        Route::get('newDescription', 'CourseController@newDesc');
-        Route::post('description/new', 'CourseController@storeDesc');
+        Route::get('eachDescription', 'CourseController@eachDesc')->name('eachDesc')->middleware('signed');
     });
     Route::group(['prefix' => 'article', 'as' => 'article.'], function () {
         // Article
         Route::get('list', 'ArticleController@list');
         Route::get('table/list', 'ArticleController@articleTable')->name('list.table');
+        Route::get('newCourse', 'ArticleController@new');
         Route::post('new', 'ArticleController@store');
         Route::get('edit', 'ArticleController@edit');
         Route::get('delete/{id}', 'ArticleController@delete');
-        // Description
-        Route::get('newDescription', 'ArticleController@newDesc');
-        Route::post('description/new', 'ArticleController@storeDesc');
     });
     // Categories
     Route::group(['prefix' => 'category', 'as' => 'category.'], function () {

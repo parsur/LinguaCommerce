@@ -22,12 +22,12 @@ class ArticleController extends Controller
         // Sub Categories
         $vars['subCategories'] = SubCategory::select('id','name')->get();
 
-        return view('article.articleList', $vars);
+        return view('article.list', $vars);
     }
 
     // Category Table
     public function categoryTable(CategoryDataTable $dataTable) {
-        return $dataTable->render('article.articleList');
+        return $dataTable->render('article.list');
     }
 
     // Store

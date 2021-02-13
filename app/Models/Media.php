@@ -13,6 +13,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Media extends Model
 {
+    const IMAGE = 0;
+    const VIDEO = 1;
+
     public $timestamps = false;
     /**
      * The table associated with the model.

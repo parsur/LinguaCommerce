@@ -61,8 +61,10 @@ function success(data) {
     $('#form_output').html(data.success);
     $('#button_action').val('insert');
     window.dt.draw(false);
-    $(window.formId)[0].reset();
+    if(window.formId != null)
+        $(window.formId)[0].reset();
 }
+
 
 // Error
 function error(data) {

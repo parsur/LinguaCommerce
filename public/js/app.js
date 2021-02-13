@@ -2625,7 +2625,13 @@ window.dt = __webpack_require__(/*! datatables.net */ "./node_modules/datatables
 __webpack_require__(/*! datatables.net-responsive */ "./node_modules/datatables.net-responsive/js/dataTables.responsive.js"); // Select 2
 
 
-__webpack_require__(/*! select2/dist/js/select2 */ "./node_modules/select2/dist/js/select2.js");
+__webpack_require__(/*! select2/dist/js/select2 */ "./node_modules/select2/dist/js/select2.js"); // Tinymce
+// window.tinymce = require('tinymce/tinymce');
+// require('tinymce/icons/default');
+// require('tinymce/themes/silver');
+// require('tinymce/plugins/paste');
+// require('tinymce/plugins/link');
+// require('tinymce/plugins/directionality');
 
 /***/ }),
 
@@ -61386,7 +61392,7 @@ S2.define('jquery.select2',[
 /******/ 			return checkDeferredModules();
 /******/ 		}
 /******/ 		
-/******/ 		var chunkLoadingGlobal = self["webpackChunk"] = self["webpackChunk"] || [];
+/******/ 		var chunkLoadingGlobal = self["webpackChunksaraRajabi"] = self["webpackChunksaraRajabi"] || [];
 /******/ 		chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
 /******/ 		chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
 /******/ 		

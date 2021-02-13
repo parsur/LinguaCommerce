@@ -4,7 +4,7 @@
         <i class="{{ $fontAwesome }}"></i>
         <p class="mr-1">
             {{ $text }}
-        <i class="right fa fa-angle-left"></i>
+            <i class="right fa fa-angle-left"></i>
         </p>
     </a>
 

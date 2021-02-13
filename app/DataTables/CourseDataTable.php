@@ -4,11 +4,14 @@ namespace App\DataTables;
 
 use App\Models\Course;
 use App\Models\Status;
+use App\Models\Media;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
+use Illuminate\Support\Facades\URL;
+
 
 class CourseDataTable extends DataTable
 {
@@ -23,9 +26,19 @@ class CourseDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addIndexColumn()
-            ->rawColumns(['action'])
+            ->rawColumns(['action','course_id','media'])
+            ->addColumn('media', function (Course $course) {
+                foreach($course->media as $media) {
+                    if($media->type === MEDIA::IMAGE) 
+                        return "<img src=/images/" . $media->media_url . " height='auto' width='50%' />";
+                    else if($media->type === MEDIA::VIDEO) {
+                        return '<iframe src="' . $media->media_url . '"  width="50%" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>';
+                    }
+                }
+            })
             ->editColumn('price', function(Course $course) {
-                return $course->price . ' تومان';
+                if($course->price != null) return $course->price . ' تومان';
+                else return '-';
             })
             ->editColumn('category_id', function(Course $course) {
                 return optional($course->category)->name;
@@ -34,26 +47,29 @@ class CourseDataTable extends DataTable
                 return optional($course->subCategory)->name;
             })
             ->addColumn('status', function(Course $course) {
+
                 if($course->statuses->status === Status::VISIBLE) return 'فعال';
                 else if($course->statuses->status === Status::INVISIBLE) return 'غیر فعال';
                 else return '-';
             })
             ->editColumn('course_id', function(Course $course) {
-                foreach($course->descriptions as $description) {
-                    return $description->description;
-                }
+                $address = URL::signedRoute('course.eachDesc', ['id' => $course->id]);
+                // return <<<ATAG
+                //             <a href="{$address}">باز کردن توضیحات</a>
+                //         ATAG;
+                return optional($course->description_type)->description;
             })
             ->addColumn('action',function(Course $course) {
-                return <<<ATAG
-                            <a onclick="showConfirmationModal('{$course->id}')">
-                                <i class="fa fa-trash text-danger" aria-hidden="true"></i>
-                            </a>
-                            &nbsp;
-                            <a onclick="showEditModal('{$course->id}')">
+                $button = <<<ATAG
+                                <a onclick="showConfirmationModal('{$course->id}')">
+                                    <i class="fa fa-trash text-danger" aria-hidden="true"></i>
+                                </a>
+                            ATAG;
+                $button .= "&nbsp;";
+                $button .= '<a href="'.route('course.newCourse', ['id' => $course->id]).'">
                                 <i class="fa fa-edit text-danger" aria-hidden="true"></i>
-                            </a>
-                        ATAG; 
-
+                            </a>';
+                return $button;
             });
     }
 
@@ -107,6 +123,9 @@ class CourseDataTable extends DataTable
                 ->orderable(false),
             Column::make('name')
             ->title('نام')
+                ->addCLass("column-title"),
+            Column::computed('media')
+            ->title('ویدئو | عکس')
                 ->addCLass("column-title"),
             Column::make('price')
             ->title('هزینه')
