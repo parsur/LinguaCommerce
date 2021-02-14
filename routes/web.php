@@ -35,6 +35,7 @@ Route::group(['middleware' => ['auth','role:admin']], function () {
         Route::get('table/list', 'CourseController@courseTable')->name('list.table');
         Route::get('new', 'CourseController@new')->name('newCourse');
         Route::get('edit', 'CourseController@edit');
+        Route::get('details', 'CourseController@details');
         Route::post('store', 'CourseController@store');
         Route::get('delete/{id}','CourseController@delete');
         // Description
@@ -47,6 +48,7 @@ Route::group(['middleware' => ['auth','role:admin']], function () {
         Route::get('new', 'ArticleController@new')->name('newArticle');
         Route::post('store', 'ArticleController@store');
         Route::get('edit', 'ArticleController@edit');
+        Route::get('details', 'ArticleController@details');
         Route::get('delete/{id}', 'ArticleController@delete');
     });
     // Sub Categories based on Categories   

@@ -113,7 +113,7 @@ class CourseController extends Controller
             }
             DB::commit();
 
-        } catch(\Exception $e) {
+        } catch(Exception $e) {
             throw $e;
             DB::rollBack();
         }
@@ -159,7 +159,12 @@ class CourseController extends Controller
             return response()->json([], 404);
         }
         return response()->json([], 200);
-
     }
+
+    // Details
+    // public function details(Request $request) {
+    //     Course::find($request->get('id'))->wit
+
+    // }
 
 }

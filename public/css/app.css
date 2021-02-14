@@ -18344,10 +18344,6 @@ input[type=text],input[type=email],input[type=password] {
     color: #FFF;
 }
 
-.dt_responsive {
-    width:100% !important;
-}
-
 td.dtr-control:before, table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control:before {
     right: 5px;
 }

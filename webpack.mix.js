@@ -26,11 +26,13 @@ mix.js('resources/assets/js/app.js', 'public/js')
     // Images
     .copy('resources/assets/images', 'public/images')
     // Tinymce
-    .js('resources/assets/js/tinymce.js', 'public/js/tinymce.js')
+    .copy('resources/assets/js/tinymce.js', 'public/js/tinymce.js')
     // App And Authentication
     .css('resources/assets/css/app.css', 'public/css')
     // App Css
     .css('resources/assets/css/auth.css', 'public/css/auth.css')
     // App Sass
     .sass('resources/assets/sass/app.scss','public/css');
+
+mix.sourceMaps();
 

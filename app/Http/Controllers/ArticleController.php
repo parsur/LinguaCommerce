@@ -62,13 +62,16 @@ class ArticleController extends Controller
 
     // Store
     public function store(StoreArticleRequest $request,SuccessMessages $message) {
+
         // Insert
         if($request->get('button_action') == "insert") {
+
             $this->add($request);
             $success_output = $message->getInsert();
         }
         // Update
         else if($request->get('button_action') == "update") {
+
             $this->add($request);
             $success_output = $message->getUpdate();
         }
@@ -114,7 +117,7 @@ class ArticleController extends Controller
             }
             DB::commit();
 
-        } catch(\Exception $e) {
+        } catch(Exception $e) {
             throw $e;
             DB::rollBack();
         }

@@ -53,7 +53,7 @@ class CourseDataTable extends DataTable
                             <i class="fa fa-edit text-danger" aria-hidden="true"></i>
                         </a>
                         &nbsp;
-                        <a href="'.url('course.newCourse').'">
+                        <a href="'.url('course/details').'">
                             <i class="fa fa-info-circle text-danger" aria-hidden="true"></i>
                         </a>';
             });
