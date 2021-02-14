@@ -56,7 +56,7 @@
                                     {{-- Courses --}}
                                     <x-admin.urlAddress text="لیست دوره ها" fontAwesome="null" route="{{ url('course/list') }}" />
                                     {{-- Description --}}
-                                    <x-admin.urlAddress text="افزودن دوره" fontAwesome="null" route="{{ url('course/newCourse') }}" />
+                                    <x-admin.urlAddress text="افزودن دوره" fontAwesome="null" route="{{ url('course/new') }}" />
                                 </x-slot>
                             </x-admin.urlAddressParent>
 
@@ -66,7 +66,7 @@
                                     {{-- Articles --}}
                                     <x-admin.urlAddress text="لیست مقالات" fontAwesome="null" route="{{ url('article/list') }}" />
                                     {{-- Description --}}
-                                    <x-admin.urlAddress text="افزودن توضیح مقاله" fontAwesome="null" route="{{ url('article/newDescription') }}" />
+                                    <x-admin.urlAddress text="افزودن مقاله" fontAwesome="null" route="{{ url('article/new') }}" />
                                 </x-slot>
                             </x-admin.urlAddressParent>
 

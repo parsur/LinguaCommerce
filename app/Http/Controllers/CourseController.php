@@ -10,11 +10,11 @@ use App\Models\Media;
 use App\Models\Description;
 use App\DataTables\CourseDataTable;
 use App\Http\Requests\StoreCourseRequest;
-use App\Http\Requests\StoreDescriptionRequest;
 use App\Providers\Action;
 use App\Providers\SuccessMessages;
 use Illuminate\Http\Request;
 use DB;
+use File;
 
 class CourseController extends Controller
 {
@@ -57,7 +57,7 @@ class CourseController extends Controller
     }
 
     // Store Course
-    public function store(StoreCourseRequest $request,SuccessMessages $message) {
+    public function store(StoreCourseRequest $request,SuccessMessages $message, Action $action) {
 
         // Insert
         if($request->get('button_action') == "insert") {
@@ -77,8 +77,8 @@ class CourseController extends Controller
 
     // Edit Course
     public function edit(Request $request) {
-
-        $courses = Course::where('id',$request->get('id'))->with('statuses','media', 'description_type')->first();
+        // Edit
+        $courses = Course::find($request->get('id'))->with('statuses','media', 'description_type')->first();
         return json_encode($courses);
     }
 
@@ -86,9 +86,7 @@ class CourseController extends Controller
     public function add($request) {
 
         DB::beginTransaction();
-
         try {
-
             $course = Course::updateOrCreate(
                 ['id' => $request->get('id')],
                 ['name' => $request->get('name'), 'price' => $this->convertToEnglish($request->get('price')), 
@@ -109,10 +107,10 @@ class CourseController extends Controller
                     // Media
                     $course->media()->create(['media_url' => $file, 'type' => 0]);
                 }
-            } else {
+            } 
+            if($request->get('aparat_url')){
                 $course->media()->create(['media_url' => $request->get('aparat_url'), 'type' => 1]);
             }
-
             DB::commit();
 
         } catch(\Exception $e) {
@@ -145,16 +143,23 @@ class CourseController extends Controller
     }
 
     // Delete Each Course
-    public function delete(Action $action, $id) {
-        return $action->delete(Course::class,$id);
+    public function delete($id) {
+        $course = Course::find($id);
+        if($course) {
+            foreach($course->media as $media) {
+                // Media Image
+                $imageDelete = public_path("images/" . $media->media_url);
+                if($imageDelete) {
+                    File::delete($imageDelete); 
+                }
+                $course->delete();
+            }
+        } 
+        else {
+            return response()->json([], 404);
+        }
+        return response()->json([], 200);
+
     }
 
-    // Sub Categories based on categories
-    public function ajax_subCategory(Request $request) {
-
-        $c_id = $request->get('category_id');
-        $subCategory = SubCategory::where('category_id', $c_id)->get();
-
-        return json_encode($subCategory);
-    }
 }

@@ -1,8 +1,8 @@
 <div class="container-fluid mt-3 right-text">
     {{-- Header --}}
-    <h2 class="mt-4">افزودن {{ $title }}</h2>
+    <h2 class="mt-4">ذخیره  {{ $title }}</h2>
     <ol class="breadcrumb mb-4 right-text">
-        <li class="breadcrumb-item">خود را اضافه یا ویرایش کنید {{ $title }}</li>
+        <li class="breadcrumb-item">{{ $title }} خود را اضافه یا ویرایش کنید</li>
     </ol>
 
     {{-- Success Or Error Output --}}

@@ -2,7 +2,7 @@
 @section('افزودن توضیحات مقاله')
 
 @section('content')
-   <x-description title="مقاله" model="Article">
+   <x-description title="" model="Article">
        <x-slot name="content">
             <label for="articles">انتخاب مقاله:</label>
             <select class="custom-select" name="articles[]" id="articles" multiple>

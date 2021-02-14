@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\DataTables\CategoryDataTable;
 use App\Models\Category;
+use App\Models\SubCategory;
 use App\Providers\Action;
 use App\Providers\SuccessMessages;
 use App\http\Requests\StoreCategoryRequest;
@@ -66,6 +67,15 @@ class CategoryController extends Controller
     // Delete
     public function delete(Action $action,$id) {
         return $action->delete(Category::class,$id);
+    }
+
+    // Sub Categories based on categories
+    public function ajax_subCategory(Request $request) {
+
+        $c_id = $request->get('category_id');
+        $subCategory = SubCategory::where('category_id', $c_id)->get();
+
+        return json_encode($subCategory);
     }
 
 

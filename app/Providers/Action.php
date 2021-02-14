@@ -20,22 +20,6 @@ class Action {
             return response()->json($e);
         }
     }
-
-    /**
-     * Edit With relationship
-     * 
-     * @return json_encode
-     */
-    // public function editRelation($model,$id,$relation) {
-    //     try{
-    //         $values = $model::where('id',$id)->with($relation)->first();
-    //         return json_encode($values);
-
-    //     } catch(Throwable $e) {
-    //         return response()->json($e);
-    //     }
-    // }
-
     /**
      * Delete
      * 
@@ -58,19 +42,19 @@ class Action {
      * 
      * @return json_encode
      */
-    public function deleteWithImage($model,$id,$column) {
-        $modelImage = $model::find($id);
-        if($modelImage) {
-            $imageDelete = public_path("images/$modelImage->column");
-            if($imageDelete) {
-                File::delete($imageDelete); 
-            }
-            $modelImage->delete();
-        } else {
-            return response()->json([], 404);
-        }
-        return response()->json([], 200);
-    }
+    // public function deleteWithImage($model,$id,$column) {
+    //     $modelImage = $model::find($id);
+    //     if($modelImage) {
+    //         $imageDelete = public_path("images/$modelImage->column");
+    //         if($imageDelete) {
+    //             File::delete($imageDelete); 
+    //         }
+    //         $modelImage->delete();
+    //     } else {
+    //         return response()->json([], 404);
+    //     }
+    //     return response()->json([], 200);
+    // }
 
 
 }

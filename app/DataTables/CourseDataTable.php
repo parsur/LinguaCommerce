@@ -27,15 +27,6 @@ class CourseDataTable extends DataTable
             ->eloquent($query)
             ->addIndexColumn()
             ->rawColumns(['action','course_id','media'])
-            ->addColumn('media', function (Course $course) {
-                foreach($course->media as $media) {
-                    if($media->type === MEDIA::IMAGE) 
-                        return "<img src=/images/" . $media->media_url . " height='auto' width='50%' />";
-                    else if($media->type === MEDIA::VIDEO) {
-                        return '<iframe src="' . $media->media_url . '"  width="50%" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>';
-                    }
-                }
-            })
             ->editColumn('price', function(Course $course) {
                 if($course->price != null) return $course->price . ' تومان';
                 else return '-';
@@ -47,29 +38,24 @@ class CourseDataTable extends DataTable
                 return optional($course->subCategory)->name;
             })
             ->addColumn('status', function(Course $course) {
-
                 if($course->statuses->status === Status::VISIBLE) return 'فعال';
                 else if($course->statuses->status === Status::INVISIBLE) return 'غیر فعال';
                 else return '-';
             })
-            ->editColumn('course_id', function(Course $course) {
-                $address = URL::signedRoute('course.eachDesc', ['id' => $course->id]);
-                // return <<<ATAG
-                //             <a href="{$address}">باز کردن توضیحات</a>
-                //         ATAG;
-                return optional($course->description_type)->description;
-            })
             ->addColumn('action',function(Course $course) {
-                $button = <<<ATAG
-                                <a onclick="showConfirmationModal('{$course->id}')">
-                                    <i class="fa fa-trash text-danger" aria-hidden="true"></i>
-                                </a>
-                            ATAG;
-                $button .= "&nbsp;";
-                $button .= '<a href="'.route('course.newCourse', ['id' => $course->id]).'">
-                                <i class="fa fa-edit text-danger" aria-hidden="true"></i>
-                            </a>';
-                return $button;
+                $editCourse = URL::signedRoute('course.newCourse', ['id' => $course->id]);
+
+                return '<a onclick="showConfirmationModal('.$course->id.')">
+                            <i class="fa fa-trash text-danger" aria-hidden="true"></i>
+                        </a>
+                        &nbsp;
+                        <a href="'.$editCourse.'">
+                            <i class="fa fa-edit text-danger" aria-hidden="true"></i>
+                        </a>
+                        &nbsp;
+                        <a href="'.url('course.newCourse').'">
+                            <i class="fa fa-info-circle text-danger" aria-hidden="true"></i>
+                        </a>';
             });
     }
 
@@ -124,9 +110,6 @@ class CourseDataTable extends DataTable
             Column::make('name')
             ->title('نام')
                 ->addCLass("column-title"),
-            Column::computed('media')
-            ->title('ویدئو | عکس')
-                ->addCLass("column-title"),
             Column::make('price')
             ->title('هزینه')
                 ->addClass('column-title'),
@@ -139,15 +122,12 @@ class CourseDataTable extends DataTable
             Column::make('subCategory_id')
             ->title('دسته بندی دوم')
                 ->class('column-title'),
-            Column::make('course_id')
-            ->title('توضیحات')
-                ->addClass('column-title'),
             Column::computed('action') // This Column is not in database
                 ->exportable(false)
                 ->searchable(false)
                 ->printable(false)
                 ->orderable(false)
-                ->title('حذف،ویرایش')
+                ->title('حذف،ویرایش،جزئیات(توضیحات،رسانه)')
                 ->addClass('column-title')
         ];
     }

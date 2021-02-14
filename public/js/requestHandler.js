@@ -23,7 +23,7 @@ class requestHandler {
             form_data.append('file',form_data);
 
             $.ajax({
-                url: "/" + window.url + "/new",
+                url: "/" + window.url + "/store",
                 method: "POST",
                 contentType: false,
                 processData: false,
@@ -60,9 +60,9 @@ class requestHandler {
 function success(data) {
     $('#form_output').html(data.success);
     $('#button_action').val('insert');
-    window.dt.draw(false);
-    if(window.formId != null)
-        $(window.formId)[0].reset();
+    $(window.formId)[0].reset();
+    if(window.dt != null)
+        window.dt.draw(false);
 }
 
 

@@ -18127,6 +18127,13 @@ input[type=text],input[type=email],input[type=password] {
     border-radius:5px;
     padding: 17px;
 }
+
+/* courseImage */
+.courseImage{
+    margin-top: 1em;
+    height: 200px;
+    width: 50%;
+}
   
 /*------------------------------------ contacts-list ------------------------------------*/
 
@@ -18341,25 +18348,12 @@ input[type=text],input[type=email],input[type=password] {
     width:100% !important;
 }
 
-table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td.dtr-control:before, table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>th.dtr-control:before {
-    top: 50%;
+td.dtr-control:before, table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control:before {
     right: 5px;
-    height: 1em;
-    width: 1em;
-    margin-top: -9px;
-    display: block;
-    position: absolute;
-    color: white;
-    border: 0.15em solid white;
-    border-radius: 1em;
-    box-shadow: 0 0 0.2em #444;
-    box-sizing: content-box;
-    text-align: center;
-    text-indent: 0 !important;
-    font-family: 'Courier New', Courier, monospace;
-    line-height: 1em;
-    content: '+';
-    background-color: #0275d8;
+}
+
+table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control, table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control {
+    padding-right: 30px;
 }
 
 table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td.dtr-control, table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>th.dtr-control {

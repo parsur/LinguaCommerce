@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Article extends Model
 {
+    public $timestamps = true;
     /**
      * @var array
      */
@@ -43,5 +44,20 @@ class Article extends Model
     public function statuses() {
         return $this->morphOne('App\Models\Status', 'status');
     }
+
+    /*
+     * Get all of the course's media.
+     */
+    public function media() {
+        return $this->morphMany('App\Models\Media', 'mediable');
+     }
+ 
+     /*
+      * Get all of the course's descriptions.
+      */
+     public function description_type() {
+         return $this->morphOne('App\Models\Description','description');
+     }
+
 
 }

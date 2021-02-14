@@ -1,16 +1,10 @@
-@extends('layouts.create', ['table' => ($course) ? $course->id : "", 'title' => 'دوره', 'formId' => 'courseForm'])
+@extends('layouts.create', ['table' => ($article) ? $article->id : "", 'title' => 'مقاله', 'formId' => 'articleForm'])
 
 @section('form')
-    {{-- Name --}}
     <div class="row">
-        <div class="col-md-6 mb-3">
-            <label for="name">نام:</label>
-            <input name="name" id="name" type="text" placeholder="نام">
-        </div>
-        {{-- Price --}}
-        <div class="col-md-6 mb-3">
-            <label for="price">هزینه:</label>
-            <input name="price" id="price" type="text" placeholder="هزینه">
+        <div class="col-md-12 mb-3">
+            <label for="title">تیتر:</label>
+            <input name="title" id="title" type="text" placeholder="تیتر">
         </div>
     </div>
 @endsection
@@ -18,7 +12,7 @@
 @section('scripts')
 @parent
     <script>
-        let action = new requestHandler(null, '#courseForm', 'course');
+        let action = new requestHandler(null, '#articleForm', 'article');
         // Insert
         action.insert();
 
@@ -32,7 +26,7 @@
             $('#form_output').html('');
 
             $.ajax({
-                url: "{{ url('course/edit') }}",
+                url: "{{ url('article/edit') }}",
                 data: { id: $id },
                 success: function (data) {
                     dataDisplay(data);
@@ -95,6 +89,6 @@
             // Hidden image
             document.getElementById("image_hidden").value = image.target.result;
         }
-
     </script>
 @endsection 
+

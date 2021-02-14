@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Requests;
+
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreCourseRequest extends FormRequest
+class StoreArticleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +25,7 @@ class StoreCourseRequest extends FormRequest
     public function rules(Request $request)
     {
         return [
-            'name' => 'required',
-            'price' => 'nullable|numeric',
+            'title' => 'required',
             'status' => 'required',
             'description' => 'required',
             'aparat_url' => 'required_without:image_hidden'

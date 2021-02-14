@@ -3,11 +3,15 @@
 namespace App\DataTables;
 
 use App\Models\Article;
+use App\Models\Status;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
+use Morilog\Jalali\Jalalian;
+use Carbon\Carbon;
+use URL;
 
 class ArticleDataTable extends DataTable
 {
@@ -22,16 +26,51 @@ class ArticleDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addIndexColumn()
-            ->addColumn('action', 'articledatatable.action');
+            ->editColumn('category_id', function(Article $article) {
+                return optional($article->category)->name;
+            })
+            ->editColumn('subCategory_id', function(Article $article) {
+                return optional($article->subCategory)->name;
+            })
+            ->editColumn('created_at', function(Article $article) {
+
+                date_default_timezone_set('Asia/Tehran');
+                return Jalalian::forge($article->created_at)->format('%A, %d %B %y');
+
+            })
+            ->editColumn('updated_at', function(Article $article){
+
+                return Jalalian::forge($article->updated_at)->format('%A, %d %B %y');
+
+            })
+            ->addColumn('status', function(Article $article) {
+                if($article->statuses->status === Status::VISIBLE) return 'فعال';
+                else if($article->statuses->status === Status::INVISIBLE) return 'غیر فعال';
+                else return '-';
+            })
+            ->addColumn('action',function(Article $article) {
+                $editArticle = URL::signedRoute('article.newArticle', ['id' => $article->id]);
+                return '<a onclick="showConfirmationModal('.$article->id.')">
+                            <i class="fa fa-trash text-danger" aria-hidden="true"></i>
+                        </a>
+                        &nbsp;
+                        <a href="'.$editArticle.'">
+                            <i class="fa fa-edit text-danger" aria-hidden="true"></i>
+                        </a>
+                        &nbsp;
+                        <a href="'.url('course.newCourse').'">
+                            <i class="fa fa-info-circle text-danger" aria-hidden="true"></i>
+                        </a>';
+            });
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\ArticleDataTable $model
+     * @param \App\Models\Article $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(ArticleDataTable $model)
+    public function query(Article $model)
     {
         return $model->newQuery();
     }
@@ -44,18 +83,20 @@ class ArticleDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-                    ->setTableId('articleTable')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    ->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->buttons(
-                        Button::make('create'),
-                        Button::make('export'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    );
+            ->setTableId('articleTable')
+            ->columns($this->getColumns())
+            ->minifiedAjax(route('article.list.table'))
+            ->columnDefs(
+                [
+                    ["className" => 'dt-center text-center', "target" => '_all'],
+                ]
+            )
+            ->searching(false)
+            ->info(false)
+            ->responsive(true)
+            ->dom('PBCfrtip')
+            ->orderBy(1)
+            ->language(asset('js/persian.json'));
     }
 
     /**
@@ -74,12 +115,9 @@ class ArticleDataTable extends DataTable
             Column::make('title')
             ->title('تیتر')
                 ->addClass('column-title'),
-            Column::computed('media_id')
-            ->title('پستر یا ویدئو')
-                ->addClass('column-title'),
-            Column::computed('description_id')
-            ->title('توضیحات')
-                ->addClass('column-title'),
+            Column::computed('status')
+            ->title('وضعیت')
+                    ->addClass('column-title'),
             Column::make('category_id')
             ->title('دسته بندی اول')
                 ->addClass('column-title'),
@@ -87,18 +125,17 @@ class ArticleDataTable extends DataTable
             ->title('دسته بندی دوم')
                 ->addClass('column-title'),
             Column::make('created_at')
-                ->title('تاریخ انتشار')
-                    ->addClass('column-title'),
-            Column::make('created_at')
-                ->title('تاریخ ویرایش شده')
-                    ->addClass('column-title'),
-
+            ->title('تاریخ انتشار')
+                ->addClass('column-title'),
+            Column::make('updated_at')
+            ->title('تاریخ ویرایش شده')
+                ->addClass('column-title'),
             Column::computed('action') // This Column is not in database
                 ->exportable(false)
                 ->searchable(false)
                 ->printable(false)
                 ->orderable(false)
-                ->title('حذف،ویرایش')
+                ->title('حذف،ویرایش،جزئیات(توضیحات،رسانه)')
                 ->addClass('column-title')
         ];
     }

@@ -12,7 +12,6 @@ use Morilog\Jalali\Jalalian;
 use Carbon\Carbon;
 
 
-
 class AdminDataTable extends DataTable
 {
     /**
@@ -33,6 +32,7 @@ class AdminDataTable extends DataTable
             })
             ->editColumn('updated_at', function(User $user){
                 return Jalalian::forge($user->updated_at)->format('%A, %d %B %y');
+                
             })->addColumn('action', function (User $user){
                 return <<<ATAG
                             <a onclick="showConfirmationModal('{$user->id}')">
