@@ -25,7 +25,3 @@
     </form>
 </div>
 
-{{-- Tinymce --}}
-<script src="{{ asset('js/tinymce.js') }}"></script>
-{{-- Tinymce initialization --}}
-<script src="{{ asset('js/tinymceInit.js') }}"></script>
