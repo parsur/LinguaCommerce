@@ -80,12 +80,19 @@ input[type=text],input[type=email],input[type=password] {
     padding: 17px;
 }
 
-/* courseImage */
-.courseImage{
-    margin-top: 1em;
-    height: 200px;
-    width: 50%;
+/* course and article image */
+.image{
+    height: 75%;
+    width: 100%;
 }
+
+/* Image Details */
+#imageDetails {
+    width: 300px;
+    height: 300px;
+    margin-bottom: 20px;
+}
+
   
 /*------------------------------------ contacts-list ------------------------------------*/
 
@@ -286,7 +293,7 @@ input[type=text],input[type=email],input[type=password] {
     font-family: 'Vazir', sans-serif;
 }
 
-/* ---------------------------------- Admin---------------------------------- */
+/* ---------------------------------- Admin ---------------------------------- */
 .admin_panel {
     text-align: center;
     padding: 10px;
@@ -320,3 +327,4 @@ div.dataTables_wrapper div.dataTables_paginate {
     white-space: nowrap;
     float: right;
 }
+

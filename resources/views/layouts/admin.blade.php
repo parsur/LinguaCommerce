@@ -37,9 +37,9 @@
             <!-- Brand Logo -->
             <a href="/" class="brand-link text-center">
                 <i class="fa fa-user"></i>
-                @if(Route::has('login'))
+                @auth
                     <span class="brand-text font-weight-light">{{ Auth::user()->name }}</span>
-                @endif
+                @endauth
             </a>
             <!-- Sidebar -->
             <div class="sidebar">
@@ -67,6 +67,18 @@
                                     <x-admin.urlAddress text="لیست مقالات" fontAwesome="null" route="{{ url('article/list') }}" />
                                     {{-- Description --}}
                                     <x-admin.urlAddress text="افزودن مقاله" fontAwesome="null" route="{{ url('article/new') }}" />
+                                    {{-- Media --}}
+                                    <x-admin.urlAddress text="افزودن عکس یا ویدئو" fontAwesome="null" route="{{ url('article/newMedia') }}" />
+                                </x-slot>
+                            </x-admin.urlAddressParent>
+
+                            {{-- Media --}}
+                            <x-admin.urlAddressParent text="رسانه" fontAwesome="fas fa-image">
+                                <x-slot name="content">
+                                    {{-- Video --}}
+                                    <x-admin.urlAddress text="ویدئو" fontAwesome="null" route="{{ url('video/list') }}" />
+                                    {{-- Images --}}
+                                    <x-admin.urlAddress text="عکس" fontAwesome="null" route="{{ url('image/list') }}" />
                                 </x-slot>
                             </x-admin.urlAddressParent>
 
@@ -80,6 +92,13 @@
                                 </x-slot>
                             </x-admin.urlAddressParent>
 
+                            {{-- Settings --}}
+                            <x-admin.urlAddressParent Text="تنظیمات" fontAwesome="fa fa-cog">
+                                <x-slot name="content">
+                                    {{-- Home --}}
+                                    <x-admin.urlAddress text="صفحه خانه" fontAwesome="null" route="{{ url('category/list') }}" />
+                                </x-slot>
+                            </x-admin.urlAddressParent>
                         </ul>
                     </nav>
                 </div>
@@ -99,7 +118,7 @@
             <!-- To the right -->
             <div class="float-right d-none d-sm-inline">
                 <p>
-                    تمامی کپی رایت این وبسایت متعلق به سارا رجبی خواهد بود.
+                    تمامی حقوق این وبسایت متعلق به سارا رجبی خواهد بود.
                 </p>
             </div>
         </footer>
@@ -111,6 +130,10 @@
         <script src="{{ mix('js/app.js') }}"></script>
         {{-- Ajax Requests --}}
         <script src="{{ asset('js/requestHandler.js') }}"></script>
+        {{-- Tinymce --}}
+        <script src="{{ asset('js/tinymce.js') }}"></script>
+        {{-- Tinymce initialization --}}
+        <script src="{{ asset('js/tinymceInit.js') }}"></script>
         {{-- Ajax Setup --}}
         <script>
             // Ajax Setup

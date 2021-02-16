@@ -26,9 +26,8 @@ class StoreCourseRequest extends FormRequest
         return [
             'name' => 'required',
             'price' => 'nullable|numeric',
-            'status' => 'required',
             'description' => 'required',
-            'aparat_url' => 'required_without:image_hidden'
+            'status' => 'required'
         ];
     }
 
@@ -40,7 +39,7 @@ class StoreCourseRequest extends FormRequest
     public function attributes()
     {
         return [
-            'image_hidden' => '"تصویر"',
+            'hidden_image' => '"تصویر"',
             'aparat_url' => '"لینک ویدئو آپارات"'
         ];
     }

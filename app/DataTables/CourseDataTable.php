@@ -4,7 +4,8 @@ namespace App\DataTables;
 
 use App\Models\Course;
 use App\Models\Status;
-use App\Models\Media;
+use App\Models\Image;
+use App\Models\Video;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
@@ -26,7 +27,12 @@ class CourseDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addIndexColumn()
-            ->rawColumns(['action','course_id','media'])
+            ->rawColumns(['action','course_id','image_url'])
+            ->addColumn('image_url', function(Course $course) {
+                foreach($course->image as $image) { 
+                    return "<img src=/images/" . $image->image_url . " height='100px' width='150px' />";
+                }
+            })
             ->editColumn('price', function(Course $course) {
                 if($course->price != null) return $course->price . ' تومان';
                 else return '-';
@@ -38,12 +44,13 @@ class CourseDataTable extends DataTable
                 return optional($course->subCategory)->name;
             })
             ->addColumn('status', function(Course $course) {
+
                 if($course->statuses->status === Status::VISIBLE) return 'فعال';
                 else if($course->statuses->status === Status::INVISIBLE) return 'غیر فعال';
-                else return '-';
             })
             ->addColumn('action',function(Course $course) {
-                $editCourse = URL::signedRoute('course.newCourse', ['id' => $course->id]);
+                $editCourse = URL::signedRoute('course.new', ['id' => $course->id]);
+                $courseDetails = URL::signedRoute('course.details', ['id' => $course->id]);
 
                 return '<a onclick="showConfirmationModal('.$course->id.')">
                             <i class="fa fa-trash text-danger" aria-hidden="true"></i>
@@ -53,7 +60,7 @@ class CourseDataTable extends DataTable
                             <i class="fa fa-edit text-danger" aria-hidden="true"></i>
                         </a>
                         &nbsp;
-                        <a href="'.url('course/details').'">
+                        <a href="'.$courseDetails.'">
                             <i class="fa fa-info-circle text-danger" aria-hidden="true"></i>
                         </a>';
             });
@@ -110,6 +117,9 @@ class CourseDataTable extends DataTable
             Column::make('name')
             ->title('نام')
                 ->addCLass("column-title"),
+            Column::computed('image_url')
+            ->title('تصویر | ویدئو')
+                ->addClass('column-title'),
             Column::make('price')
             ->title('هزینه')
                 ->addClass('column-title'),

@@ -4,6 +4,8 @@ namespace App\DataTables;
 
 use App\Models\Article;
 use App\Models\Status;
+use App\Models\Image;
+use App\Models\Video;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
@@ -26,6 +28,12 @@ class ArticleDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addIndexColumn()
+            ->rawColumns(['action', 'image_url'])
+            ->addColumn('image_url', function(Article $article) {
+                foreach($article->image as $image) {
+
+                }
+            })
             ->editColumn('category_id', function(Article $article) {
                 return optional($article->category)->name;
             })
@@ -33,15 +41,11 @@ class ArticleDataTable extends DataTable
                 return optional($article->subCategory)->name;
             })
             ->editColumn('created_at', function(Article $article) {
-
                 date_default_timezone_set('Asia/Tehran');
                 return Jalalian::forge($article->created_at)->format('%A, %d %B %y');
-
             })
             ->editColumn('updated_at', function(Article $article){
-
                 return Jalalian::forge($article->updated_at)->format('%A, %d %B %y');
-
             })
             ->addColumn('status', function(Article $article) {
                 if($article->statuses->status === Status::VISIBLE) return 'فعال';
@@ -50,6 +54,8 @@ class ArticleDataTable extends DataTable
             })
             ->addColumn('action',function(Article $article) {
                 $editArticle = URL::signedRoute('article.newArticle', ['id' => $article->id]);
+                $articleDetails = URL::signedRoute('article.details', ['id' => $article->id]);
+
                 return '<a onclick="showConfirmationModal('.$article->id.')">
                             <i class="fa fa-trash text-danger" aria-hidden="true"></i>
                         </a>
@@ -58,7 +64,7 @@ class ArticleDataTable extends DataTable
                             <i class="fa fa-edit text-danger" aria-hidden="true"></i>
                         </a>
                         &nbsp;
-                        <a href="'.url('course.newCourse').'">
+                        <a href="'.$articleDetails.'">
                             <i class="fa fa-info-circle text-danger" aria-hidden="true"></i>
                         </a>';
             });
@@ -115,9 +121,12 @@ class ArticleDataTable extends DataTable
             Column::make('title')
             ->title('تیتر')
                 ->addClass('column-title'),
+            Column::computed('image_url')
+            ->title('تصویر')
+                ->addClass('column-title'),
             Column::computed('status')
             ->title('وضعیت')
-                    ->addClass('column-title'),
+                ->addClass('column-title'),
             Column::make('category_id')
             ->title('دسته بندی اول')
                 ->addClass('column-title'),

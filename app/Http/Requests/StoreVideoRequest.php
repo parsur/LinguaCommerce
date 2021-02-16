@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Requests;
-use Illuminate\Http\Request;
+
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreArticleRequest extends FormRequest
+class StoreVideoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,12 +21,11 @@ class StoreArticleRequest extends FormRequest
      *
      * @return array
      */
-    public function rules(Request $request)
-    {
+    public function rules()
+    {   
         return [
-            'title' => 'required',
-            'status' => 'required',
-            'description' => 'required',
+            'aparat_url' => 'required',
+            'courses' => 'required'
         ];
     }
 
@@ -38,7 +37,6 @@ class StoreArticleRequest extends FormRequest
     public function attributes()
     {
         return [
-            'hidden_image' => '"تصویر"',
             'aparat_url' => '"لینک ویدئو آپارات"'
         ];
     }

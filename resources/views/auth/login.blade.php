@@ -2,7 +2,10 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {{-- Authentication --}}
         <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
+        {{-- App Css --}}
+        <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     </head>
     <body>
         <div class="wrapper">
@@ -31,12 +34,16 @@
                     <span class="state">ورود</span>
                 </button>
             </form>
-            <br>
-            @if($message = Session::get('faliure'))
-                <div class="alert alert-danger right-direction">
-                    <footer><a target="blank">{{ $message }}</a></footer>
-                </div>
-            @endif
+            {{-- Errors --}}
+            <div class="mt-2">
+                @if($errors->any())
+                    @foreach ($errors->all() as $error)
+                        <div class="alert alert-danger">
+                            {{ $error }}
+                        </div>
+                    @endforeach
+                @endif
+            </div>
         </div>
     </body>
 </html>

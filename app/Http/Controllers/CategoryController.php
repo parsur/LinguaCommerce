@@ -6,7 +6,7 @@ use App\Models\Category;
 use App\Models\SubCategory;
 use App\Providers\Action;
 use App\Providers\SuccessMessages;
-use App\http\Requests\StoreCategoryRequest;
+use App\Http\Requests\StoreCategoryRequest; 
 use Illuminate\Http\Request;
 use DB;
 
@@ -48,15 +48,21 @@ class CategoryController extends Controller
 
     // Store
     public function add($request) {
-
-        DB::transaction(function () {
+        DB::beginTransaction();
+        try {
             $category = Category::updateOrCreate(
                 ['id' => $request->get('id')],
                 ['name' => $request->get('name')]
             );
 
             $category->statuses()->create(['status' => $request->get('status')]);
-        });
+
+            Db::commit();
+
+        } catch(Exception $e) {
+            throw $e;
+            DB::rollback();
+        }
     }
 
     // Edit
@@ -65,8 +71,8 @@ class CategoryController extends Controller
     }
 
     // Delete
-    public function delete(Action $action,$id) {
-        return $action->delete(Category::class,$id);
+    public function delete(Action $action, $id) {
+        return $action->delete(Category::class, $id);
     }
 
     // Sub Categories based on categories

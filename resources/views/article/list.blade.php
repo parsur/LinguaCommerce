@@ -5,7 +5,7 @@
   {{-- Header --}}
   <x-header pageName="مقالات" buttonValue="">
     <x-slot name="table">
-      {!! $articleTable->table(['class' => 'table table-striped table-bordered table-hover-responsive dt_responsive nowrap text-center']) !!}
+      {!! $articleTable->table(['class' => 'table table-striped table-bordered table-hover-responsive w-100 nowrap text-center']) !!}
     </x-slot>
   </x-header>
 
@@ -56,7 +56,7 @@
   </x-admin.insert>
 
   {{-- Delete Modal --}}
-  <x-admin.delete title="آیا مایل به حذف ادمین هستید؟"/>
+  <x-admin.delete title="آیا مایل به حذف مقاله هستید؟"/>
 @endsection
 
 

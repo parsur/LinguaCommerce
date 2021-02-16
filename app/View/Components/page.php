@@ -4,18 +4,20 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class create extends Component
+class page extends Component
 {
     public $title;
+    public $description;
     public $formId;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($title,$formId)
+    public function __construct($title,$formId,$description)
     {
         $this->title = $title;
+        $this->description = $description;
         $this->formId = $formId;
     }
 
@@ -26,6 +28,6 @@ class create extends Component
      */
     public function render()
     {
-        return view('components.admin.create');
+        return view('components.admin.page');
     }
 }

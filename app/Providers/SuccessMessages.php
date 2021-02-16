@@ -11,12 +11,12 @@ class SuccessMessages {
 
     // Insert Message
     public function getInsert() {
-        return '<div class="alert alert-success right-direction">اطلاعات با موفقیت ثبت شد</div>';
+        return '<div class="alert alert-success">اطلاعات با موفقیت ثبت شد</div>';
     }
 
     // Update Message
     public function getUpdate() {
-        return '<div class="alert alert-success right-direction">اطلاعات با موفقیت ویرایش شد</div>';
+        return '<div class="alert alert-success">اطلاعات با موفقیت ویرایش شد</div>';
     }
     
 }

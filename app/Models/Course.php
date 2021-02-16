@@ -41,8 +41,15 @@ class Course extends Model
     /*
      * Get all of the course's media.
      */
-    public function media() {
-       return $this->morphMany('App\Models\Media', 'mediable');
+    public function image() {
+       return $this->morphMany('App\Models\Image', 'image');
+    }
+
+    /*
+     * Get all of the course's media.
+     */
+    public function video() {
+        return $this->morphOne('App\Models\Video', 'video');
     }
 
     /*

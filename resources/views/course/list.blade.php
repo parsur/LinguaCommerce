@@ -5,7 +5,7 @@
   {{-- Header --}}
   <x-header pageName="دوره" buttonValue="">
     <x-slot name="table">
-      {!! $courseTable->table(['class' => 'table table-striped table-bordered table-hover-responsive dt_responsive nowrap text-center']) !!}
+      {!! $courseTable->table(['class' => 'table table-striped table-bordered table-hover-responsive w-100 nowrap text-center']) !!}
     </x-slot>
   </x-header>
 

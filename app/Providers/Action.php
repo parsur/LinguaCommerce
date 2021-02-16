@@ -42,19 +42,19 @@ class Action {
      * 
      * @return json_encode
      */
-    // public function deleteWithImage($model,$id,$column) {
-    //     $modelImage = $model::find($id);
-    //     if($modelImage) {
-    //         $imageDelete = public_path("images/$modelImage->column");
-    //         if($imageDelete) {
-    //             File::delete($imageDelete); 
-    //         }
-    //         $modelImage->delete();
-    //     } else {
-    //         return response()->json([], 404);
-    //     }
-    //     return response()->json([], 200);
-    // }
+    public function deleteWithImage($model,$id,$column) {
+        $modelImage = $model::find($id);
+        if($modelImage) {
+            $imageDelete = public_path("images/$modelImage->column");
+            if($imageDelete) {
+                File::delete($imageDelete); 
+            }
+            $modelImage->delete();
+        } else {
+            return response()->json([], 404);
+        }
+        return response()->json([], 200);
+    }
 
 
 }

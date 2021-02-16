@@ -13,11 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-Route::post('/home/profile/about/img', function(){
-    return json_encode(['location' => '/storage/app/public/pictures/bestAvatar.png' ]);
-});
-
 // Middleware
 Route::group(['middleware' => ['auth','role:admin']], function () {
     // Admin
@@ -33,13 +28,11 @@ Route::group(['middleware' => ['auth','role:admin']], function () {
         // Course
         Route::get('list', 'CourseController@list');
         Route::get('table/list', 'CourseController@courseTable')->name('list.table');
-        Route::get('new', 'CourseController@new')->name('newCourse');
+        Route::get('new', 'CourseController@new')->name('new');
         Route::get('edit', 'CourseController@edit');
-        Route::get('details', 'CourseController@details');
+        Route::get('details', 'CourseController@details')->name('details');
         Route::post('store', 'CourseController@store');
         Route::get('delete/{id}','CourseController@delete');
-        // Description
-        Route::get('eachDescription', 'CourseController@eachDesc')->name('eachDesc')->middleware('signed');
     });
     Route::group(['prefix' => 'article', 'as' => 'article.'], function () {
         // Article
@@ -48,8 +41,24 @@ Route::group(['middleware' => ['auth','role:admin']], function () {
         Route::get('new', 'ArticleController@new')->name('newArticle');
         Route::post('store', 'ArticleController@store');
         Route::get('edit', 'ArticleController@edit');
-        Route::get('details', 'ArticleController@details');
+        Route::get('details', 'ArticleController@details')->name('details');
         Route::get('delete/{id}', 'ArticleController@delete');
+    });
+    // Video
+    Route::group(['prefix' => 'video', 'as' => 'video.'], function () {
+        Route::get('list','VideoController@list');
+        Route::get('table/list','VideoController@videoTable')->name('list.table');
+        Route::post('store','VideoController@store');
+        Route::get('edit','VideoController@edit');
+        Route::get('delete/{id}','VideoController@delete');
+    });
+    // Image
+    Route::group(['prefix' => 'image', 'as' => 'image.'], function() {
+        Route::get('list','ImageController@list');
+        Route::get('table/list','ImageController@imageTable')->name('list.table');
+        Route::post('store','ImageController@store');
+        Route::get('edit','ImageController@edit');
+        Route::get('delete/{id}','ImageController@delete');
     });
     // Sub Categories based on Categories   
     Route::get('/subCategory', 'CategoryController@ajax_subCategory');
@@ -73,7 +82,14 @@ Route::group(['middleware' => ['auth','role:admin']], function () {
 
 // Authentication
 Auth::routes();
+// Login
+Route::get('login','LoginController@index');
+
+Route::post('login', 'Auth\LoginController@store');
+// Forgotten password
+Route::get('/forgot-password', 'Auth\ForgotPasswordController@index');
 Route::get('/logout','Auth\LoginController@logout')->name('logout');
+// Home
 Route::get('/', 'HomeController@index')->name('home');
 
 // User Login

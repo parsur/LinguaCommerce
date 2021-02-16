@@ -6,58 +6,64 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
+ * @property int $category_id
  * @property string $title
- * @property string $description
- * @property int $status
- * @property int $articulable_id
- * @property string $articulable_type
  * @property string $created_at
  * @property string $updated_at
+ * @property int $article_id
+ * @property string $article_type
+ * @property int $subCategory_id
+ * @property Category $category
+ * @property SubCategory $subCategory
  */
 class Article extends Model
 {
-    public $timestamps = true;
     /**
      * @var array
      */
-    protected $fillable = ['title', 'description', 'status', 'articulable_id', 'articulable_type', 'created_at', 'updated_at'];
+    protected $fillable = ['category_id', 'title', 'created_at', 'updated_at', 'article_id', 'article_type', 'subCategory_id'];
 
     /**
-     * Get all of the article's media.
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function comments()
+    public function category()
     {
-        return $this->morphMany('App\Models\Media', 'mediable');
+        return $this->belongsTo('App\Models\Category');
     }
 
     /**
-     * Get all of the article's descriptions.
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function description()
+    public function subCategory()
     {
-        return $this->morphMany('App\Models\Description', 'description_type');
-    }
-
-    /*
-     * Get all of the article's status.
-     */
-    public function statuses() {
-        return $this->morphOne('App\Models\Status', 'status');
+        return $this->belongsTo('App\Models\SubCategory');
     }
 
     /*
      * Get all of the course's media.
      */
-    public function media() {
-        return $this->morphMany('App\Models\Media', 'mediable');
-     }
+    public function image() {
+        return $this->morphMany('App\Models\Image', 'image');
+    }
+
+    /*
+     * Get all of the course's media.
+     */
+    public function video() {
+        return $this->morphMany('App\Models\Video', 'video');
+    }
  
-     /*
-      * Get all of the course's descriptions.
-      */
-     public function description_type() {
+    /*
+     * Get all of the course's descriptions.
+     */
+    public function description_type() {
          return $this->morphOne('App\Models\Description','description');
-     }
+    }
 
-
+    /*
+     * Get all of the course's status.
+     */
+    public function statuses() {
+        return $this->morphOne('App\Models\Status', 'status');
+    }
 }

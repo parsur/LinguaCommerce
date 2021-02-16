@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\Category;
+use App\Models\Image;
+use App\Models\Video;
 use App\Models\SubCategory;
 use App\Models\Status;
-use App\Models\Media;
 use App\Models\Description;
 use App\DataTables\CourseDataTable;
 use App\Http\Requests\StoreCourseRequest;
@@ -42,12 +43,11 @@ class CourseController extends Controller
         } else {
             $vars['course'] = '';
         }
-        // Media
-        $vars['media'] = Media::select('id','media_url')->get();
-        // Categories
-        $vars['categories'] = Category::select('name','id')->get();
-        // Sub Categories
-        $vars['subCategories'] = SubCategory::select('name','id')->get();
+
+        // Image
+        $vars['image'] = Image::select('id','image_url')->get();
+        // Video
+        $vars['video'] = Video::select('id','video_url')->get();
         // Status
         $vars['status'] = Status::select('id','status')->get();
         // Description
@@ -57,16 +57,17 @@ class CourseController extends Controller
     }
 
     // Store Course
-    public function store(StoreCourseRequest $request,SuccessMessages $message, Action $action) {
+    public function store(StoreCourseRequest $request,SuccessMessages $message) {
+
+        // Insert or update
+        $this->add($request);
 
         // Insert
         if($request->get('button_action') == "insert") {
-            $this->add($request);
             $success_output = $message->getInsert();
         }
         // Update
         else if($request->get('button_action') == "update") {
-            $this->add($request);
             $success_output = $message->getUpdate();
         }
 
@@ -75,42 +76,31 @@ class CourseController extends Controller
         return json_encode($output);
     }
 
-    // Edit Course
-    public function edit(Request $request) {
-        // Edit
-        $courses = Course::find($request->get('id'))->with('statuses','media', 'description_type')->first();
-        return json_encode($courses);
-    }
 
-    // Add Course
+    // Insert
     public function add($request) {
+
+        $id = $request->get('id');
 
         DB::beginTransaction();
         try {
             $course = Course::updateOrCreate(
-                ['id' => $request->get('id')],
+                ['id' => $id],
                 ['name' => $request->get('name'), 'price' => $this->convertToEnglish($request->get('price')), 
-                'category_id' => $this->subSet($request->get('categories')), 
-                'subCategory_id' => $this->subSet($request->get('subCategories'))]
+                'category_id' => $this->subSet($request->get('categories')), 'subCategory_id' => $this->subSet($request->get('subCategories'))]
             );
             // Status
-            $course->statuses()->create(['status' => $request->get('status')]);
+            $course->statuses()->updateOrCreate(
+                ['status_id' => $id],
+                ['status' => $request->get('status'), 'status_type' => Course::class]
+            );
 
             // Description
-            $course->description_type()->create(['description' => $request->get('description')]);
+            $course->description_type()->updateOrCreate(
+                ['description_id' => $id],
+                ['description' => $request->get('description'), 'description_type' => Course::class]
+            );
 
-            // Image
-            if($request->hasFile('media_url')) {
-                foreach($request->file('media_url') as $media_url) {
-                    $file = $media_url->getClientOriginalName();
-                    $media_url->move(public_path('images'), $file);
-                    // Media
-                    $course->media()->create(['media_url' => $file, 'type' => 0]);
-                }
-            } 
-            if($request->get('aparat_url')){
-                $course->media()->create(['media_url' => $request->get('aparat_url'), 'type' => 1]);
-            }
             DB::commit();
 
         } catch(Exception $e) {
@@ -118,6 +108,14 @@ class CourseController extends Controller
             DB::rollBack();
         }
     }
+
+    // Edit Course
+    public function edit(Request $request) {
+        // Edit
+        $course = Course::where('id', $request->get('id'))->with('statuses','image', 'video', 'description_type')->first();
+        return json_encode($course);
+    }
+
 
     // Product SubSet
     public function subSet($request) {
@@ -133,6 +131,7 @@ class CourseController extends Controller
 
     // Convert To English
     public function convertToEnglish($number) {
+
         if($number != null) {
             $newNumbers = range(0,9);
             // 1. Persian Numeric
@@ -143,28 +142,15 @@ class CourseController extends Controller
     }
 
     // Delete Each Course
-    public function delete($id) {
-        $course = Course::find($id);
-        if($course) {
-            foreach($course->media as $media) {
-                // Media Image
-                $imageDelete = public_path("images/" . $media->media_url);
-                if($imageDelete) {
-                    File::delete($imageDelete); 
-                }
-                $course->delete();
-            }
-        } 
-        else {
-            return response()->json([], 404);
-        }
-        return response()->json([], 200);
+    public function delete(Action $action,$id) {
+        return $action->delete(Course::class, $id);
     }
 
     // Details
-    // public function details(Request $request) {
-    //     Course::find($request->get('id'))->wit
+    public function details(Request $request) {
 
-    // }
+        $course = Course::where('id', $request->get('id'))->first();
+        return view('course.details', compact('course'));
+    }
 
 }

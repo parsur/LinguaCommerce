@@ -5,7 +5,7 @@
   {{-- Header --}}
   <x-header pageName="دسته بندی ۲" buttonValue="افزودن دسته بندی دوم">
     <x-slot name="table">
-      {!! $subCategoryTable->table(['class' => 'table table-bordered table-striped table-hover-responsive dt_responsive nowrap text-center'], false) !!}
+      {!! $subCategoryTable->table(['class' => 'table table-bordered table-striped table-hover-responsive w-100 nowrap text-center'], false) !!}
     </x-slot>
   </x-header>
 

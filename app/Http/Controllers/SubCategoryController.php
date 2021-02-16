@@ -52,13 +52,20 @@ class SubCategoryController extends Controller
     // Add SUb Category
     public function add($request) {
 
-        DB::transaction(function () {
+        DB::beginTransaction();
+        try {
             $subCategory = SubCategory::updateOrCreate(
                 ['id' => $request->get('id')],
                 ['name' => $request->get('name'), 'category_id' => $request->get('categories')]
             );
             $subCategory->statuses()->create(['status' => $request->get('status')]);
-        });
+
+            DB::commit();
+            
+        } catch(Exception $e) {
+            throw $e;
+            DB::rollback();
+        }
     }
 
     // Edit Sub Catgory Data
