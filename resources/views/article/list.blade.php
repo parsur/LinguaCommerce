@@ -22,9 +22,9 @@
       {{-- Categories --}}
       <div class="row">
         <div class="col-md-6 mb-3"> 
-          <label for="categories">دسته بندی سطح-۱</label>
+          <label for="categories">دسته بندی اول:</label>
           <select name="categories" id="categories" class="custom-select">
-            <option value="">دسته بندی سطح-۱</option>
+            <option value="">دسته بندی اول:</option>
             @foreach($categories as $category)
               <option value="{{ $category->id }}">{{ $category->name }}</option>
             @endforeach
@@ -68,16 +68,21 @@
 
   <script>
     $(document).ready(function () {
+
       // Article DataTable
       let dt = window.LaravelDataTables['articleTable'];
+
       // Actions(DataTable,Form,Url)
       let action = new requestHandler(dt,'#articleForm','article');
+
       // Record modal
       $('#create_record').click(function () {
         action.modal();
       });
+
       // Insert
       action.insert();
+
       // Delete
       window.showConfirmationModal = function showConfirmationModal(url) {
         action.delete(url);
@@ -92,7 +97,7 @@
         $('#form_output').html('');
 
         $.ajax({
-          url: "{{ url('article/edit') }}",
+          url: "{{ url('articleVideo/edit') }}",
           data: {id: id},
           success: function(data) {
             $('#id').val(id);

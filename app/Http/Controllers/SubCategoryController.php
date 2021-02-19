@@ -58,7 +58,12 @@ class SubCategoryController extends Controller
                 ['id' => $request->get('id')],
                 ['name' => $request->get('name'), 'category_id' => $request->get('categories')]
             );
-            $subCategory->statuses()->create(['status' => $request->get('status')]);
+
+            // Status
+            $subCategory->statuses()->updateOrCreate(
+                ['status_id' => $id],
+                ['status' => $request->get('status'), 'status_type' => SubCategory::class]
+            );
 
             DB::commit();
             
@@ -70,7 +75,7 @@ class SubCategoryController extends Controller
 
     // Edit Sub Catgory Data
     public function edit(Action $action,Request $request) {
-        return $action->editRelation(SubCategory::class,$request->get('id'),'statuses');
+        return $action->editWithStatus(SubCategory::class, $request->get('id'));
     }
 
     // Delete Each Category

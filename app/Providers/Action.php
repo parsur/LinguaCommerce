@@ -38,7 +38,7 @@ class Action {
     }
 
     /**
-     * Delete With Image
+     * Delete With Image.
      * 
      * @return json_encode
      */
@@ -54,6 +54,16 @@ class Action {
             return response()->json([], 404);
         }
         return response()->json([], 200);
+    }
+
+    /**
+     * Edit with status.
+     * 
+     * @return json_encode
+     */
+    public function editWithStatus($model,$id) {
+        $values = $model::where('id', $id)->with('statuses')->first();
+        return json_encode($values);
     }
 
 

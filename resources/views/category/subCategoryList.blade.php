@@ -3,7 +3,7 @@
 
 @section('content')
   {{-- Header --}}
-  <x-header pageName="دسته بندی ۲" buttonValue="افزودن دسته بندی دوم">
+  <x-header pageName="دسته بندی ۲" buttonValue="دسته بندی دوم">
     <x-slot name="table">
       {!! $subCategoryTable->table(['class' => 'table table-bordered table-striped table-hover-responsive w-100 nowrap text-center'], false) !!}
     </x-slot>
@@ -20,7 +20,7 @@
         </div>
         {{-- Category --}}
         <div class="col-md-6 mb-1 lrt">
-          <label for="categories">در دسته بندی سطح-۱:</label>
+          <label for="categories">در دسته بندی اول:</label>
           <select class="custom-select" id="categories" name="categories">
             @foreach($categories as $category)
                 <option value="{{ $category->id }}">{{ $category->name }}</option>

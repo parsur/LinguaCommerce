@@ -8,3 +8,13 @@
         </x-slot>
     </x-admin.page>
 @endsection
+
+@section('scripts')
+@parent
+    <script>
+        tinymce.init({
+            selector: 'textarea#description',
+            readonly: 1,
+        });
+    </script>
+@endsection

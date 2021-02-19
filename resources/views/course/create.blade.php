@@ -37,7 +37,7 @@
         let action = new requestHandler(null, '#courseForm', 'course');
         // Media
         let media = new mediaDisplay();
-        
+
         // Insert
         action.insert();
 
@@ -64,11 +64,10 @@
             $('#action').val('ویرایش');
             $('#name').val(data.name);
             $('#price').val(data.price);
-            $('#description').val(data.description_type.description);
+            $('#description').val(data.description.description);
             $('#status').val(data.statuses.status).trigger('change');
             $('#categories').val(data.category_id).trigger('change');
             $('#subCategories').val(data.subCategory_id).trigger('change');
-            media.mediaDisplay(data.image);
         }
 
         // Ajax Category Based on Sub Category

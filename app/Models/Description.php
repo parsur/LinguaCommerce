@@ -20,7 +20,7 @@ class Description extends Model
 
 
     /**
-     * Get The parent description_type model (Course, Article)
+     * Get The parent description model (Course, Article)
      */
     public function description() {
         return $this->morphTo();

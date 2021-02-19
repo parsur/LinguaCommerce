@@ -21,12 +21,14 @@ mix.js('resources/assets/js/app.js', 'public/js')
     .copy('resources/assets/js/tinymceInit.js', 'public/js/tinymceInit.js')
     // Ajax Request Handler
     .copy('resources/assets/js/requestHandler.js', 'public/js/requestHandler.js')
+    // Tinymce
+    .copy('resources/assets/js/tinymce.js', 'public/js/tinymce.js')
+    // Tinymce
+    .copy('resources/assets/js/imagePreview.js', 'public/js/imagePreview.js')
     // Fonts
     .copy('resources/assets/fonts', 'public/fonts')
     // Images
     .copy('resources/assets/images', 'public/images')
-    // Tinymce
-    .copy('resources/assets/js/tinymce.js', 'public/js/tinymce.js')
     // App And Authentication
     .css('resources/assets/css/app.css', 'public/css')
     // App Css

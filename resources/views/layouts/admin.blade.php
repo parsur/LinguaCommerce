@@ -55,8 +55,12 @@
                                 <x-slot name="content">
                                     {{-- Courses --}}
                                     <x-admin.urlAddress text="لیست دوره ها" fontAwesome="null" route="{{ url('course/list') }}" />
-                                    {{-- Description --}}
+                                    {{-- New Course --}}
                                     <x-admin.urlAddress text="افزودن دوره" fontAwesome="null" route="{{ url('course/new') }}" />
+                                    {{-- Image List --}}
+                                    <x-admin.urlAddress text="لیست عکس ها" fontAwesome="null" route="{{ url('courseImage/list ') }}" />
+                                    {{-- Video List --}}
+                                    <x-admin.urlAddress text="لیست ویدئو ها" fontAwesome="null" route="{{ url('courseVideo/list ') }}" />
                                 </x-slot>
                             </x-admin.urlAddressParent>
 
@@ -65,30 +69,23 @@
                                 <x-slot name="content">
                                     {{-- Articles --}}
                                     <x-admin.urlAddress text="لیست مقالات" fontAwesome="null" route="{{ url('article/list') }}" />
-                                    {{-- Description --}}
+                                    {{-- New Article --}}
                                     <x-admin.urlAddress text="افزودن مقاله" fontAwesome="null" route="{{ url('article/new') }}" />
-                                    {{-- Media --}}
-                                    <x-admin.urlAddress text="افزودن عکس یا ویدئو" fontAwesome="null" route="{{ url('article/newMedia') }}" />
+                                    {{-- Image List --}}
+                                    <x-admin.urlAddress text="لیست عکس ها" fontAwesome="null" route="{{ url('articleImage/list ') }}" />
+                                    {{-- Video List --}}
+                                    <x-admin.urlAddress text="لیست ویدئو ها" fontAwesome="null" route="{{ url('articleVideo/list ') }}" />       
                                 </x-slot>
                             </x-admin.urlAddressParent>
 
-                            {{-- Media --}}
-                            <x-admin.urlAddressParent text="رسانه" fontAwesome="fas fa-image">
-                                <x-slot name="content">
-                                    {{-- Video --}}
-                                    <x-admin.urlAddress text="ویدئو" fontAwesome="null" route="{{ url('video/list') }}" />
-                                    {{-- Images --}}
-                                    <x-admin.urlAddress text="عکس" fontAwesome="null" route="{{ url('image/list') }}" />
-                                </x-slot>
-                            </x-admin.urlAddressParent>
 
                             {{-- Categories --}}
                             <x-admin.urlAddressParent Text="دسته بندی ها" fontAwesome="fa fa-list">
                                 <x-slot name="content">
                                     {{-- Categories --}}
-                                    <x-admin.urlAddress text="دسته بندی سطح-۱" fontAwesome="null" route="{{ url('category/list') }}" />
+                                    <x-admin.urlAddress text="دسته بندی اول" fontAwesome="null" route="{{ url('category/list') }}" />
                                     {{-- Sub Categories --}}
-                                    <x-admin.urlAddress text="دسته بندی سطح-۲" fontAwesome="null" route="{{ url('subCategory/list') }}" />
+                                    <x-admin.urlAddress text="دسته بندی دوم" fontAwesome="null" route="{{ url('subCategory/list') }}" />
                                 </x-slot>
                             </x-admin.urlAddressParent>
 
@@ -99,6 +96,9 @@
                                     <x-admin.urlAddress text="صفحه خانه" fontAwesome="null" route="{{ url('category/list') }}" />
                                 </x-slot>
                             </x-admin.urlAddressParent>
+
+                            {{-- Orders --}}
+                            <x-admin.urlAddress text="سفارشات" fontAwesome="fab fa-first-order" route="{{ url('order/orderlist') }}"/>
                         </ul>
                     </nav>
                 </div>
@@ -132,11 +132,8 @@
         <script src="{{ asset('js/requestHandler.js') }}"></script>
         {{-- Tinymce --}}
         <script src="{{ asset('js/tinymce.js') }}"></script>
-        {{-- Tinymce initialization --}}
-        <script src="{{ asset('js/tinymceInit.js') }}"></script>
         {{-- Ajax Setup --}}
         <script>
-            // Ajax Setup
             $.ajaxSetup({
                 processing: true,
                 dataType: "json"

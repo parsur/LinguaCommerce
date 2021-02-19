@@ -31,7 +31,7 @@ class ArticleDataTable extends DataTable
             ->rawColumns(['action', 'image_url'])
             ->addColumn('image_url', function(Article $article) {
                 foreach($article->image as $image) {
-
+                    return "<img src=/images/" . optional($image)->image_url . " height='auto' width='100%' />";
                 }
             })
             ->editColumn('category_id', function(Article $article) {
@@ -97,7 +97,7 @@ class ArticleDataTable extends DataTable
                     ["className" => 'dt-center text-center', "target" => '_all'],
                 ]
             )
-            ->searching(false)
+            ->searching(true)
             ->info(false)
             ->responsive(true)
             ->dom('PBCfrtip')

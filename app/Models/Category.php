@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use ShiftOneLabs\LaravelCascadeDeletes\CascadesDeletes;
+
 
 /**
  * @property int $id
@@ -13,6 +15,13 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     public $timestamps = false;
+
+    /**
+     * Cascade deletes.
+     */
+    use CascadesDeletes;
+    protected $cascadeDeletes = ['courses', 'subCategories','statuses'];
+
     /**
      * @var array
      */

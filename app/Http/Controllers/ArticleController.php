@@ -46,10 +46,6 @@ class ArticleController extends Controller
         } else {
             $vars['article'] = '';
         }
-        // // Image
-        // $vars['image'] = Image::select('id','image_url')->get();
-        // // Video
-        // $vars['video'] = Video::select('id','video_url')->get();
         // Status
         $vars['status'] = Status::select('id','status')->get();
         // Description
@@ -99,7 +95,7 @@ class ArticleController extends Controller
             );
 
             // Description
-            $article->description_type()->updateOrCreate(
+            $article->description()->updateOrCreate(
                 ['description_id' => $id],
                 ['description' => $request->get('description'), 'description_type' => Article::class]
             );
@@ -127,27 +123,13 @@ class ArticleController extends Controller
     // Edit Course
     public function edit(Request $request) {
         // Edit
-        $article = Article::where('id', $request->get('id'))->with('statuses','image', 'video','description_type')->first();
+        $article = Article::where('id', $request->get('id'))->with('statuses','image', 'video','description')->first();
         return json_encode($article);
     }
 
     // Delete
-    public function delete($id) {
-        $article = Article::find($id);
-        if($article) {
-            foreach($article->image as $image) {
-                // Image
-                $imageDelete = public_path("images/" . $image->image_url);
-                if($imageDelete) {
-                    File::delete($imageDelete); 
-                }
-            }
-            $article->delete();
-        } 
-        else {
-            return response()->json([], 404);
-        }
-        return response()->json([], 200);
+    public function delete(Action $action,$id) {
+        return $action->delete(Course::class, $id);
     }
 
     // Details

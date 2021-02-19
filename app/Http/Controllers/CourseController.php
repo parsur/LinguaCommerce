@@ -35,7 +35,7 @@ class CourseController extends Controller
         return $dataTable->render('course.list');
     }
 
-    // Get Course Description Page
+    // Get Course Page
     public function new(Request $request) {
         // Edit
         if($request->get('id')) {
@@ -43,11 +43,7 @@ class CourseController extends Controller
         } else {
             $vars['course'] = '';
         }
-
-        // Image
-        $vars['image'] = Image::select('id','image_url')->get();
-        // Video
-        $vars['video'] = Video::select('id','video_url')->get();
+        
         // Status
         $vars['status'] = Status::select('id','status')->get();
         // Description
@@ -96,7 +92,7 @@ class CourseController extends Controller
             );
 
             // Description
-            $course->description_type()->updateOrCreate(
+            $course->description()->updateOrCreate(
                 ['description_id' => $id],
                 ['description' => $request->get('description'), 'description_type' => Course::class]
             );
@@ -106,26 +102,6 @@ class CourseController extends Controller
         } catch(Exception $e) {
             throw $e;
             DB::rollBack();
-        }
-    }
-
-    // Edit Course
-    public function edit(Request $request) {
-        // Edit
-        $course = Course::where('id', $request->get('id'))->with('statuses','image', 'video', 'description_type')->first();
-        return json_encode($course);
-    }
-
-
-    // Product SubSet
-    public function subSet($request) {
-        // Category Or Sub Category
-        switch($request) {
-            case '':
-                return null;
-                break;
-            default:
-                return $request;
         }
     }
 
@@ -141,6 +117,26 @@ class CourseController extends Controller
         } 
     }
 
+    // Product SubSet
+    public function subSet($request) {
+        // Category Or Sub Category
+        switch($request) {
+            case '':
+                return null;
+                break;
+            default:
+                return $request;
+        }
+    }
+
+
+    // Edit Course
+    public function edit(Request $request) {
+        // Edit
+        $course = Course::where('id', $request->get('id'))->with('statuses','image', 'video', 'description')->first();
+        return json_encode($course);
+    }
+
     // Delete Each Course
     public function delete(Action $action,$id) {
         return $action->delete(Course::class, $id);
@@ -151,6 +147,33 @@ class CourseController extends Controller
 
         $course = Course::where('id', $request->get('id'))->first();
         return view('course.details', compact('course'));
+    }
+
+    // Get Course Image Page
+    public function newImage(Request $request) {
+        // Store Image
+        $vars['courses'] = Course::select('name', 'id')->get();
+        return view('course.create', $vars);
+    }
+
+    // Store Course Image
+    public function storeImage(StoreCourseRequest $request,SuccessMessages $message) {
+
+        // Insert or update
+        $this->add($request);
+
+        // Insert
+        if($request->get('button_action') == "insert") {
+            $success_output = $message->getInsert();
+        }
+        // Update
+        else if($request->get('button_action') == "update") {
+            $success_output = $message->getUpdate();
+        }
+
+        $output = array('success' => $success_output);
+
+        return json_encode($output);
     }
 
 }

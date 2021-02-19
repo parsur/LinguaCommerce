@@ -48,14 +48,21 @@ class CategoryController extends Controller
 
     // Store
     public function add($request) {
+
+        $id = $request->get('id');
+
         DB::beginTransaction();
         try {
             $category = Category::updateOrCreate(
-                ['id' => $request->get('id')],
+                ['id' => $id],
                 ['name' => $request->get('name')]
             );
 
-            $category->statuses()->create(['status' => $request->get('status')]);
+            // Status
+            $category->statuses()->updateOrCreate(
+                ['status_id' => $id],
+                ['status' => $request->get('status'), 'status_type' => Category::class]
+            );
 
             Db::commit();
 
@@ -67,7 +74,7 @@ class CategoryController extends Controller
 
     // Edit
     public function edit(Action $action,Request $request) {
-        return $action->editRelation(Category::class,$request->get('id'),'statuses');
+        return $action->editWithStatus(Category::class, $request->get('id'));
     }
 
     // Delete

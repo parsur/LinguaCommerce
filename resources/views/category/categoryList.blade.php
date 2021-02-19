@@ -1,10 +1,10 @@
 @extends('layouts.admin')
-@section('title','دسته بندی سطح-۱')
+@section('title','دسته بندی اول')
 
 @section('content')
     
     {{-- Header --}}
-    <x-header pageName="دسته بندی ۱" buttonValue="افزودن دسته بندی">
+    <x-header pageName="دسته بندی اول" buttonValue="دسته بندی اول">
         <x-slot name="table">
             {!! $categoryTable->table(['class' => 'table table-bordered table-striped table-hover-responsive w-100 nowrap text-center'], false) !!}
         </x-slot>
@@ -17,7 +17,7 @@
                 {{-- Name --}}
                 <div class="col-md-12 mb-3">
                     <label for="title">نام:</label>
-                    <input name="name" id="name" type="text" placeholder="نام دسته بندی">
+                    <input name="name" id="name" type="text" placeholder="نام">
                 </div>
                 {{-- Status --}}
                 <div class="col-md-12">

@@ -2,14 +2,15 @@
 
 namespace App\DataTables;
 
-use App\Models\Video;
+use App\Models\Image;
+use App\Models\Article;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class VideoDataTable extends DataTable
+class ArticleImageDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -22,17 +23,20 @@ class VideoDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addIndexColumn()
-            ->rawColumns(['action','video_url']) 
-            ->editColumn('video_url', function(Video $video) {
-                return '<iframe src="'.$video->video_url.'"  width="50%" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>';
+            ->rawColumns(['action','image_url','relation']) 
+            ->editColumn('image_url', function(Image $image) {
+                return "<img src=/images/" . $image->image_url . " height='auto' width='80%' />";
             })
-            ->addColumn('action', function(Video $video){
+            ->addColumn('relation', function (Image $image) {
+                return $image->image->title;
+            })
+            ->addColumn('action', function(Image $image){
                 return <<<ATAG
-                            <a onclick="showConfirmationModal('{$video->id}')">
+                            <a onclick="showConfirmationModal('{$image->id}')">
                                 <i class="fa fa-trash text-danger" aria-hidden="true"></i>
                             </a>
                             &nbsp;
-                            <a onclick="showEditModal('{$video->id}')">
+                            <a onclick="showEditModal('{$image->id}')">
                                 <i class="fa fa-edit text-danger" aria-hidden="true"></i>
                             </a>
                         ATAG;
@@ -42,12 +46,12 @@ class VideoDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\VideoDataTable $model
+     * @param \App\Models\Article $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Video $model)
+    public function query(Image $model)
     {
-        return $model->newQuery();
+        return $model->where('image_type', Article::class);
     }
 
     /**
@@ -58,9 +62,9 @@ class VideoDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-            ->setTableId('videoTable')
+            ->setTableId('articleImageTable')
             ->columns($this->getColumns())
-            ->minifiedAjax(route('video.list.table'))
+            ->minifiedAjax(route('articleImage.list.table'))
             ->columnDefs(
                 [
                     ["className" => 'dt-center text-center', "target" => '_all'],
@@ -87,8 +91,11 @@ class VideoDataTable extends DataTable
                 ->addClass('column-title')
                 ->searchable(false)
                 ->orderable(false),
-            Column::make('video_url')
-            ->title('ویدئو')
+            Column::make('image_url')
+            ->title('رسانه')
+                ->addClass('column-title'),
+            Column::computed('relation')
+            ->title('مقاله مرتبط')
                 ->addClass('column-title'),
             Column::computed('action') // This column is not in database
                 ->exportable(false)
@@ -97,7 +104,7 @@ class VideoDataTable extends DataTable
                 ->orderable(false)
                 ->title('حذف،ویرایش')
                 ->addClass('column-title')
-            ];
+        ];
     }
 
     /**
@@ -107,6 +114,6 @@ class VideoDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'Video_' . date('YmdHis');
+        return 'ArticleImage_' . date('YmdHis');
     }
 }

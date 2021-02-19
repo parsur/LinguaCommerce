@@ -24,10 +24,11 @@
 @section('scripts')
 @parent
 
+    {{-- Tinymce initialization --}}
+    <script src="{{ asset('js/tinymceInit.js') }}"></script>
+
     <script>
         let action = new requestHandler(null, '#articleForm', 'article');
-        // Media
-        let media = new mediaDisplay();
         // Insert
         action.insert();
 
@@ -44,62 +45,20 @@
                 url: "{{ url('article/edit') }}",
                 data: { id: $id },
                 success: function (data) {
-                    dataDisplay(data);
+                    displayData(data);
                 }
             })
         }
         // Display data after editing
-        function dataDisplay(data) {
+        function displayData(data) {
             $('#button_action').val('update');
             $('#action').val('ویرایش');
             $('#title').val(data.title);
             $('#price').val(data.price);
-            $('#description').val(data.description_type.description);
+            $('#description').val(data.description.description);
             $('#status').val(data.statuses.status).trigger('change');
             $('#subCategories').val(data.subCategory_id).trigger('change');
             $('#categories').val(data.category_id).trigger('change');
-            mediaDisplay(data.media);
-        }
-
-        // Display media data after editing
-        function mediaDisplay(data) {
-            for (var all in data) {
-                if(data[all].type === 0) {
-                    // Image
-                    setImage(data[all].image_url);
-                }
-            }
-        }
-
-        // Set Image
-        function setImage(image) {
-            var img = document.getElementById("image");
-            img.src = "/images/" + image;
-            img.classList.add("image");
-            // Hidden image
-            document.getElementById("hidden_image").value = image;
-        }
-
-        // Get media after selecting the picture
-        document.getElementById("image_url").onchange = function () {
-            var reader = new FileReader();
-
-            reader.onload = function (e) {
-                setImageTarget(e);
-            };
-
-            // read the image file as a data URL.
-            reader.readAsDataURL(this.files[0]);
-        };
-
-        // Set image target
-        function setImageTarget(image) {
-            // get loaded data and render thumbnail.
-            var img = document.getElementById("image");
-            img.src = image.target.result;
-            img.classList.add("image");
-            // Hidden image
-            document.getElementById("hidden_image").value = image.target.result;
         }
     </script>
 

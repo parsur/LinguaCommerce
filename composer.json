@@ -16,6 +16,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^2.0",
         "morilog/jalali": "3.*",
+        "shiftonelabs/laravel-cascade-deletes": "^1.0",
         "yajra/laravel-datatables": "^1.5",
         "yajra/laravel-datatables-oracle": "~9.0"
     },

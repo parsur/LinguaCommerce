@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use ShiftOneLabs\LaravelCascadeDeletes\CascadesDeletes;
 
 /**
  * @property int $id
@@ -18,6 +19,12 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Article extends Model
 {
+    /**
+     * Cascade deletes.
+     */
+    use CascadesDeletes;
+    protected $cascadeDeletes = ['image', 'video','description','statuses'];
+
     /**
      * @var array
      */
@@ -56,7 +63,7 @@ class Article extends Model
     /*
      * Get all of the course's descriptions.
      */
-    public function description_type() {
+    public function description() {
          return $this->morphOne('App\Models\Description','description');
     }
 

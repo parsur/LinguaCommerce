@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use ShiftOneLabs\LaravelCascadeDeletes\CascadesDeletes;
 
 /**
  * @property int $id
@@ -16,6 +17,12 @@ use Illuminate\Database\Eloquent\Model;
 class Course extends Model
 {
     public $timestamps = false;
+
+    /**
+     * Cascade deletes.
+     */
+    use CascadesDeletes;
+    protected $cascadeDeletes = ['image', 'video','description','statuses'];
 
     /**
      * @var array
@@ -49,13 +56,13 @@ class Course extends Model
      * Get all of the course's media.
      */
     public function video() {
-        return $this->morphOne('App\Models\Video', 'video');
+        return $this->morphMany('App\Models\Video', 'video');
     }
 
     /*
      * Get all of the course's descriptions.
      */
-    public function description_type() {
+    public function description() {
         return $this->morphOne('App\Models\Description','description');
     }
 

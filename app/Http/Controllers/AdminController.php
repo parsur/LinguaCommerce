@@ -16,7 +16,6 @@ use File;
 
 class AdminController extends Controller
 {
-    public $admin = '\App\Models\User';
 
     // Admin Home
     public function admin() {
@@ -71,11 +70,11 @@ class AdminController extends Controller
     }
     // Delete Each Admin
     public function delete(Action $action, $id) {
-        return $action->delete($this->admin,$id);
+        return $action->delete(User::class,$id);
     }
 
     // Edit Data
     public function edit(Action $action,Request $request) {
-        return $action->edit($this->admin,$request->get('id'));
+        return $action->edit(User::class,$request->get('id'));
     }
 }

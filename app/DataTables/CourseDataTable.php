@@ -93,7 +93,7 @@ class CourseDataTable extends DataTable
                     ["className" => 'dt-center text-center', "target" => '_all'],
                 ]
             )
-            ->searching(false)
+            ->searching(true)
             ->info(false)
             ->responsive(true)
             ->dom('PBCfrtip')
@@ -118,7 +118,7 @@ class CourseDataTable extends DataTable
             ->title('نام')
                 ->addCLass("column-title"),
             Column::computed('image_url')
-            ->title('تصویر | ویدئو')
+            ->title('تصویر')
                 ->addClass('column-title'),
             Column::make('price')
             ->title('هزینه')

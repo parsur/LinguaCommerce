@@ -7,31 +7,14 @@
             <option value="1">غیرفعال</option>
         </select>
     </div>
-    {{-- Media Url --}}
-    {{-- <div class="col-md-6 mb-3">
-        <label for="image_url">انتخاب عکس ها:</label>
-        <br>
-        <input type="file" name="image_url[]" id="image_url" multiple />
-        Image
-        <input type="hidden" id="hidden_image" name="hidden_image" />
-        <img id="image" name="image" />
-    </div> --}}
 </div>
-
-{{-- <div class="row">
-    Aparat Url
-    <div class="col-md-12 mb-3">
-        <label for="aparat_url">لینک ویدئو آپارات:</label>
-        <textarea rows="2" id="aparat_url" name="aparat_url" type="url" class="form-control" placeholder="لینک ویدئو آپارات"></textarea>
-    </div>
-</div> --}}
 
 <div class="row">
     {{-- Category --}}
     <div class="col-md-6 mb-3">
-        <label for="categories">دسته بندی سطح-۱:</label>
+        <label for="categories">دسته بندی اول:</label>
         <select name="categories" id="categories" class="custom-select">
-            <option value="">دسته بندی سطح-۱</option>
+            <option value="">دسته بندی اول</option>
             @foreach($categories as $category)
                 <option value="{{ $category->id }}">{{ $category->name }}</option>
             @endforeach

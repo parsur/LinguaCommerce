@@ -24,8 +24,8 @@ Route::group(['middleware' => ['auth','role:admin']], function () {
         Route::get('edit', 'AdminController@edit');
         Route::get('delete/{id}', 'AdminController@delete');
     });
+    // Course
     Route::group(['prefix' => 'course', 'as' => 'course.'], function () {
-        // Course
         Route::get('list', 'CourseController@list');
         Route::get('table/list', 'CourseController@courseTable')->name('list.table');
         Route::get('new', 'CourseController@new')->name('new');
@@ -33,6 +33,22 @@ Route::group(['middleware' => ['auth','role:admin']], function () {
         Route::get('details', 'CourseController@details')->name('details');
         Route::post('store', 'CourseController@store');
         Route::get('delete/{id}','CourseController@delete');
+    });
+    // Course Image
+    Route::group(['prefix' => 'courseImage', 'as' => 'courseImage.'], function () {
+        Route::get('list', 'CourseImageController@list');
+        Route::get('table/list', 'CourseImageController@courseImageTable')->name('list.table');
+        Route::post('store', 'CourseImageController@store');
+        Route::get('edit', 'CourseImageController@edit');
+        Route::get('delete/{id}', 'CourseImageController@delete');
+    });
+    // Course Video
+    Route::group(['prefix' => 'courseVideo', 'as' => 'courseVideo.'], function () {
+        Route::get('list', 'CourseVideoController@list');
+        Route::get('table/list', 'CourseVideoController@courseVideoTable')->name('list.table');
+        Route::post('store', 'CourseVideoController@store');
+        Route::get('edit', 'CourseVideoController@edit');
+        Route::get('delete/{id}', 'CourseVideoController@delete');
     });
     Route::group(['prefix' => 'article', 'as' => 'article.'], function () {
         // Article
@@ -44,21 +60,21 @@ Route::group(['middleware' => ['auth','role:admin']], function () {
         Route::get('details', 'ArticleController@details')->name('details');
         Route::get('delete/{id}', 'ArticleController@delete');
     });
-    // Video
-    Route::group(['prefix' => 'video', 'as' => 'video.'], function () {
-        Route::get('list','VideoController@list');
-        Route::get('table/list','VideoController@videoTable')->name('list.table');
-        Route::post('store','VideoController@store');
-        Route::get('edit','VideoController@edit');
-        Route::get('delete/{id}','VideoController@delete');
+     // Article Video
+     Route::group(['prefix' => 'articleImage', 'as' => 'articleImage.'], function () {
+        Route::get('list', 'ArticleImageController@list');
+        Route::get('table/list', 'ArticleImageController@articleImageTable')->name('list.table');
+        Route::post('store', 'ArticleImageController@store');
+        Route::get('edit', 'ArticleImageController@edit');
+        Route::get('delete/{id}', 'ArticleImageController@delete');
     });
-    // Image
-    Route::group(['prefix' => 'image', 'as' => 'image.'], function() {
-        Route::get('list','ImageController@list');
-        Route::get('table/list','ImageController@imageTable')->name('list.table');
-        Route::post('store','ImageController@store');
-        Route::get('edit','ImageController@edit');
-        Route::get('delete/{id}','ImageController@delete');
+    // Article Video
+    Route::group(['prefix' => 'articleVideo', 'as' => 'articleVideo.'], function () {
+        Route::get('list', 'ArticleVideoController@list');
+        Route::get('table/list', 'ArticleVideoController@articleVideoTable')->name('list.table');
+        Route::post('store', 'ArticleVideoController@store');
+        Route::get('edit', 'ArticleVideoController@edit');
+        Route::get('delete/{id}', 'ArticleVideoController@delete');
     });
     // Sub Categories based on Categories   
     Route::get('/subCategory', 'CategoryController@ajax_subCategory');
@@ -83,7 +99,7 @@ Route::group(['middleware' => ['auth','role:admin']], function () {
 // Authentication
 Auth::routes();
 // Login
-Route::get('login','LoginController@index');
+Route::get('login','LoginController@index')->name('login');
 
 Route::post('login', 'Auth\LoginController@store');
 // Forgotten password
