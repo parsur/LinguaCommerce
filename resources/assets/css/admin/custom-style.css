@@ -331,3 +331,10 @@ div.dataTables_wrapper div.dataTables_paginate {
     float: right;
 }
 
+/* Search input align in dataTable */
+@media screen and (max-width: 767px) {
+    div.dataTables_wrapper div.dataTables_length, div.dataTables_wrapper div.dataTables_filter, div.dataTables_wrapper div.dataTables_info, div.dataTables_wrapper div.dataTables_paginate {
+        text-align: right;
+    }
+}
+

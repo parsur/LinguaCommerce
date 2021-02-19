@@ -16,7 +16,7 @@
         <select name="categories" id="categories" class="custom-select">
             <option value="">دسته بندی اول</option>
             @foreach($categories as $category)
-                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                <option value="{{ $category->id }}" {{ $category->id == optional($course)->category_id ? 'selected' : '' }}>{{ $category->name }}</option>
             @endforeach
         </select>
     </div>
@@ -26,7 +26,7 @@
         <select id="subCategories" name="subCategories" class="custom-select">
             <option value="">دسته بندی سطح-۲</option>
             @foreach($subCategories as $subCategory)
-                <option value="{{ $subCategory->id }}">{{ $subCategory->name }}</option>
+                <option value="{{ $subCategory->id }}" {{ $subCategory->id == optional($course)->subCategory_id ? 'selected' : '' }}>{{ $subCategory->name }}</option>
             @endforeach
         </select>
     </div>

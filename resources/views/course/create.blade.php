@@ -28,15 +28,11 @@
 
 @section('scripts')
 @parent
-    {{-- Displaying media --}}
-    <script src="{{ asset('js/mediaDisplay.js') }}"></script>
     {{-- Tinymce initialization --}}
     <script src="{{ asset('js/tinymceInit.js') }}"></script>
 
     <script>
         let action = new requestHandler(null, '#courseForm', 'course');
-        // Media
-        let media = new mediaDisplay();
 
         // Insert
         action.insert();
@@ -66,8 +62,6 @@
             $('#price').val(data.price);
             $('#description').val(data.description.description);
             $('#status').val(data.statuses.status).trigger('change');
-            $('#categories').val(data.category_id).trigger('change');
-            $('#subCategories').val(data.subCategory_id).trigger('change');
         }
 
         // Ajax Category Based on Sub Category

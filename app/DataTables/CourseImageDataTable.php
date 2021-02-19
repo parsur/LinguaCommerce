@@ -27,8 +27,14 @@ class CourseImageDataTable extends DataTable
             ->editColumn('image_url', function(Image $image) {
                 return "<img src=/images/" . $image->image_url . " height='auto' width='80%' />";
             })
-            ->addColumn('relation', function (Image $image) {
+            // ->filterColumn('relation', function($keyword) {
+            //     return Course->where("courses.name like ?", ["%{$keyword}%"]);
+            // })
+            ->addColumn('image', function (Image $image) {
                 return optional($image->image)->name;
+            })
+            ->filterColumn('image', function($query, $keyword) {
+                $query->whereRaw("courses.name like ?", ["%{$keyword}%"]);
             })
             ->addColumn('action', function(Image $image){
                 return <<<ATAG
@@ -51,7 +57,7 @@ class CourseImageDataTable extends DataTable
      */
     public function query(Image $model)
     {
-        return $model->where('image_type', Course::class);
+        return $model::with('image')->where('image_type', Course::class);
     }
 
     /**
@@ -70,7 +76,8 @@ class CourseImageDataTable extends DataTable
                     ["className" => 'dt-center text-center', "target" => '_all'],
                 ]
             )
-            ->searching(false)
+            ->searching(true)
+            ->lengthChange(true)
             ->info(false)
             ->responsive(true)
             ->dom('PBCfrtip')
@@ -94,7 +101,7 @@ class CourseImageDataTable extends DataTable
             Column::make('image_url')
             ->title('رسانه')
                 ->addClass('column-title'),
-            Column::computed('relation')
+            Column::computed('image')
             ->title('دوره مرتبط')
                 ->addClass('column-title'),
             Column::computed('action') // This column is not in database

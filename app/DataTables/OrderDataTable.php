@@ -65,15 +65,42 @@ class OrderDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+            Column::make('DT_RowIndex')
+            ->title('#')
+                ->addClass('column-title')
+                ->searchable(false)
+                ->orderable(false),
+            Column::make('user_id')
+            ->title('نام کاربر')
+                ->addCLass("column-title"),
+            Column::make('transportation')
+                ->title('نحوه ارسال')
+                    ->addCLass("column-title"),
+            Column::make('payment')
+            ->title('نحوه پرداخت')
+                ->addCLass("column-title"),
+            Column::computed('phone_number')
+            ->title('تلفن همراه')
+                ->addCLass("column-title"),
+            Column::make('payment')
+            ->title('نحوه پرداخت')
+                ->addCLass("column-title"),
+            Column::computed('phone_number')    
+            ->title('تلفن همراه')
+                ->addCLass("column-title"),
+            Column::computed('order_factor')    
+            ->title('فاکتور خرید')
+                ->addCLass("column-title"),
+            Column::computed('total_price')    
+            ->title('هزینه کل')
+                ->addCLass("column-title"),
+            Column::computed('action') // This Column is not in database
+                ->exportable(false)
+                ->searchable(false)
+                ->printable(false)
+                ->orderable(false)
+                ->title('حذف،ویرایش،جزئیات(توضیحات،رسانه)')
+                ->addClass('column-title')
         ];
     }
 

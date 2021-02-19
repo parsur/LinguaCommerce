@@ -79,10 +79,11 @@ class CourseController extends Controller
         $id = $request->get('id');
 
         DB::beginTransaction();
+        $price = $this->convertToEnglish($request->get('price'));
         try {
             $course = Course::updateOrCreate(
                 ['id' => $id],
-                ['name' => $request->get('name'), 'price' => $this->convertToEnglish($request->get('price')), 
+                ['name' => $request->get('name'), 'price' => $price, 
                 'category_id' => $this->subSet($request->get('categories')), 'subCategory_id' => $this->subSet($request->get('subCategories'))]
             );
             // Status
