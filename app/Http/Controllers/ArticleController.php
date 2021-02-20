@@ -129,7 +129,7 @@ class ArticleController extends Controller
 
     // Delete
     public function delete(Action $action,$id) {
-        return $action->delete(Course::class, $id);
+        return $action->delete(Article::class, $id);
     }
 
     // Details

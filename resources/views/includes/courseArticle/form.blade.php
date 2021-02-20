@@ -16,17 +16,17 @@
         <select name="categories" id="categories" class="custom-select">
             <option value="">دسته بندی اول</option>
             @foreach($categories as $category)
-                <option value="{{ $category->id }}" {{ $category->id == optional($course)->category_id ? 'selected' : '' }}>{{ $category->name }}</option>
+                <option value="{{ $category->id }}" {{ $category->id == optional($table)->category_id ? 'selected' : '' }}>{{ $category->name }}</option>
             @endforeach
         </select>
     </div>
     {{-- Sub Category --}}
-    <div class="col-md-6">
+    <div class="col-md-6 mb-3">
         <label for="subCategories">دسته بندی سطح-۲:</label>
         <select id="subCategories" name="subCategories" class="custom-select">
             <option value="">دسته بندی سطح-۲</option>
             @foreach($subCategories as $subCategory)
-                <option value="{{ $subCategory->id }}" {{ $subCategory->id == optional($course)->subCategory_id ? 'selected' : '' }}>{{ $subCategory->name }}</option>
+                <option value="{{ $subCategory->id }}" {{ $subCategory->id == optional($table)->subCategory_id ? 'selected' : '' }}>{{ $subCategory->name }}</option>
             @endforeach
         </select>
     </div>

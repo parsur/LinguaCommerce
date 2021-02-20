@@ -20,7 +20,7 @@
             </div>
  
             {{-- Include Form --}}
-            @include('includes.courseArticle.form')
+            @include('includes.courseArticle.form', ['table' => $course])
 
         </x-slot>
     </x-admin.page>
