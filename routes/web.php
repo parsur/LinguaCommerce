@@ -30,7 +30,8 @@ Route::group(['middleware' => ['auth','role:admin']], function () {
         Route::get('table/list', 'CourseController@courseTable')->name('list.table');
         Route::get('new', 'CourseController@new')->name('new');
         Route::get('edit', 'CourseController@edit');
-        Route::get('details', 'CourseController@details')->name('details');
+        Route::get('adminDetails', 'CourseController@adminDetails')->name('adminDetails');
+        Route::get('userDetails', 'CourseController@userDetails')->name('userDetails')->middleware('signed');
         Route::post('store', 'CourseController@store');
         Route::get('delete/{id}','CourseController@delete');
     });
@@ -57,7 +58,8 @@ Route::group(['middleware' => ['auth','role:admin']], function () {
         Route::get('new', 'ArticleController@new')->name('newArticle');
         Route::post('store', 'ArticleController@store');
         Route::get('edit', 'ArticleController@edit');
-        Route::get('details', 'ArticleController@details')->name('details');
+        Route::get('adminDetails', 'ArticleController@adminDetails')->name('adminDetails');
+        Route::get('userDetails', 'ArticleController@userDetails')->name('userDetails')->middleware('signed');
         Route::get('delete/{id}', 'ArticleController@delete');
     });
      // Article Video

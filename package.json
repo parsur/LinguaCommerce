@@ -1,56 +1,63 @@
 {
-  "private": true,
-  "scripts": {
-    "dev": "npm run development",
-    "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "watch": "npm run development -- --watch",
-    "watch-poll": "npm run watch -- --watch-poll",
-    "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "prod": "npm run production",
-    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --config=node_modules/laravel-mix/setup/webpack.config.js"
-  },
-  "name": "saraRajabi",
-  "version": "1.0.0",
-  "description": "<p align=\"center\"><a href=\"https://laravel.com\" target=\"_blank\"><img src=\"https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg\" width=\"400\"></a></p>",
-  "main": "webpack.mix.js",
-  "directories": {
-    "test": "tests"
-  },
-  "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.15.2",
-    "@fortawesome/fontawesome-svg-core": "^1.2.32",
-    "axios": "^0.21",
-    "bootstrap": "^4.5.3",
-    "datatables.net": "^1.10.23",
-    "datatables.net-responsive": "^2.2.7",
-    "datatables.net-responsive-bs4": "^2.2.7",
-    "jquery": "^3.2",
-    "laravel-mix": "^6.0.11",
-    "lodash": "^4.17.19",
-    "popper.js": "^1.12",
-    "resolve-url-loader": "^3.1.2",
-    "sass": "^1.20.1",
-    "sass-loader": "^8.0.0",
-    "select2": "^4.1.0-rc.0",
-    "vue": "^2.5.17",
-    "vue-template-compiler": "^2.6.10"
-  },
-  "devDependencies": {
-    "laravel-mix": "^6.0.11",
-    "postcss": "^8.2.6",
-    "resolve-url-loader": "^3.1.2",
-    "sass": "^1.32.7",
-    "sass-loader": "^8.0.2"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/parsasamandi/saraRajabi.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/parsasamandi/saraRajabi/issues"
-  },
-  "homepage": "https://github.com/parsasamandi/saraRajabi#readme"
+    "private": true,
+    "scripts": {
+        "dev": "npm run development",
+        "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "watch": "npm run development -- --watch",
+        "watch-poll": "npm run watch -- --watch-poll",
+        "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "prod": "npm run production",
+        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --config=node_modules/laravel-mix/setup/webpack.config.js"
+    },
+    "name": "saraRajabi",
+    "version": "1.0.0",
+    "description": "<p align=\"center\"><a href=\"https://laravel.com\" target=\"_blank\"><img src=\"https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg\" width=\"400\"></a></p>",
+    "main": "webpack.mix.js",
+    "directories": {
+        "test": "tests"
+    },
+    "dependencies": {
+        "@fortawesome/fontawesome-free": "^5.15.2",
+        "@fortawesome/fontawesome-svg-core": "^1.2.32",
+        "axios": "^0.21",
+        "bootstrap": "^4.5.3",
+        "datatables.net": "^1.10.23",
+        "datatables.net-responsive": "^2.2.7",
+        "datatables.net-responsive-bs4": "^2.2.7",
+        "jquery": "^3.2",
+        "laravel-mix": "^6.0.11",
+        "lodash": "^4.17.19",
+        "popper.js": "^1.12",
+        "react-router-dom": "^5.2.0",
+        "resolve-url-loader": "^3.1.2",
+        "sass": "^1.20.1",
+        "sass-loader": "^8.0.0",
+        "select2": "^4.1.0-rc.0",
+        "vue": "^2.5.17",
+        "vue-template-compiler": "^2.6.10"
+    },
+    "devDependencies": {
+        "@babel/preset-react": "^7.0.0",
+        "bootstrap": "^4.0.0",
+        "jquery": "^3.2",
+        "laravel-mix": "^6.0.11",
+        "popper.js": "^1.12",
+        "postcss": "^8.2.6",
+        "react": "^16.2.0",
+        "react-dom": "^16.2.0",
+        "resolve-url-loader": "^3.1.2",
+        "sass": "^1.15.2",
+        "sass-loader": "^8.0.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/parsasamandi/saraRajabi.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/parsasamandi/saraRajabi/issues"
+    },
+    "homepage": "https://github.com/parsasamandi/saraRajabi#readme"
 }

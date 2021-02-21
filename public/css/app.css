@@ -18120,7 +18120,9 @@ input[type=text],input[type=email],input[type=password] {
     border-radius: 0.25rem;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
-
+.chertopert {
+    flex-direction: column;
+}
 /* Background Style  */
 .background_table{
     background-color: #e9ecef;
@@ -18139,6 +18141,8 @@ input[type=text],input[type=email],input[type=password] {
     width: 100%;
     height: 100%;
 }
+
+
 
   
 /*------------------------------------ contacts-list ------------------------------------*/
@@ -18374,6 +18378,13 @@ div.dataTables_wrapper div.dataTables_paginate {
     margin: 0;
     white-space: nowrap;
     float: right;
+}
+
+/* Search input align in dataTable */
+@media screen and (max-width: 767px) {
+    div.dataTables_wrapper div.dataTables_length, div.dataTables_wrapper div.dataTables_filter, div.dataTables_wrapper div.dataTables_info, div.dataTables_wrapper div.dataTables_paginate {
+        text-align: right;
+    }
 }
 
 

@@ -43,6 +43,7 @@ class Action {
      * @return json_encode
      */
     public function deleteWithImage($model,$id,$column) {
+
         $modelImage = $model::find($id);
         if($modelImage) {
             $imageDelete = public_path("images/$modelImage->column");
@@ -62,7 +63,20 @@ class Action {
      * @return json_encode
      */
     public function editWithStatus($model,$id) {
+
         $values = $model::where('id', $id)->with('statuses')->first();
+        return json_encode($values);
+    }
+
+
+    /**
+     * Edit Course and Article.
+     * 
+     * @return json_encode
+     */
+    public function editCourseArticle($model,$id) {
+
+        $values = $model::where('id', $id)->with('statuses','image', 'video', 'description')->first();
         return json_encode($values);
     }
 

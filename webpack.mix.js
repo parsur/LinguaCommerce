@@ -3,6 +3,7 @@ const mix = require('laravel-mix');
 mix.setPublicPath('public');
 mix.setResourceRoot('../');
 
+
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -15,6 +16,7 @@ mix.setResourceRoot('../');
  */
 
 mix.js('resources/assets/js/app.js', 'public/js')
+    .react()
     // DataTable Persian Language
     .copy('resources/assets/js/persian.json', 'public/js/persian.json')
     // Tinymce initialization
@@ -36,5 +38,7 @@ mix.js('resources/assets/js/app.js', 'public/js')
     // App Sass
     .sass('resources/assets/sass/app.scss','public/css');
 
+    
 mix.sourceMaps();
+
 

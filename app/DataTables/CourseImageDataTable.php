@@ -9,6 +9,7 @@ use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
+use Yajra\Datatables\Facades\Datatables;
 
 class CourseImageDataTable extends DataTable
 {
@@ -31,11 +32,15 @@ class CourseImageDataTable extends DataTable
             //     return Course->where("courses.name like ?", ["%{$keyword}%"]);
             // })
             ->addColumn('image', function (Image $image) {
-                return optional($image->image)->name;
+                // return $image->image->name;
+                return $image->image->map(function($image) {
+                    return str_limit($image->title, 30, '...');
+                })->implode('<br>');
             })
-            ->filterColumn('image', function($query, $keyword) {
-                $query->whereRaw("courses.name like ?", ["%{$keyword}%"]);
-            })
+            // ->filterColumn('image_id', function($query, $keyword) {
+            //     $sql = "image_type  like ?";
+            //     $query->whereRaw($sql, ["%{$keyword}%"]);
+            // })
             ->addColumn('action', function(Image $image){
                 return <<<ATAG
                             <a onclick="showConfirmationModal('{$image->id}')">

@@ -5,9 +5,10 @@
     "/js/persian.json": "/js/persian.json",
     "/js/tinymceInit.js": "/js/tinymceInit.js",
     "/js/requestHandler.js": "/js/requestHandler.js",
+    "/js/tinymce.js": "/js/tinymce.js",
+    "/js/imagePreview.js": "/js/imagePreview.js",
     "/fonts/Shabnam-Bold.ttf": "/fonts/Shabnam-Bold.ttf",
     "/fonts/Shabnam.ttf": "/fonts/Shabnam.ttf",
     "/fonts/dambeldor.ttf": "/fonts/dambeldor.ttf",
-    "/images/logo_pic.jpg": "/images/logo_pic.jpg",
-    "/js/tinymce.js": "/js/tinymce.js"
+    "/images/logo_pic.jpg": "/images/logo_pic.jpg"
 }

@@ -72,7 +72,6 @@ class CourseController extends Controller
         return json_encode($output);
     }
 
-
     // Insert
     public function add($request) {
 
@@ -105,27 +104,9 @@ class CourseController extends Controller
         }
     }
 
-    // Convert To English
-    // public function convertToEnglish($number) {
-
-    //     if($number != null) {
-    //         $newNumbers = range(0, 9);
-    //         // 1. Persian HTML decimal
-    //         $persianDecimal = array('&#1776;', '&#1777;', '&#1778;', '&#1779;', '&#1780;', '&#1781;', '&#1782;', '&#1783;', '&#1784;', '&#1785;');
-    //         // 2. Arabic HTML decimal
-    //         $arabicDecimal = array('&#1632;', '&#1633;', '&#1634;', '&#1635;', '&#1636;', '&#1637;', '&#1638;', '&#1639;', '&#1640;', '&#1641;');
-    //         // 3. Arabic Numeric
-    //         $arabic = array('٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩');
-    //         // 4. Persian Numeric
-    //         $persian = array('۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹');
-
-    //         $number =  str_replace($persianDecimal, $newNumbers, $number);
-    //         $number =  str_replace($arabicDecimal, $newNumbers, $number);
-    //         $number =  str_replace($arabic, $newNumbers, $number);
-    //         return str_replace($persian, $newNumbers, $number);
-    //     } 
-    // }
+    // Convert to english
     public function convertToEnglish($number) {
+
         if($number != null) {
             $newNumbers = range(0, 9);
             // 1. Persian HTML decimal
@@ -144,7 +125,6 @@ class CourseController extends Controller
             return str_replace($persian, $newNumbers, $number);
         }
     }
-    
 
     // Product SubSet
     public function subSet($request) {
@@ -158,12 +138,10 @@ class CourseController extends Controller
         }
     }
 
-
     // Edit Course
-    public function edit(Request $request) {
+    public function edit(Action $action, Request $request) {
         // Edit
-        $course = Course::where('id', $request->get('id'))->with('statuses','image', 'video', 'description')->first();
-        return json_encode($course);
+        return $action->editCourseArticle(Course::class, $request->get('id'));
     }
 
     // Delete Each Course
@@ -171,38 +149,17 @@ class CourseController extends Controller
         return $action->delete(Course::class, $id);
     }
 
-    // Details
-    public function details(Request $request) {
+    // Admin Details
+    public function adminDetails(Request $request) {
 
-        $course = Course::where('id', $request->get('id'))->first();
+        $course = Course::findOrFail($request->get('id'));
         return view('course.details', compact('course'));
     }
 
-    // Get Course Image Page
-    public function newImage(Request $request) {
-        // Store Image
-        $vars['courses'] = Course::select('name', 'id')->get();
-        return view('course.create', $vars);
-    }
-
-    // Store Course Image
-    public function storeImage(StoreCourseRequest $request,SuccessMessages $message) {
-
-        // Insert or update
-        $this->add($request);
-
-        // Insert
-        if($request->get('button_action') == "insert") {
-            $success_output = $message->getInsert();
-        }
-        // Update
-        else if($request->get('button_action') == "update") {
-            $success_output = $message->getUpdate();
-        }
-
-        $output = array('success' => $success_output);
-
-        return json_encode($output);
+    // User datails
+    public function userDetails($id) {
+        $course = Course::where('id', $request->get('id'))->first();
+        return response()->json($course);
     }
 
 }

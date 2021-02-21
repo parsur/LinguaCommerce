@@ -121,10 +121,9 @@ class ArticleController extends Controller
     }
 
     // Edit Course
-    public function edit(Request $request) {
+    public function edit(Action $action, Request $request) {
         // Edit
-        $article = Article::where('id', $request->get('id'))->with('statuses','image', 'video','description')->first();
-        return json_encode($article);
+        return $action->editCourseArticle(Article::class, $request->get('id'));
     }
 
     // Delete
@@ -134,7 +133,7 @@ class ArticleController extends Controller
 
     // Details
     public function details(Request $request) {
-        $article = Article::find($request->get('id'));    
+        $article = Article::findOrFail($request->get('id'));    
         return view('article.details', compact('article'));
     }
 

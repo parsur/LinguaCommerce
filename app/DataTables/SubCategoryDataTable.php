@@ -9,6 +9,7 @@ use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
+use DataTables;
 
 class SubCategoryDataTable extends DataTable
 {
@@ -29,8 +30,10 @@ class SubCategoryDataTable extends DataTable
                 else if($subCategory->statuses->status == Status::INVISIBLE) return 'غیر فعال';
                 else '-';
             })
-            ->editColumn('c_id', function (SubCategory $subCategory) {
-                return $subCategory->category->name;
+            ->editColumn('category_id', function (SubCategory $subCategory) {
+                return $subCategory->category->map(function($category) {
+                    return str_limit($category->name, 30, '...');
+                })->implode('<br>');
             })
             ->addColumn('action', function (SubCategory $subCategory) {
                 return <<<ATAG
@@ -101,7 +104,7 @@ class SubCategoryDataTable extends DataTable
             Column::computed('status')
             ->title('وضعیت')
                 ->addClass('column-title'),
-            Column::make('c_id')
+            Column::make('category_id')
             ->title('دسته بندی اول')
                 ->addClass('column-title'),
             Column::computed('action') // This column is not in database
