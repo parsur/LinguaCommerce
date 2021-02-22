@@ -78,6 +78,7 @@ class CourseController extends Controller
         $id = $request->get('id');
 
         DB::beginTransaction();
+
         try {
             $course = Course::updateOrCreate(
                 ['id' => $id],
@@ -149,6 +150,29 @@ class CourseController extends Controller
         return $action->delete(Course::class, $id);
     }
 
+    // Show course page
+    public function show($id) {
+
+        $vars['courses'] = Course::select('id','name','price')->with('category','subCategory')->get();
+        return response()->json($courses);
+    }
+
+    // Search
+    public function search(Request $request) {
+        // If search is requested
+        if(!empty($request->get('search'))) {
+
+            $courses = Course::where('name', $request->get('search'))->paginate(9);
+            if(count($courses) > 0)
+                return response()->json($courses);
+            else 
+                return response()->json('متاسفانه نتیجه ای یافت نشد');
+        }
+        else {
+            return response()->json('لطفا نوشته مورد نظر خود را جستجو کنید');
+        }
+    }
+
     // Admin Details
     public function adminDetails(Request $request) {
 
@@ -158,8 +182,10 @@ class CourseController extends Controller
 
     // User datails
     public function userDetails($id) {
-        $course = Course::where('id', $request->get('id'))->first();
+        
+        $course = Course::find($id);
         return response()->json($course);
     }
+
 
 }

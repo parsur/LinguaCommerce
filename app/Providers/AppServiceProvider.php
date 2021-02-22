@@ -28,13 +28,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Categories
-        $vars['categories'] = Category::select('name','id')->get();
-        // Sub Categories
-        $vars['subCategories'] = SubCategory::select('name','id')->get();
-        // Sub Categories
-        $vars['courses'] = COurse::select('name','id')->get();
-
-        View::share($vars); 
+        //
     }
 }

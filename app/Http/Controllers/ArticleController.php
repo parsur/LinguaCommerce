@@ -131,10 +131,35 @@ class ArticleController extends Controller
         return $action->delete(Article::class, $id);
     }
 
-    // Details
-    public function details(Request $request) {
+    // Search
+    public function search(Request $request) {
+        // If search is requested
+        if(!empty($request->get('search'))) {
+
+            $articles = Article::where('title', $request->get('search'))->paginate(9);
+            if(count($articles) > 0)
+                return response()->json($articles);
+            else 
+                return response()->json('متاسفانه نتیجه ای یافت نشد');
+        }
+        else {
+            return response()->json('لطفا نوشته مورد نظر خود را جستجو کنید');
+        }
+    }
+
+    // Admin details
+    public function adminDetails(Request $request) {
+
         $article = Article::findOrFail($request->get('id'));    
         return view('article.details', compact('article'));
     }
+
+    // User details
+    public function userDetails($id) {
+
+        $article = Article::find($id);
+        return response()->json($article);
+        
+    }   
 
 }
