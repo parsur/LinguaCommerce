@@ -22,12 +22,19 @@ class Course extends Model
      * Cascade deletes.
      */
     use CascadesDeletes;
-    protected $cascadeDeletes = ['image', 'video','description','statuses'];
-
+    protected $cascadeDeletes = ['image', 'video','description','statuses','carts'];
+ 
     /**
      * @var array
      */
     protected $fillable = ['category_id', 'subCategory_id', 'name', 'price'];
+
+    /*
+     * Get all of the course's image.
+     */
+    public function carts() {
+        return $this->hasMany('App\Models\Cart');
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -46,7 +53,7 @@ class Course extends Model
     }
 
     /*
-     * Get all of the course's media.
+     * Get all of the course's image.
      */
     public function image() {
        return $this->morphMany('App\Models\Image', 'image');

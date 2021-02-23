@@ -3,13 +3,17 @@
 namespace App\Providers;
 use File;
 
-
 class Action {
 
     /**
-     * Edit
+     * All reusable actions (GET,POST).
      * 
      * @return json_encode
+     * 
+     */
+
+    /**
+     * Edit
      */
     public function edit($model,$id) {
         try{
@@ -20,10 +24,9 @@ class Action {
             return response()->json($e);
         }
     }
+
     /**
      * Delete
-     * 
-     * @return json_encode
      */
     public function delete($model, $id) {
         // Why did not try catch work?
@@ -39,8 +42,6 @@ class Action {
 
     /**
      * Delete With Image.
-     * 
-     * @return json_encode
      */
     public function deleteWithImage($model,$id,$column) {
 
@@ -59,8 +60,6 @@ class Action {
 
     /**
      * Edit with status.
-     * 
-     * @return json_encode
      */
     public function editWithStatus($model,$id) {
 
@@ -68,11 +67,8 @@ class Action {
         return json_encode($values);
     }
 
-
     /**
      * Edit Course and Article.
-     * 
-     * @return json_encode
      */
     public function editCourseArticle($model,$id) {
 
@@ -80,5 +76,21 @@ class Action {
         return json_encode($values);
     }
 
+    /**
+     * Search.
+     */
+    public function search($model,$search,$coulmn) {
+        // If search is requested
+        if(!empty($search)) {
 
+            $values = $model::where($column, $search)->paginate(9);
+            if(count($values) > 0)
+                return response()->json($values);
+            else 
+                return response()->json('متاسفانه نتیجه ای یافت نشد');
+        }
+        else {
+            return response()->json('لطفا نوشته مورد نظر خود را جستجو کنید');
+        }
+    }
 }

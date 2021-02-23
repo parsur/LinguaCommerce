@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\SubCategory;
 use App\Models\Course;
@@ -9,7 +10,6 @@ use App\Models\Article;
 use App\Models\Status;
 use App\Models\Comment;
 
-use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -34,31 +34,13 @@ class HomeController extends Controller
     }
 
     // Search
-    public function search(Request $request) {
+    public function search(Action $action,Request $request) {
         // If search is requested
-        if(!empty($request->get('search'))) {
-
-            if($request->get('courses')) {
-
-                $courses = Course::where('name', $request->get('search'))->paginate(9);
-                $this->searchExist($courses);
-            } 
-            else if($request->get('articles')) { 
-                
-                $articles = Article::where('title',$request->get('search'))->paginate(9);
-                $this->searchExist($articles);
-            }
+        if($request->get('courses')) {
+            $action->search(Course::class, $request->get('courses'), 'name');
+        } 
+        else if($request->get('articles')) { 
+            $action->search(Article::class, $request->get('articles'), 'title');
         }
-        else {
-            return response()->json('لطفا نوشته مورد نظر خود را جستجو کنید');
-        }
-    }
-
-    // Check if search exists
-    public function searchExist($row) {
-        if(count($row) > 0)
-            return response()->json($row);
-        else 
-            return response()->json('متاسفانه نتیجه ای یافت نشد');
     }
 }

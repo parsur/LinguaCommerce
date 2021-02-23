@@ -13,6 +13,7 @@ use App\DataTables\CourseDataTable;
 use App\Http\Requests\StoreCourseRequest;
 use App\Providers\Action;
 use App\Providers\SuccessMessages;
+use App\Providers\EnglishConvertion;
 use Illuminate\Http\Request;
 use DB;
 use File;
@@ -44,6 +45,10 @@ class CourseController extends Controller
             $vars['course'] = '';
         }
         
+        // Categories
+        $vars['categories'] = Category::select('id','name')->get();
+        // Sub Categories
+        $vars['subCategories'] = SubCategory::select('id','name')->get();
         // Status
         $vars['status'] = Status::select('id','status')->get();
         // Description
@@ -73,7 +78,7 @@ class CourseController extends Controller
     }
 
     // Insert
-    public function add($request) {
+    public function add($request,EnglishConvertion $englishConvertion) {
 
         $id = $request->get('id');
 
@@ -82,7 +87,7 @@ class CourseController extends Controller
         try {
             $course = Course::updateOrCreate(
                 ['id' => $id],
-                ['name' => $request->get('name'), 'price' => $this->convertToEnglish($request->get('price')), 
+                ['name' => $request->get('name'), 'price' => $englishConvertion->convert($request->get('price')), 
                 'category_id' => $this->subSet($request->get('categories')), 'subCategory_id' => $this->subSet($request->get('subCategories'))]
             );
             // Status
@@ -105,27 +110,6 @@ class CourseController extends Controller
         }
     }
 
-    // Convert to english
-    public function convertToEnglish($number) {
-
-        if($number != null) {
-            $newNumbers = range(0, 9);
-            // 1. Persian HTML decimal
-            $persianDecimal = array('&#1776;', '&#1777;', '&#1778;', '&#1779;', '&#1780;', '&#1781;', '&#1782;', '&#1783;', '&#1784;', '&#1785;');
-            // 2. Arabic HTML decimal
-            $arabicDecimal = array('&#1632;', '&#1633;', '&#1634;', '&#1635;', '&#1636;', '&#1637;', '&#1638;', '&#1639;', '&#1640;', '&#1641;');
-            // 3. Arabic Numeric
-            $arabic = array('٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩');
-            // 4. Persian Numeric
-            $persian = array('۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹');
-        
-            $number =  str_replace($persianDecimal, $newNumbers, $number);
-            $number =  str_replace($arabicDecimal, $newNumbers, $number);
-            $number =  str_replace($arabic, $newNumbers, $number);
-
-            return str_replace($persian, $newNumbers, $number);
-        }
-    }
 
     // Product SubSet
     public function subSet($request) {
@@ -158,19 +142,9 @@ class CourseController extends Controller
     }
 
     // Search
-    public function search(Request $request) {
-        // If search is requested
-        if(!empty($request->get('search'))) {
+    public function search(Action $action,Request $request) {
 
-            $courses = Course::where('name', $request->get('search'))->paginate(9);
-            if(count($courses) > 0)
-                return response()->json($courses);
-            else 
-                return response()->json('متاسفانه نتیجه ای یافت نشد');
-        }
-        else {
-            return response()->json('لطفا نوشته مورد نظر خود را جستجو کنید');
-        }
+        $action->search(Course::class,$request->get('search'),'name');
     }
 
     // Admin Details

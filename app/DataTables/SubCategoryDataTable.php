@@ -31,9 +31,11 @@ class SubCategoryDataTable extends DataTable
                 else '-';
             })
             ->editColumn('category_id', function (SubCategory $subCategory) {
-                return $subCategory->category->map(function($category) {
-                    return str_limit($category->name, 30, '...');
-                })->implode('<br>');
+                return $subCategory->category->name;
+            })
+            ->filterColumn('category_id', function($query, $keyword) {
+                $sql = 'category_id in (select id from categories where name like ?)';
+                $query->whereRaw($sql, ["%{$keyword}%"]);
             })
             ->addColumn('action', function (SubCategory $subCategory) {
                 return <<<ATAG

@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\Course;
+use App\Models\Article;
 use App\Models\Status;
 use App\Models\Image;
 use App\Models\Video;
@@ -27,7 +28,7 @@ class CourseDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addIndexColumn()
-            ->rawColumns(['action','course_id','image_url'])
+            ->rawColumns(['action','course_id','image_url','status'])
             ->addColumn('image_url', function(Course $course) {
                 foreach($course->image as $image) { 
                     return "<img src=/images/" . $image->image_url . " height='100px' width='150px' />";
@@ -35,18 +36,35 @@ class CourseDataTable extends DataTable
             })
             ->editColumn('price', function(Course $course) {
                 if($course->price != null) return $course->price . ' تومان';
-                else return '-';
             })
             ->editColumn('category_id', function(Course $course) {
                 return optional($course->category)->name;
             })
+            ->filterColumn('category_id', function($query, $keyword) {
+                $sql = 'category_id in (select id from categories where name like ?)';
+                $query->whereRaw($sql, ["%{$keyword}%"]);
+            })
             ->editColumn('subCategory_id', function(Course $course) {
                 return optional($course->subCategory)->name;
             })
-            ->addColumn('status', function(Course $course) {
+            ->filterColumn('subCategory_id', function($query, $keyword) {
+                $sql = 'subCategory_id in (select id from subCategories where name like ?)';
+                $query->whereRaw($sql, ["%{$keyword}%"]);
+            })
+            ->addColumn('status', function(Course $course) { 
+                if($course->statuses->status === Status::VISIBLE) return 'موجود';
+                else if($course->statuses->status === Status::INVISIBLE) return 'ناموجود';
+            })  
+            ->filterColumn('status', function ($query, $keyword) {
+                switch($keyword) {
+                    case 'موجود': $keyword = 0; break;
+                    case 'ناموجود': $keyword = 1;
+                }
+                $statuses = Course::whereHas('statuses',  function ($subquery) use ($keyword) {
+                    $subquery->where('status', $keyword);
+                })->get()->pluck('id')->toArray();
 
-                if($course->statuses->status === Status::VISIBLE) return 'فعال';
-                else if($course->statuses->status === Status::INVISIBLE) return 'غیر فعال';
+                $query->whereIn('id', $statuses);
             })
             ->addColumn('action',function(Course $course) {
                 $editCourse = URL::signedRoute('course.new', ['id' => $course->id]);
@@ -123,7 +141,7 @@ class CourseDataTable extends DataTable
             Column::make('price')
             ->title('هزینه')
                 ->addClass('column-title'),
-            Column::computed('status')
+            Column::make('status')
             ->title('وضعیت')
                 ->addClass('column-title'),
             Column::make('category_id')

@@ -21,6 +21,8 @@ class CourseImageController extends Controller
 
         // Course Image Table
         $vars['courseImageTable'] = $dataTable->html();
+        // Courses
+        $vars['courses'] = Course::select('id','name')->get();
 
         return view('course.imageList', $vars);
     }

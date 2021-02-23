@@ -38,8 +38,16 @@ class ArticleDataTable extends DataTable
             ->editColumn('category_id', function(Article $article) {
                 return optional($article->category)->name;
             })
+            ->filterColumn('category_id', function($query, $keyword) {
+                $sql = 'category_id in (select id from categories where name like ?)';
+                $query->whereRaw($sql, ["%{$keyword}%"]);
+            })
             ->editColumn('subCategory_id', function(Article $article) {
                 return optional($article->subCategory)->name;
+            })
+            ->filterColumn('subCategory_id', function($query, $keyword) {
+                $sql = 'subCategory_id in (select id from subCategories where name like ?)';
+                $query->whereRaw($sql, ["%{$keyword}%"]);
             })
             ->editColumn('created_at', function(Article $article) {
                 date_default_timezone_set('Asia/Tehran');
@@ -49,9 +57,20 @@ class ArticleDataTable extends DataTable
                 return Jalalian::forge($article->updated_at)->format('%A, %d %B %y');
             })
             ->addColumn('status', function(Article $article) {
-                if($article->statuses->status === Status::VISIBLE) return 'فعال';
-                else if($article->statuses->status === Status::INVISIBLE) return 'غیر فعال';
-                else return '-';
+                if($article->statuses->status === Status::VISIBLE) return 'موجود';
+                else if($article->statuses->status === Status::INVISIBLE) return 'ناموجود';
+            })
+            ->filterColumn('status', function ($query, $keyword = 'فعال') {
+                switch($keyword) {
+                    case 'موجود': $keyword = 0; break;
+                    case 'ناموجود': $keyword = 1;
+                }
+                $statuses = Article::whereHas('statuses',function ($subquery) use ($keyword) {
+                    $subquery->where('status', 'LIKE', '%'.$keyword.'%');
+                })->get()->pluck('id')->toArray();
+
+                $query->whereIn('id', $statuses);
+
             })
             ->addColumn('action',function(Article $article) {
                 $editArticle = URL::signedRoute('article.newArticle', ['id' => $article->id]);
@@ -125,7 +144,7 @@ class ArticleDataTable extends DataTable
             Column::computed('image_url')
             ->title('تصویر')
                 ->addClass('column-title'),
-            Column::computed('status')
+            Column::make('status')
             ->title('وضعیت')
                 ->addClass('column-title'),
             Column::make('category_id')

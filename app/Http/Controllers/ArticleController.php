@@ -133,18 +133,7 @@ class ArticleController extends Controller
 
     // Search
     public function search(Request $request) {
-        // If search is requested
-        if(!empty($request->get('search'))) {
-
-            $articles = Article::where('title', $request->get('search'))->paginate(9);
-            if(count($articles) > 0)
-                return response()->json($articles);
-            else 
-                return response()->json('متاسفانه نتیجه ای یافت نشد');
-        }
-        else {
-            return response()->json('لطفا نوشته مورد نظر خود را جستجو کنید');
-        }
+        $action->search(Article::class,$request->get('search'),'title');
     }
 
     // Admin details

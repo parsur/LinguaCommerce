@@ -96,8 +96,8 @@ Route::group(['middleware' => ['auth','role:admin']], function () {
         Route::get('edit', 'CategoryController@edit');
         Route::get('delete/{id}','CategoryController@delete');
     });
-     // Sub Categories
-     Route::group(['prefix' => 'subCategory', 'as' => 'subCategory.'], function() {
+    // Sub Categories
+    Route::group(['prefix' => 'subCategory', 'as' => 'subCategory.'], function() {
         Route::get('list','SubCategoryController@list');
         Route::get('table/list','SubCategoryController@subCategoryTable')->name('list.table');
         Route::post('store  ','SubCategoryController@store');
@@ -116,9 +116,21 @@ Route::post('login', 'Auth\LoginController@store');
 Route::get('/forgot-password', 'Auth\ForgotPasswordController@index');
 Route::get('/logout','Auth\LoginController@logout')->name('logout');
 // Home
-Route::get('home', 'HomeController@index');
+Route::get('/home', 'HomeController@index');
 Route::post('search', 'HomeController@search');
-// User Login
-Route::get('/user_dashboard', 'UserController@index')->middleware(['auth','role:user']);
+
+// Cart
+Route::group(['prefix' => 'cart', 'as' => 'cart.'], function() {
+    Route::get('index','CartController@index');
+    Route::get('table/list','CartController@cartTable')->name('list.table');
+    Route::get('store/{course_id}','CartController@store');
+    Route::get('delete/{id}','SubCategoryController@delete');
+});
+
+// User 
+Route::group(['middleware' => ['auth','role:user']], function() {
+    // Dashboard
+    Route::get('/user_dashboard', 'UserController@index')->middleware(['auth','role:user']);
+});
 
 Route::view('/{path?}', 'app');

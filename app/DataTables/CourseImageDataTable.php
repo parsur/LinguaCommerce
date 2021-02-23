@@ -28,19 +28,9 @@ class CourseImageDataTable extends DataTable
             ->editColumn('image_url', function(Image $image) {
                 return "<img src=/images/" . $image->image_url . " height='auto' width='80%' />";
             })
-            // ->filterColumn('relation', function($keyword) {
-            //     return Course->where("courses.name like ?", ["%{$keyword}%"]);
-            // })
             ->addColumn('image', function (Image $image) {
-                // return $image->image->name;
-                return $image->image->map(function($image) {
-                    return str_limit($image->title, 30, '...');
-                })->implode('<br>');
+                return $image->image->name;
             })
-            // ->filterColumn('image_id', function($query, $keyword) {
-            //     $sql = "image_type  like ?";
-            //     $query->whereRaw($sql, ["%{$keyword}%"]);
-            // })
             ->addColumn('action', function(Image $image){
                 return <<<ATAG
                             <a onclick="showConfirmationModal('{$image->id}')">
@@ -106,7 +96,7 @@ class CourseImageDataTable extends DataTable
             Column::make('image_url')
             ->title('رسانه')
                 ->addClass('column-title'),
-            Column::computed('image')
+            Column::make('image')
             ->title('دوره مرتبط')
                 ->addClass('column-title'),
             Column::computed('action') // This column is not in database
