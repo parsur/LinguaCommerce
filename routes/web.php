@@ -100,37 +100,57 @@ Route::group(['middleware' => ['auth','role:admin']], function () {
     Route::group(['prefix' => 'subCategory', 'as' => 'subCategory.'], function() {
         Route::get('list','SubCategoryController@list');
         Route::get('table/list','SubCategoryController@subCategoryTable')->name('list.table');
-        Route::post('store  ','SubCategoryController@store');
+        Route::post('store','SubCategoryController@store');
         Route::get('edit','SubCategoryController@edit');
         Route::get('delete/{id}','SubCategoryController@delete');
     });
+    // User
+    Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
+        Route::get('list', 'UserController@list');
+        Route::get('table/list', 'UserController@userTable')->name('list.table');
+        Route::post('store', 'UserController@store');
+        Route::get('edit', 'UserController@edit');
+        Route::get('delete/{id}', 'UserController@delete');
+    });
+    Route::group(['prefix' => 'order', 'as' => 'order.'], function () {
+        // Order
+        Route::get('list','OrderController@list');
+        Route::get('table/list','OrderController@orderTable')->name('order.list.table');
+        Route::get('delete/{id}','OrderController@delete');
+    });
 });
 
-// Authentication
-Auth::routes();
-// Login
-Route::get('login','LoginController@index')->name('login');
+// Authentication {
+    Auth::routes();
+    Route::get('login','LoginController@index')->name('login');
+    Route::post('login', 'Auth\LoginController@store');
+    // Forgotten password
+    Route::get('/forgot-password', 'Auth\ForgotPasswordController@index');
+    Route::get('/logout','Auth\LoginController@logout')->name('logout');
+//}
 
-Route::post('login', 'Auth\LoginController@store');
-// Forgotten password
-Route::get('/forgot-password', 'Auth\ForgotPasswordController@index');
-Route::get('/logout','Auth\LoginController@logout')->name('logout');
 // Home
-Route::get('/home', 'HomeController@index');
+Route::get('home', 'HomeController@index');
 Route::post('search', 'HomeController@search');
-
-// Cart
-Route::group(['prefix' => 'cart', 'as' => 'cart.'], function() {
-    Route::get('index','CartController@index');
-    Route::get('table/list','CartController@cartTable')->name('list.table');
-    Route::get('store/{course_id}','CartController@store');
-    Route::get('delete/{id}','SubCategoryController@delete');
-});
 
 // User 
 Route::group(['middleware' => ['auth','role:user']], function() {
     // Dashboard
     Route::get('/user_dashboard', 'UserController@index')->middleware(['auth','role:user']);
+    // Cart
+    Route::group(['prefix' => 'cart', 'as' => 'cart.'], function() {
+        Route::get('index','CartController@index');
+        Route::post('store/{course_id}','CartController@store');
+        Route::get('delete/{id}','CartController@delete');
+    });
+    Route::group(['prefix' => 'userOrder', 'as' => 'userOrder.'], function() {
+        // Order
+        // Route::get('store','OrderController@store');
+        Route::get('delete/{id}','OrderController@delete');
+    });
 });
+
+Route::get('userOrder/store','OrderController@store');
+
 
 Route::view('/{path?}', 'app');

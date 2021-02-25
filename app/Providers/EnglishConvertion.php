@@ -3,7 +3,6 @@
 namespace App\Providers;
 use File;
 
-
 class EnglishConvertion {
 
     // Convert to english

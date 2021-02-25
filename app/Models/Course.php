@@ -19,7 +19,7 @@ class Course extends Model
     public $timestamps = false;
 
     /**
-     * Cascade deletes.
+     * Cascade On Delete.
      */
     use CascadesDeletes;
     protected $cascadeDeletes = ['image', 'video','description','statuses','carts'];

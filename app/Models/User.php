@@ -7,10 +7,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Notifications\Notifiable;
+use ShiftOneLabs\LaravelCascadeDeletes\CascadesDeletes;
+
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, CascadesDeletes;
+    
+    // Cascade On Delete
+    protected $cascadeDeletes = ['comments', 'orders', 'carts'];
     
     const USER = 'user';
     const ADMIN = 'admin';
@@ -52,5 +57,21 @@ class User extends Authenticatable
     public function comments()
     {   
         return $this->hasMany('App\Models\Comment');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function orders()
+    {   
+        return $this->hasMany('App\Models\Order');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function carts()
+    {   
+        return $this->hasMany('App\Models\Cart');
     }
 }

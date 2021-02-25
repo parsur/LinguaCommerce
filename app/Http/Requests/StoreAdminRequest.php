@@ -28,7 +28,8 @@ class StoreAdminRequest extends FormRequest
             'name' => 'required',
             'password' => 'nullable|min:6|',
             'password2' => 'same:password',
-            'email' => 'email|unique:users,email,' . $request->get('id')
+            'phone_number' => 'nullable|numeric|digits:11',
+            'email' => 'unique:users,email,' . $request->get('id')
         ];
     }
 }

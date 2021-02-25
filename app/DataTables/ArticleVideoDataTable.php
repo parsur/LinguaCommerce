@@ -23,12 +23,19 @@ class ArticleVideoDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addIndexColumn()
-            ->rawColumns(['action','video_url','relation']) 
+            ->rawColumns(['action','video_url']) 
             ->editColumn('video_url', function(Video $video) {
                 return '<iframe src="'.$video->video_url.'"  width="50%" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>';
             })
-            ->addColumn('relation', function (Video $video) {
-                return $video->video->title;
+            ->addColumn('video', function (Video $video) {
+                return $video->video->name;
+            })
+            ->filterColumn('video', function ($query, $keyword) {
+                $articles = Video::whereHas('video', function($subquery) use ($keyword) {
+                    $subquery->where('name', 'LIKE', '%'.$keyword.'%');
+                })->get()->pluck('id')->toArray();
+
+                $query->whereIn('id', $articles);
             })
             ->addColumn('action', function(Video $video){
                 return <<<ATAG
@@ -94,7 +101,7 @@ class ArticleVideoDataTable extends DataTable
             Column::make('video_url')
             ->title('ویدئو')
                 ->addClass('column-title'),
-            Column::computed('relation')
+            Column::make('video')
             ->title('مقاله مرتبط')
                 ->addClass('column-title'),
             Column::computed('action') // This column is not in database

@@ -13,7 +13,6 @@ use App\Models\Cat;
 use App\Models\User;
 use File;
 
-
 class AdminController extends Controller
 {
 
@@ -33,22 +32,23 @@ class AdminController extends Controller
         return view('admin.adminList', $vars);
     }
 
-    // Get Admin
+    // Get admin
     public function adminTable(AdminDataTable $dataTable) {
         return $dataTable->render('admin.adminList');
     }
+    
 
     // Store Admin
     public function store(StoreAdminRequest $request,SuccessMessages $message) {
 
         // Insert
         if($request->get('button_action') == "insert") {
-            $this->addAdmin($request);
+            $this->add($request);
             $success_output = $message->getInsert();
         }
         // Update
         else if($request->get('button_action') == 'update') {
-            $this->addAdmin($request);
+            $this->add($request);
             $success_output = $message->getUpdate();
         }
 
@@ -57,8 +57,8 @@ class AdminController extends Controller
         return json_encode($output);
     }
 
-    // Add Or Update Admin
-    public function addAdmin($request) {
+    // Add or update user
+    public function add($request) {
 
         if($request->get('password') != 'رمز عبور جدید' and $request->get('password') != 'تکرار رمز عبور جدید') {
             $password = Hash::make($request->get('password'));

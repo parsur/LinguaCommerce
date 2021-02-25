@@ -23,12 +23,19 @@ class ArticleImageDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addIndexColumn()
-            ->rawColumns(['action','image_url','relation']) 
+            ->rawColumns(['action','image_url']) 
             ->editColumn('image_url', function(Image $image) {
                 return "<img src=/images/" . $image->image_url . " height='auto' width='80%' />";
             })
-            ->addColumn('relation', function (Image $image) {
-                return $image->image->title;
+            ->addColumn('image', function (Image $image) {
+                return $image->image->name;
+            })
+            ->filterColumn('image', function ($query, $keyword) {
+                $articles = Image::whereHas('image', function($subquery) use ($keyword) {
+                    $subquery->where('name', 'LIKE', '%'.$keyword.'%');
+                })->get()->pluck('id')->toArray();
+
+                $query->whereIn('id', $articles);
             })
             ->addColumn('action', function(Image $image){
                 return <<<ATAG
@@ -94,7 +101,7 @@ class ArticleImageDataTable extends DataTable
             Column::make('image_url')
             ->title('رسانه')
                 ->addClass('column-title'),
-            Column::computed('relation')
+            Column::make('image')
             ->title('مقاله مرتبط')
                 ->addClass('column-title'),
             Column::computed('action') // This column is not in database

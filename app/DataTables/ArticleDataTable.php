@@ -70,7 +70,6 @@ class ArticleDataTable extends DataTable
                 })->get()->pluck('id')->toArray();
 
                 $query->whereIn('id', $statuses);
-
             })
             ->addColumn('action',function(Article $article) {
                 $editArticle = URL::signedRoute('article.newArticle', ['id' => $article->id]);

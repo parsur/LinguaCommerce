@@ -4,31 +4,39 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Cart;
+use App\Models\Order;
 use App\Providers\Action;
+use App\Providers\EnglishConvertion;
+use App\Providers\CartAction;
+use App\Models\Status;
+use DB;
 
 
 class CartController extends Controller
 {
     // Show Cart
-    public function index() {
-        $carts = Cart::where('order_factor', null)->where('user_id', Auth::user()->id)->get();
-        return response()->json($carts);
-        // foreach($carts as $cart) {
-        //     print($cart->course);
-        // }
+    public function index(CartAction $cart) {
+        $cart->visible();
     }
 
     // Store
-    public function store($course_id,EnglishConvertion $englishConvertion,Request $request) {
+    public function store($course_id,Request $request) {
 
-        // Insert into cart
-        $cart = Cart::create([
-            'course_id' => $course_id,
-            'user_id' => Auth::user()->id,
-            'order_factor' => $request->get('order_factor'),
-            'count' => $englishConvertion->convert($request->get('count'))
-        ]);
+        DB::beginTransaction();
+
+        try {
+            // Insert into cart
+            $cart = Order::create([
+                'course_id' => $course_id,
+                'user_id' => Auth::user()->id
+            ]);
+
+            DB::commit();
+
+        } catch(Exception $e) {
+            throw $e;
+            DB::rollBack();
+        }
 
         return response()->json('اطلاعات با موفقیت انجام شد.');
     }

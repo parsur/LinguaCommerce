@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use ShiftOneLabs\LaravelCascadeDeletes\CascadesDeletes;
 
 /**
  * @property int $id
@@ -16,10 +17,17 @@ use Illuminate\Database\Eloquent\Model;
 class Cart extends Model
 {
     public $timestamps = false;
+
+    /**
+     * Cascade On Delete.
+     */
+    use CascadesDeletes;
+    protected $cascadeDeletes = ['status'];
+
     /**
      * @var array
      */
-    protected $fillable = ['user_id', 'course_id', 'count', 'order_factor'];
+    protected $fillable = ['user_id', 'course_id', 'order_factor'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -36,5 +44,6 @@ class Cart extends Model
     {
         return $this->belongsTo('App\Models\User');
     }
+
 
 }

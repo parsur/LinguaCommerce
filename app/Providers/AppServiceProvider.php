@@ -28,6 +28,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // Courses
+        $vars['courses'] = Course::select('id','name')->get();
+
+        View::share($vars); 
+        
     }
 }

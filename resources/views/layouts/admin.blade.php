@@ -48,7 +48,10 @@
                     <nav class="mt-2">
                         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                             {{-- Admin --}}
-                            <x-admin.urlAddress text="ادمین" fontAwesome="fa fa-users" route="{{ url('admin/list') }}" />
+                            <x-admin.urlAddress text="ادمین" fontAwesome="fas fa-user-plus" route="{{ url('admin/list') }}" />
+
+                            {{-- User --}}
+                            <x-admin.urlAddress text="کاربر" fontAwesome="fa fa-user" route="{{ url('user/list') }}" />
 
                             {{-- Courses --}}
                             <x-admin.urlAddressParent text="دوره" fontAwesome="fas fa-graduation-cap">
@@ -98,7 +101,7 @@
                             </x-admin.urlAddressParent>
 
                             {{-- Orders --}}
-                            <x-admin.urlAddress text="سفارشات" fontAwesome="fab fa-first-order" route="{{ url('order/orderlist') }}"/>
+                            <x-admin.urlAddress text="سفارشات" fontAwesome="fab fa-first-order" route="{{ url('order/list') }}"/>
                         </ul>
                     </nav>
                 </div>

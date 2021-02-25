@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use ShiftOneLabs\LaravelCascadeDeletes\CascadesDeletes;
 
 /**
  * @property int $id
@@ -17,16 +18,30 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     public $timestamps = false;
+
+    /**
+     * Cascade On Delete.
+     */
+    use CascadesDeletes;
+    protected $cascadeDeletes = ['status'];
+
     /**
      * @var array
      */
-    protected $fillable = ['user_id', 'order_factor', 'totalـprice', 'transportation', 'payment', 'status'];
+    protected $fillable = ['user_id', 'order_factor', 'totalـprice'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\Models\User');
+    }
+
+    /*
+     * Get all of the order's status.
+     */
+    public function statuses() {
+        return $this->morphOne('App\Models\Status', 'status');
     }
 }

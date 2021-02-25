@@ -20,7 +20,7 @@ use ShiftOneLabs\LaravelCascadeDeletes\CascadesDeletes;
 class Article extends Model
 {
     /**
-     * Cascade deletes.
+     * Cascade On Delete.
      */
     use CascadesDeletes;
     protected $cascadeDeletes = ['image', 'video','description','statuses'];

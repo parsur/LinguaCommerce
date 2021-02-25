@@ -12,7 +12,7 @@ class coursesList extends Component {
   }
 
   componentDidMount () {
-    axios.get('/home').then(response => {
+    axios.get('home').then(response => {
       this.setState({
         courses: response.data.courses,
       })

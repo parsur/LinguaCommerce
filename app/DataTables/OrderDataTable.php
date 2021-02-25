@@ -8,6 +8,8 @@ use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
+use Illuminate\Support\Facades\URL;
+
 
 class OrderDataTable extends DataTable
 {
@@ -21,7 +23,32 @@ class OrderDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', 'order.action');
+            ->addIndexColumn()
+            ->editColumn('user_id', function (Order $order) {
+                return $order->user->name;
+            })
+            ->filterColumn('user_id', function($query, $keyword) {
+                $sql = 'user_id in (select id from users where name like ?)';
+                $query->whereRaw($sql, ["%{$keyword}%"]);
+            })
+            ->addColumn('phone_number', function (Order $order) {
+                return $order->user->phone_number;
+            })
+            ->filterColumn('user_id', function($query, $keyword) {
+                $sql = 'user_id in (select id from users where phone_number like ?)';
+                $query->whereRaw($sql, ["%{$keyword}%"]);
+            })
+            ->addColumn('action',function(Order $order) {
+                // $orderDetails = URL::signedRoute('order.details', ['id' => $order->id]);
+
+                return '<a onclick="showConfirmationModal('.$order->id.')">
+                            <i class="fa fa-trash text-danger" aria-hidden="true"></i>
+                        </a>
+                        &nbsp;
+                        <a href="">
+                            <i class="fa fa-info-circle text-danger" aria-hidden="true"></i>
+                        </a>';
+            });
     }
 
     /**
@@ -43,18 +70,20 @@ class OrderDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-                    ->setTableId('order-table')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    ->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->buttons(
-                        Button::make('create'),
-                        Button::make('export'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    );
+            ->setTableId('orderTable')
+            ->columns($this->getColumns())
+            ->minifiedAjax(route('order.list.table'))
+            ->columnDefs(
+                [
+                    ["className" => 'dt-center text-center', "target" => '_all'],
+                ]
+            )
+            ->searching(true)
+            ->info(false)
+            ->responsive(true)
+            ->dom('PBCfrtip')
+            ->orderBy(1)
+            ->language(asset('js/persian.json'));          
     }
 
     /**
@@ -73,19 +102,7 @@ class OrderDataTable extends DataTable
             Column::make('user_id')
             ->title('نام کاربر')
                 ->addCLass("column-title"),
-            Column::make('transportation')
-                ->title('نحوه ارسال')
-                    ->addCLass("column-title"),
-            Column::make('payment')
-            ->title('نحوه پرداخت')
-                ->addCLass("column-title"),
-            Column::computed('phone_number')
-            ->title('تلفن همراه')
-                ->addCLass("column-title"),
-            Column::make('payment')
-            ->title('نحوه پرداخت')
-                ->addCLass("column-title"),
-            Column::computed('phone_number')    
+            Column::make('phone_number')
             ->title('تلفن همراه')
                 ->addCLass("column-title"),
             Column::computed('order_factor')    

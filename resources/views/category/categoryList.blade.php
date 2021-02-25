@@ -6,7 +6,7 @@
     {{-- Header --}}
     <x-header pageName="دسته بندی اول" buttonValue="دسته بندی اول">
         <x-slot name="table">
-            {!! $categoryTable->table(['class' => 'table table-bordered table-striped table-hover-responsive w-100 nowrap text-center'], false) !!}
+            {!! $categoryTable->table(['class' => 'table table-bordered table-striped table-hover-responsive w-100 nowrap text-center'], false) !!} 
         </x-slot>
     </x-header>
 
@@ -51,12 +51,15 @@
             $('#create_record').click(function () {
                 action.modal();
             });
+
             // Insert
             action.insert();
+
             // Delete
             window.showConfirmationModal = function showConfirmationModal(url) {
                 action.delete(url);
             }
+            
             // Edit
             window.showEditModal = function showEditModal(url) {
                 edit(url);
