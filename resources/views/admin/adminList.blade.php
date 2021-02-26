@@ -3,7 +3,7 @@
 
 @section('content')
   {{-- Header --}}
-  <x-header pageName="ادمین" buttonValue="افزودن ادمین">
+  <x-header pageName="ادمین" buttonValue="ادمین">
     <x-slot name="table">
       {!! $adminTable->table(['class' => 'table table-striped table-bordered table-hover-responsive w-100 nowrap text-center']) !!}
     </x-slot>

@@ -122,10 +122,11 @@ Route::group(['middleware' => ['auth','role:admin']], function () {
 
 // Authentication {
     Auth::routes();
-    Route::get('login','LoginController@index')->name('login');
+    Route::get('login','Auth\LoginController@index')->name('login');
     Route::post('login', 'Auth\LoginController@store');
     // Forgotten password
     Route::get('/forgot-password', 'Auth\ForgotPasswordController@index');
+    // logout
     Route::get('/logout','Auth\LoginController@logout')->name('logout');
 //}
 
@@ -143,14 +144,18 @@ Route::group(['middleware' => ['auth','role:user']], function() {
         Route::post('store/{course_id}','CartController@store');
         Route::get('delete/{id}','CartController@delete');
     });
-    Route::group(['prefix' => 'userOrder', 'as' => 'userOrder.'], function() {
+    Route::group(['prefix' => 'order', 'as' => 'order.'], function() {
         // Order
-        // Route::get('store','OrderController@store');
-        Route::get('delete/{id}','OrderController@delete');
+        Route::post('store','OrderController@store');
+        Route::get('user/delete/{id}','OrderController@delete');
+    });
+    // Profile
+    Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {
+        Route::get('index', 'ProfileController@list');
+        Route::get('edit', 'ProfileController@edit');
+        Route::get('delete/{id}', 'ProfileController@delete');
     });
 });
-
-Route::get('userOrder/store','OrderController@store');
 
 
 Route::view('/{path?}', 'app');

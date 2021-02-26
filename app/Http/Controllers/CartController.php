@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Order;
 use App\Providers\Action;
 use App\Providers\EnglishConvertion;
 use App\Providers\CartAction;
 use App\Models\Status;
+use App\Models\Cart;
 use DB;
 
 
@@ -26,7 +26,7 @@ class CartController extends Controller
 
         try {
             // Insert into cart
-            $cart = Order::create([
+            $cart = Cart::create([
                 'course_id' => $course_id,
                 'user_id' => Auth::user()->id
             ]);
@@ -38,7 +38,7 @@ class CartController extends Controller
             DB::rollBack();
         }
 
-        return response()->json('اطلاعات با موفقیت انجام شد.');
+        return response()->json('اطلاعات با موفقیت به سبد خرید اضافه شد');
     }
 
     // delete

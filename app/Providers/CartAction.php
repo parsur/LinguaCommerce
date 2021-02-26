@@ -13,13 +13,11 @@ class CartAction {
      */
     
 
-    // Visible
+    // Visiblity
     public function visible() {
 
         $carts = Cart::where('user_id', Auth::user()->id)
-            ->whereHas('statuses', function($query) {
-                $query->where('status', Status::VISIBLE);
-            })->get();
+            ->where('order_factor', null)->get();
 
         return response()->json($carts);
     }

@@ -19,12 +19,6 @@ class Cart extends Model
     public $timestamps = false;
 
     /**
-     * Cascade On Delete.
-     */
-    use CascadesDeletes;
-    protected $cascadeDeletes = ['status'];
-
-    /**
      * @var array
      */
     protected $fillable = ['user_id', 'course_id', 'order_factor'];

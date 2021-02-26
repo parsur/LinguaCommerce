@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title','پنل مدیریت ادمین ها')
+@section('title','مدیریت ادمین ها')
 
 @section('content')
   {{-- Header --}}

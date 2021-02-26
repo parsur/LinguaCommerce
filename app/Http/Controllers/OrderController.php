@@ -11,6 +11,7 @@ use App\Models\Status;
 use App\Providers\CartAction;
 use App\DataTables\OrderDataTable;
 use Auth;
+use DB;
 
 class OrderController extends Controller
 {
@@ -42,40 +43,46 @@ class OrderController extends Controller
 
     // Submit final order
     public function store() {
-        // New order
-        $order = new Order();
 
-        // Username
-        $order->user_id = 29;
+        DB::beginTransaction();
 
-        // Count order where user_id is
-        $orderCount = Cart::where('user_id', 29)->count() . 1001;
+        try {
+            // New order
+            $order = new Order();
+            // Username
+            $order->user_id = 29;
+            // Count order where user_id is
+            $orderCount = Cart::where('user_id', 29)->count() . 1001;
+            // Order factor
+            $order_factor = 'saraRajabi' . $orderCount . 29;
+            $order->order_factor = $order_factor;
 
-        // Order factor
-        $order_factor = 'saraRajabi' . $orderCount . 29;
-        $order->order_factor = $order_factor;
+            // Set all carts order_factor
+            $cartProducts = Cart::where('user_id', 29)
+                ->where('order_factor', null)->get();
 
-        // Set all carts order_factor
-        $cartProducts = Cart::where('user_id', 29)
-            ->where('order_factor', null)->get();
+            foreach($cartProducts as $cartProduct) {
+                $cartProduct->order_factor = $order_factor;
+                $cartProduct->save();
+            }
 
-        foreach($cartProducts as $cartProduct) {
+            // Course total price
+            $sum = 0;
+            $cartPrices = Cart::where('order_factor', $order_factor)->get();
+            foreach($cartPrices as $cartPrice) {
+                $sum += $cartPrice->course->price;
+            }
+            $order->total_price = $sum;
+            $order->save();
 
-            $cartProduct->order_factor = $order_factor;
-            $cartProduct->save();
+            DB::commit();
+
+        } catch(Exception $e) {
+            throw $e;
+            DB::rollBack();
         }
-
-        // Course total price
-        $sum = 0;
-        $cartPrices = Cart::where('order_factor', $order_factor)->get();
-        foreach($cartPrices as $cartPrice) {
-            $sum += $cartPrice->course->price;
-        }
-        $order->total_price = $sum;
-
-        $order->save();
         
-        return response()->json($orderCount);
+        return response()->json('سفارش دوره با موفقیت انجام شد');
     }
 
 

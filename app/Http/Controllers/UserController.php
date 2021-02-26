@@ -16,7 +16,7 @@ class UserController extends Controller
 {
     // User Dashboard
     public function index() {
-        return view('user.userHome');
+        return view('user.profile');
     }
 
     // DataTable to blade

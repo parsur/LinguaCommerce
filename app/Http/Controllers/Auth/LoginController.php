@@ -55,7 +55,6 @@ class LoginController extends Controller
             // Authentication passed...
             return redirect()->intended('/adminHome');
         }
-        
     }
     
     /**
@@ -64,8 +63,8 @@ class LoginController extends Controller
      * @var string
      */
     public function logout(Request $request) {
-        Auth::logout();
 
+        Auth::logout();
         return redirect('login');
     }
 

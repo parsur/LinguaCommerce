@@ -47,35 +47,3 @@
         </div>
     </body>
 </html>
-
-
-<html>
-
-<head>
-  <title>Login</title>
-  <link rel="stylesheet" href="./style.css">
-</head>
-
-<body>
-  <div class="login-box">
-    <div class="left-box">
-      <div class="in">
-        <h1>ورود</h1>
-      </div>
-      <div class="UserName">
-        <input type="text" class="input-box" placeholder="UserName">
-      </div>
-      <div class="password">
-        <input type="password" class="input-box" placeholder="Enter paswword">
-      </div>
-      <div class="login">
-        <input type="submit" class="submit-btn" value="Login">
-      </div>
-      <div class="checked">
-        <input type="checkbox" checked="checked" name="remember"> Remember
-      </div>
-    </div>
-  </div>
-</body>
-
-</html>
