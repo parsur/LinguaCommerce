@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 use App\Models\Cart;
-use App\Models\Status;
+use App\Models\Order;
 
 class CartAction {
 
@@ -13,12 +13,13 @@ class CartAction {
      */
     
 
-    // Visiblity
+    // Visible
     public function visible() {
 
-        $carts = Cart::where('user_id', Auth::user()->id)
-            ->where('order_factor', null)->get();
+        $carts = Cart::where('user_id', auth()->user()->id)
+            ->whereNull('order_factor')->get();
 
         return response()->json($carts);
     }
+
 }

@@ -3,7 +3,7 @@
 
 @section('content')
     <div class="container-fluid">
-        <div class="c_panel mt-5">
+        <div class="c_panel mt-4">
             <p class="bg-success admin_panel">
                 به پنل ادمین خوش آمدید.
             </p>

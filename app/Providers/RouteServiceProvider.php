@@ -25,19 +25,8 @@ class RouteServiceProvider extends ServiceProvider
      * 
      * @return page
      */
-    public function redirectTo() {
-        // Get Authentication Role
-        $role = Auth::user()->role; 
-        // Admin Or User
-        switch ($role) {
-          case 'admin':
-            return '/adminHome';
-            break;
-          case 'user':
-            return '/user_dashboard';
-            break; 
-        }
-    }
+    public const HOME = '/';
+    
 
     /**
      * The controller namespace for the application.

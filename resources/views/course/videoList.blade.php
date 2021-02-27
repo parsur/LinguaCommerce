@@ -21,7 +21,7 @@
 
                 {{-- Course --}}
                 <div class="col-md-12">
-                    @include('includes.courseSelectBox')
+                    @include('includes.form.courseSelectBox')
                 </div>
             </div>
         </x-slot>

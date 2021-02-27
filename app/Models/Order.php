@@ -23,7 +23,7 @@ class Order extends Model
      * Cascade On Delete.
      */
     use CascadesDeletes;
-    protected $cascadeDeletes = ['status'];
+    protected $cascadeDeletes = ['statuses'];
 
     /**
      * @var array

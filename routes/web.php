@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Middleware
-Route::group(['middleware' => ['auth','role:admin']], function () {
+Route::group(['middleware' => ['auth','isAdmin']], function () {
     // Admin
     Route::get('adminHome', 'AdminController@admin');
     Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
@@ -29,13 +29,13 @@ Route::group(['middleware' => ['auth','role:admin']], function () {
         Route::get('list', 'CourseController@list');
         Route::get('table/list', 'CourseController@courseTable')->name('list.table');
         Route::get('new', 'CourseController@new')->name('new');
-        Route::get('edit', 'CourseController@edit');
-        // Admin details
-        Route::get('adminDetails', 'CourseController@adminDetails')->name('adminDetails');
-        // User details
-        Route::get('userDetails', 'CourseController@userDetails')->name('userDetails')->middleware('signed');
         Route::post('store', 'CourseController@store');
         Route::get('delete/{id}','CourseController@delete');
+        Route::get('edit', 'CourseController@edit');
+        // Details shown for admin
+        Route::get('adminDetails', 'CourseController@adminDetails')->name('adminDetails');
+        // Details shown for user
+        Route::get('userDetails', 'CourseController@userDetails')->name('userDetails')->middleware('signed');
         // Search
         Route::post('search', 'CourseController@search');
     });
@@ -115,7 +115,8 @@ Route::group(['middleware' => ['auth','role:admin']], function () {
     Route::group(['prefix' => 'order', 'as' => 'order.'], function () {
         // Order
         Route::get('list','OrderController@list');
-        Route::get('table/list','OrderController@orderTable')->name('order.list.table');
+        Route::get('table/list','OrderController@orderTable')->name('list.table');
+        Route::get('details','OrderController@details')->name('details');
         Route::get('delete/{id}','OrderController@delete');
     });
 });
@@ -135,27 +136,31 @@ Route::get('home', 'HomeController@index');
 Route::post('search', 'HomeController@search');
 
 // User 
-Route::group(['middleware' => ['auth','role:user']], function() {
+Route::group(['middleware' => ['auth']], function() {
     // Dashboard
-    Route::get('/user_dashboard', 'UserController@index')->middleware(['auth','role:user']);
+    Route::get('/user_dashboard', 'UserController@index');
     // Cart
     Route::group(['prefix' => 'cart', 'as' => 'cart.'], function() {
-        Route::get('index','CartController@index');
+        Route::get('show','CartController@show');
         Route::post('store/{course_id}','CartController@store');
         Route::get('delete/{id}','CartController@delete');
     });
     Route::group(['prefix' => 'order', 'as' => 'order.'], function() {
         // Order
         Route::post('store','OrderController@store');
-        Route::get('user/delete/{id}','OrderController@delete');
+        // Unsubmitted orders in final order page
+        Route::get('showCart', 'OrderController@showCart');
+        // Submitted orders to be shown for admin and user
+        Route::get('showOrder', 'OrderController@showOrder');
+        Route::get('details','OrderController@details')->name('details');
+        Route::get('delete/{id}','OrderController@delete');
     });
     // Profile
-    Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {
-        Route::get('index', 'ProfileController@list');
-        Route::get('edit', 'ProfileController@edit');
-        Route::get('delete/{id}', 'ProfileController@delete');
+    Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
+        Route::get('show', 'UserController@show');
+        Route::get('edit', 'UserController@edit');
+        Route::get('delete/{id}', 'UserController@delete');
     });
 });
-
 
 Route::view('/{path?}', 'app');

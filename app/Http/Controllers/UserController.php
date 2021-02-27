@@ -15,8 +15,10 @@ use Hash;
 class UserController extends Controller
 {
     // User Dashboard
-    public function index() {
-        return view('user.profile');
+    public function show() {
+
+        $users = User::where('role', User::USER)->get();
+        return response()->json($users);
     }
 
     // DataTable to blade

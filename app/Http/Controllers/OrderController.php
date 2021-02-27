@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Status;
 use App\Providers\CartAction;
 use App\DataTables\OrderDataTable;
+use Illuminate\Support\Facades\Redirect;
 use Auth;
 use DB;
 
@@ -23,12 +24,12 @@ class OrderController extends Controller
         // Order table
         $vars["orderTable"] = $dataTable->html();
 
-        return view('order.orderList', $vars);
+        return view('order.list', $vars);
     }
 
     // Get order
     public function orderTable(OrderDataTable $dataTable) {
-        return $dataTable->render('order.orderList');
+        return $dataTable->render('order.list');
     }
 
     // delete
@@ -36,9 +37,28 @@ class OrderController extends Controller
         return $action->delete(Order::class, $id);
     }
 
-    // Show User's orders
-    public function show(CartAction $cart) {
+    // Show user's carts
+    public function showCart(CartAction $cart) {
         $cart->visible();
+    }
+
+    // Show users's order
+    public function showOrder() {
+        $orders = Order::where('user_id', auth()->user()->role)
+            ->whereNotNull('order_factor')->get();
+
+        return response()->json($orders);
+    }
+
+    // Details
+    public function details(Request $request) {
+
+        // Each order
+        $vars['order'] = Order::where('order_factor', $request->get('order_factor'))->first();
+        // Cart
+        $vars['carts'] = Cart::where('order_factor', $request->get('order_factor'))->get();
+
+        return view('order.details', $vars);
     }
 
     // Submit final order
@@ -73,6 +93,12 @@ class OrderController extends Controller
                 $sum += $cartPrice->course->price;
             }
             $order->total_price = $sum;
+
+            $orderStatus = $order->statuses()->create(['status' => 1]);
+            if($orderStatus) {
+                return Redirect::to('http://heera.it');
+            }
+
             $order->save();
 
             DB::commit();
@@ -81,9 +107,5 @@ class OrderController extends Controller
             throw $e;
             DB::rollBack();
         }
-        
-        return response()->json('سفارش دوره با موفقیت انجام شد');
     }
-
-
 }

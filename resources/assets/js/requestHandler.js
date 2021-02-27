@@ -8,6 +8,7 @@ class requestHandler {
 
     // modal
     modal() {
+        $('#body').css('padding-right', '0px');
         $('#formModal').modal('show');
         $(window.formId)[0].reset();
         $('#form_output').html('');

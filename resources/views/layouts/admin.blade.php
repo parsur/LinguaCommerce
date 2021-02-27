@@ -13,7 +13,7 @@
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 @show
 
-<body class="hold-transition sidebar-mini">
+<body id="body" class="hold-transition sidebar-mini">
     <div class="wrapper">
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-light border-bottom">
@@ -142,6 +142,7 @@
                 dataType: "json"
             });
         </script>
+
 
     @show
 </body>

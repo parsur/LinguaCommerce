@@ -27,6 +27,13 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     /**
+     * Where to redirect users after login.
+     *
+     * @var string
+     */
+    protected $redirectTo = RouteServiceProvider::HOME;
+
+    /**
      * Login.
      *
      * @var string
@@ -66,16 +73,5 @@ class LoginController extends Controller
 
         Auth::logout();
         return redirect('login');
-    }
-
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    public function redirectTo() 
-    {
-        $route = new RedirectAuthentication();
-        $route->redirectTo();
     }
 }

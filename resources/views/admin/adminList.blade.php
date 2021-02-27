@@ -14,7 +14,7 @@
   <x-admin.insert size="modal-l" formId="adminForm">
     <x-slot name="content">
       {{-- Admin list --}}
-      @include('includes.userInsertion')
+      @include('includes.form.user')
     </x-slot>
   </x-admin.insert>
 

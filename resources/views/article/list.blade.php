@@ -9,52 +9,6 @@
     </x-slot>
   </x-header>
 
-  {{-- Insert Modal --}}
-  <x-admin.insert size="modal-l" formId="courseForm">
-    <x-slot name="content">
-      {{-- Title --}}
-      <div class="row">
-        <div class="col-md-12 mb-3">
-          <label for="title">تیتر:</label>
-          <input name="title" id="title" type="text" placeholder="نام">
-        </div>
-      </div>
-      {{-- Categories --}}
-      <div class="row">
-        <div class="col-md-6 mb-3"> 
-          <label for="categories">دسته بندی اول:</label>
-          <select name="categories" id="categories" class="custom-select">
-            <option value="">دسته بندی اول:</option>
-            @foreach($categories as $category)
-              <option value="{{ $category->id }}">{{ $category->name }}</option>
-            @endforeach
-          </select>
-        </div>
-        {{-- Sub Categories --}}
-        <div class="col-md-6 mb-3"> 
-          <label for="categories">دسته بندی سطح-۲</label>
-          <select name="categories" id="subCategories" class="custom-select">
-            <option value="">دسته بندی سطح-۲</option>
-            @foreach($categories as $category)
-              <option value="{{ $category->id }}">{{ $category->name }}</option>
-            @endforeach
-          </select>
-        </div>
-      </div>
-      {{-- Status --}}
-      <div class="row">
-        <div class="col-md-12 mb-3">
-          <label for="status">وضعیت:</label>
-          <select id="status" name="status" class="custom-select">
-            <option value="0">فعال</option>
-            <option value="1">غیرفعال</option>
-          </select>
-        </div>
-      </div>
-      
-    </x-slot>
-  </x-admin.insert>
-
   {{-- Delete Modal --}}
   <x-admin.delete title="آیا مایل به حذف مقاله هستید؟"/>
 @endsection
@@ -62,26 +16,15 @@
 
 @section('scripts')
   @parent
-
   {{-- Article Table --}}
   {!! $articleTable->scripts() !!}
 
   <script>
     $(document).ready(function () {
-
       // Article DataTable
       let dt = window.LaravelDataTables['articleTable'];
-
       // Actions(DataTable,Form,Url)
       let action = new requestHandler(dt,'#articleForm','article');
-
-      // Record modal
-      $('#create_record').click(function () {
-        action.modal();
-      });
-
-      // Insert
-      action.insert();
 
       // Delete
       window.showConfirmationModal = function showConfirmationModal(url) {

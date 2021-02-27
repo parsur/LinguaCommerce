@@ -18142,9 +18142,10 @@ input[type=text],input[type=email],input[type=password] {
     height: 100%;
 }
 
+#imageLabel {
+    font-family: 'shabnam';
+}
 
-
-  
 /*------------------------------------ contacts-list ------------------------------------*/
 
 .contacts-list-img {
@@ -18382,9 +18383,9 @@ div.dataTables_wrapper div.dataTables_paginate {
 
 /* Search input align in dataTable */
 @media screen and (max-width: 767px) {
-    div.dataTables_wrapper div.dataTables_length, div.dataTables_wrapper div.dataTables_filter, div.dataTables_wrapper div.dataTables_info, div.dataTables_wrapper div.dataTables_paginate {
-        text-align: right;
-    }
+    /* div.dataTables_wrapper div.dataTables_length, div.dataTables_wrapper div.dataTables_filter, div.dataTables_wrapper div.dataTables_info, div.dataTables_wrapper div.dataTables_paginate {
+        text-align: right !important;
+    } */
 }
 
 

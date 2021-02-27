@@ -78,9 +78,11 @@ class CourseController extends Controller
     }
 
     // Insert
-    public function add($request,EnglishConvertion $englishConvertion) {
+    public function add($request) {
 
         $id = $request->get('id');
+        // English convertion
+        $englishConvertion = new EnglishConvertion();
 
         DB::beginTransaction();
 

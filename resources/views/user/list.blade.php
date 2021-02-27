@@ -13,7 +13,7 @@
   <x-admin.insert size="modal-l" formId="userForm">
     <x-slot name="content">
         {{-- User form --}}
-        @include('includes.userInsertion')
+        @include('includes.form.user')
     </x-slot>
   </x-admin.insert>
 

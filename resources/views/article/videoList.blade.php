@@ -5,25 +5,15 @@
     {{-- Header --}}
     <x-header pageName="ویدئو مقاله" buttonValue="ویدئو مقاله">
         <x-slot name="table">
-            {!! $articleVideoTable->table(['class' => 'table table-bordered table-striped table-hover-responsive w-100 nowrap text-center'], false) !!}
+            {!! $articleVideoTable->table(['class' => 'table table-bordered table-striped table-hover-responsive w-100 text-center'], false) !!}
         </x-slot>
     </x-header>
 
     {{-- Insert Modal --}}
     <x-admin.insert size="modal-lg" formId="articleVideoForm">
         <x-slot name="content">
-            <div class="row">
-                {{-- Video --}}
-                <div class="col-md-12 mb-3">
-                  <label for="aparat_url">لینک ویدئو:</label>
-                  <textarea rows="3" id="aparat_url" name="aparat_url" type="text" class="form-control" placeholder="لینک ویدئو آپارات"></textarea>
-                </div>
-
-                {{-- Articles --}}
-                <div class="col-md-12">
-                    @include('includes.articleSelectBox')
-                </div>
-            </div>
+            {{-- Form --}}
+            @include('includes.form.video')
         </x-slot>
     </x-admin.insert>
 

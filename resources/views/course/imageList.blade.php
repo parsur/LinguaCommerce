@@ -13,22 +13,8 @@
   {{-- Insert Modal --}}
   <x-admin.insert size="modal-lg" formId="courseImageForm">
     <x-slot name="content">
-      <div class="row">
-        {{-- courses --}}
-        <div class="col-md-6 mb-3">
-          @include('includes.courseSelectBox')
-        </div>
-        {{-- Image --}}
-        <div class="col-md-6 mb-4">
-          <label for="image">تصویر:</label>
-          <br>
-          <input type="file" id="image" name="image" />
-          {{-- Hidden Image --}}
-          <input type="hidden" id="hidden_image" name="hidden_image"/>
-          {{-- Image to be shown --}}
-          <img id="picture">
-        </div>
-      </div>
+      {{-- Form --}}
+      @include('includes.form.image')
     </x-slot>
   </x-admin.insert>
 

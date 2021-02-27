@@ -15,7 +15,7 @@ use DB;
 class CartController extends Controller
 {
     // Show Cart
-    public function index(CartAction $cart) {
+    public function show(CartAction $cart) {
         $cart->visible();
     }
 

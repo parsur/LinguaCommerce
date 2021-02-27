@@ -23,14 +23,11 @@ class ConfirmPasswordController extends Controller
     use ConfirmsPasswords;
 
     /**
-     * Where to redirect users when the intended url fails.
+     * Where to redirect users after login.
      *
      * @var string
      */
-    public function redirectTo() {
-        $route = new RedirectAuthentication();
-        $route->redirectTo();
-    }
+    protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.

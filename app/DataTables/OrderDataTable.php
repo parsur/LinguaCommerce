@@ -9,6 +9,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 use Illuminate\Support\Facades\URL;
+use DataTables;
 
 
 class OrderDataTable extends DataTable
@@ -39,13 +40,13 @@ class OrderDataTable extends DataTable
                 $query->whereRaw($sql, ["%{$keyword}%"]);
             })
             ->addColumn('action',function(Order $order) {
-                // $orderDetails = URL::signedRoute('order.details', ['id' => $order->id]);
+                $orderDetails = URL::signedRoute('order.details', ['order_factor' => $order->order_factor]);
 
                 return '<a onclick="showConfirmationModal('.$order->id.')">
                             <i class="fa fa-trash text-danger" aria-hidden="true"></i>
                         </a>
                         &nbsp;
-                        <a href="">
+                        <a href="'.$orderDetails.'">
                             <i class="fa fa-info-circle text-danger" aria-hidden="true"></i>
                         </a>';
             });
