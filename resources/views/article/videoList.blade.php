@@ -13,7 +13,7 @@
     <x-admin.insert size="modal-lg" formId="articleVideoForm">
         <x-slot name="content">
             {{-- Form --}}
-            @include('includes.form.video')
+            @include('includes.form.articleVideo')
         </x-slot>
     </x-admin.insert>
 

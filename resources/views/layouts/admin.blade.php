@@ -64,6 +64,8 @@
                                     <x-admin.urlAddress text="لیست عکس ها" fontAwesome="null" route="{{ url('courseImage/list ') }}" />
                                     {{-- Video List --}}
                                     <x-admin.urlAddress text="لیست ویدئو ها" fontAwesome="null" route="{{ url('courseVideo/list ') }}" />
+                                    {{-- Course content List --}}
+                                    <x-admin.urlAddress text="لیست محتوا" fontAwesome="null" route="{{ url('courseFile/list ') }}" /> 
                                 </x-slot>
                             </x-admin.urlAddressParent>
 
@@ -77,7 +79,7 @@
                                     {{-- Image List --}}
                                     <x-admin.urlAddress text="لیست عکس ها" fontAwesome="null" route="{{ url('articleImage/list ') }}" />
                                     {{-- Video List --}}
-                                    <x-admin.urlAddress text="لیست ویدئو ها" fontAwesome="null" route="{{ url('articleVideo/list ') }}" />       
+                                    <x-admin.urlAddress text="لیست ویدئو ها" fontAwesome="null" route="{{ url('articleVideo/list ') }}" />        
                                 </x-slot>
                             </x-admin.urlAddressParent>
 
@@ -96,7 +98,7 @@
                             <x-admin.urlAddressParent Text="تنظیمات" fontAwesome="fa fa-cog">
                                 <x-slot name="content">
                                     {{-- Home --}}
-                                    <x-admin.urlAddress text="صفحه خانه" fontAwesome="null" route="{{ url('category/list') }}" />
+                                    <x-admin.urlAddress text="صفحه خانه" fontAwesome="null" route="{{ url('homeSetting/new') }}" />
                                 </x-slot>
                             </x-admin.urlAddressParent>
 

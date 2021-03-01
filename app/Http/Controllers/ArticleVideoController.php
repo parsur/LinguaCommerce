@@ -18,8 +18,6 @@ class ArticleVideoController extends Controller
 
         // Video Table
         $vars['articleVideoTable'] = $dataTable->html();
-        // Articles
-        $vars['articles'] = Article::select('id', 'title')->get();
 
         return view('article.videoList', $vars);
     }
@@ -55,18 +53,18 @@ class ArticleVideoController extends Controller
         foreach($request->get('articles') as $article) {
             Video::updateOrCreate(
                 ['id' => $request->get('id')],
-                ['video_url' => $request->get('aparat_url'), 'video_id' => $article, 'video_type' => Article::class]
+                ['video_url' => $request->get('aparat_url'), 'video_id' => $article, 'video_type' => Article::class, 'type' => Poster::VIDEO]
             );
         }
     }
 
     // Delete
     public function delete(Action $action, $id) {
-        return $action->delete(Video::class,$id);
+        return $action->delete(Poster::class,$id);
     }
 
     // Edit
     public function edit(Action $action,Request $request) {
-        return $action->edit(Video::class,$request->get('id'));
+        return $action->edit(Poster::class,$request->get('id'));
     }
 }

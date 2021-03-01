@@ -2,9 +2,6 @@
 
 namespace App\Providers;
 
-use App\Models\Category;
-use App\Models\SubCategory;
-use App\Models\Course;
 use Illuminate\Support\ServiceProvider;
 use View;
 
@@ -29,8 +26,14 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         // Courses
-        $vars['courses'] = Course::select('id','name')->get();
-
+        $vars['courses'] = \App\Models\Course::select('id','name')->get();
+        // Articles
+        $vars['articles'] = \App\Models\Article::select('id','title')->get();
+        // Categories
+        $vars['categories'] = \App\Models\Category::select('id', 'name')->get();
+        // Sub Category
+        $vars['subCategories'] = \App\Models\SubCategory::select('id', 'name')->get();
+        
         View::share($vars); 
         
     }

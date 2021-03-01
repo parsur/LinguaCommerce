@@ -64,16 +64,18 @@ class ArticleImageController extends Controller
 
             foreach($request->get('articles') as $article_id) {
                 // Update
-                $imageUpload = Image::find($request->get('id'));
+                $imageUpload = Poster::find($request->get('id'));
                 if(!$imageUpload) {
                     // Insert
-                    $imageUpload = new Image();
+                    $imageUpload = new Poster();
                 }
-                $imageUpload->image_id = $article_id;
-                $imageUpload->image_type = Article::class;
-    
+                $imageUpload->poster_id = $article_id;
+                $imageUpload->poster_type = Article::class;
+                // 0 = image
+                $imageUpload->type = Poster::IMAGE;
+
                 if(isset($file)) {
-                    $imageUpload->image_url = $file;
+                    $imageUpload->url = $file;
                 }
                 $imageUpload->save();
             }
@@ -88,11 +90,11 @@ class ArticleImageController extends Controller
 
     // Delete
     public function delete(Action $action, $id) {
-        return $action->deleteWithImage(Image::class,$id,'image_url');
+        return $action->deleteWithImage(Poster::class,$id,'url');
     }
 
     // Edit
     public function edit(Action $action,Request $request) {
-        return $action->edit(Image::class,$request->get('id'));
+        return $action->edit(Poster::class,$request->get('id'));
     }
 }

@@ -7,7 +7,7 @@ use App\DataTables\CourseImageDataTable;
 use App\Http\Requests\StoreCourseImageRequest;
 use App\Providers\SuccessMessages;
 use App\Providers\Action;
-use App\Models\Image;
+use App\Models\Poster;
 use App\Models\Course;
 use DB;
 
@@ -19,7 +19,7 @@ class CourseImageController extends Controller
         // dataTable
         $dataTable = new CourseImageDataTable();
 
-        // Course Image Table
+        // CourseImage Table
         $vars['courseImageTable'] = $dataTable->html();
 
         return view('course.imageList', $vars);
@@ -63,16 +63,18 @@ class CourseImageController extends Controller
 
             foreach($request->get('courses') as $image_id) {
                 // Update
-                $imageUpload = Image::find($request->get('id'));
+                $imageUpload = Poster::find($request->get('id'));
                 if(!$imageUpload) {
                     // Insert
-                    $imageUpload = new Image();
+                    $imageUpload = new Poster();
                 }
-                $imageUpload->image_id = $image_id;
-                $imageUpload->image_type = Course::class;
-    
+                $imageUpload->poster_id = $image_id;
+                $imageUpload->poster_type = Course::class;
+                // 0 = image
+                $imageUpload->type = Poster::IMAGE;
+
                 if(isset($file)) {
-                    $imageUpload->image_url = $file;
+                    $imageUpload->url = $file;
                 }
                 $imageUpload->save();
             }
@@ -87,11 +89,11 @@ class CourseImageController extends Controller
 
     // Delete
     public function delete(Action $action, $id) {
-        return $action->deleteWithImage(Image::class,$id,'image_url');
+        return $action->deleteWithImage(Poster::class,$id,'url');
     }
 
     // Edit
     public function edit(Action $action,Request $request) {
-        return $action->edit(Image::class,$request->get('id'));
+        return $action->edit(Poster::class,$request->get('id'));
     }
 }

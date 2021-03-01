@@ -12,18 +12,8 @@
     {{-- Insert Modal --}}
     <x-admin.insert size="modal-lg" formId="courseVideoForm">
         <x-slot name="content">
-            <div class="row">
-                {{-- Video --}}
-                <div class="col-md-12 mb-3">
-                  <label for="aparat_url">لینک ویدئو:</label>
-                  <textarea rows="3" id="aparat_url" name="aparat_url" type="text" class="form-control" placeholder="لینک ویدئو آپارات"></textarea>
-                </div>
-
-                {{-- Course --}}
-                <div class="col-md-12">
-                    @include('includes.form.courseSelectBox')
-                </div>
-            </div>
+            {{-- Form --}}
+            @include('includes.form.courseVideo')
         </x-slot>
     </x-admin.insert>
 

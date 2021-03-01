@@ -1,22 +1,21 @@
-import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import coursesList from './coursesList'
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import FirstPage from './components/Pages/FirstPage';
 
-class App extends Component {
-    render () {
-        return (
-            <BrowserRouter>
-            <div>
-              <Switch>
-                <Route exact path='/' component={coursesList} />
-              </Switch>
-            </div>
-          </BrowserRouter>
-        )
-    }
+function App() {
+
+  return (
+    <div>
+      <Router>
+        <FirstPage />
+        <Switch>
+          {/* this is basically how to Route
+          <Route path="/services" exact component={Services}/>
+              then you add more of these for more routes */}
+        </Switch>
+      </Router>
+    </div>
+  );
 }
 
-if(document.getElementById('app')) {
-  ReactDOM.render(<App />, document.getElementById('app'))
-}
+export default App;

@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\Image;
+use App\Models\Poster;
 use App\Models\Course;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
@@ -24,27 +24,28 @@ class CourseImageDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addIndexColumn()
-            ->rawColumns(['action','image_url']) 
-            ->editColumn('image_url', function(Image $image) {
-                return "<img src=/images/" . $image->image_url . " height='auto' width='80%' />";
+            ->rawColumns(['action','url']) 
+            ->editColumn('url', function(Poster $poster) {
+                return "<img src=/images/" . $poster->url . " height='auto' width='80%' />";
             })
-            ->addColumn('image', function (Image $image) {
-                return $image->image->name;
+            ->addColumn('image', function (Poster $poster) {
+                return $poster->poster->name;
             })
             ->filterColumn('image', function ($query, $keyword) {
-                $courses = Image::whereHas('image', function($subquery) use ($keyword) {
+                
+                $courses = Poster::where('type', Poster::ّIMAGE)->whereHas('poster', function($subquery) use ($keyword) {
                     $subquery->where('name', 'LIKE', '%'.$keyword.'%');
                 })->get()->pluck('id')->toArray();
 
                 $query->whereIn('id', $courses);
             })
-            ->addColumn('action', function(Image $image){
+            ->addColumn('action', function(Poster $poster){
                 return <<<ATAG
-                            <a onclick="showConfirmationModal('{$image->id}')">
+                            <a onclick="showConfirmationModal('{$poster->id}')">
                                 <i class="fa fa-trash text-danger" aria-hidden="true"></i>
                             </a>
                             &nbsp;
-                            <a onclick="showEditModal('{$image->id}')">
+                            <a onclick="showEditModal('{$poster->id}')">
                                 <i class="fa fa-edit text-danger" aria-hidden="true"></i>
                             </a>
                         ATAG;
@@ -54,12 +55,12 @@ class CourseImageDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Image $model
+     * @param \App\Models\Poster $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Image $model)
+    public function query(Poster $model)
     {
-        return $model::with('image')->where('image_type', Course::class);
+        return $model::where('poster_type', Course::class)->where('type', $model::IMAGE);
     }
 
     /**
@@ -100,7 +101,7 @@ class CourseImageDataTable extends DataTable
                 ->addClass('column-title')
                 ->searchable(false)
                 ->orderable(false),
-            Column::make('image_url')
+            Column::make('url')
             ->title('رسانه')
                 ->addClass('column-title'),
             Column::make('image')

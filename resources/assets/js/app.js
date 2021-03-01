@@ -21,7 +21,7 @@ require('select2/dist/js/select2');
 // require('tinymce/plugins/directionality');
 
 // React
-require('./components/App');
+require('./App');
 
 
 

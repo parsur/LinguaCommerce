@@ -3,7 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\Article;
-use App\Models\Video;
+use App\Models\Poster;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
@@ -31,19 +31,20 @@ class ArticleVideoDataTable extends DataTable
                 return $video->video->name;
             })
             ->filterColumn('video', function ($query, $keyword) {
-                $articles = Video::whereHas('video', function($subquery) use ($keyword) {
+
+                $articles = Poster::where('type', Poster::VIDEO)->whereHas('poster', function($subquery) use ($keyword) {
                     $subquery->where('name', 'LIKE', '%'.$keyword.'%');
                 })->get()->pluck('id')->toArray();
 
                 $query->whereIn('id', $articles);
             })
-            ->addColumn('action', function(Video $video){
+            ->addColumn('action', function(Poster $poster){
                 return <<<ATAG
-                            <a onclick="showConfirmationModal('{$video->id}')">
+                            <a onclick="showConfirmationModal('{$poster->id}')">
                                 <i class="fa fa-trash text-danger" aria-hidden="true"></i>
                             </a>
                             &nbsp;
-                            <a onclick="showEditModal('{$video->id}')">
+                            <a onclick="showEditModal('{$poster->id}')">
                                 <i class="fa fa-edit text-danger" aria-hidden="true"></i>
                             </a>
                         ATAG;
@@ -53,12 +54,12 @@ class ArticleVideoDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Video $model
+     * @param \App\Models\Poster $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Video $model)
+    public function query(Poster $model)
     {
-        return $model->where('video_type', Article::class);
+        return $model->where('poster_type', Article::class)->where('type', $model::VIDEO);
     }
 
     /**

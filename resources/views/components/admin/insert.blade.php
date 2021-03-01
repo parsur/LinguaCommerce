@@ -1,5 +1,5 @@
 <!-- Modal Creation -->
-<div id="formModal" class="modal fade bd-example-modal text-right" tabindex="-1" role="dialog" aria-hidden="true">
+<div id="formModal" class="modal fade" data-toggle="modal">
     <div class="modal-dialog {{ $size }}">
       <div class="modal-content">
         <div class="modal-header">

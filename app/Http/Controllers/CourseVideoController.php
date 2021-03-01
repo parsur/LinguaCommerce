@@ -7,7 +7,7 @@ use App\Http\Requests\StoreCourseVideoRequest;
 use App\DataTables\CourseVideoDataTable;
 use App\Providers\SuccessMessages;
 use App\Providers\Action;
-use App\Models\Video;
+use App\Models\Poster;
 use App\Models\Course;
 use DB;
 
@@ -50,22 +50,22 @@ class CourseVideoController extends Controller
     // Add Video
     public function add($request) {
 
-        // Course videos
+        // Insert Course videos
         foreach($request->get('courses') as $course) {
-            Video::updateOrCreate(
+            Poster::updateOrCreate(
                 ['id' => $request->get('id')],
-                ['video_url' => $request->get('aparat_url'), 'video_id' => $course, 'video_type' => Course::class]
+                ['url' => $request->get('aparat_url'), 'poster_id' => $course, 'poster_type' => Course::class, 'type' => Poster::VIDEO]
             );
         }
     }
 
     // Delete
     public function delete(Action $action, $id) {
-        return $action->delete(Video::class,$id);
+        return $action->delete(Poster::class,$id);
     }
 
     // Edit
     public function edit(Action $action,Request $request) {
-        return $action->edit(Video::class,$request->get('id'));
+        return $action->edit(Poster::class,$request->get('id'));
     }
 }

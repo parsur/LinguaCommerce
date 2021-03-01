@@ -53,17 +53,10 @@ class Course extends Model
     }
 
     /*
-     * Get all of the course's image.
+     * Get all of the course's poster.
      */
-    public function image() {
-       return $this->morphMany('App\Models\Image', 'image');
-    }
-
-    /*
-     * Get all of the course's media.
-     */
-    public function video() {
-        return $this->morphMany('App\Models\Video', 'video');
+    public function poster() {
+       return $this->morphMany('App\Models\Poster', 'poster');
     }
 
     /*

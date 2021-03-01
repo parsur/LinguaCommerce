@@ -40,12 +40,16 @@
         <div class="col-md-3">
             <div class="card">
                 <div class="card-body">
-                    @foreach($cart->course->image as $image)
-                    <img class="card-img-top mb-3" src="/images/{{ $image->image_url }}">
-                    @endforeach
+                    {{-- Image --}}
+                    <img class="card-img-top mb-3" src="/images/{{ $cart->course->image[0]->image_url }}">
+                    {{-- Name --}}
                     <h5 class="card-title">{{ $cart->course->name }}</h5>
+                    {{-- Price --}}
                     <p class="card-text">{{ $cart->course->price }} تومان</p>
+                    {{-- Status --}}
                     @if($cart->course->status == 0) <p class="card-text">موجود</p> @else <p class="card-text">ناموجود</p> @endif
+                    {{-- Description --}}
+                    {{-- {!! $cart->course->description->description !!} --}}
                 </div>
             </div>
         </div>

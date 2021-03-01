@@ -17,6 +17,7 @@ use App\Providers\EnglishConvertion;
 use Illuminate\Http\Request;
 use DB;
 use File;
+use Storage;
 
 class CourseController extends Controller
 {
@@ -40,7 +41,7 @@ class CourseController extends Controller
     public function new(Request $request) {
         // Edit
         if($request->get('id')) {
-            $vars['course'] = Course::find($request->get('id'));
+            $vars['course'] = Course::where('id',$request->get('id'))->first();
         } else {
             $vars['course'] = '';
         }
@@ -153,7 +154,7 @@ class CourseController extends Controller
     public function adminDetails(Request $request) {
 
         $course = Course::findOrFail($request->get('id'));
-        return view('course.details', compact('course'));
+        return view('course.details', compact('course','test'));
     }
 
     // User datails

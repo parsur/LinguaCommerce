@@ -14,7 +14,7 @@
   <x-admin.insert size="modal-lg" formId="courseImageForm">
     <x-slot name="content">
       {{-- Form --}}
-      @include('includes.form.image')
+      @include('includes.form.courseImage')
     </x-slot>
   </x-admin.insert>
 

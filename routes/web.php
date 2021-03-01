@@ -119,6 +119,21 @@ Route::group(['middleware' => ['auth','isAdmin']], function () {
         Route::get('details','OrderController@details')->name('details');
         Route::get('delete/{id}','OrderController@delete');
     });
+    // Home Setting
+    Route::group(['prefix' => 'homeSetting', 'as' => 'homeSetting.'], function() {
+        // Home Setting
+        Route::get('new','HomeSettingController@new');
+        Route::post('store','HomeSettingController@store');
+    });
+    // Course file
+    Route::group(['prefix' => 'courseFile', 'as' => 'courseFile.'], function() {
+        // File
+        Route::get('list','CourseFileController@list');
+        Route::get('table/list','CourseFileController@courseFileTable')->name('list.table');
+        Route::post('store', 'CourseFileController@store');
+        Route::get('edit', 'CourseFileController@edit');
+        Route::get('delete/{id}','CourseFileController@delete');
+    });
 });
 
 // Authentication {

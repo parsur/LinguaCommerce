@@ -2,7 +2,6 @@
 @section('title','دسته بندی اول')
 
 @section('content')
-    
     {{-- Header --}}
     <x-header pageName="دسته بندی اول" buttonValue="دسته بندی اول">
         <x-slot name="table">
@@ -20,7 +19,6 @@
     
     {{-- Delete --}}
     <x-admin.delete title="آیا مایل به حذف دسته بندی اول هستید؟" />
-
 @endsection
 
 @section('scripts')

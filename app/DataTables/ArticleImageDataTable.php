@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\Image;
+use App\Models\Poster;
 use App\Models\Article;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
@@ -24,26 +24,26 @@ class ArticleImageDataTable extends DataTable
             ->eloquent($query)
             ->addIndexColumn()
             ->rawColumns(['action','image_url']) 
-            ->editColumn('image_url', function(Image $image) {
-                return "<img src=/images/" . $image->image_url . " height='auto' width='80%' />";
+            ->editColumn('image_url', function(Poster $poster) {
+                return "<img src=/images/" . $poster->url . " height='auto' width='80%' />";
             })
-            ->addColumn('image', function (Image $image) {
-                return $image->image->name;
+            ->addColumn('image', function (Poster $image) {
+                return $poster->poster->name;
             })
             ->filterColumn('image', function ($query, $keyword) {
-                $articles = Image::whereHas('image', function($subquery) use ($keyword) {
+                $articles = Poster::where('type', Poster::IMAGE)->whereHas('image', function($subquery) use ($keyword) {
                     $subquery->where('name', 'LIKE', '%'.$keyword.'%');
                 })->get()->pluck('id')->toArray();
 
                 $query->whereIn('id', $articles);
             })
-            ->addColumn('action', function(Image $image){
+            ->addColumn('action', function(Poster $poster){
                 return <<<ATAG
-                            <a onclick="showConfirmationModal('{$image->id}')">
+                            <a onclick="showConfirmationModal('{$poster->id}')">
                                 <i class="fa fa-trash text-danger" aria-hidden="true"></i>
                             </a>
                             &nbsp;
-                            <a onclick="showEditModal('{$image->id}')">
+                            <a onclick="showEditModal('{$poster->id}')">
                                 <i class="fa fa-edit text-danger" aria-hidden="true"></i>
                             </a>
                         ATAG;
@@ -53,12 +53,12 @@ class ArticleImageDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Article $model
+     * @param \App\Models\Poster $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Image $model)
+    public function query(Poster $model)
     {
-        return $model->where('image_type', Article::class);
+        return $model->where('poster_type', Article::class)->where('type', $model::IMAGE);
     }
 
     /**

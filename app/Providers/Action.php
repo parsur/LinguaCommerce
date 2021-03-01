@@ -72,7 +72,7 @@ class Action {
      */
     public function editCourseArticle($model,$id) {
 
-        $values = $model::where('id', $id)->with('statuses','image', 'video', 'description')->first();
+        $values = $model::where('id', $id)->with('statuses', 'poster', 'description')->first();
         return json_encode($values);
     }
 

@@ -94,6 +94,7 @@ class OrderController extends Controller
             }
             $order->total_price = $sum;
 
+            // Set order status to be directed
             $orderStatus = $order->statuses()->create(['status' => 1]);
             if($orderStatus) {
                 return Redirect::to('http://heera.it');

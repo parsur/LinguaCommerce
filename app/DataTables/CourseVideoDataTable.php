@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\Video;
+use App\Models\Poster;
 use App\Models\Image;
 use App\Models\Course;
 use Yajra\DataTables\Html\Button;
@@ -24,27 +24,28 @@ class CourseVideoDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addIndexColumn()
-            ->rawColumns(['action','video_url']) 
-            ->editColumn('video_url', function(Video $video) {
-                return '<iframe src="'.$video->video_url.'"  width="50%" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>';
+            ->rawColumns(['action','url']) 
+            ->editColumn('url', function(Poster $poster) {
+                return '<iframe src="'.$poster->url.'"  width="50%" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>';
             })
-            ->addColumn('video', function (Video $video) {
-                return $video->video->name;
+            ->addColumn('video', function (Poster $poster) {
+                return $poster->poster->name;
             })
             ->filterColumn('video', function ($query, $keyword) {
-                $courses = Video::whereHas('video', function($subquery) use ($keyword) {
+
+                $courses = Poster::where('type', Poster::VIDEO)->whereHas('poster', function($subquery) use ($keyword) {
                     $subquery->where('name', 'LIKE', '%'.$keyword.'%');
                 })->get()->pluck('id')->toArray();
 
                 $query->whereIn('id', $courses);
             })
-            ->addColumn('action', function(Video $video){
+            ->addColumn('action', function(Poster $poster){
                 return <<<ATAG
-                            <a onclick="showConfirmationModal('{$video->id}')">
+                            <a onclick="showConfirmationModal('{$poster->id}')">
                                 <i class="fa fa-trash text-danger" aria-hidden="true"></i>
                             </a>
                             &nbsp;
-                            <a onclick="showEditModal('{$video->id}')">
+                            <a onclick="showEditModal('{$poster->id}')">
                                 <i class="fa fa-edit text-danger" aria-hidden="true"></i>
                             </a>
                         ATAG;
@@ -54,12 +55,12 @@ class CourseVideoDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Video $model
+     * @param \App\Models\Poster $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Video $model)
+    public function query(Poster $model)
     {
-        return $model->where('video_type', Course::class);
+        return $model->where('poster_type', Course::class)->where('type', $model::VIDEO);
     }
 
     /**
@@ -99,7 +100,7 @@ class CourseVideoDataTable extends DataTable
                 ->addClass('column-title')
                 ->searchable(false)
                 ->orderable(false),
-            Column::make('video_url')
+            Column::make('url')
             ->title('ویدئو')
                 ->addClass('column-title'),
             Column::make('video')

@@ -31,8 +31,8 @@ class ArticleDataTable extends DataTable
             ->addIndexColumn()
             ->rawColumns(['action', 'image_url'])
             ->addColumn('image_url', function(Article $article) {
-                foreach($article->image as $image) {
-                    return "<img src=/images/" . optional($image)->image_url . " height='auto' width='100%' />";
+                foreach($article->poster as $poster) {
+                    return "<img src=/images/" . optional($poster)->url . " height='auto' width='100%' />";
                 }
             })
             ->editColumn('category_id', function(Article $article) {
