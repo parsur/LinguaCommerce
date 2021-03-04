@@ -10,6 +10,7 @@ use App\Providers\Action;
 use App\Models\Poster;
 use App\Models\Course;
 use DB;
+use File;
 
 
 class CourseImageController extends Controller
@@ -51,39 +52,29 @@ class CourseImageController extends Controller
 
     // Add Image
     public function add($request) {
-
-        DB::beginTransaction();
-
-        try {
-            if($request->hasFile('image')) {
-                $image = $request->file('image');
+        if($request->hasFile('images')) {
+            foreach($request->file('images') as $image) {
+                // File
                 $file = $image->getClientOriginalName();
-                $image->move(public_path('images'), $file);
-            }   
 
-            foreach($request->get('courses') as $image_id) {
                 // Update
                 $imageUpload = Poster::find($request->get('id'));
                 if(!$imageUpload) {
                     // Insert
                     $imageUpload = new Poster();
                 }
-                $imageUpload->poster_id = $image_id;
+                $imageUpload->poster_id = $request->get('course');
                 $imageUpload->poster_type = Course::class;
                 // 0 = image
                 $imageUpload->type = Poster::IMAGE;
 
                 if(isset($file)) {
+                    File::delete(public_path("images/$imageUpload->url")); 
                     $imageUpload->url = $file;
+                    $image->move(public_path('images'), $file);
                 }
                 $imageUpload->save();
             }
-
-            DB::commit();
-
-        } catch(Exception $e) {
-            throw $e;
-            DB::rollback();
         }
     }
 
@@ -97,3 +88,4 @@ class CourseImageController extends Controller
         return $action->edit(Poster::class,$request->get('id'));
     }
 }
+

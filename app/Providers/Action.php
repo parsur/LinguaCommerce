@@ -26,6 +26,27 @@ class Action {
     }
 
     /**
+     * Edit with status.
+     */
+    public function editWithStatus($model,$id) {
+
+        $values = $model::where('id', $id)->with('statuses')->first();
+        return json_encode($values);
+    }
+
+    /**
+     * Edit Course and Article.
+     */
+    public function editCourseArticle($model,$id) {
+
+        $values = $model::where('id', $id)->with('statuses', 'poster', 'description')->first();
+        return json_encode($values);
+    }
+
+    // Insert into course and article
+
+
+    /**
      * Delete
      */
     public function delete($model, $id) {
@@ -47,10 +68,7 @@ class Action {
 
         $modelImage = $model::find($id);
         if($modelImage) {
-            $imageDelete = public_path("images/$modelImage->column");
-            if($imageDelete) {
-                File::delete($imageDelete); 
-            }
+            File::delete(public_path("images/" . $modelImage->$column)); 
             $modelImage->delete();
         } else {
             return response()->json([], 404);
@@ -58,23 +76,6 @@ class Action {
         return response()->json([], 200);
     }
 
-    /**
-     * Edit with status.
-     */
-    public function editWithStatus($model,$id) {
-
-        $values = $model::where('id', $id)->with('statuses')->first();
-        return json_encode($values);
-    }
-
-    /**
-     * Edit Course and Article.
-     */
-    public function editCourseArticle($model,$id) {
-
-        $values = $model::where('id', $id)->with('statuses', 'poster', 'description')->first();
-        return json_encode($values);
-    }
 
     /**
      * Search.

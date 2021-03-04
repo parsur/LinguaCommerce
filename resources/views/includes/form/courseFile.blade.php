@@ -11,8 +11,10 @@
 
 
     {{-- Files --}}
-    <div class="col-md-6 mb-4">
+    <div class="col-md-6 mt-3">
         <h6 class="imageLabel">محتوای دوره:</h6>
         <input type="file" name="files[]" multiple/>
+        {{-- Check if file exists or not --}}
+        <input type="hidden" id="hidden_files" name="hidden_files"/>
     </div>
 </div>

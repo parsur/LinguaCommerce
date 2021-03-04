@@ -53,38 +53,29 @@ class ArticleImageController extends Controller
     // Add Image
     public function add($request) {
 
-        DB::beginTransaction();
-
-        try {
-            if($request->hasFile('image')) {
-                $image = $request->file('image');
+        if($request->hasFile('images')) {
+            foreach($request->get('images') as $image) {
+                // File
                 $file = $image->getClientOriginalName();
-                $image->move(public_path('images'), $file);
-            }   
 
-            foreach($request->get('articles') as $article_id) {
                 // Update
                 $imageUpload = Poster::find($request->get('id'));
                 if(!$imageUpload) {
                     // Insert
                     $imageUpload = new Poster();
                 }
-                $imageUpload->poster_id = $article_id;
+                $imageUpload->poster_id = $request->get('article');
                 $imageUpload->poster_type = Article::class;
-                // 0 = image
+                // 0 = image / 1 = video
                 $imageUpload->type = Poster::IMAGE;
 
                 if(isset($file)) {
+                    File::delete(public_path("images/$imageUpload->url")); 
                     $imageUpload->url = $file;
+                    $image->move(public_path('images'), $file);
                 }
                 $imageUpload->save();
             }
-
-            DB::commit();
-
-        } catch(Exception $e) {
-            throw $e;
-            DB::rollback();
         }
     }
 

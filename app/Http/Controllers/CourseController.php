@@ -41,10 +41,16 @@ class CourseController extends Controller
     public function new(Request $request) {
         // Edit
         if($request->get('id')) {
-            $vars['course'] = Course::where('id',$request->get('id'))->first();
-        } else {
-            $vars['course'] = '';
-        }
+            $course = Course::find($request->get('id'));
+            foreach($course->poster as $poster) {
+                switch($poster->type) {
+                    case Poster::IMAGE:
+                        $vars['coursPosterImages'] = 'Course has many images for its poster'; break;
+                    case Poster::VIDEO:
+                        $vars['coursPosterVideos'] = 'Course has many images for its poster';
+                } 
+            }
+        } 
         
         // Categories
         $vars['categories'] = Category::select('id','name')->get();
@@ -154,7 +160,7 @@ class CourseController extends Controller
     public function adminDetails(Request $request) {
 
         $course = Course::findOrFail($request->get('id'));
-        return view('course.details', compact('course','test'));
+        return view('course.details', compact('course'));
     }
 
     // User datails

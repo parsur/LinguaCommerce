@@ -4,7 +4,7 @@
 @section('content')
 
   {{-- Header --}}
-  <x-header pageName="عکس دوره" buttonValue="عکس دوره">  
+  <x-header pageName="تصاویر دوره" buttonValue="تصاویر دوره">  
     <x-slot name="table">
       {!! $courseImageTable->table(['class' => 'table table-bordered table-striped table-hover-responsive w-100 nowrap text-center']) !!}
     </x-slot>
@@ -58,21 +58,22 @@
         edit(url);
       }
       function edit($url) {
+        var id = $url;
         $('#form_output').html('');
         $('#formModal').modal('show');
 
         $.ajax({
           url: "{{ url('courseImage/edit') }}",
           method: "get",
-          data: {id: $url},
+          data: {id: id},
           dataType: "json",
           success: function(data) {
-            $('#id').val($url);
+            $('#id').val(id);
             $('#action').val('ویرایش');
             $('#button_action').val('update');
-            $("#picture").attr("src", "");
-            $('#hidden_image').val(data.image_url);
-            $('#courses').val(data.image_id).trigger('change');
+            $('#picture').attr("src", "/images/" + data.url);
+            $('#hidden_image').val(data.url);
+            $('#courses').val(data.poster_id).trigger('change');
           }
         })
       }

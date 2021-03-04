@@ -31,7 +31,7 @@ class CourseDataTable extends DataTable
             ->rawColumns(['action','course_id','image_url','status'])
             ->addColumn('image_url', function(Course $course) {
                 foreach($course->poster as $poster) { 
-                    return "<img src=/images/" . $poster->image_url . " height='100px' width='150px' />";
+                    return "<img src=/images/" . optional($poster)->url . " height='100px' width='150px' />";
                 }
             })
             ->editColumn('price', function(Course $course) {

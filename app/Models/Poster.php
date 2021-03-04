@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
- * @property string $image_url
- * @property int $image_id
- * @property string $image_type
+ * @property string $url
+ * @property int $poster_id
+ * @property string $poster_type
  */
 class Poster extends Model
 {

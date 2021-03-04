@@ -4,7 +4,7 @@
 @section('content')
 
   {{-- Header --}}
-  <x-header pageName="عکس مقاله" buttonValue="عکس مقاله">  
+  <x-header pageName="تصاویر مقاله" buttonValue="تصاویر مقاله">  
     <x-slot name="table">
       {!! $articleImageTable->table(['class' => 'table table-bordered table-striped table-hover-responsive w-100 nowrap text-center']) !!}
     </x-slot>
@@ -70,9 +70,9 @@
             $('#id').val($url);
             $('#action').val('ویرایش');
             $('#button_action').val('update');
-            $("#picture").attr("src", "");
-            $('#hidden_image').val(data.image_url);
-            $('#articles').val(data.image_id).trigger('change');
+            $('#picture').attr("src", "/images/" + data.url);
+            $('#hidden_image').val(data.url);
+            $('#articles').val(data.poster_id).trigger('change');
           }
         })
       }

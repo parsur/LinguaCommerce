@@ -1,12 +1,16 @@
 /* Admin Dashboard */
 @import "admin/adminDashboard.css";
 @import "admin/custom-style.css";
+
 /* DataTables */
 @import "~datatables.net-bs4/css/dataTables.bootstrap4.min.css";
 @import "~datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css";
+
 /* Select2 */
 @import "~select2/dist/css/select2.css";
+
 /* Tinymce */
 /* @import '~tinymce/skins/content/default/content.min.css'; */
 /* @import '~tinymce/skins/ui/oxide/skin.css'; */
 /* @import '~tinymce/skins/ui/oxide/content.inline.css'; */
+

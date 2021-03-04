@@ -21,7 +21,14 @@ require('select2/dist/js/select2');
 // require('tinymce/plugins/directionality');
 
 // React
-require('./App');
+// require('./components/index');
+
+// Particles
+
+import 'particles.js/particles';
+const particlesJS = window.particlesJS;
+
+
 
 
 

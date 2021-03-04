@@ -24,8 +24,8 @@ class StoreCourseImageRequest extends FormRequest
     public function rules()
     {
         return [
-            'courses' => 'required',
-            'hidden_image' => 'required'
+            'course' => 'required',
+            // 'hidden_image' => 'required'
         ];
     }
 

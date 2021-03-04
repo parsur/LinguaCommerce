@@ -68,6 +68,7 @@
             $('#id').val($url);
             $('#action').val('ویرایش');
             $('#button_action').val('update');
+            $('#hidden_files').val(data.url);
             $('#courses').val(data.course_id).trigger('change');
           }
         })

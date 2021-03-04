@@ -24,8 +24,20 @@ class StoreCourseFileRequest extends FormRequest
     public function rules()
     {
         return [
-            'file' => 'required',
+            'hidden_files' => 'required',
             'course' => 'required'
+        ];
+    }
+
+    /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'hidden_files' => '"محتوا"',
         ];
     }
 }

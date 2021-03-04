@@ -8,6 +8,7 @@ use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
+use Storage;
 
 class CourseFileDataTable extends DataTable
 {
@@ -26,18 +27,22 @@ class CourseFileDataTable extends DataTable
             ->editColumn('course_id', function(File $file) {
                 return $file->course->name;
             })
+            ->filterColumn('course_id', function($query, $keyword) {
+                $sql = 'course_id in (select id from courses where name like ?)';
+                $query->whereRaw($sql, ["%{$keyword}%"]);
+            })
             ->editColumn('url', function(File $file) {
-                $suffix = pathinfo(storage_path("/courseFiles/$file->url"), PATHINFO_EXTENSION);
+                $suffix = pathinfo(storage_path("$file->url"), PATHINFO_EXTENSION);
                 // All video formats
                 $videoFormats = array("flv", "mp4", "m3ub", "ts","3gp", "mov", "avi", "wmv", "mkv");
+                // Url
+                $url = Storage::url('courseFiles/'.$file->url);
                 // Check if it exists in array
                 if (in_array($suffix, $videoFormats)) { 
-                    return Storage::disk('public')->get('file.jpg');
+                    return "<video height='200px' src='".$url."' controls></video>";
                 } else {
-                    return asset('storage/uploads/file.jpg');
-                }
-
-                
+                    return "<audio height='200px' src='".$url."' controls></audio>";
+                } 
             })
             ->addColumn('action', function (File $file){
                 return <<<ATAG
@@ -101,7 +106,7 @@ class CourseFileDataTable extends DataTable
                 ->searchable(false)
                 ->orderable(false),
             Column::computed('url')
-            ->title('لینک')
+            ->title('محتوا')
                 ->addClass('column-title'),
             Column::make('course_id')
             ->title('دوره')

@@ -1,20 +1,21 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import FirstPage from './components/Pages/FirstPage';
+import GlobalStyle from './globalStyles';
+import CourseListPage from './components/Pages/CourseListPage';
 
 function App() {
-
   return (
-    <div>
+    <>
+      <GlobalStyle />
       <Router>
-        <FirstPage />
         <Switch>
-          {/* this is basically how to Route
-          <Route path="/services" exact component={Services}/>
-              then you add more of these for more routes */}
+          <Route path='/' exact component={FirstPage}/>
+          <Route path='/courselist' exact component={CourseListPage}/>
         </Switch>
       </Router>
-    </div>
+    </>
+
   );
 }
 

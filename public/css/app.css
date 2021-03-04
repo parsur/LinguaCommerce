@@ -18135,6 +18135,8 @@ input[type=text],input[type=email],input[type=password] {
 .image{
     height: 75%;
     width: 100%;
+    margin-top: 10px;
+    margin-bottom: 0;
 }
 
 /* Image Details */
@@ -18931,9 +18933,14 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>td.child,table.dataTable.dtr-inlin
   border-color: #5897fb; }
 
 /* Admin Dashboard */
+
 /* DataTables */
+
 /* Select2 */
+
 /* Tinymce */
 /* @import '~tinymce/skins/content/default/content.min.css'; */
 /* @import '~tinymce/skins/ui/oxide/skin.css'; */
 /* @import '~tinymce/skins/ui/oxide/content.inline.css'; */
+
+

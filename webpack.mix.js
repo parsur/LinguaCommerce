@@ -19,6 +19,8 @@ mix.js('resources/assets/js/app.js', 'public/js')
     .react()
     // DataTable Persian Language
     .copy('resources/assets/js/persian.json', 'public/js/persian.json')
+    // Particles json
+    .copy('resources/assets/js/particles.json', 'public/js/particles.json')
     // Tinymce initialization
     .copy('resources/assets/js/tinymceInit.js', 'public/js/tinymceInit.js')
     // Ajax Request Handler
@@ -29,8 +31,6 @@ mix.js('resources/assets/js/app.js', 'public/js')
     .copy('resources/assets/js/imagePreview.js', 'public/js/imagePreview.js')
     // Fonts
     .copy('resources/assets/fonts', 'public/fonts')
-    // Images
-    .copy('resources/assets/images', 'public/images')
     // App And Authentication
     .css('resources/assets/css/app.css', 'public/css')
     // App Css

@@ -22,7 +22,7 @@ class Course extends Model
      * Cascade On Delete.
      */
     use CascadesDeletes;
-    protected $cascadeDeletes = ['image', 'video','description','statuses','carts'];
+    protected $cascadeDeletes = ['poster','description','statuses','carts'];
  
     /**
      * @var array

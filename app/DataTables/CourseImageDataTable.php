@@ -10,6 +10,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\Datatables\Facades\Datatables;
+use File;
 
 class CourseImageDataTable extends DataTable
 {

@@ -61,7 +61,7 @@
                                     {{-- New Course --}}
                                     <x-admin.urlAddress text="افزودن دوره" fontAwesome="null" route="{{ url('course/new') }}" />
                                     {{-- Image List --}}
-                                    <x-admin.urlAddress text="لیست عکس ها" fontAwesome="null" route="{{ url('courseImage/list ') }}" />
+                                    <x-admin.urlAddress text="لیست تصاویر" fontAwesome="null" route="{{ url('courseImage/list ') }}" />
                                     {{-- Video List --}}
                                     <x-admin.urlAddress text="لیست ویدئو ها" fontAwesome="null" route="{{ url('courseVideo/list ') }}" />
                                     {{-- Course content List --}}
@@ -77,7 +77,7 @@
                                     {{-- New Article --}}
                                     <x-admin.urlAddress text="افزودن مقاله" fontAwesome="null" route="{{ url('article/new') }}" />
                                     {{-- Image List --}}
-                                    <x-admin.urlAddress text="لیست عکس ها" fontAwesome="null" route="{{ url('articleImage/list ') }}" />
+                                    <x-admin.urlAddress text="لیست تصاویر" fontAwesome="null" route="{{ url('articleImage/list ') }}" />
                                     {{-- Video List --}}
                                     <x-admin.urlAddress text="لیست ویدئو ها" fontAwesome="null" route="{{ url('articleVideo/list ') }}" />        
                                 </x-slot>

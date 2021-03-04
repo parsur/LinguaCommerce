@@ -30,7 +30,6 @@
 
     <script>
         $(document).ready(function() {
-
             // Select2
             $('#articles').select2({ width:'100%'});
 
@@ -67,8 +66,8 @@
                         $('#id').val($url);
                         $('#action').val('ویرایش');
                         $('#button_action').val('update');
-                        $('#aparat_url').val(data.video_url);
-                        $('#articles').val(data.video_id).trigger('change');
+                        $('#aparat_url').val(data.url);
+                        $('#articles').val(data.poster_id).trigger('change');
                     }
                 })
             }

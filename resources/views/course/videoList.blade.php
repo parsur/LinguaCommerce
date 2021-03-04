@@ -67,8 +67,8 @@
                         $('#id').val($url);
                         $('#action').val('ویرایش');
                         $('#button_action').val('update');
-                        $('#aparat_url').val(data.video_url);
-                        $('#courses').val(data.video_id).trigger('change');
+                        $('#aparat_url').val(data.url);
+                        $('#courses').val(data.poster_id).trigger('change');
                     }
                 })
             }
