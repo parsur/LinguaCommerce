@@ -119,12 +119,6 @@ Route::group(['middleware' => ['auth','isAdmin']], function () {
         Route::get('details','OrderController@details')->name('details');
         Route::get('delete/{id}','OrderController@delete');
     });
-    // Home Setting
-    Route::group(['prefix' => 'homeSetting', 'as' => 'homeSetting.'], function() {
-        // Home Setting
-        Route::get('new','HomeSettingController@new');
-        Route::post('store','HomeSettingController@store');
-    });
     // Course file
     Route::group(['prefix' => 'courseFile', 'as' => 'courseFile.'], function() {
         // File
@@ -134,7 +128,20 @@ Route::group(['middleware' => ['auth','isAdmin']], function () {
         Route::get('edit', 'CourseFileController@edit');
         Route::get('delete/{id}','CourseFileController@delete');
     });
+    // Course comment
+    Route::group(['prefix' => 'courseComment', 'as' => 'courseComment.'], function() {
+        Route::get('list','CourseCommentController@list');
+        Route::get('table/list','CourseCommentController@courseCommentTable')->name('list.table');
+        Route::post('submit', 'CourseCommentController@submit');
+    });
+    // Home Setting
+    Route::group(['prefix' => 'homeSetting', 'as' => 'homeSetting.'], function() {
+        // Home Setting
+        Route::get('new','HomeSettingController@new');
+        Route::post('store','HomeSettingController@store');
+    });
 });
+
 
 // Authentication {
     Auth::routes();
@@ -175,6 +182,13 @@ Route::group(['middleware' => ['auth']], function() {
         Route::get('show', 'UserController@show');
         Route::get('edit', 'UserController@edit');
         Route::get('delete/{id}', 'UserController@delete');
+    });
+    // Course comment
+    Route::group(['prefix' => 'courseComment', 'as' => 'courseComment.'], function() {
+        Route::post('store/{$course_id}', 'CourseCommentController@store');
+        Route::get('edit/{id}', 'CourseCommentController@edit');
+        Route::post('update/{id}', 'CourseCommentController@update');
+        Route::get('delete/{id}','CourseCommentController@delete');
     });
 });
 

@@ -2,12 +2,15 @@
 
 namespace App\DataTables;
 
-use App\Models\CourseCommentDataTable;
+use App\Models\Comment;
+use App\Models\Course;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
+use Morilog\Jalali\Jalalian;
+use Carbon\Carbon;
 
 class CourseCommentDataTable extends DataTable
 {
@@ -21,18 +24,43 @@ class CourseCommentDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', 'coursecommentdatatable.action');
+            ->addIndexColumn()
+            ->editColumn('created_at', function(Comment $comment){
+                date_default_timezone_set('Asia/Tehran');
+                return Jalalian::forge($comment->created_at)->format('%A, %d %B %y');
+            })
+            ->editColumn('comment_id', function (Comment $comment) {
+                return $comment->commentable->name;
+            })
+            ->filterColumn('comment_id', function ($query, $keyword) {
+                $courses = Comment::whereHas('comment', function($subquery) use ($keyword) {
+                    $subquery->where('name', 'LIKE', '%'.$keyword.'%');
+                })->get()->pluck('id')->toArray();
+
+                $query->whereIn('id', $courses);
+            })
+            ->addColumn('action', function(Comment $comment){
+                return <<<ATAG
+                            <a onclick="showConfirmationModal('{$comment->id}')">
+                                <i class="fa fa-trash text-danger" aria-hidden="true"></i>
+                            </a>
+                            &nbsp;
+                            <a onclick="showSubmissionModal('{$comment->id}')">
+                                <i class="fa fa-paper-plane text-danger" aria-hidden="true"></i>
+                            </a>
+                        ATAG;
+            });
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\CourseCommentDataTable $model
+     * @param \App\Models\Comment $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(CourseCommentDataTable $model)
+    public function query(Comment $model)
     {
-        return $model->newQuery();
+        return $model::where('commentable_type',Course::class);
     }
 
     /**
@@ -43,18 +71,22 @@ class CourseCommentDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-                    ->setTableId('coursecommentdatatable-table')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    ->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->buttons(
-                        Button::make('create'),
-                        Button::make('export'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    );
+                ->setTableId('courseCommentTable')
+                ->minifiedAjax(route('courseComment.list.table'))
+                ->columns($this->getColumns())
+                ->columnDefs(
+                    [
+                        ["className" => 'dt-center text-center', "target" => '_all'],
+                    ]
+                )
+                ->searching(true)
+                ->info(false)
+                ->ordering(true)
+                ->responsive(true)
+                ->pageLength(8)
+                ->dom('PBCfrtip')
+                ->orderBy(1)
+                ->language(asset('js/Persian.json'));
     }
 
     /**
@@ -65,15 +97,27 @@ class CourseCommentDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+            Column::make('DT_RowIndex') // connect to 226 line columns
+            ->title('#')
+                ->addClass('column-title')
+                ->searchable(false)
+                ->orderable(false),
+            Column::make('comment')
+            ->title('نظر')
+                ->addClass('column-title'),
+            Column::make('created_at')
+            ->title('ساخته شده در')
+                ->addClass('column-title'),
+            Column::make('comment_id')
+            ->title('دوره مرتبط')
+                ->addClass('column-title'),
+            Column::computed('action') // This column is not in database
+                ->exportable(false)
+                ->searchable(false)
+                ->printable(false)
+                ->orderable(false)
+                ->title('حذف،تایید نظر')
+                ->addClass('column-title')
         ];
     }
 

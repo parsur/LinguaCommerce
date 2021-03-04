@@ -25,6 +25,8 @@ mix.js('resources/assets/js/app.js', 'public/js')
     .copy('resources/assets/js/tinymceInit.js', 'public/js/tinymceInit.js')
     // Ajax Request Handler
     .copy('resources/assets/js/requestHandler.js', 'public/js/requestHandler.js')
+    // Comment Submission
+    .copy('resources/assets/js/commentSubmission.js', 'public/js/commentSubmission.js')
     // Tinymce
     .copy('resources/assets/js/tinymce.js', 'public/js/tinymce.js')
     // Tinymce

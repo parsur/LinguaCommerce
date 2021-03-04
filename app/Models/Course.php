@@ -22,7 +22,7 @@ class Course extends Model
      * Cascade On Delete.
      */
     use CascadesDeletes;
-    protected $cascadeDeletes = ['poster','description','statuses','carts'];
+    protected $cascadeDeletes = ['poster','description','statuses','carts', 'comments'];
  
     /**
      * @var array
@@ -71,6 +71,13 @@ class Course extends Model
      */
     public function statuses() {
         return $this->morphOne('App\Models\Status', 'status');
+    }
+
+    /*
+     * Get all of the course's comments.
+     */
+    public function comments() {
+        return $this->morphMany('App\Models\Comment', 'commentable');
     }
 
 }

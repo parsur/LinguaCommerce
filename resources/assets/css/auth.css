@@ -100,14 +100,15 @@ hr {
 }
 
 /* Styling inputs separatly */
-.input-one input {
+#input-one input {
     border-radius: 15px 15px 0 0;
     z-index: 99;
 }
-.input-two input {
+#input-two input {
     border-radius: 0 0 15px 15px;
     z-index: 99;
 }
+
 
 /* Styling options under Text inputs */
 .functions{
@@ -157,7 +158,7 @@ hr {
 
 /* Declaring gradient at the end */
 .gradient {
-    background-image: url();
+    background-image: url("/images/gradient.svg");
     margin: 0 auto;
     width: 500px;
     height: 123px;

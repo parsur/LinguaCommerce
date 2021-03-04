@@ -6,6 +6,7 @@
     "/js/particles.json": "/js/particles.json",
     "/js/tinymceInit.js": "/js/tinymceInit.js",
     "/js/requestHandler.js": "/js/requestHandler.js",
+    "/js/commentSubmission.js": "/js/commentSubmission.js",
     "/js/tinymce.js": "/js/tinymce.js",
     "/js/imagePreview.js": "/js/imagePreview.js",
     "/fonts/Shabnam-Bold.ttf": "/fonts/Shabnam-Bold.ttf",

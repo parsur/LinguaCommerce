@@ -23,7 +23,7 @@ class Article extends Model
      * Cascade On Delete.
      */
     use CascadesDeletes;
-    protected $cascadeDeletes = ['image', 'video','description','statuses'];
+    protected $cascadeDeletes = ['image', 'video','description','statuses','comments'];
 
     /**
      * @var array
@@ -65,5 +65,12 @@ class Article extends Model
      */
     public function statuses() {
         return $this->morphOne('App\Models\Status', 'status');
+    }
+
+    /*
+     * Get all of the course's comments.
+     */
+    public function comments() {
+        return $this->morphMany('App\Models\Comment', 'commentable');
     }
 }

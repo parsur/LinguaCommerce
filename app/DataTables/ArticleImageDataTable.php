@@ -27,10 +27,10 @@ class ArticleImageDataTable extends DataTable
             ->editColumn('image_url', function(Poster $poster) {
                 return "<img src=/images/" . $poster->url . " height='auto' width='80%' />";
             })
-            ->addColumn('image', function (Poster $image) {
+            ->editColumn('poster_id', function (Poster $image) {
                 return $poster->poster->name;
             })
-            ->filterColumn('image', function ($query, $keyword) {
+            ->filterColumn('poster_id', function ($query, $keyword) {
                 $articles = Poster::where('type', Poster::IMAGE)->whereHas('image', function($subquery) use ($keyword) {
                     $subquery->where('name', 'LIKE', '%'.$keyword.'%');
                 })->get()->pluck('id')->toArray();
@@ -101,7 +101,7 @@ class ArticleImageDataTable extends DataTable
             Column::make('image_url')
             ->title('رسانه')
                 ->addClass('column-title'),
-            Column::make('image')
+            Column::make('poster_id')
             ->title('مقاله مرتبط')
                 ->addClass('column-title'),
             Column::computed('action') // This column is not in database

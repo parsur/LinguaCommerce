@@ -64,8 +64,10 @@
                                     <x-admin.urlAddress text="لیست تصاویر" fontAwesome="null" route="{{ url('courseImage/list ') }}" />
                                     {{-- Video List --}}
                                     <x-admin.urlAddress text="لیست ویدئو ها" fontAwesome="null" route="{{ url('courseVideo/list ') }}" />
-                                    {{-- Course content List --}}
+                                    {{-- Content List --}}
                                     <x-admin.urlAddress text="لیست محتوا" fontAwesome="null" route="{{ url('courseFile/list ') }}" /> 
+                                    {{-- Comment List --}}
+                                    <x-admin.urlAddress text="لیست نظرات" fontAwesome="null" route="{{ url('courseComment/list ') }}" /> 
                                 </x-slot>
                             </x-admin.urlAddressParent>
 
@@ -141,7 +143,7 @@
         <script>
             $.ajaxSetup({
                 processing: true,
-                dataType: "json"
+                dataType: "json",
             });
         </script>
 

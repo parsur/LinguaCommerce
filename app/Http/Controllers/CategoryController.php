@@ -64,11 +64,11 @@ class CategoryController extends Controller
                 ['status' => $request->get('status'), 'status_type' => Category::class]
             );
 
-            Db::commit();
+            D‌‌‌‌B::commit();
 
         } catch(Exception $e) {
             throw $e;
-            DB::rollback();
+            DB::rollBack();
         }
     }
 

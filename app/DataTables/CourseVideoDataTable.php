@@ -28,10 +28,10 @@ class CourseVideoDataTable extends DataTable
             ->editColumn('url', function(Poster $poster) {
                 return '<iframe src="'.$poster->url.'"  width="50%" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>';
             })
-            ->addColumn('video', function (Poster $poster) {
+            ->addColumn('poster_id', function (Poster $poster) {
                 return $poster->poster->name;
             })
-            ->filterColumn('video', function ($query, $keyword) {
+            ->filterColumn('poster_id', function ($query, $keyword) {
 
                 $courses = Poster::where('type', Poster::VIDEO)->whereHas('poster', function($subquery) use ($keyword) {
                     $subquery->where('name', 'LIKE', '%'.$keyword.'%');
@@ -103,7 +103,7 @@ class CourseVideoDataTable extends DataTable
             Column::make('url')
             ->title('ویدئو')
                 ->addClass('column-title'),
-            Column::make('video')
+            Column::make('poster_id')
             ->title('دوره مرتبط')
                 ->addClass('column-title'),
             Column::computed('action') // This column is not in database

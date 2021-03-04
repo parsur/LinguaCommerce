@@ -41,17 +41,10 @@ class CourseController extends Controller
     public function new(Request $request) {
         // Edit
         if($request->get('id')) {
-            $course = Course::find($request->get('id'));
-            foreach($course->poster as $poster) {
-                switch($poster->type) {
-                    case Poster::IMAGE:
-                        $vars['coursPosterImages'] = 'Course has many images for its poster'; break;
-                    case Poster::VIDEO:
-                        $vars['coursPosterVideos'] = 'Course has many images for its poster';
-                } 
-            }
-        } 
-        
+            $vars['course'] = Course::find($request->get('id'));
+        } else {
+            $vars['course'] = '';
+        }
         // Categories
         $vars['categories'] = Category::select('id','name')->get();
         // Sub Categories
@@ -144,9 +137,9 @@ class CourseController extends Controller
     }
 
     // Show course page
-    public function show($id) {
+    public function show() {
 
-        $vars['courses'] = Course::select('id','name','price')->with('category','subCategory')->get();
+        $vars['courses'] = Course::all();
         return response()->json($courses);
     }
 

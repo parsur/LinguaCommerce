@@ -43,9 +43,6 @@ class Action {
         return json_encode($values);
     }
 
-    // Insert into course and article
-
-
     /**
      * Delete
      */

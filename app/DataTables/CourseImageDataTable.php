@@ -29,12 +29,12 @@ class CourseImageDataTable extends DataTable
             ->editColumn('url', function(Poster $poster) {
                 return "<img src=/images/" . $poster->url . " height='auto' width='80%' />";
             })
-            ->addColumn('image', function (Poster $poster) {
+            ->editColumn('poster_id', function (Poster $poster) {
                 return $poster->poster->name;
             })
-            ->filterColumn('image', function ($query, $keyword) {
+            ->filterColumn('poster_id', function ($query, $keyword) {
                 
-                $courses = Poster::where('type', Poster::ّIMAGE)->whereHas('poster', function($subquery) use ($keyword) {
+                $courses = Poster::whereHas('poster', function($subquery) use ($keyword) {
                     $subquery->where('name', 'LIKE', '%'.$keyword.'%');
                 })->get()->pluck('id')->toArray();
 
@@ -105,7 +105,7 @@ class CourseImageDataTable extends DataTable
             Column::make('url')
             ->title('رسانه')
                 ->addClass('column-title'),
-            Column::make('image')
+            Column::make('poster_id')
             ->title('دوره مرتبط')
                 ->addClass('column-title'),
             Column::computed('action') // This column is not in database
