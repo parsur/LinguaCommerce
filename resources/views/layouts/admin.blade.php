@@ -81,7 +81,9 @@
                                     {{-- Image List --}}
                                     <x-admin.urlAddress text="لیست تصاویر" fontAwesome="null" route="{{ url('articleImage/list ') }}" />
                                     {{-- Video List --}}
-                                    <x-admin.urlAddress text="لیست ویدئو ها" fontAwesome="null" route="{{ url('articleVideo/list ') }}" />        
+                                    <x-admin.urlAddress text="لیست ویدئو ها" fontAwesome="null" route="{{ url('articleVideo/list ') }}" /> 
+                                    {{-- Comment List --}}
+                                    <x-admin.urlAddress text="لیست نظرات" fontAwesome="null" route="{{ url('articleComment/list ') }}" />        
                                 </x-slot>
                             </x-admin.urlAddressParent>
 
@@ -137,8 +139,6 @@
         <script src="{{ mix('js/app.js') }}"></script>
         {{-- Ajax Requests --}}
         <script src="{{ asset('js/requestHandler.js') }}"></script>
-        {{-- Tinymce --}}
-        <script src="{{ asset('js/tinymce.js') }}"></script>
         {{-- Ajax Setup --}}
         <script>
             $.ajaxSetup({
@@ -146,7 +146,5 @@
                 dataType: "json",
             });
         </script>
-
-
     @show
 </body>

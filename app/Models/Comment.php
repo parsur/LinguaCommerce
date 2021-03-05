@@ -3,16 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon;
 
 /**
  * @property int $id
- * @property int $course_id
- * @property int $article_id
- * @property int $status
- * @property string $idea
+ * @property string $name
+ * @property string $comment
  * @property string $created_at
- * @property int $comment_id
- * @property string $comment_type
+ * @property int $commentable_id
+ * @property string $commentable_type
  */
 class Comment extends Model
 {
@@ -23,14 +22,14 @@ class Comment extends Model
         parent::boot();
 
         static::creating(function ($model) {
-            $model->created_at = $model->freshTimestamps();
+            $model->created_at = $model->freshTimestamp();
         });
     }
 
     /**
      * @var array
      */
-    protected $fillable = ['comment', 'created_at', 'commentable_id', 'commentable_type'];
+    protected $fillable = ['name', 'comment', 'created_at', 'commentable_id', 'commentable_type'];
 
     /*
      * Get all of the course's status.

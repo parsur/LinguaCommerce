@@ -3,9 +3,9 @@
 
 @section('content')
   {{-- Header --}}
-  <x-header pageName="نظرات مثاله" buttonValue="">
+  <x-header pageName="نظرات مقاله" buttonValue="">
     <x-slot name="table">
-      {!! $courseCommentTable->table(['class' => 'table table-striped table-bordered table-hover-responsive w-100 nowrap text-center']) !!}
+      {!! $articleCommentTable->table(['class' => 'table table-striped table-bordered table-hover-responsive w-100 nowrap text-center']) !!}
     </x-slot>
   </x-header>
 

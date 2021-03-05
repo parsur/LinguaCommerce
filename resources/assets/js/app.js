@@ -13,12 +13,12 @@ require('datatables.net-responsive');
 require('select2/dist/js/select2');
 
 // Tinymce
-// window.tinymce = require('tinymce/tinymce');
-// require('tinymce/icons/default');
-// require('tinymce/themes/silver');
-// require('tinymce/plugins/paste');
-// require('tinymce/plugins/link');
-// require('tinymce/plugins/directionality');
+window.tinymce = require('tinymce/tinymce');
+require('tinymce/icons/default');
+require('tinymce/themes/silver');
+require('tinymce/plugins/paste');
+require('tinymce/plugins/link');
+require('tinymce/plugins/directionality');
 
 // React
 // require('./components/index');

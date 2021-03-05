@@ -21,14 +21,14 @@
   {{-- Course Table --}}
   {!! $courseCommentTable->scripts() !!}
   {{-- Course comment submission --}}
-  <script src="{{ asset('js/courseSubmission.js') }}"></script>
+  <script src="{{ asset('js/commentSubmission.js') }}"></script>
 
   <script>
     $(document).ready(function () {
       // Actions(DataTable,Form,Url)
       let dt = window.LaravelDataTables['courseCommentTable'];
       let action = new requestHandler(dt,'','courseComment');
-      // Delete
+      // Delete 
       window.showConfirmationModal = function showConfirmationModal(url) {
         action.delete(url);
       }
