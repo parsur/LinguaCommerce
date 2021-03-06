@@ -34,6 +34,3 @@ require('tinymce/plugins/paste');
 
 // particles
 require('particles.js')
-
-// React
-// require('./App');
