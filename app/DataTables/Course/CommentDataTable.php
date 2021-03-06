@@ -103,8 +103,11 @@ class CommentDataTable extends DataTable
                 ->addClass('column-title')
                 ->searchable(false)
                 ->orderable(false),
+            Column::make('name')
+            ->title('نام کاربر')
+                ->addClass('column-title'),
             Column::make('comment')
-            ->title('نظر')
+            ->title('دیدگاه')
                 ->addClass('column-title'),
             Column::make('created_at')
             ->title('ساخته شده در')

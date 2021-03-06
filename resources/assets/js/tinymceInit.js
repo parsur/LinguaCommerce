@@ -2,7 +2,7 @@ tinymce.init({
     selector: 'textarea#description',
     height: 400,
     plugins: [
-        'advlist autolink link image lists charmap preview hr anchor pagebreak',
+        'autolink link image lists charmap preview hr anchor pagebreak',
         'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
         'table emoticons template paste directionality'
     ],

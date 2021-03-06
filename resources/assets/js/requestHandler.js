@@ -34,9 +34,8 @@ class requestHandler {
                     success(data);
                 },
                 error: function (data) {
-                    if(data) {
+                    if(data) 
                         error(data);
-                    }
                 }
             })
         });
@@ -61,7 +60,6 @@ class requestHandler {
 // Success
 function success(data) {
     $('#form_output').html(data.success);
-    // $('#button_action').val('insert');
     $(window.formId)[0].reset();
     if(window.dt != null)
         window.dt.draw(false);

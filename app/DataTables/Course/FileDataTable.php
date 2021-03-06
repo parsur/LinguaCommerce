@@ -33,11 +33,11 @@ class FileDataTable extends DataTable
                 $query->whereRaw($sql, ["%{$keyword}%"]);
             })
             ->editColumn('url', function(File $file) {
-                $suffix = pathinfo(storage_path("$file->url"), PATHINFO_EXTENSION);
+                $suffix = pathinfo((storage_path('app/public/courseFiles/' . $file->url)), PATHINFO_EXTENSION);
                 // All video formats
                 $videoFormats = array("flv", "mp4", "m3ub", "ts","3gp", "mov", "avi", "wmv", "mkv");
                 // Url
-                $url = Storage::url('courseFiles/'.$file->url);
+                $url = asset('storage/courseFiles/'. $file->url);
                 // Check if it exists in array
                 if (in_array($suffix, $videoFormats)) { 
                     return "<video height='200px' src='".$url."' controls></video>";
@@ -106,7 +106,7 @@ class FileDataTable extends DataTable
                 ->addClass('column-title')
                 ->searchable(false)
                 ->orderable(false),
-            Column::computed('url')
+            Column::make('url')
             ->title('محتوا')
                 ->addClass('column-title'),
             Column::make('course_id')
