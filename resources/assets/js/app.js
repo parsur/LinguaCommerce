@@ -17,33 +17,23 @@ window.tinymce = require('tinymce/tinymce');
 require('tinymce/icons/default');
 require('tinymce/themes/silver');
 require('tinymce/plugins/paste');
+require('tinymce/plugins/link');
 require('tinymce/plugins/autolink');
 require('tinymce/plugins/link');
+require('tinymce/plugins/image');
 require('tinymce/plugins/lists');
 require('tinymce/plugins/charmap');
 require('tinymce/plugins/preview');
 require('tinymce/plugins/hr');
 require('tinymce/plugins/anchor');
 require('tinymce/plugins/pagebreak');
-require('tinymce/plugins/directionality');
-require('tinymce/plugins/searchreplace');
-require('tinymce/plugins/wordcount');
-require('tinymce/plugins/visualblocks');
-require('tinymce/plugins/visualchars');
-require('tinymce/plugins/code');
-require('tinymce/plugins/fullscreen');
-require('tinymce/plugins/media');
-require('tinymce/plugins/nonbreaking');
+require('tinymce/plugins/table');
+require('tinymce/plugins/emoticons');
+require('tinymce/plugins/template');
+require('tinymce/plugins/paste');
+
+// particles
+require('particles.js')
 
 // React
-// require('./components/index');
-
-// Particles
-import 'particles.js/particles';
-const particlesJS = window.particlesJS;
-
-
-
-
-
-
+// require('./App');
