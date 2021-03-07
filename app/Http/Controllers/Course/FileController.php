@@ -71,7 +71,6 @@ class FileController extends Controller
             
             $fileUpload->save();
         }
-
     }
 
     // insert

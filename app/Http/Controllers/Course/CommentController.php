@@ -14,7 +14,6 @@ use App\Models\Status;
 use DB;
 
 class CommentController extends Controller
-
 {
     // Datatable To blade
     public function list() {

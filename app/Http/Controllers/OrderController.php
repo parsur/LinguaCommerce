@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 use App\Providers\Action;
 use App\Models\Order;
 use App\Models\Cart;
-use App\Models\User;
-use App\Models\Status;
 use App\Providers\CartAction;
 use App\DataTables\OrderDataTable;
 use Illuminate\Support\Facades\Redirect;
@@ -56,7 +54,7 @@ class OrderController extends Controller
         // Each order
         $vars['order'] = Order::where('order_factor', $request->get('order_factor'))->first();
         // Cart
-        $vars['carts'] = Cart::where('order_factor', $request->get('order_factor'))->get();
+        $vars['cart'] = Cart::where('order_factor', $request->get('order_factor'))->get();
 
         return view('order.details', $vars);
     }
@@ -65,20 +63,21 @@ class OrderController extends Controller
     public function store() {
 
         DB::beginTransaction();
+        $user_id =  Auth::user()->id;
 
         try {
             // New order
             $order = new Order();
             // Username
-            $order->user_id = 29;
+            $order->user_id =  $user_id;
             // Count order where user_id is
-            $orderCount = Cart::where('user_id', 29)->count() . 1001;
+            $orderCount = Cart::where('user_id',  $user_id)->count() . 1001;
             // Order factor
-            $order_factor = 'saraRajabi' . $orderCount . 29;
+            $order_factor = 'saraRajabi' . $orderCount .  $user_id;
             $order->order_factor = $order_factor;
 
-            // Set all carts order_factor
-            $cartProducts = Cart::where('user_id', 29)
+            // Set order_factor for all carts
+            $cartProducts = Cart::where('user_id',  $user_id)
                 ->where('order_factor', null)->get();
 
             foreach($cartProducts as $cartProduct) {
@@ -92,11 +91,13 @@ class OrderController extends Controller
             foreach($cartPrices as $cartPrice) {
                 $sum += $cartPrice->course->price;
             }
+            // Total price
             $order->total_price = $sum;
 
             // Set order status to be directed
             $orderStatus = $order->statuses()->create(['status' => 1]);
             if($orderStatus) {
+                // Payment Gateway
                 return Redirect::to('http://heera.it');
             }
 

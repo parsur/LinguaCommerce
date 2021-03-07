@@ -36,7 +36,6 @@ class AdminController extends Controller
     public function adminTable(AdminDataTable $dataTable) {
         return $dataTable->render('admin.adminList');
     }
-    
 
     // Store Admin
     public function store(StoreAdminRequest $request,SuccessMessages $message) {

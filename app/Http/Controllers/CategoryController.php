@@ -30,14 +30,16 @@ class CategoryController extends Controller
 
     // Store
     public function store(StoreCategoryRequest $request,SuccessMessages $message) {
+
+        // Add
+        $this->add($request);
+
         // Insert
         if($request->get('button_action') == "insert") {
-            $this->add($request);
             $success_output = $message->getInsert();
         }
         // Update
         else if($request->get('button_action') == "update") {
-            $this->add($request);
             $success_output = $message->getUpdate();
         }
 

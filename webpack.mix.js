@@ -16,7 +16,8 @@ mix.setResourceRoot('../');
  */
 
 mix.js('resources/assets/js/app.js', 'public/js')
-    .react()
+    // React
+    .js('resources/assets/js/react', 'public/js/reactJs').react()
     // DataTable Persian Language
     .copy('resources/assets/js/persian.json', 'public/js/persian.json')
     // Particles json
@@ -29,8 +30,6 @@ mix.js('resources/assets/js/app.js', 'public/js')
     .copy('resources/assets/js/commentSubmission.js', 'public/js/commentSubmission.js')
     // Image preview
     .copy('resources/assets/js/imagePreview.js', 'public/js/imagePreview.js')
-    // React
-    .copy('resources/assets/js/react', 'public/react')
     // Fonts
     .copy('resources/assets/fonts', 'public/fonts')
     // App And Authentication
@@ -42,5 +41,7 @@ mix.js('resources/assets/js/app.js', 'public/js')
 
     
 mix.sourceMaps();
+
+
 
 

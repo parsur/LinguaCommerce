@@ -10,6 +10,6 @@
     <body>
         <div id="app"></div>
 
-        <script src="{{ asset('react/index.js') }}"></script>
+        <script src="{{ asset('js/reactJs/react.js') }}"></script>
     </body>
 </html>
