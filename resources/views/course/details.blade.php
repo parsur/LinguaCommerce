@@ -4,8 +4,10 @@
 @section('content')
     <x-admin.page title="جزئیات دوره" description="جزئیات توضیحات و رسانه دوره" formId="">
         <x-slot name="content">
+            {{-- course and article details --}}
             @include('includes.courseArticle.details' , ['table' => $course])
-            <video height='200px' src="{{ asset('storage/courseFiles/CGtoIELTS-video-12.mp4') }}" controls></video>
+            <h4>لینک فایل ها</h4>
+
         </x-slot>
     </x-admin.page>
 @endsection
@@ -15,6 +17,7 @@
     <script>
         tinymce.init({
             selector: 'textarea#description',
+            height: 500,
             readonly: 1,
         });
     </script>

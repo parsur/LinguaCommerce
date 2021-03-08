@@ -8,10 +8,8 @@ use App\DataTables\Course\ImageDataTable;
 use App\Http\Requests\StoreCourseImageRequest;
 use App\Providers\SuccessMessages;
 use App\Providers\Action;
-use App\Models\Poster;
+use App\Models\Media;
 use App\Models\Course;
-use DB;
-use File;
 
 
 class ImageController extends Controller
@@ -59,15 +57,15 @@ class ImageController extends Controller
                 $file = $image->getClientOriginalName();
 
                 // Update
-                $imageUpload = Poster::find($request->get('id'));
+                $imageUpload = Media::find($request->get('id'));
                 if(!$imageUpload) {
                     // Insert
-                    $imageUpload = new Poster();
+                    $imageUpload = new Media();
                 }
-                $imageUpload->poster_id = $request->get('course');
-                $imageUpload->poster_type = Course::class;
+                $imageUpload->media_id = $request->get('course');
+                $imageUpload->media_type = Course::class;
                 // 0 = image
-                $imageUpload->type = Poster::IMAGE;
+                $imageUpload->type = Media::IMAGE;
 
                 if(isset($file)) {
                     File::delete(public_path("images/$imageUpload->url")); 
@@ -81,12 +79,12 @@ class ImageController extends Controller
 
     // Delete
     public function delete(Action $action, $id) {
-        return $action->deleteWithImage(Poster::class,$id,'url');
+        return $action->deleteWithImage(Media::class,$id,'url');
     }
 
     // Edit
     public function edit(Action $action,Request $request) {
-        return $action->edit(Poster::class,$request->get('id'));
+        return $action->edit(Media::class,$request->get('id'));
     }
 }
 

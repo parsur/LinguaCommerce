@@ -22,7 +22,7 @@ class Course extends Model
      * Cascade On Delete.
      */
     use CascadesDeletes;
-    protected $cascadeDeletes = ['poster','description','statuses','carts', 'comments'];
+    protected $cascadeDeletes = ['media','description','statuses','carts', 'comments'];
  
     /**
      * @var array
@@ -53,10 +53,10 @@ class Course extends Model
     }
 
     /*
-     * Get all of the course's poster.
+     * Get all of the course's media.
      */
-    public function poster() {
-       return $this->morphMany('App\Models\Poster', 'poster');
+    public function media() {
+       return $this->morphMany('App\Models\Media', 'media');
     }
 
     /*

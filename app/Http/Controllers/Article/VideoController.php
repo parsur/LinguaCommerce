@@ -51,21 +51,19 @@ class VideoController extends Controller
     public function add($request) {
 
         // Article videos
-        foreach($request->get('articles') as $article) {
-            Video::updateOrCreate(
-                ['id' => $request->get('id')],
-                ['video_url' => $request->get('aparat_url'), 'video_id' => $article, 'video_type' => Article::class, 'type' => Poster::VIDEO]
-            );
-        }
+        Video::updateOrCreate(
+            ['id' => $request->get('id')],
+            ['video_url' => $request->get('aparat_url'), 'video_id' => $request->get('article'), 'video_type' => Article::class, 'type' => Media::VIDEO]
+        );
     }
 
     // Delete
     public function delete(Action $action, $id) {
-        return $action->delete(Poster::class,$id);
+        return $action->delete(Media::class,$id);
     }
 
     // Edit
     public function edit(Action $action,Request $request) {
-        return $action->edit(Poster::class,$request->get('id'));
+        return $action->edit(Media::class,$request->get('id'));
     }
 }

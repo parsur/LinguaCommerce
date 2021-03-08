@@ -9,11 +9,7 @@
     "/js/requestHandler.js": "/js/requestHandler.js",
     "/js/commentSubmission.js": "/js/commentSubmission.js",
     "/js/imagePreview.js": "/js/imagePreview.js",
-    "/react/App.js": "/react/App.js",
-    "/react/Data.js": "/react/Data.js",
-    "/react/globalStyles.js": "/react/globalStyles.js",
-    "/react/index.css": "/react/index.css",
-    "/react/index.js": "/react/index.js",
+    "/js/tinymce.min.js": "/js/tinymce.min.js",
     "/fonts/Shabnam-Bold.ttf": "/fonts/Shabnam-Bold.ttf",
     "/fonts/Shabnam.ttf": "/fonts/Shabnam.ttf",
     "/fonts/dambeldor.ttf": "/fonts/dambeldor.ttf"

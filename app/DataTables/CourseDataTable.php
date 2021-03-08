@@ -30,8 +30,8 @@ class CourseDataTable extends DataTable
             ->addIndexColumn()
             ->rawColumns(['action','course_id','image_url','status'])
             ->addColumn('image_url', function(Course $course) {
-                foreach($course->poster as $poster) { 
-                    return "<img src=/images/" . optional($poster)->url . " height='100px' width='150px' />";
+                foreach($course->media as $media) { 
+                    return "<img src=/images/" . optional($media)->url . " height='100px' width='150px' />";
                 }
             })
             ->editColumn('price', function(Course $course) {

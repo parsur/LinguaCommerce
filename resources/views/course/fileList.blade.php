@@ -3,8 +3,8 @@
 
 
 @section('content')
-{{-- Header --}}
-<x-header pageName="محتوای دوره" buttonValue="محتوای دوره">  
+  {{-- Header --}}
+  <x-header pageName="محتوای دوره" buttonValue="محتوای دوره">  
     <x-slot name="table">
       {!! $courseFileTable->table(['class' => 'table table-bordered table-striped table-hover-responsive w-100 nowrap text-center']) !!}
     </x-slot>
@@ -14,13 +14,12 @@
   <x-admin.insert size="modal-lg" formId="courseFileForm">
     <x-slot name="content">
       {{-- Form --}}
-      @include('includes.form.courseFile')
+      @include('includes.course.file')
     </x-slot>
   </x-admin.insert>
 
   {{-- Delete Modal --}}
   <x-admin.delete title="آیا مایل به حذف محتوای دوره هستید؟"/>
-
 @endsection
 
 @section('scripts')

@@ -1,17 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\DataTables\UserDataTable;
 use App\DataTables\AdminDataTable;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreAdminRequest;
-use App\Providers\Action;
 use App\Providers\SuccessMessages;
-use App\Models\Cat;
+use App\Providers\Action;
 use App\Models\User;
-use File;
 
 class AdminController extends Controller
 {
@@ -58,14 +56,18 @@ class AdminController extends Controller
 
     // Add or update user
     public function add($request) {
-
-        if($request->get('password') != 'رمز عبور جدید' and $request->get('password') != 'تکرار رمز عبور جدید') {
-            $password = Hash::make($request->get('password'));
-            User::updateOrCreate(
-                ['id' => $request->get('id')],
-                ['name' => $request->get('name'), 'email' => $request->get('email'), 'role' => 'admin', 'password' => $password]
-            );
+        $user = User::find($request->get('id'));
+        if(!$user) {
+            $user = new User();
         }
+        $user->name = $request->get('name');
+        $user->email = $request->get('email');
+        $user->role = User::ADMIN;
+        $user->password = Hash::make($request->get('password'));
+        if($request->get('phone_number'))
+            $user->phone_number = $request->get('phone_number');
+        
+        $user->save();
     }
     // Delete Each Admin
     public function delete(Action $action, $id) {

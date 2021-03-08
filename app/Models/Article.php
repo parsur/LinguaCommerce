@@ -47,10 +47,10 @@ class Article extends Model
     }
 
     /*
-     * Get all of the article's poster.
+     * Get all of the article's media.
      */
-    public function poster() {
-        return $this->morphMany('App\Models\Poster', 'poster');
+    public function media() {
+        return $this->morphMany('App\Models\Media', 'media');
     }
 
     /*

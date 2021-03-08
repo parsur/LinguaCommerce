@@ -15,7 +15,7 @@ class StoreArticleVideoRequest extends FormRequest
     {   
         return [
             'aparat_url' => 'required',
-            'articles' => 'required'
+            'article' => 'required'
         ];
     }
 

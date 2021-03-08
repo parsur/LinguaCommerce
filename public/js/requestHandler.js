@@ -44,7 +44,7 @@ class requestHandler {
     // Delete
     delete(id) {
         $('#confirmModal').modal('show');
-        $('#ok_button').click(function () {
+        $('#deleteSubmission').click(function () {
             $.ajax({
                 url: "/" + window.url + "/delete/" + id,
                 method: "get",

@@ -13,7 +13,7 @@
     <x-admin.insert size="modal-lg" formId="courseVideoForm">
         <x-slot name="content">
             {{-- Form --}}
-            @include('includes.form.courseVideo')
+            @include('includes.course.video')
         </x-slot>
     </x-admin.insert>
 
@@ -32,7 +32,7 @@
         $(document).ready(function() {
 
             // Select2
-            $('#courses').select2({ width:'100%'});
+            $('#course').select2({ width:'100%'});
 
             // COurse Video DataTable And Action Object
             let dt = window.LaravelDataTables['courseVideoTable'];
@@ -68,7 +68,7 @@
                         $('#action').val('ویرایش');
                         $('#button_action').val('update');
                         $('#aparat_url').val(data.url);
-                        $('#courses').val(data.poster_id).trigger('change');
+                        $('#courses').val(data.media_id).trigger('change');
                     }
                 })
             }

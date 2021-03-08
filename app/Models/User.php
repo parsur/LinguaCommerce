@@ -17,8 +17,8 @@ class User extends Authenticatable
     // Cascade On Delete
     protected $cascadeDeletes = ['comments', 'orders', 'carts'];
     
-    const USER = 'user';
-    const ADMIN = 'admin';
+    const USER = 0;
+    const ADMIN = 1;
 
     /**
      * The attributes that are mass assignable.

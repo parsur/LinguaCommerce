@@ -31,6 +31,7 @@
     {{-- Tinymce initialization --}}
     <script src="{{ asset('js/tinymceInit.js') }}"></script>
 
+
     <script>
         let action = new requestHandler(null, '#courseForm', 'course');
 

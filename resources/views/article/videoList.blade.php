@@ -13,7 +13,7 @@
     <x-admin.insert size="modal-lg" formId="articleVideoForm">
         <x-slot name="content">
             {{-- Form --}}
-            @include('includes.form.articleVideo')
+            @include('includes.article.video')
         </x-slot>
     </x-admin.insert>
 
@@ -31,7 +31,7 @@
     <script>
         $(document).ready(function() {
             // Select2
-            $('#articles').select2({ width:'100%'});
+            $('#article').select2({ width:'100%'});
 
             // Article video DataTable And Action Object
             let dt = window.LaravelDataTables['articleVideoTable'];
@@ -67,7 +67,7 @@
                         $('#action').val('ویرایش');
                         $('#button_action').val('update');
                         $('#aparat_url').val(data.url);
-                        $('#articles').val(data.poster_id).trigger('change');
+                        $('#articles').val(data.media_id).trigger('change');
                     }
                 })
             }

@@ -8,10 +8,12 @@ tinymce.init({
     ],
     toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | ' +
         'bullist numlist outdent indent | link image | preview media fullpage | ' +
-        'forecolor backcolor emoticons | ltr rtl',
+        'forecolor backcolor emoticons | ltr rtl | hr',
     menu: {
         favs: { title: 'My Favorites', items: 'code visualaid | searchreplace | emoticons' }
     },
     menubar: 'favs file edit view insert format tools table help',
+    content_style:
+    "@import url('/fonts/Shabnam-Bold.ttf');",
   
 });

@@ -11,8 +11,8 @@
     </div>
     {{-- Phone number --}}
     <div class="col-md-12 mb-3">
-        <label for="email">تلفن همراه:</label>
-        <input name="phone_number" id="phone_number" class="form-control" type="tel" placeholder="تلفن همراه">
+        <label for="phone_number">تلفن همراه:</label>
+        <input name="phone_number" id="phone_number" class="form-control" type="text" placeholder="تلفن همراه">
     </div>
     {{-- Passwords --}}
     <div class="col-md-12 mb-3">

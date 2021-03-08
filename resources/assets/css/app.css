@@ -9,8 +9,4 @@
 /* Select2 */
 @import "~select2/dist/css/select2.css";
 
-/* Tinymce */
-/* @import '~tinymce/skins/content/default/content.min.css';  */
-@import '~tinymce/skins/ui/oxide/skin.css';
-@import '~tinymce/skins/ui/oxide/content.inline.css';
 

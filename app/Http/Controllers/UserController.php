@@ -58,23 +58,18 @@ class UserController extends Controller
 
     // Add or update user
     public function add($request) {
-
-        $englishConvertion = new EnglishConvertion();
-
-        if($request->get('password') != 'رمز عبور جدید' and $request->get('password') != 'تکرار رمز عبور جدید') {
-            $user = User::find($request->get('id'));
-            if(!$user) {
-                $user = new User();
-            }
-            $user->name = $request->get('name');
-            $user->email = $request->get('email');
-            $user->role = 'user';
-            $user->password = Hash::make($request->get('password'));
-            if($request->get('phone_number'))
-                $user->phone_number = $englishConvertion->convert($request->get('phone_number'));
-            
-            $user->save();
+        $user = User::find($request->get('id'));
+        if(!$user) {
+            $user = new User();
         }
+        $user->name = $request->get('name');
+        $user->email = $request->get('email');
+        $user->role = User::USER;
+        $user->password = Hash::make($request->get('password'));
+        if($request->get('phone_number'))
+            $user->phone_number = $request->get('phone_number');
+        
+        $user->save();
     }
     // Delete Each Admin
     public function delete(Action $action, $id) {

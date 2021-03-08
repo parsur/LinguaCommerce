@@ -10,7 +10,7 @@
 <h4 class="mb-3 mt-2">عکس و ویدئو</h4>
 <div class="row">
     {{-- Image --}}
-    @foreach ($table->poster as $image)
+    @foreach ($table->media as $image)
         @if ($image->type == 0)
             <div class="col-md-3 mb-3">
                 <img class="full-media" src="/images/{{ $image->url }}" alt="">
@@ -19,7 +19,7 @@
     @endforeach
 
     {{-- Video --}}
-    @foreach ($table->poster as $video)
+    @foreach ($table->media as $video)
         @if ($video->type == 1)
             <div class="col-md-6 mb-3">
                 <iframe src="{{ $video->url }}" allowFullScreen="true" webkitallowfullscreen="true"

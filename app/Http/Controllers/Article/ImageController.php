@@ -60,15 +60,15 @@ class ImageController extends Controller
                 $file = $image->getClientOriginalName();
 
                 // Update
-                $imageUpload = Poster::find($request->get('id'));
+                $imageUpload = Media::find($request->get('id'));
                 if(!$imageUpload) {
                     // Insert
-                    $imageUpload = new Poster();
+                    $imageUpload = new Media();
                 }
-                $imageUpload->poster_id = $request->get('article');
-                $imageUpload->poster_type = Article::class;
+                $imageUpload->media_id = $request->get('article');
+                $imageUpload->media_type = Article::class;
                 // 0 = image / 1 = video
-                $imageUpload->type = Poster::IMAGE;
+                $imageUpload->type = Media::IMAGE;
 
                 if(isset($file)) {
                     File::delete(public_path("images/$imageUpload->url")); 
@@ -82,11 +82,11 @@ class ImageController extends Controller
 
     // Delete
     public function delete(Action $action, $id) {
-        return $action->deleteWithImage(Poster::class,$id,'url');
+        return $action->deleteWithImage(Media::class,$id,'url');
     }
 
     // Edit
     public function edit(Action $action,Request $request) {
-        return $action->edit(Poster::class,$request->get('id'));
+        return $action->edit(Media::class,$request->get('id'));
     }
 }

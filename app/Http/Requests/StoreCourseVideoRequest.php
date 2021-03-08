@@ -25,7 +25,7 @@ class StoreCourseVideoRequest extends FormRequest
     {   
         return [
             'aparat_url' => 'required',
-            'courses' => 'required'
+            'course' => 'required'
         ];
     }
 

@@ -14,7 +14,7 @@
   <x-admin.insert size="modal-lg" formId="courseImageForm">
     <x-slot name="content">
       {{-- Form --}}
-      @include('includes.form.courseImage')
+      @include('includes.course.image')
     </x-slot>
   </x-admin.insert>
 
@@ -33,7 +33,7 @@
     $(document).ready(function () {
 
       // Select2  
-      $('#courses').select2({ width:'100%'});
+      $('#course').select2({ width:'100%'});
 
       // Course Image DataTable And Action Object
       let dt = window.LaravelDataTables['courseImageTable'];
@@ -73,7 +73,7 @@
             $('#button_action').val('update');
             $('#picture').attr("src", "/images/" + data.url);
             $('#hidden_image').val(data.url);
-            $('#courses').val(data.poster_id).trigger('change');
+            $('#courses').val(data.media_id).trigger('change');
           }
         })
       }

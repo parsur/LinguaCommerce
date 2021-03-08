@@ -17,7 +17,7 @@ class CourseArticleImgVideo {
      */
     public function edit($model,$id) {
 
-        $values = $model::where('id', $id)->with('statuses', 'poster', 'description')->first();
+        $values = $model::where('id', $id)->with('statuses', 'media', 'description')->first();
         return json_encode($values);
     }
 

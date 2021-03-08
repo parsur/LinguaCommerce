@@ -53,6 +53,9 @@
                             {{-- User --}}
                             <x-admin.urlAddress text="کاربر" fontAwesome="fa fa-user" route="{{ url('user/list') }}" />
 
+                            {{-- Videos --}}
+                            <x-admin.urlAddress text="ویدئو ها" fontAwesome="fas fa-video" route="{{ url('order/list') }}"/>
+
                             {{-- Courses --}}
                             <x-admin.urlAddressParent text="دوره" fontAwesome="fas fa-graduation-cap">
                                 <x-slot name="content">
@@ -86,8 +89,7 @@
                                     <x-admin.urlAddress text="لیست نظرات" fontAwesome="null" route="{{ url('articleComment/list ') }}" />        
                                 </x-slot>
                             </x-admin.urlAddressParent>
-
-
+                            
                             {{-- Categories --}}
                             <x-admin.urlAddressParent Text="دسته بندی ها" fontAwesome="fa fa-list">
                                 <x-slot name="content">
@@ -139,6 +141,8 @@
         <script src="{{ mix('js/app.js') }}"></script>
         {{-- Ajax Requests --}}
         <script src="{{ asset('js/requestHandler.js') }}"></script>
+        {{-- TinyMce --}}
+        <script src="{{ asset('js/tinymce.min.js') }}"></script>
         {{-- Ajax Setup --}}
         <script>
             $.ajaxSetup({

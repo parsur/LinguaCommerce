@@ -44,5 +44,4 @@
 <div class="col-md-12 mb-3" align="center">
     <input type="hidden" name="button_action" id="button_action" value="insert" />
     <input type="submit" name="submit" id="action" value="تایید" class="btn btn-primary" />
-    <button type="button" class="btn btn-danger" data-dismiss="modal">خروج</button>
 </div>

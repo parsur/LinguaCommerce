@@ -36,59 +36,33 @@ class FileController extends Controller
 
     // Store
     public function store(StoreCourseFileRequest $request,SuccessMessages $message) {
+        // Insert or update
+        $this->add($request);
+
         // Insert
         if($request->get('button_action') == 'insert') {
-            $this->insert($request);
             $success_output = $message->getInsert();
         }
         // Update
         else if($request->get('button_action') == 'update') {
-            $this->update($request);
             $success_output = $message->getUpdate();
         }
-        
+
         $output = array('success' => $success_output);
         return json_encode($output);
     }
 
-    // Update
-    public function update($request) {
-        foreach($request->file('files') as $file) {
-            // Original file name
-            $fileName = $file->getClientOriginalName();
-
-            // Update
-            $fileUpload = $this->file::find($request->get('id'));
-            $fileUpload->course_id = $request->get('course');
-
-            // Store this storage
-            $file->storeAs('courseFiles', $fileName);
-
-            if(isset($fileName)) {
-                Storage::disk('public')->delete($fileUpload->url); 
-                $fileUpload->url = $fileName;
-            }
-            
-            $fileUpload->save();
+   // Add Video
+   public function add($request) {
+        // Insert Course videos
+        foreach($request->get('courses') as $course) {
+            Media::updateOrCreate(
+                ['id' => $request->get('id')],
+                ['url' => $request->get('aparat_url'), 'media_id' => $course, 'media_type' => Course::class, 'type' => Media::VIDEO]
+            );
         }
     }
 
-    // insert
-    public function insert($request) {
-        foreach($request->file('files') as $file) {
-            // File name
-            $fileName =  $file->getClientOriginalName();
-
-            $fileUpload = new $this->file();
-            // Original file name
-            $fileUpload->course_id = $request->get('course');
-            // File url
-            $file->storeAs('courseFiles', $fileName);
-            $fileUpload->url = $file->getClientOriginalName();
-
-            $fileUpload->save();
-        }
-    }
 
     // Delete
     public function delete($id) {
