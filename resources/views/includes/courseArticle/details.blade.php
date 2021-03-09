@@ -7,7 +7,7 @@
     </div>
 </div>
 
-<h4 class="mb-3 mt-2">عکس و ویدئو</h4>
+<h4 class="mb-2 mt-2">عکس و ویدئو</h4>
 <div class="row">
     {{-- Image --}}
     @foreach ($table->media as $image)
@@ -21,7 +21,7 @@
     {{-- Video --}}
     @foreach ($table->media as $video)
         @if ($video->type == 1)
-            <div class="col-md-6 mb-3">
+            <div class="col-md-6 mb-2">
                 <iframe src="{{ $video->url }}" allowFullScreen="true" webkitallowfullscreen="true"
                     mozallowfullscreen="true" height="250px" width="100%"></iframe>
             </div>

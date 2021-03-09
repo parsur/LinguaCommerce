@@ -5,7 +5,7 @@
     <x-admin.page title="جزئیات دوره" description="جزئیات توضیحات و رسانه دوره" formId="">
         <x-slot name="content">
             {{-- course and article details --}}
-            @include('includes.courseArticle.details' , ['table' => $course])
+            @include('includes.course.details' , ['table' => $course])
         </x-slot>
     </x-admin.page>
 @endsection

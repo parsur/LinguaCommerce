@@ -24,7 +24,7 @@ class StoreFileRequest extends FormRequest
     public function rules()
     {
         return [
-            'files' => 'required',
+            'file' => 'required',
             'course' => 'required'
         ];
     }

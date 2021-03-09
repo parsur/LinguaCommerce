@@ -36,6 +36,14 @@ class Course extends Model
         return $this->hasMany('App\Models\Cart');
     }
 
+    /*
+     * Get all of the course's files.
+     */
+    public function files() {
+        return $this->hasMany('App\Models\File');
+    }
+
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

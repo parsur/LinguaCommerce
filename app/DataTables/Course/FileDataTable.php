@@ -33,17 +33,9 @@ class FileDataTable extends DataTable
                 $query->whereRaw($sql, ["%{$keyword}%"]);
             })
             ->editColumn('url', function(File $file) {
-                $suffix = pathinfo((storage_path('app/public/courseFiles/' . $file->url)), PATHINFO_EXTENSION);
-                // All video formats
-                $videoFormats = array("flv", "mp4", "m3ub", "ts","3gp", "mov", "avi", "wmv", "mkv");
-                // Url
-                $url = asset('storage/courseFiles/'. $file->url);
-                // Check if it exists in array
-                if (in_array($suffix, $videoFormats)) { 
-                    return "<video height='200px' src='".$url."' controls></video>";
-                } else {
-                    return "<audio height='200px' src='".$url."' controls></audio>";
-                } 
+                return <<<ATAG
+                            <a href="$file->url" target="_blank">باز کردن آدرس</a>
+                        ATAG;  
             })
             ->addColumn('action', function (File $file){
                 return <<<ATAG

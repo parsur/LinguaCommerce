@@ -52,27 +52,19 @@ class FileController extends Controller
         return json_encode($output);
     }
 
-   // Add Video
-   public function add($request) {
+    // Add Video
+    public function add($request) {
         // Insert Course videos
-        foreach($request->get('courses') as $course) {
-            Media::updateOrCreate(
-                ['id' => $request->get('id')],
-                ['url' => $request->get('aparat_url'), 'media_id' => $course, 'media_type' => Course::class, 'type' => Media::VIDEO]
-            );
-        }
+        $this->file::updateOrCreate(
+            ['id' => $request->get('id')],
+            ['url' => $request->get('url'), 'course_id' => $request->get('course')]
+        );
     }
 
 
     // Delete
-    public function delete($id) {
-        $courseFile = \App\Models\File::find($id);
-        if ($courseFile) {
-            Storage::disk('public')->delete($fileUpload->url);
-        } else {
-            return response()->json([], 404);
-        }
-        return response()->json([], 200);
+    public function delete($id, Action $action) {
+        return $action->delete($this->file,$id);
     }
 
     // Edit

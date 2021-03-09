@@ -12,7 +12,7 @@
 
     {{-- Files --}}
     <div class="col-md-12 mt-3">
-        <h6 class="imageLabel">لینک محتوای دوره:</h6>
-        <textarea name="files" id="files" class="form-control" rows="5" placeholder="لینک محتوا"></textarea>
+        <label for="file">انتخاب دوره:</label>
+        <textarea name="url" id="url" class="form-control" rows="5" placeholder="لینک محتوا"></textarea>
     </div>
 </div>

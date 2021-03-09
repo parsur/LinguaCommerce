@@ -159,7 +159,7 @@ class CourseController extends Controller
     // User datails
     public function userDetails($id) {
         
-        $course = Course::find($id);
+        $course = Course::findOrFail($id);
         return response()->json($course);
     }
 
