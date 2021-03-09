@@ -1,10 +1,9 @@
 <?php
 
-namespace App\DataTables\Course;
+namespace App\DataTables;
 
 use App\Models\Media;
-use App\Models\Image;
-use App\Models\Course;
+use App\Models\Category;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
@@ -24,18 +23,11 @@ class VideoDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addIndexColumn()
-            ->rawColumns(['action','url']) 
+            ->rawColumns(['action', 'url'])
             ->editColumn('url', function(Media $video) {
                 return '<iframe src="'.$video->url.'"  width="50%" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>';
             })
-            ->addColumn('media_id', function (Media $video) {
-                return $video->media->name;
-            })
-            ->filterColumn('media_id', function ($query, $keyword) {
-                $sql = 'media_id in (select id from courses where name like ?)';
-                $query->whereRaw($sql, ["%{$keyword}%"]);
-            })
-            ->addColumn('action', function(Media $video){
+            ->addColumn('action', function (Media $video){
                 return <<<ATAG
                             <a onclick="showConfirmationModal('{$video->id}')">
                                 <i class="fa fa-trash text-danger" aria-hidden="true"></i>
@@ -45,7 +37,7 @@ class VideoDataTable extends DataTable
                                 <i class="fa fa-edit text-danger" aria-hidden="true"></i>
                             </a>
                         ATAG;
-            });
+            }); 
     }
 
     /**
@@ -56,7 +48,7 @@ class VideoDataTable extends DataTable
      */
     public function query(Media $model)
     {
-        return $model->where('media_type', Course::class)->where('type', $model::VIDEO);
+        return $model->where('media_type', Category::class)->orWhere('media_type', null);
     }
 
     /**
@@ -67,9 +59,9 @@ class VideoDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-                ->setTableId('courseVideoTable')
+                ->setTableId('videoTable')
                 ->columns($this->getColumns())
-                ->minifiedAjax(route('courseVideo.list.table'))
+                ->minifiedAjax(route('video.list.table'))
                 ->columnDefs(
                     [
                         ["className" => 'dt-center text-center', "target" => '_all'],
@@ -99,9 +91,6 @@ class VideoDataTable extends DataTable
             Column::make('url')
             ->title('ویدئو')
                 ->addClass('column-title'),
-            Column::make('media_id')
-            ->title('دوره مرتبط')
-                ->addClass('column-title'),
             Column::computed('action') // This column is not in database
                 ->exportable(false)
                 ->searchable(false)
@@ -119,6 +108,6 @@ class VideoDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'CourseVideo_' . date('YmdHis');
+        return 'Video_' . date('YmdHis');
     }
 }

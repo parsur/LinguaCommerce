@@ -54,7 +54,7 @@
                             <x-admin.urlAddress text="کاربر" fontAwesome="fa fa-user" route="{{ url('user/list') }}" />
 
                             {{-- Videos --}}
-                            <x-admin.urlAddress text="ویدئو ها" fontAwesome="fas fa-video" route="{{ url('order/list') }}"/>
+                            <x-admin.urlAddress text="ویدئو ها" fontAwesome="fas fa-video" route="{{ url('video/list') }}"/>
 
                             {{-- Courses --}}
                             <x-admin.urlAddressParent text="دوره" fontAwesome="fas fa-graduation-cap">

@@ -1,46 +1,45 @@
 @extends('layouts.admin')
-@section('title', 'لیست محتوای دوره')
-
+@section('title', 'لیست ویدئو ها')
 
 @section('content')
     {{-- Header --}}
-    <x-header pageName="محتوای دوره" buttonValue="محتوای دوره">
-      <x-slot name="table">
-        {!! $courseFileTable->table(['class' => 'table table-bordered table-striped table-hover-responsive w-100 nowrap text-center']) !!}
-      </x-slot>
+    <x-header pageName="ویدئو ها" buttonValue="ویدئو">
+        <x-slot name="table">
+            {!! $videoTable->table(['class' => 'table table-bordered table-striped table-hover-responsive w-100 nowrap text-center']) !!}
+        </x-slot>
     </x-header>
 
     {{-- Insert Modal --}}
-    <x-admin.insert size="modal-lg" formId="courseFileForm">
-      <x-slot name="content">
-        {{-- Form --}}
-        @include('includes.course.file')
-      </x-slot>
+    <x-admin.insert size="modal-lg" formId="videoForm">
+        <x-slot name="content">
+            {{-- Form --}}
+            @include('includes.form.video')
+        </x-slot>
     </x-admin.insert>
 
     {{-- Delete Modal --}}
-    <x-admin.delete title="آیا مایل به حذف محتوای دوره هستید؟" />
+    <x-admin.delete title="آیا مایل به حذف ویدئو هستید؟" />
+    
 @endsection
 
 @section('scripts')
     @parent
-    {{-- Course file DataTable --}}
-    {!! $courseFileTable->scripts() !!}
+    {{-- Course Image DataTable --}}
+    {!! $videoTable->scripts() !!}
 
     <script>
         $(document).ready(function() {
-            // Select2  
-            $('#course').select2({
+            // Select2
+            $('#categories').select2({
                 width: '100%'
             });
 
             // Course Image DataTable And Action Object
-            let dt = window.LaravelDataTables['courseFileTable'];
-            let action = new requestHandler(dt, '#courseFileForm', 'courseFile');
+            let dt = window.LaravelDataTables['videoTable'];
+            let action = new requestHandler(dt, '#videoForm', 'video');
 
             // Record modal
             $('#create_record').click(function() {
-                $('#courses').val('').trigger('change');
                 action.modal();
             });
 
@@ -57,26 +56,25 @@
             }
 
             function edit($url) {
+                var id = $url;
                 $('#form_output').html('');
                 $('#formModal').modal('show');
 
                 $.ajax({
-                    url: "{{ url('courseFile/edit') }}",
+                    url: "{{ url('video/edit') }}",
                     method: "get",
                     data: {
-                        id: $url
+                        id: id
                     },
                     success: function(data) {
-                        $('#id').val($url);
+                        $('#id').val(id);
                         $('#action').val('ویرایش');
                         $('#button_action').val('update');
-                        $('#url').val(data.url);
-                        $('#courses').val(data.course_id).trigger('change');
+                        $('#aparat_url').val(data.media_id).trigger('change');
                     }
                 })
             }
         });
 
     </script>
-
 @endsection

@@ -48,4 +48,11 @@ class Category extends Model
     public function statuses() {
         return $this->morphOne('App\Models\Status', 'status');
     }
+
+    /*
+     * Get all of the category's media.
+     */
+    public function media() {
+        return $this->morphOne('App\Models\Media', 'media');
+    }
 }

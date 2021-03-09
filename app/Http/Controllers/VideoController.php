@@ -1,16 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Course;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Course\StoreVideoRequest;
-use App\DataTables\Course\VideoDataTable;
-use App\Providers\SuccessMessages;
+use App\Http\Requests\StoreVideoRequest;
+use App\DataTables\VideoDataTable;
 use App\Providers\Action;
 use App\Models\Media;
-use App\Models\Course;
-use DB;
+use App\Models\Category;
+use App\Providers\SuccessMessages;
 
 class VideoController extends Controller
 {
@@ -19,14 +17,14 @@ class VideoController extends Controller
         $dataTable = new VideoDataTable;
 
         // Video Table
-        $vars['courseVideoTable'] = $dataTable->html();
+        $vars['videoTable'] = $dataTable->html();
 
-        return view('course.videoList', $vars);
+        return view('videoList', $vars);
     }
 
     // Rendering DataTable
-    public function courseVideoTable(VideoDataTable $dataTable) {
-        return $dataTable->render('course.videoList');
+    public function videoTable(VideoDataTable $dataTable) {
+        return $dataTable->render('videoList');
     }
 
     public function store(StoreVideoRequest $request,SuccessMessages $message) {
@@ -50,10 +48,17 @@ class VideoController extends Controller
     // Add Video
     public function add($request) {
 
+        // If request did not have categories
+        if($request->get('categories') == '') {
+            $category = null;
+        } else {
+            $category = Category::class;
+        }
+
         // Insert Course videos
         Media::updateOrCreate(
             ['id' => $request->get('id')],
-            ['url' => $request->get('aparat_url'), 'media_id' => $request->get('course'), 'media_type' => Course::class, 'type' => Media::VIDEO]
+            ['url' => $request->get('aparat_url'), 'media_id' => $request->get('categories'), 'media_type' => $category, 'type' => Media::VIDEO]
         );
     }
 

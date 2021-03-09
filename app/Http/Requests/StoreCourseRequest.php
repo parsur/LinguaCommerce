@@ -34,19 +34,6 @@ class StoreCourseRequest extends FormRequest
     }
 
     /**
-     * Get custom attributes for validator errors.
-     *
-     * @return array
-     */
-    public function attributes()
-    {
-        return [
-            'hidden_image' => '"تصویر"',
-            'aparat_url' => '"لینک ویدئو آپارات"'
-        ];
-    }
-
-    /**
      * Prepare the data for validation.
      *
      * @return void

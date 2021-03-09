@@ -11,6 +11,7 @@
 
     {{-- Insert Modal --}}
     <x-admin.insert size="modal-lg" formId="courseVideoForm">
+        
         <x-slot name="content">
             {{-- Form --}}
             @include('includes.course.video')

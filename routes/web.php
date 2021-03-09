@@ -24,6 +24,14 @@ Route::group(['middleware' => ['auth','isAdmin']], function () {
         Route::get('edit', 'AdminController@edit');
         Route::get('delete/{id}', 'AdminController@delete');
     });
+    // Video
+    Route::group(['prefix' => 'video', 'as' => 'video.'], function () {
+        Route::get('list', 'VideoController@list');
+        Route::get('table/list', 'VideoController@videoTable')->name('list.table');
+        Route::post('store', 'VideoController@store');
+        Route::get('edit', 'VideoController@edit');
+        Route::get('delete/{id}', 'VideoController@delete');
+    });
     // Course
     Route::group(['prefix' => 'course', 'as' => 'course.'], function () {
         Route::get('list', 'CourseController@list');

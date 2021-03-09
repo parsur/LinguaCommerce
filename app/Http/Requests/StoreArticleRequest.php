@@ -38,8 +38,8 @@ class StoreArticleRequest extends FormRequest
     public function attributes()
     {
         return [
-            'hidden_image' => '"تصویر"',
-            'aparat_url' => '"لینک ویدئو آپارات"'
+            'title' => '"عنوان"',
+            'status' => '"وضعیت"',
         ];
     }
 }
