@@ -23,19 +23,16 @@ class ImageDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addIndexColumn()
-            ->rawColumns(['action','image_url']) 
-            ->editColumn('image_url', function(Media $image) {
+            ->rawColumns(['action','url']) 
+            ->editColumn('url', function(Media $image) {
                 return "<img src=/images/" . $image->url . " height='auto' width='80%' />";
             })
             ->editColumn('media_id', function (Media $image) {
-                return $image->media->name;
+                return $image->media->title;
             })
             ->filterColumn('media_id', function ($query, $keyword) {
-                $articles = Media::where('type', Media::IMAGE)->whereHas('image', function($subquery) use ($keyword) {
-                    $subquery->where('name', 'LIKE', '%'.$keyword.'%');
-                })->get()->pluck('id')->toArray();
-
-                $query->whereIn('id', $articles);
+                $sql = 'media_id in (select id from articles where title like ?)';
+                $query->whereRaw($sql, ["%{$keyword}%"]);
             })
             ->addColumn('action', function(Media $image){
                 return <<<ATAG
@@ -77,7 +74,7 @@ class ImageDataTable extends DataTable
                     ["className" => 'dt-center text-center', "target" => '_all'],
                 ]
             )
-            ->searching(false)
+            ->searching(true)
             ->info(false)
             ->responsive(true)
             ->dom('PBCfrtip')
@@ -98,7 +95,7 @@ class ImageDataTable extends DataTable
                 ->addClass('column-title')
                 ->searchable(false)
                 ->orderable(false),
-            Column::make('image_url')
+            Column::make('url')
             ->title('رسانه')
                 ->addClass('column-title'),
             Column::make('media_id')

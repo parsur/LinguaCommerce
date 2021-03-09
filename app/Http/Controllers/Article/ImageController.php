@@ -5,11 +5,12 @@ namespace App\Http\Controllers\Article;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\DataTables\Article\ImageDataTable;
-use App\Http\Requests\StoreArticleImageRequest;
+use App\Http\Requests\Article\StoreImageRequest;
 use App\Providers\SuccessMessages;
 use App\Providers\Action;
 use App\Models\Article;
-use App\Models\Image;
+use App\Models\Media;
+use File;
 use DB;
 
 class ImageController extends Controller
@@ -33,7 +34,7 @@ class ImageController extends Controller
     }
 
     // Store
-    public function store(StoreArticleImageRequest $request,SuccessMessages $message) {
+    public function store(StoreImageRequest $request,SuccessMessages $message) {
 
         // insert or update
         $this->add($request);
@@ -55,7 +56,7 @@ class ImageController extends Controller
     public function add($request) {
 
         if($request->hasFile('images')) {
-            foreach($request->get('images') as $image) {
+            foreach($request->file('images') as $image) {
                 // File
                 $file = $image->getClientOriginalName();
 

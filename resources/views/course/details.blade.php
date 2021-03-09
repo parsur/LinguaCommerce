@@ -6,8 +6,6 @@
         <x-slot name="content">
             {{-- course and article details --}}
             @include('includes.courseArticle.details' , ['table' => $course])
-            <h4>لینک فایل ها</h4>
-
         </x-slot>
     </x-admin.page>
 @endsection

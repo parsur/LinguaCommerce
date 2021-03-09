@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Course;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\DataTables\Course\FileDataTable;
-use App\Http\Requests\StoreCourseFileRequest;
+use App\Http\Requests\Course\StoreFileRequest;
 use App\Providers\Action;
 use App\Providers\SuccessMessages;
 use Illuminate\Support\Str;
@@ -35,7 +35,7 @@ class FileController extends Controller
     }
 
     // Store
-    public function store(StoreCourseFileRequest $request,SuccessMessages $message) {
+    public function store(StoreFileRequest $request,SuccessMessages $message) {
         // Insert or update
         $this->add($request);
 

@@ -9,8 +9,10 @@ class requestHandler {
     // modal
     modal() {
         $('#formModal').modal('show');
-        $(window.formId)[0].reset();
+        $('#button_action').val('insert');
+        $('#action').val('تایید');
         $('#form_output').html('');
+        $(window.formId)[0].reset();
     }
 
     // Insert

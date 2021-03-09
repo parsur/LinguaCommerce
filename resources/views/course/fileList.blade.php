@@ -62,7 +62,6 @@
           url: "{{ url('courseFile/edit') }}",
           method: "get",
           data: {id: $url},
-          dataType: "json",
           success: function(data) {
             $('#id').val($url);
             $('#action').val('ویرایش');

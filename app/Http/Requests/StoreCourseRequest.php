@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Requests;
+
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Http\FormRequest;
+use App\Providers\EnglishConvertion;
 
 class StoreCourseRequest extends FormRequest
 {
@@ -42,5 +44,20 @@ class StoreCourseRequest extends FormRequest
             'hidden_image' => '"تصویر"',
             'aparat_url' => '"لینک ویدئو آپارات"'
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    protected function prepareForValidation()
+    {
+        // English convertion
+        $englishConvertion = new EnglishConvertion();
+
+        $this->merge([
+            'price' => $englishConvertion->convert($this->input('price'))
+        ]);
     }
 }

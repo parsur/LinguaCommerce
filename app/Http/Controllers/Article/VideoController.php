@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Article;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreArticleVideoRequest;
+use App\Http\Requests\Article\StoreVideoRequest;
 use App\DataTables\Article\VideoDataTable;
 use App\Providers\SuccessMessages;
 use App\Providers\Action;
@@ -28,7 +28,7 @@ class VideoController extends Controller
         return $dataTable->render('article.videoList');
     }
 
-    public function store(StoreArticleVideoRequest $request,SuccessMessages $message) {
+    public function store(StoreVideoRequest $request,SuccessMessages $message) {
 
         // Insert or update
         $this->add($request);

@@ -51,7 +51,7 @@ class CourseDataTable extends DataTable
                 $sql = 'subCategory_id in (select id from subCategories where name like ?)';
                 $query->whereRaw($sql, ["%{$keyword}%"]);
             })
-            ->addColumn('status', function(Course $course) { 
+            ->editColumn('status', function(Course $course) { 
                 if($course->statuses->status === Status::VISIBLE) return 'موجود';
                 else if($course->statuses->status === Status::INVISIBLE) return 'ناموجود';
             })  
@@ -60,11 +60,8 @@ class CourseDataTable extends DataTable
                     case 'موجود': $keyword = 0; break;
                     case 'ناموجود': $keyword = 1;
                 }
-                $statuses = Course::whereHas('statuses',  function ($subquery) use ($keyword) {
-                    $subquery->where('status', $keyword);
-                })->get()->pluck('id')->toArray();
-
-                $query->whereIn('id', $statuses);
+                $sql = 'id in (select status_id from status where status like ?)';
+                $query->whereRaw($sql, ["%{$keyword}%"]);
             })
             ->addColumn('action',function(Course $course) {
                 $editCourse = URL::signedRoute('course.new', ['id' => $course->id]);

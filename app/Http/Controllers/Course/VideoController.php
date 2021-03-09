@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Course;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreCourseVideoRequest;
+use App\Http\Requests\Course\StoreVideoRequest;
 use App\DataTables\Course\VideoDataTable;
 use App\Providers\SuccessMessages;
 use App\Providers\Action;
@@ -29,7 +29,7 @@ class VideoController extends Controller
         return $dataTable->render('course.videoList');
     }
 
-    public function store(StoreCourseVideoRequest $request,SuccessMessages $message) {
+    public function store(StoreVideoRequest $request,SuccessMessages $message) {
         // Insert or update
         $this->add($request);
         

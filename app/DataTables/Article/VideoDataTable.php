@@ -31,12 +31,8 @@ class VideoDataTable extends DataTable
                 return $video->media->name;
             })
             ->filterColumn('media_id', function ($query, $keyword) {
-
-                $articles = Media::where('type', Media::VIDEO)->whereHas('media', function($subquery) use ($keyword) {
-                    $subquery->where('name', 'LIKE', '%'.$keyword.'%');
-                })->get()->pluck('id')->toArray();
-
-                $query->whereIn('id', $articles);
+                $sql = 'media_id in (select id from articles where title like ?)';
+                $query->whereRaw($sql, ["%{$keyword}%"]);
             })
             ->addColumn('action', function(Media $video){
                 return <<<ATAG

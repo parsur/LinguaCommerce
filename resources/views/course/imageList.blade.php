@@ -43,6 +43,7 @@
       $('#create_record').click(function () {
         $('#courses').val('').trigger('change');
         $("#picture").attr("src", "");
+        $('#hidden_image').val(null);
         action.modal();
       });
 
@@ -66,7 +67,6 @@
           url: "{{ url('courseImage/edit') }}",
           method: "get",
           data: {id: id},
-          dataType: "json",
           success: function(data) {
             $('#id').val(id);
             $('#action').val('ویرایش');

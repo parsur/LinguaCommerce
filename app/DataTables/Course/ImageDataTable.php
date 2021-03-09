@@ -26,27 +26,23 @@ class ImageDataTable extends DataTable
             ->eloquent($query)
             ->addIndexColumn()
             ->rawColumns(['action','url']) 
-            ->editColumn('url', function(Media $image) {
-                return "<img src=/images/" . $image->url . " height='auto' width='80%' />";
+            ->editColumn('url', function(Media $media) {
+                return "<img src=/images/" . $media->url . " height='auto' width='80%' />";
             })
-            ->editColumn('media_id', function (Media $image) {
-                return $image->media->name;
+            ->editColumn('media_id', function (Media $media) {
+                return $media->media->name;
             })
             ->filterColumn('media_id', function ($query, $keyword) {
-                
-                $courses = Media::whereHas('media', function($subquery) use ($keyword) {
-                    $subquery->where('name', 'LIKE', '%'.$keyword.'%');
-                })->get()->pluck('id')->toArray();
-
-                $query->whereIn('id', $courses);
+                $sql = 'media_id in (select id from courses where name like ?)';
+                $query->whereRaw($sql, ["%{$keyword}%"]);
             })
-            ->addColumn('action', function(Media $image){
+            ->addColumn('action', function(Media $media){
                 return <<<ATAG
-                            <a onclick="showConfirmationModal('{$image->id}')">
+                            <a onclick="showConfirmationModal('{$media->id}')">
                                 <i class="fa fa-trash text-danger" aria-hidden="true"></i>
                             </a>
                             &nbsp;
-                            <a onclick="showEditModal('{$image->id}')">
+                            <a onclick="showEditModal('{$media->id}')">
                                 <i class="fa fa-edit text-danger" aria-hidden="true"></i>
                             </a>
                         ATAG;

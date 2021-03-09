@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Course;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\DataTables\Course\ImageDataTable;
-use App\Http\Requests\StoreCourseImageRequest;
+use App\Http\Requests\Course\StoreImageRequest;
 use App\Providers\SuccessMessages;
 use App\Providers\Action;
 use App\Models\Media;
@@ -31,7 +31,7 @@ class ImageController extends Controller
     }
 
     // Store
-    public function store(StoreCourseImageRequest $request,SuccessMessages $message) {
+    public function store(StoreImageRequest $request,SuccessMessages $message) {
 
         // insert or update
         $this->add($request);
