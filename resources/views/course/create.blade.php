@@ -31,6 +31,11 @@
     <script src="{{ asset('js/tinymceInit.js') }}"></script>
 
     <script>
+        // Select2
+        $('#categories').select2({ width:'100%' });
+        $('#subCategories').select2({width:'100%'});
+
+        // Action object
         let action = new requestHandler(null, '#courseForm', 'course');
 
         // Insert
