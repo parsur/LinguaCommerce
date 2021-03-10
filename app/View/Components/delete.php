@@ -24,6 +24,6 @@ class delete extends Component
      */
     public function render()
     {
-        return view('components.admin.delete');
+        return view('components.delete');
     }
 }

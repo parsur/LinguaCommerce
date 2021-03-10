@@ -98,6 +98,9 @@ class FileDataTable extends DataTable
                 ->addClass('column-title')
                 ->searchable(false)
                 ->orderable(false),
+            Column::make('title')
+            ->title('عنوان')
+                ->addClass('column-title'),
             Column::make('url')
             ->title('محتوا')
                 ->addClass('column-title'),

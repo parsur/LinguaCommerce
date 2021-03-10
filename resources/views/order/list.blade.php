@@ -6,12 +6,12 @@
     {{-- Header --}}
     <x-header pageName="سفارشات" buttonValue="">
         <x-slot name="table">
-            {!! $orderTable->table(['class' => 'table table-bordered table-striped table-hover-responsive w-100 nowrap text-center'], false) !!}
+            {!! $orderTable->table(['class' => 'table table-bordered table-striped w-100 nowrap text-center'], false) !!}
         </x-slot>
     </x-header>
 
     {{-- Delete --}}
-    <x-admin.delete title="آیا مایل به حذف سفارش هستید؟"/>
+    <x-delete title="آیا مایل به حذف سفارش هستید؟"/>
 
 @endsection
 

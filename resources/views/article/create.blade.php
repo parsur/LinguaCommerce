@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-    <x-admin.page title="ذخیره مقاله" description="مقاله خود را اضافه یا ویرایش کنید" formId="articleForm">
+    <x-page title="ذخیره مقاله" description="مقاله خود را اضافه یا ویرایش کنید" formId="articleForm">
         <x-slot name="content">
             {{-- Hidden Inputs --}}
             <input type="hidden" name="id" id="id" value="{{ ($article) ? $article->id : "" }}" />
@@ -18,7 +18,7 @@
             @include('includes.courseArticle.form', ['table' => $article])
 
         </x-slot>
-    </x-admin.page>
+    </x-page>
 @endsection
 
 @section('scripts')

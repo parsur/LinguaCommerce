@@ -5,20 +5,20 @@
     {{-- Header --}}
     <x-header pageName="ویدئو مقاله" buttonValue="ویدئو مقاله">
         <x-slot name="table">
-            {!! $articleVideoTable->table(['class' => 'table table-bordered table-striped table-hover-responsive w-100 text-center'], false) !!}
+            {!! $articleVideoTable->table(['class' => 'table table-bordered table-striped w-100 text-center'], false) !!}
         </x-slot>
     </x-header>
 
     {{-- Insert Modal --}}
-    <x-admin.insert size="modal-lg" formId="articleVideoForm">
+    <x-insert size="modal-lg" formId="articleVideoForm">
         <x-slot name="content">
             {{-- Form --}}
             @include('includes.article.video')
         </x-slot>
-    </x-admin.insert>
+    </x-insert>
 
     {{-- Delete Modal --}}
-    <x-admin.delete title="آیا مایل به حذف ویدئو مقاله هستید؟" />
+    <x-delete title="آیا مایل به حذف ویدئو مقاله هستید؟" />
 
 @endsection
 
@@ -30,9 +30,6 @@
 
     <script>
         $(document).ready(function() {
-            // Select2
-            $('#article').select2({ width:'100%'});
-
             // Article video DataTable And Action Object
             let dt = window.LaravelDataTables['articleVideoTable'];
             let action = new requestHandler(dt,'#articleVideoForm','articleVideo');

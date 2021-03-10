@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-    <x-admin.page title="ذخیره دوره" description="دوره خود را اضافه یا ویرایش کنید" formId="courseForm">
+    <x-page title="ذخیره دوره" description="دوره خود را اضافه یا ویرایش کنید" formId="courseForm">
         <x-slot name="content">
             {{-- Hidden Input --}}
             <input type="hidden" name="id" id="id" value="{{ ($course) ? $course->id : "" }}" />
@@ -22,7 +22,7 @@
             {{-- Include Form --}}
             @include('includes.courseArticle.form', ['table' => $course])
         </x-slot>
-    </x-admin.page>
+    </x-page>
 @endsection
 
 @section('scripts')
@@ -31,10 +31,6 @@
     <script src="{{ asset('js/tinymceInit.js') }}"></script>
 
     <script>
-        // Select2
-        $('#categories').select2({ width:'100%' });
-        $('#subCategories').select2({width:'100%'});
-
         // Action object
         let action = new requestHandler(null, '#courseForm', 'course');
 

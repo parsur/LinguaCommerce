@@ -5,21 +5,20 @@
   {{-- Header --}}
   <x-header pageName="کاربر" buttonValue="کاربر">
     <x-slot name="table">
-      {!! $userTable->table(['class' => 'table table-striped table-bordered table-hover-responsive w-100 nowrap text-center']) !!}
+      {!! $userTable->table(['class' => 'table table-striped table-bordered w-100 nowrap text-center']) !!}
     </x-slot>
   </x-header>
 
   {{-- Insert Modal --}}
-  <x-admin.insert size="modal-l" formId="userForm">
+  <x-insert size="modal-l" formId="userForm">
     <x-slot name="content">
         {{-- User form --}}
         @include('includes.form.user')
     </x-slot>
-  </x-admin.insert>
+  </x-insert>
 
   {{-- Delete Modal --}}
-  <x-admin.delete title="آیا از حذف کاربر مطمئن هستید؟"/>
-
+  <x-delete title="آیا از حذف کاربر مطمئن هستید؟"/>
 @endsection
 
 
@@ -74,24 +73,5 @@
         })
       }
     });
-    tinymce.init({
-    selector: 'textarea#description',
-    height: 400,
-    plugins: [
-        'autolink link image lists charmap preview hr anchor pagebreak',
-        'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
-        'table emoticons template paste directionality'
-    ],
-    toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | ' +
-        'bullist numlist outdent indent | link image | preview media fullpage | ' +
-        'forecolor backcolor emoticons | ltr rtl',
-    menu: {
-        favs: { title: 'My Favorites', items: 'code visualaid | searchreplace | emoticons' }
-    },
-    menubar: 'favs file edit view insert format tools table help',
-    content_style:
-    "@import url('/public/fonts/Shabnam-Bold.ttf');",
-  
-});
   </script>
 @endsection

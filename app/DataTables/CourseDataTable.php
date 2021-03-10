@@ -57,7 +57,8 @@ class CourseDataTable extends DataTable
             })  
             ->filterColumn('status', function ($query, $keyword) {
                 switch($keyword) {
-                    case 'موجود': $keyword = 0; break;
+                    case 'موجود': $keyword = 0; 
+                        break;
                     case 'ناموجود': $keyword = 1;
                 }
                 $sql = 'id in (select status_id from status where status like ?)';

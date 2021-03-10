@@ -3,7 +3,7 @@
 
 
 @section('content')
-    <x-admin.page title="تنظیمات صفحه اصلی" description="تنظیمات صفحه خانه" formId="homeSettingForm">
+    <x-page title="تنظیمات صفحه اصلی" description="تنظیمات صفحه خانه" formId="homeSettingForm">
         <x-slot name="content">
             <h5>تیتر</h5>
             <hr>

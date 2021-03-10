@@ -5,20 +5,20 @@
     {{-- Header --}}
     <x-header pageName="دسته بندی اول" buttonValue="دسته بندی اول">
         <x-slot name="table">
-            {!! $categoryTable->table(['class' => 'table table-bordered table-striped table-hover-responsive w-100 nowrap text-center'], false) !!} 
+            {!! $categoryTable->table(['class' => 'table table-bordered table-striped w-100 nowrap text-center'], false) !!} 
         </x-slot>
     </x-header>
 
     {{-- Insert Modal --}}
-    <x-admin.insert size="modal-l" formId="categoryForm">
+    <x-insert size="modal-l" formId="categoryForm">
         <x-slot name="content">
             {{-- Form --}}
             @include('includes.form.category')
         </x-slot>
-    </x-admin.insert>
+    </x-insert>
     
     {{-- Delete --}}
-    <x-admin.delete title="آیا مایل به حذف دسته بندی اول هستید؟" />
+    <x-delete title="آیا مایل به حذف دسته بندی اول هستید؟" />
 @endsection
 
 @section('scripts')

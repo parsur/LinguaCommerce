@@ -25,9 +25,17 @@ class CategoryDataTable extends DataTable
             ->addIndexColumn()
             ->rawColumns(['action'])
             ->addColumn('status', function (Category $category) {
-                if($category->statuses->status == Status::VISIBLE) return "فعال";
-                else if($category->statuses->status == Status::INVISIBLE) return 'غیر فعال';
-                else '-';
+                if($category->statuses->status == Status::VISIBLE) return "موجود";
+                else if($category->statuses->status == Status::INVISIBLE) return 'ناموجود';
+            })
+            ->filterColumn('status', function ($query, $keyword) {
+                switch($keyword) {
+                    case 'موجود': $keyword = 0; 
+                        break;
+                    case 'ناموجود': $keyword = 1;
+                }
+                $sql = 'id in (select status_id from status where status like ?)';
+                $query->whereRaw($sql, ["%{$keyword}%"]);
             })
             ->addColumn('action', function (Category $category){
                 return <<<ATAG
@@ -92,7 +100,7 @@ class CategoryDataTable extends DataTable
             Column::make('name')
             ->title('نام')
                 ->addClass('column-title'),
-            Column::computed('status')
+            Column::make('status')
             ->title('وضعیت')
                 ->addClass('column-title'),
             Column::computed('action') // This Column is not in database

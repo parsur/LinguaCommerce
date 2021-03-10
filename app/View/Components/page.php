@@ -9,6 +9,7 @@ class page extends Component
     public $title;
     public $description;
     public $formId;
+    
     /**
      * Create a new component instance.
      *
@@ -28,6 +29,6 @@ class page extends Component
      */
     public function render()
     {
-        return view('components.admin.page');
+        return view('components.page');
     }
 }

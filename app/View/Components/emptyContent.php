@@ -4,19 +4,21 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class insert extends Component
+class emptyContent extends Component
 {
-    public $size;
-    public $formId;
+    public $title;
+    public $text;
+    public $route;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($size,$formId)
+    public function __construct($title, $text, $route)
     {
-        $this->size = $size;
-        $this->formId = $formId;
+        $this->title = $title;
+        $this->text = $text;
+        $this->route = $route;
     }
 
     /**
@@ -26,6 +28,6 @@ class insert extends Component
      */
     public function render()
     {
-        return view('components.insert');
+        return view('components.emptyContent');
     }
 }

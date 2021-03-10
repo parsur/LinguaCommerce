@@ -52,11 +52,11 @@ class User extends Authenticatable
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * Get all of the user's comments.
      */
     public function comments()
     {   
-        return $this->hasMany('App\Models\Comment');
+        return $this->morphMany('App\Models\Comment', 'commentable');
     }
 
     /**

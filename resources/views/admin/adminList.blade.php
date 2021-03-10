@@ -5,21 +5,21 @@
   {{-- Header --}}
   <x-header pageName="ادمین" buttonValue="ادمین">
     <x-slot name="table">
-      {!! $adminTable->table(['class' => 'table table-striped table-bordered table-hover-responsive w-100 nowrap text-center']) !!}
+      {!! $adminTable->table(['class' => 'table table-striped table-bordered  w-100 nowrap text-center']) !!}
     </x-slot>
   </x-header>
 
 
   {{-- Insert Modal --}}
-  <x-admin.insert size="modal-l" formId="adminForm">
+  <x-insert size="modal-l" formId="adminForm">
     <x-slot name="content">
       {{-- Admin list --}}
       @include('includes.form.user')
     </x-slot>
-  </x-admin.insert>
+  </x-insert>
 
   {{-- Delete Modal --}}
-  <x-admin.delete title="آیا از حذف ادمین مطمئن هستید؟"/>
+  <x-delete title="آیا از حذف ادمین مطمئن هستید؟"/>
 
 @endsection
 

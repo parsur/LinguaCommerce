@@ -10,16 +10,19 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-4 mb-3">
+    {{-- Header --}}
+    <div class="col-md-4 mb-2">
         <label for="header">تیتر</label>
-        <input value="{{ $setting_header }}" type="text" name="header" placeholder="تیتر">
+        <input type="text" value="{{ $setting_header }}"  name="header" placeholder="تیتر">
     </div>
-    <div class="col-md-4 mb-3">
+    {{-- Sub header --}}
+    <div class="col-md-4 mb-2">
         <label for="sub_header">تیتر وسط</label>
-        <input value="{{ $setting_sub_header }}" type="text" name="sub_header" placeholder="تیتر وسط">
+        <input type="text" value="{{ $setting_sub_header }}" name="sub_header" placeholder="تیتر وسط">
     </div>
-    <div class="col-md-4 mb-3">
+    {{-- Header button --}}
+    <div class="col-md-4 mb-2">
         <label for="header_button">متن دکمه</label>
-        <input value="{{ $setting_header_button }}" type="text" name="header_button" placeholder="متن دکمه">
+        <input type="text" value="{{ $setting_header_button }}" name="header_button" placeholder="متن دکمه">
     </div>
 </div>

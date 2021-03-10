@@ -2,13 +2,13 @@
   {{-- Video --}}
   @include("includes.courseArticle.video")
 
-  <div class="col-md-12 mb-2">
+  <div class="col-md-12">
     {{-- Courses --}}
-    <label for="courses">انتخاب دوره:</label>
+    <label for="course">انتخاب دوره:</label>
     <select id="course" name="course" class="custom-select">
-        @foreach($courses as $course)
-          <option value="{{ $course->id }}">{{ $course->name }}</option>
-        @endforeach
+      @foreach($courses as $course)
+        <option value="{{ $course->id }}">{{ $course->name }}</option>
+      @endforeach
     </select>
   </div>
 </div>

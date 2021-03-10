@@ -6,20 +6,20 @@
   {{-- Header --}}
   <x-header pageName="تصاویر دوره" buttonValue="تصاویر دوره">  
     <x-slot name="table">
-      {!! $courseImageTable->table(['class' => 'table table-bordered table-striped table-hover-responsive w-100 nowrap text-center']) !!}
+      {!! $courseImageTable->table(['class' => 'table table-bordered table-striped w-100 nowrap text-center']) !!}
     </x-slot>
   </x-header>
 
   {{-- Insert Modal --}}
-  <x-admin.insert size="modal-lg" formId="courseImageForm">
+  <x-insert size="modal-lg" formId="courseImageForm">
     <x-slot name="content">
       {{-- Form --}}
       @include('includes.course.image')
     </x-slot>
-  </x-admin.insert>
+  </x-insert>
 
   {{-- Delete Modal --}}
-  <x-admin.delete title="آیا مایل به حذف تصویر دوره هستید؟"/>
+  <x-delete title="آیا مایل به حذف تصویر دوره هستید؟"/>
 
 @endsection
 
@@ -30,11 +30,7 @@
 
   <script>
 
-    $(document).ready(function () {
-
-      // Select2  
-      $('#course').select2({ width:'100%'});
-
+    $(document).ready(function () {  
       // Course Image DataTable And Action Object
       let dt = window.LaravelDataTables['courseImageTable'];
       let action = new requestHandler(dt,'#courseImageForm','courseImage');

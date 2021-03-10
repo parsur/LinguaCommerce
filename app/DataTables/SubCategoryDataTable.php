@@ -26,9 +26,18 @@ class SubCategoryDataTable extends DataTable
             ->addIndexColumn()
             ->rawColumns(['action','status'])
             ->addColumn('status', function (SubCategory $subCategory) {
-                if($subCategory->statuses->status == Status::VISIBLE) return "فعال";
-                else if($subCategory->statuses->status == Status::INVISIBLE) return 'غیر فعال';
+                if($subCategory->statuses->status == Status::VISIBLE) return "موجود";
+                else if($subCategory->statuses->status == Status::INVISIBLE) return 'ناموجود';
                 else '-';
+            })
+            ->filterColumn('status', function ($query, $keyword) {
+                switch($keyword) {
+                    case 'موجود': $keyword = 0; 
+                        break;
+                    case 'ناموجود': $keyword = 1;
+                }
+                $sql = 'id in (select status_id from status where status like ?)';
+                $query->whereRaw($sql, ["%{$keyword}%"]);
             })
             ->editColumn('category_id', function (SubCategory $subCategory) {
                 return $subCategory->category->name;
@@ -103,7 +112,7 @@ class SubCategoryDataTable extends DataTable
             Column::make('name')
             ->title('نام')
                 ->addClass('column-title'),
-            Column::computed('status')
+            Column::make('status')
             ->title('وضعیت')
                 ->addClass('column-title'),
             Column::make('category_id')

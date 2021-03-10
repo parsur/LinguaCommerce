@@ -1,11 +1,11 @@
 @extends('layouts.admin')
-@section('title','مدیریت نظرات دوره')
+@section('title','مدیریت دیدگاه دوره')
 
 @section('content')
   {{-- Header --}}
-  <x-header pageName="نظرات دوره" buttonValue="">
+  <x-header pageName="دیدگاه دوره" buttonValue="">
     <x-slot name="table">
-      {!! $courseCommentTable->table(['class' => 'table table-striped table-bordered table-hover-responsive w-100 nowrap text-center']) !!}
+      {!! $courseCommentTable->table(['class' => 'table table-striped table-bordered w-100 nowrap text-center']) !!}
     </x-slot>
   </x-header>
 
@@ -13,7 +13,7 @@
   @include('includes.courseArticle.commentSubmission')
 
   {{-- Delete Modal --}}
-  <x-admin.delete title="آیا مایل به حذف نظر درباره دوره هستید؟"/>
+  <x-delete title="آیا مایل به حذف دیدگاه دوره هستید؟"/>
 @endsection
 
 @section('scripts')

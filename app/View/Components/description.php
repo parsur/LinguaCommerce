@@ -26,6 +26,6 @@ class description extends Component
      */
     public function render()
     {
-        return view('components.admin.description');
+        return view('components.description');
     }
 }

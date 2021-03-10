@@ -117,7 +117,7 @@ class CommentDataTable extends DataTable
                 ->searchable(false)
                 ->printable(false)
                 ->orderable(false)
-                ->title('حذف،تایید نظر')
+                ->title('حذف،تایید دیدگاه')
                 ->addClass('column-title')
         ];
     }

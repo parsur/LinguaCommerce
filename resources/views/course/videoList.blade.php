@@ -5,21 +5,20 @@
     {{-- Header --}}
     <x-header pageName="ویدئو دوره" buttonValue="ویدئو دوره">
         <x-slot name="table">
-            {!! $courseVideoTable->table(['class' => 'table table-bordered table-striped table-hover-responsive w-100 nowrap text-center'], false) !!}
+            {!! $courseVideoTable->table(['class' => 'table table-bordered table-striped w-100 nowrap text-center'], false) !!}
         </x-slot>
     </x-header>
 
     {{-- Insert Modal --}}
-    <x-admin.insert size="modal-lg" formId="courseVideoForm">
-        
+    <x-insert size="modal-lg" formId="courseVideoForm">
         <x-slot name="content">
             {{-- Form --}}
             @include('includes.course.video')
         </x-slot>
-    </x-admin.insert>
+    </x-insert>
 
     {{-- Delete Modal --}}
-    <x-admin.delete title="آیا مایل به حذف ویدئو دوره هستید؟" />
+    <x-delete title="آیا مایل به حذف ویدئو دوره هستید؟" />
 
 @endsection
 
@@ -31,11 +30,7 @@
 
     <script>
         $(document).ready(function() {
-
-            // Select2
-            $('#course').select2({ width:'100%'});
-
-            // COurse Video DataTable And Action Object
+            // Course Video DataTable And Action Object
             let dt = window.LaravelDataTables['courseVideoTable'];
             let action = new requestHandler(dt,'#courseVideoForm','courseVideo');
 

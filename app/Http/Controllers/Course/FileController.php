@@ -57,7 +57,7 @@ class FileController extends Controller
         // Insert Course videos
         $this->file::updateOrCreate(
             ['id' => $request->get('id')],
-            ['url' => $request->get('url'), 'course_id' => $request->get('course')]
+            ['url' => $request->get('url'), 'title' => $request->get('title'), 'course_id' => $request->get('course')]
         );
     }
 

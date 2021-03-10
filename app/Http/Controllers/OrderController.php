@@ -54,7 +54,7 @@ class OrderController extends Controller
         // Each order
         $vars['order'] = Order::where('order_factor', $request->get('order_factor'))->first();
         // Cart
-        $vars['cart'] = Cart::where('order_factor', $request->get('order_factor'))->get();
+        $vars['carts'] = Cart::where('order_factor', $request->get('order_factor'))->get();
 
         return view('order.details', $vars);
     }

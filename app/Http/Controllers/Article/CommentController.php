@@ -37,7 +37,7 @@ class CommentController extends Controller
             $comment->statuses()->create(['status' => Status::INVISIBLE]);
 
             DB::commit();
-            return response()->json('نظر درباره دوره با موفقیت ویرایش شد');
+            return response()->json('دیدگاه درباره دوره با موفقیت ویرایش شد');
 
         } catch(Exception $e) {
             throw $e;
@@ -60,7 +60,7 @@ class CommentController extends Controller
                 'commentable_id' => $article_id, 'commentable_type' => Article::class]);
 
             DB::commit();
-            return response()->json('نظر درباره دوره با موفقیت ویرایش شد');
+            return response()->json('دیدگاه درباره دوره با موفقیت ویرایش شد');
 
         } catch(Exception $e) {
             throw $e;

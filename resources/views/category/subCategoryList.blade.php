@@ -5,20 +5,20 @@
   {{-- Header --}}
   <x-header pageName="دسته بندی ۲" buttonValue="دسته بندی دوم">
     <x-slot name="table">
-      {!! $subCategoryTable->table(['class' => 'table table-bordered table-striped table-hover-responsive w-100 nowrap text-center'], false) !!}
+      {!! $subCategoryTable->table(['class' => 'table table-bordered table-striped w-100 nowrap text-center'], false) !!}
     </x-slot>
   </x-header>
 
   {{-- Insert Modal --}}
-  <x-admin.insert size="modal-lg" formId="subCategoryForm">
+  <x-insert size="modal-lg" formId="subCategoryForm">
     <x-slot name="content">
       {{-- Form --}}
       @include('includes.form.subCategory')
     </x-slot>
-  </x-admin.insert>
+  </x-insert>
 
   {{-- Delete Modal --}}
-  <x-admin.delete title="آیا مایل به حذف دسته بندی دوم هستید؟" />
+  <x-delete title="آیا مایل به حذف دسته بندی دوم هستید؟" />
 
 @endsection
 
@@ -59,7 +59,7 @@
             $.ajax({
                 url: "{{ url('subCategory/edit') }}",
                 method: "get",
-                data: {id,id},
+                data: {id:id},
                 success: function(data) {
                     $('#id').val(data.id);
                     $('#action').val('ویرایش');

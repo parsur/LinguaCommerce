@@ -37,15 +37,14 @@ class AdminController extends Controller
 
     // Store Admin
     public function store(StoreAdminRequest $request,SuccessMessages $message) {
+        $this->add($request);
 
         // Insert
         if($request->get('button_action') == "insert") {
-            $this->add($request);
             $success_output = $message->getInsert();
         }
         // Update
         else if($request->get('button_action') == 'update') {
-            $this->add($request);
             $success_output = $message->getUpdate();
         }
 
@@ -69,6 +68,7 @@ class AdminController extends Controller
         
         $user->save();
     }
+    
     // Delete Each Admin
     public function delete(Action $action, $id) {
         return $action->delete(User::class,$id);

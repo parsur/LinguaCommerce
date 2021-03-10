@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
+ * @property string $title
  * @property int $course_id
  * @property string $url
  * @property Course $course
@@ -16,7 +17,7 @@ class File extends Model
     /**
      * @var array
      */
-    protected $fillable = ['course_id', 'url'];
+    protected $fillable = ['title', 'course_id', 'url'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

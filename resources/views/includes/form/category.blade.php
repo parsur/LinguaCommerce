@@ -8,8 +8,8 @@
     <div class="col-md-12">
         <label for="status">وضعیت:</label>
         <select id="status" name="status" class="custom-select">
-            <option value="0">فعال</option>
-            <option value="1">غیرفعال</option>
+            <option value="0">موجود</option>
+            <option value="1">ناموجود</option>
         </select>
     </div>
 </div>

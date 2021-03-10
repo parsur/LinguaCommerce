@@ -88,7 +88,7 @@ class Action {
                 return response()->json('متاسفانه نتیجه ای یافت نشد');
         }
         else {
-            return response()->json('لطفا نوشته مورد نظر خود را جستجو کنید');
+            return response()->json('لطفا نوشته مورد دیدگاه خود را جستجو کنید');
         }
     }
 }

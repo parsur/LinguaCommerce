@@ -18145,9 +18145,13 @@ input[type=text],input[type=email],input[type=password] {
     height: 100%;
 }
 
-.imageLabel {
-    font-family: 'shabnam';
+/* Aparat iframe */
+.aparat_iframe {
+    height:250px;
+    width:55%;
 }
+
+
 
 /*------------------------------------ contacts-list ------------------------------------*/
 
@@ -18305,17 +18309,8 @@ input[type=text],input[type=email],input[type=password] {
     text-align: right;
 }
 
-
 .modal-footer {
     justify-content: center;
-}
-
-.alert-success {
-    color: #155724 !important;
-}
-
-.alert-danger {
-    color: #721c24 !important;
 }
 
 /*----------------------- Extra Page ---------------------------*/
@@ -18343,11 +18338,6 @@ input[type=text],input[type=email],input[type=password] {
             padding-inline-start: 0px !important;
 }
 
-/*---------------------------------- Persian Date Picker ---------------------------------- */
-
-.datepicker-plot-area {
-    font-family: 'Vazir', sans-serif;
-}
 
 /* ---------------------------------- Admin ---------------------------------- */
 .admin_panel {

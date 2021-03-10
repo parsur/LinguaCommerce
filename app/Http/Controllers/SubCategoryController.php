@@ -34,14 +34,14 @@ class SubCategoryController extends Controller
 
     // Storing And Updating Category
     public function store(StoreSubCategoryRequest $request,SuccessMessages $message) {
+        // Add
+        $this->add($request);
         // Insert
         if($request->get('button_action') == "insert") {
-            $this->add($request);
             $success_output = $message->getInsert();
         }
         // Update
         else if($request->get('button_action') == 'update') {
-            $this->add($request);
             $success_output = $message->getUpdate();
         }
 
@@ -61,7 +61,7 @@ class SubCategoryController extends Controller
 
             // Status
             $subCategory->statuses()->updateOrCreate(
-                ['status_id' => $id],
+                ['status_id' => $request->get('id')],
                 ['status' => $request->get('status'), 'status_type' => SubCategory::class]
             );
 

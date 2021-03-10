@@ -6,20 +6,20 @@ use Illuminate\View\Component;
 
 class urlAddress extends Component
 {
-    public $route;
-    public $fontAwsome;
     public $text;
+    public $route;
+    public $fontAwesome;
     
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($title, $description, $fontAwesome)
+    public function __construct($text, $route, $fontAwesome)
     {
+        $this->text = $text;
         $this->route = $route;
         $this->fontAwesome = $fontAwesome;
-        $this->text = $text;
     }
 
     /**
@@ -32,3 +32,4 @@ class urlAddress extends Component
         return view('components.urlAddress');
     }
 }
+
