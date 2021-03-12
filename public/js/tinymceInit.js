@@ -1,6 +1,6 @@
 tinymce.init({
     selector: 'textarea#description',
-    height: 700,
+    height: 400,
     plugins: [
         'autolink link image lists charmap preview hr anchor pagebreak',
         'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',

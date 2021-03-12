@@ -5,8 +5,9 @@
 @if(count($table->media))
     {{-- Contents --}}
     <h4 class="mt-1">لینک فایل ها</h4>
-    @forelse($course->files as $key => $content) 
-        <a href="{{ $content->url }}">لینک {{ $key + 1 }}</a> &nbsp;
+    {{-- @forelse($course->files as $key => $content)  --}}
+    @forelse($course->files as $file) 
+        <a href="{{ $file->url }}">لینک {{ $file->name }}</a> &nbsp;
     @endforeach
 @else 
     <hr>

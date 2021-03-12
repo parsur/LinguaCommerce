@@ -25,7 +25,7 @@ class FileDataTable extends DataTable
             ->eloquent($query)
             ->addIndexColumn()
             ->rawColumns(['action','url'])
-            ->editColumn('course_id', function(File $file) {
+            ->addColumn('course_id', function(File $file) {
                 return $file->course->name;
             })
             ->filterColumn('course_id', function($query, $keyword) {
@@ -106,7 +106,8 @@ class FileDataTable extends DataTable
                 ->addClass('column-title'),
             Column::make('course_id')
             ->title('دوره')
-                ->addClass('column-title'),
+                ->addClass('column-title')
+                ->orderable(false),
             Column::computed('action') // This Column is not in database
                 ->exportable(false)
                 ->searchable(false)

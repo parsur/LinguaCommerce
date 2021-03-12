@@ -16,7 +16,7 @@ class AdminController extends Controller
 
     // Admin Home
     public function admin() {
-        return view('admin.adminHome');
+        return view('admin.home');
     }
 
     // DataTable to blade
@@ -27,12 +27,12 @@ class AdminController extends Controller
         // Admin Table
         $vars['adminTable'] = $dataTable->html();
 
-        return view('admin.adminList', $vars);
+        return view('admin.list', $vars);
     }
 
     // Get admin
     public function adminTable(AdminDataTable $dataTable) {
-        return $dataTable->render('admin.adminList');
+        return $dataTable->render('admin.list');
     }
 
     // Store Admin

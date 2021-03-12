@@ -91,8 +91,10 @@ class SubCategoryDataTable extends DataTable
             ->searching(true)
             ->info(false)
             ->responsive(true)
-            ->dom('PBCfrtip')
-            ->orderBy(1)
+            ->buttons(
+                Button::make('print')
+            )
+            ->dom('Bfrtip')
             ->language(asset('js/Persian.json'));
     }
 
@@ -114,7 +116,8 @@ class SubCategoryDataTable extends DataTable
                 ->addClass('column-title'),
             Column::make('status')
             ->title('وضعیت')
-                ->addClass('column-title'),
+                ->addClass('column-title')
+                ->orderable(false),
             Column::make('category_id')
             ->title('دسته بندی اول')
                 ->addClass('column-title'),

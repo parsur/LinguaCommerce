@@ -28,10 +28,13 @@ class AdminDataTable extends DataTable
             ->rawColumns(['action'])
             ->editColumn('created_at', function(User $user){
                 date_default_timezone_set('Asia/Tehran');
-                return Jalalian::forge($user->created_at)->format('%A, %d %B %y');
+                // return Jalalian::forge($user->created_at)->format('%A, %d %B %y');
+                return Jalalian::now();
             })
             ->editColumn('updated_at', function(User $user){
-                return Jalalian::forge($user->updated_at)->format('%A, %d %B %y');
+                // return Jalalian::forge($user->updated_at)->format('%A, %d %B %y');
+                return Jalalian::now();
+
                 
             })->addColumn('action', function (User $user){
                 return <<<ATAG

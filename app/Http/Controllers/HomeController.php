@@ -22,7 +22,7 @@ class HomeController extends Controller
         // Articles
         $vars['articles'] = Article::select('id','title','created_at','updated_at')->get();
         // Comments
-        $vars['comments'] = Comment::select('id','idea','created_at')->get();
+        $vars['comments'] = Comment::select('id','comment','created_at')->get();
         // Courses
         $vars['courses'] = Course::select('id','name','price')->with('category','subCategory')->get();
         // Categories

@@ -29,7 +29,7 @@ class ImageDataTable extends DataTable
             ->editColumn('url', function(Media $media) {
                 return "<img src=/images/" . $media->url . " height='auto' width='80%' />";
             })
-            ->editColumn('media_id', function (Media $media) {
+            ->addColumn('media_id', function (Media $media) {
                 return $media->media->name;
             })
             ->filterColumn('media_id', function ($query, $keyword) {
@@ -103,7 +103,8 @@ class ImageDataTable extends DataTable
                 ->addClass('column-title'),
             Column::make('media_id')
             ->title('دوره مرتبط')
-                ->addClass('column-title'),
+                ->addClass('column-title')
+                ->orderable(false),
             Column::computed('action') // This column is not in database
                 ->exportable(false)
                 ->searchable(false)

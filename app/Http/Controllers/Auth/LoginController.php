@@ -60,7 +60,7 @@ class LoginController extends Controller
         $credentials = $request->only('email', 'password');
         if (Auth::attempt(($credentials), $remember_me)) {
             // Authentication passed...
-            return redirect()->intended('/adminHome');
+            return redirect()->intended('/admin/home');
         }
     }
     

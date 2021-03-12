@@ -169,7 +169,7 @@ Route::group(['middleware' => ['auth','isAdmin']], function () {
 //}
 
 // Home
-Route::get('home', 'HomeController@index');
+Route::get('home', 'HomeController@index')->middleware('cors');
 Route::post('search', 'HomeController@search');
 
 // User 

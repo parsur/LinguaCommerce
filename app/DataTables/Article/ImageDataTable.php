@@ -27,7 +27,7 @@ class ImageDataTable extends DataTable
             ->editColumn('url', function(Media $image) {
                 return "<img src=/images/" . $image->url . " height='auto' width='80%' />";
             })
-            ->editColumn('media_id', function (Media $image) {
+            ->addColumn('media_id', function (Media $image) {
                 return $image->media->title;
             })
             ->filterColumn('media_id', function ($query, $keyword) {
@@ -100,7 +100,8 @@ class ImageDataTable extends DataTable
                 ->addClass('column-title'),
             Column::make('media_id')
             ->title('مقاله مرتبط')
-                ->addClass('column-title'),
+                ->addClass('column-title')
+                ->orderable(false),
             Column::computed('action') // This column is not in database
                 ->exportable(false)
                 ->searchable(false)

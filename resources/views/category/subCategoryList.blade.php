@@ -1,9 +1,14 @@
 @extends('layouts.admin')
 @section('title','لیست دسته بندی سطح-۲')
 
+@section('head')
+@parent
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.0.3/css/buttons.dataTables.min.css"> 
+@endsection
+
 @section('content')
   {{-- Header --}}
-  <x-header pageName="دسته بندی ۲" buttonValue="دسته بندی دوم">
+  <x-header pageName="دسته بندی دوم" buttonValue="دسته بندی دوم">
     <x-slot name="table">
       {!! $subCategoryTable->table(['class' => 'table table-bordered table-striped w-100 nowrap text-center'], false) !!}
     </x-slot>
@@ -26,7 +31,6 @@
 @parent
 
   {!! $subCategoryTable->scripts() !!}
-
   <script>
     $(document).ready(function () {
 

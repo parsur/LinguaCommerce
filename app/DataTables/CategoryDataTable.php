@@ -102,7 +102,8 @@ class CategoryDataTable extends DataTable
                 ->addClass('column-title'),
             Column::make('status')
             ->title('وضعیت')
-                ->addClass('column-title'),
+                ->addClass('column-title')
+                ->orderable(false),
             Column::computed('action') // This Column is not in database
                 ->exportable(false)
                 ->searchable(false)

@@ -27,7 +27,7 @@ class CommentDataTable extends DataTable
                 date_default_timezone_set('Asia/Tehran');
                 return Jalalian::forge($comment->created_at)->format('%A, %d %B %y');
             })
-            ->editColumn('commentable_id', function (Comment $comment) {
+            ->addColumn('commentable_id', function (Comment $comment) {
                 return $comment->commentable->name;
             })
             ->filterColumn('commentable_id', function ($query, $keyword) {
@@ -111,7 +111,8 @@ class CommentDataTable extends DataTable
                 ->addClass('column-title'),
             Column::make('commentable_id')
             ->title('مقاله مرتبط')
-                ->addClass('column-title'),
+                ->addClass('column-title')
+                ->orderable(false),
             Column::computed('action') // This column is not in database
                 ->exportable(false)
                 ->searchable(false)

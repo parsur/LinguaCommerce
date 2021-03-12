@@ -25,10 +25,10 @@ class OrderDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addIndexColumn()
-            ->editColumn('user_id', function (Order $order) {
+            ->addColumn('username', function (Order $order) {
                 return $order->user->name;
             })
-            ->filterColumn('user_id', function($query, $keyword) {
+            ->filterColumn('username', function($query, $keyword) {
                 $sql = 'user_id in (select id from users where name like ?)';
                 $query->whereRaw($sql, ["%{$keyword}%"]);
             })
@@ -100,16 +100,18 @@ class OrderDataTable extends DataTable
                 ->addClass('column-title')
                 ->searchable(false)
                 ->orderable(false),
-            Column::make('user_id')
+            Column::make('username')
             ->title('نام کاربر')
-                ->addCLass("column-title"),
+                ->addCLass("column-title")
+                ->orderable(false),
             Column::make('phone_number')
             ->title('تلفن همراه')
-                ->addCLass("column-title"),
-            Column::computed('order_factor')    
+                ->addCLass("column-title")
+                ->orderable(false),
+            Column::make('order_factor')    
             ->title('فاکتور خرید')
                 ->addCLass("column-title"),
-            Column::computed('total_price')    
+            Column::make('total_price')    
             ->title('هزینه کل')
                 ->addCLass("column-title"),
             Column::computed('action') // This Column is not in database

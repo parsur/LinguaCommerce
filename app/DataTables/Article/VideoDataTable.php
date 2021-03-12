@@ -27,7 +27,7 @@ class VideoDataTable extends DataTable
             ->editColumn('video_url', function(Media $video) {
                 return '<iframe src="'.$video->media_url.'"  width="50%" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>';
             })
-            ->editColumn('media_id', function (Media $video) {
+            ->addColumn('media_id', function (Media $video) {
                 return $video->media->name;
             })
             ->filterColumn('media_id', function ($query, $keyword) {
@@ -100,7 +100,8 @@ class VideoDataTable extends DataTable
                 ->addClass('column-title'),
             Column::make('media_id')
             ->title('مقاله مرتبط')
-                ->addClass('column-title'),
+                ->addClass('column-title')
+                ->orderable(false),
             Column::computed('action') // This column is not in database
                 ->exportable(false)
                 ->searchable(false)

@@ -1,0 +1,1 @@
+table table-striped table-bordered w-100 nowrap text-center

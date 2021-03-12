@@ -30,7 +30,7 @@ class CommentDataTable extends DataTable
                 date_default_timezone_set('Asia/Tehran');
                 return Jalalian::forge($comment->created_at)->format('%A, %d %B %y');
             })
-            ->editColumn('commentable_id', function (Comment $comment) {
+            ->addColumn('commentable_id', function (Comment $comment) {
                 return $comment->commentable->name;
             })
             ->filterColumn('commentable_id', function ($query, $keyword) {

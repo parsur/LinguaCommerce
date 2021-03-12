@@ -51,7 +51,7 @@ class CourseDataTable extends DataTable
                 $sql = 'subCategory_id in (select id from subCategories where name like ?)';
                 $query->whereRaw($sql, ["%{$keyword}%"]);
             })
-            ->editColumn('status', function(Course $course) { 
+            ->addColumn('status', function(Course $course) { 
                 if($course->statuses->status === Status::VISIBLE) return 'موجود';
                 else if($course->statuses->status === Status::INVISIBLE) return 'ناموجود';
             })  
@@ -135,13 +135,15 @@ class CourseDataTable extends DataTable
                 ->addCLass("column-title"),
             Column::computed('image_url')
             ->title('تصویر')
-                ->addClass('column-title'),
+                ->addClass('column-title')
+                ->orderable(false),
             Column::make('price')
             ->title('هزینه')
                 ->addClass('column-title'),
             Column::make('status')
             ->title('وضعیت')
-                ->addClass('column-title'),
+                ->addClass('column-title')
+                ->orderable(false),
             Column::make('category_id')
             ->title('دسته بندی اول')
                 ->class('column-title'),

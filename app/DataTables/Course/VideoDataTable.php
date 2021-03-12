@@ -101,7 +101,8 @@ class VideoDataTable extends DataTable
                 ->addClass('column-title'),
             Column::make('media_id')
             ->title('دوره مرتبط')
-                ->addClass('column-title'),
+                ->addClass('column-title')
+                ->orderable(false),
             Column::computed('action') // This column is not in database
                 ->exportable(false)
                 ->searchable(false)

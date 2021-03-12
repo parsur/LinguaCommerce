@@ -23,6 +23,8 @@
         "axios": "^0.21",
         "bootstrap": "^4.5.3",
         "datatables.net": "^1.10.24",
+        "datatables.net-bs4": "^1.10.24",
+        "datatables.net-buttons-dt": "^1.7.0",
         "datatables.net-responsive": "^2.2.7",
         "datatables.net-responsive-bs4": "^2.2.7",
         "jquery": "^3.6.0",

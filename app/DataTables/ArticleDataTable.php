@@ -142,10 +142,12 @@ class ArticleDataTable extends DataTable
                 ->addClass('column-title'),
             Column::computed('image_url')
             ->title('تصویر')
-                ->addClass('column-title'),
+                ->addClass('column-title')
+                ->orderable(false),
             Column::make('status')
             ->title('وضعیت')
-                ->addClass('column-title'),
+                ->addClass('column-title')
+                ->orderable(false),
             Column::make('category_id')
             ->title('دسته بندی اول')
                 ->addClass('column-title'),
