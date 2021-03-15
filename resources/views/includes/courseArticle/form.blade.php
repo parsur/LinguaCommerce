@@ -34,7 +34,7 @@
 
 {{-- Description --}}
 <div class="row">
-    <div class="col-md-12 mb-3">
+    <div class="col-md-12 fr-view mb-3">
         <label for="description">توضیح:</label>
         <textarea id="description" name="description" rows="6" class="form-control"></textarea>
     </div>

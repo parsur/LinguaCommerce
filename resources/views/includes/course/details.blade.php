@@ -11,6 +11,6 @@
     @endforeach
 @else 
     <hr>
-    {{-- It there were not content --}}
+    {{-- It there were not any content --}}
     <x-emptyContent title="محتوایی برای این دوره وجود ندارد" text="افزودن محتوا" route="/course/fileList" />
 @endif

@@ -10,6 +10,10 @@
     "/js/commentSubmission.js": "/js/commentSubmission.js",
     "/js/imagePreview.js": "/js/imagePreview.js",
     "/js/tinymce.min.js": "/js/tinymce.min.js",
+    "/ckeditor/ckeditor.js": "/ckeditor/ckeditor.js",
+    "/ckeditor/config.js": "/ckeditor/config.js",
+    "/ckeditor/contents.css": "/ckeditor/contents.css",
+    "/ckeditor/styles.js": "/ckeditor/styles.js",
     "/fonts/Shabnam-Bold.ttf": "/fonts/Shabnam-Bold.ttf",
     "/fonts/Shabnam.ttf": "/fonts/Shabnam.ttf",
     "/fonts/dambeldor.ttf": "/fonts/dambeldor.ttf"

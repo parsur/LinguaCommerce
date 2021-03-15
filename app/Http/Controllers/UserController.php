@@ -12,12 +12,12 @@ use App\Models\User;
 use Hash;
 
 
+
 class UserController extends Controller
 {
-    // User Dashboard
+    // User Dashboard(profile)
     public function show() {
-
-        $users = User::where('role', User::USER)->get();
+        $users = User::where('id', 32)->where('role', User::USER)->get();
         return response()->json($users);
     }
 
@@ -40,14 +40,14 @@ class UserController extends Controller
     // Store user
     public function store(StoreAdminRequest $request,SuccessMessages $message) {
 
+        $this->add($request);
+
         // Insert
         if($request->get('button_action') == "insert") {
-            $this->add($request);
             $success_output = $message->getInsert();
         }
         // Update
         else if($request->get('button_action') == 'update') {
-            $this->add($request);
             $success_output = $message->getUpdate();
         }
 
@@ -58,19 +58,14 @@ class UserController extends Controller
 
     // Add or update user
     public function add($request) {
-        $user = User::find($request->get('id'));
-        if(!$user) {
-            $user = new User();
-        }
-        $user->name = $request->get('name');
-        $user->email = $request->get('email');
-        $user->role = User::USER;
-        $user->password = Hash::make($request->get('password'));
-        if($request->get('phone_number'))
-            $user->phone_number = $request->get('phone_number');
-        
-        $user->save();
+        User::updateOrCreate(
+            ['id' => $request->get('id')],
+            ['name' => $request->get('name'),'email' => $request->get('email'),
+            'role' => User::USER,'password' => Hash::make($request->get('password')),
+            'phone_number' => $request->get('phone_number')]
+        );
     }
+
     // Delete Each Admin
     public function delete(Action $action, $id) {
         return $action->delete(User::class,$id);

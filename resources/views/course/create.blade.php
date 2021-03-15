@@ -1,5 +1,6 @@
 @extends('layouts.admin')
 
+
 @section('content')
     <x-page title="ذخیره دوره" description="دوره خود را اضافه یا ویرایش کنید" formId="courseForm">
         <x-slot name="content">
@@ -27,10 +28,16 @@
 
 @section('scripts')
 @parent
-    {{-- Tinymce initialization --}}
-    <script src="{{ asset('js/tinymceInit.js') }}"></script>
+    {{-- CK Editor initialization --}}
+    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 
     <script>
+        // CK Editor
+        CKEDITOR.replace( 'description',{
+            filebrowserUploadUrl: "{{ url('storeImage') }}",
+            filebrowserUploadMethod: 'form'
+        });
+
         // Action object
         let action = new requestHandler(null, '#courseForm', 'course');
 

@@ -13,8 +13,14 @@
   {{-- Insert Modal --}}
   <x-insert size="modal-lg" formId="articleImageForm">
     <x-slot name="content">
-      {{-- Form --}}
-      @include('includes.article.image')
+      <div class="row">
+        {{-- Image --}}
+        @include('includes.courseArticle.image')
+        {{-- Article --}}
+        <div class="col-md-6 mt-3">
+          @include('includes.form.article')
+        </div>
+      </div>
     </x-slot>
   </x-insert>
 

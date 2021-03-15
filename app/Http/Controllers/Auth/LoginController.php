@@ -9,6 +9,7 @@ use App\Providers\RedirectAuthentication;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreLoginRequest;
+use Redirect;
 
 
 class LoginController extends Controller
@@ -60,8 +61,10 @@ class LoginController extends Controller
         $credentials = $request->only('email', 'password');
         if (Auth::attempt(($credentials), $remember_me)) {
             // Authentication passed...
-            return redirect()->intended('/admin/home');
-        }
+            return redirect()->intended('/adminHome');
+        } 
+         
+        return Redirect::back()->withErrors('رمز عبور یا ایمیل شما نادرست است');
     }
     
     /**
@@ -72,6 +75,6 @@ class LoginController extends Controller
     public function logout(Request $request) {
 
         Auth::logout();
-        return redirect('login');
+        return redirect('/');
     }
 }

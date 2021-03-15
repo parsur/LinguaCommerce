@@ -18052,7 +18052,7 @@ input {
 @font-face {
     font-family: "shabnam-bold";
     src: url("/fonts/Shabnam-Bold.ttf") format('truetype');
-  }
+}
   
 /*---------------------------------- End of fonts ---------------------------------- */
 
@@ -18083,7 +18083,7 @@ ul {
     padding-left: .5rem;
 }
 
-h1,h2,h3,h4,h5,h6 {
+h1,h2,h3,h4,h5 {
     font-family: "shabnam-bold";
 }
 

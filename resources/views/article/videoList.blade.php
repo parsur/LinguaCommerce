@@ -12,16 +12,20 @@
     {{-- Insert Modal --}}
     <x-insert size="modal-lg" formId="articleVideoForm">
         <x-slot name="content">
-            {{-- Form --}}
-            @include('includes.article.video')
+            <div class="row">
+                {{-- Video --}}
+                @include('includes.courseArticle.video')
+                {{-- Article --}}
+                <div class="col-md-12">
+                    @include('includes.form.article')
+                </div>
+            </div>
         </x-slot>
     </x-insert>
 
     {{-- Delete Modal --}}
     <x-delete title="آیا مایل به حذف ویدئو مقاله هستید؟" />
-
 @endsection
-
 
 @section('scripts')
     @parent

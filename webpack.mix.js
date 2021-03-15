@@ -32,6 +32,8 @@ mix.js('resources/assets/js/app.js', 'public/js')
     .copy('resources/assets/js/imagePreview.js', 'public/js/imagePreview.js')
     // Image preview
     .copy('resources/assets/js/tinymce.min.js', 'public/js/tinymce.min.js')
+    // CK Editor
+    .copy('resources/assets/ckeditor', 'public/ckeditor')
     // Fonts
     .copy('resources/assets/fonts', 'public/fonts')
     // App And Authentication

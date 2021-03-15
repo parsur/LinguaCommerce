@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+Route::post('/image/upload', function(){
+    // return json_encode('location');
+});
 // Middleware
 Route::group(['middleware' => ['auth','isAdmin']], function () {
     // Admin
@@ -77,6 +81,8 @@ Route::group(['middleware' => ['auth','isAdmin']], function () {
         Route::get('delete/{id}', 'ArticleController@delete');
         // Search
         Route::post('search', 'ArticleController@search');
+        // Store images of article
+        Route::post('storeImage', 'ArticleController@storeImage');
     });
      // Article Video
      Route::group(['prefix' => 'articleImage', 'as' => 'articleImage.'], function () {
@@ -169,13 +175,11 @@ Route::group(['middleware' => ['auth','isAdmin']], function () {
 //}
 
 // Home
-Route::get('home', 'HomeController@index')->middleware('cors');
+Route::get('/', 'HomeController@index')->middleware('cors');
 Route::post('search', 'HomeController@search');
 
 // User 
-Route::group(['middleware' => ['auth']], function() {
-    // Dashboard
-    Route::get('/user_dashboard', 'UserController@index');
+// Route::group(['middleware' => ['auth']], function() {
     // Cart
     Route::group(['prefix' => 'cart', 'as' => 'cart.'], function() {
         Route::get('show','CartController@show');
@@ -195,6 +199,7 @@ Route::group(['middleware' => ['auth']], function() {
     // Profile
     Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
         Route::get('show', 'UserController@show');
+        Route::post('store', 'UserController@store');
         Route::get('edit', 'UserController@edit');
         Route::get('delete/{id}', 'UserController@delete');
     });
@@ -212,8 +217,9 @@ Route::group(['middleware' => ['auth']], function() {
         Route::post('update/{article_id}', 'ArticleCommentController@update');
         Route::get('delete/{id}','ArticleCommentController@delete');
     });
+// });
+
+// App
+Route::get('/', function () {
+    return view('app');
 });
-
-Route::view('/{path?}', 'app');
-
-// Route::get('/', function () {return view('app');});

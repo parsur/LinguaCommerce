@@ -131,6 +131,11 @@ class ArticleController extends Controller
         return $action->delete(Article::class, $id);
     }
 
+    // Store images 
+    public function storeImage() {
+        return response()->json('test');
+    }
+
     // Search
     public function search(Request $request) {
         $action->search(Article::class,$request->get('search'),'title');

@@ -21,7 +21,7 @@ class IsAdmin
             return $next($request);
         }
 
-        // return redirect()->intended('home')->with('error',"You don't have admin access.");
-        return redirect()->intended('home');
+        // 404 Not Found
+        return redirect('/');
     }
 }

@@ -15,7 +15,14 @@ class HomeSettingController extends Controller
             'header',
             'subHeader',
             'description',
-            'image'
+            'firstEvent',
+            'firstEventUrl',
+            'secondEvent',
+            'secondEventUrl',
+            'thirdEvent',
+            'thirdEventUrl',
+            'fourthEvent',
+            'fourthEventUrl'
         ];
 
         $home_settings = homeSetting::whereIn('name', $names)->get();
@@ -42,16 +49,38 @@ class HomeSettingController extends Controller
         $home_setting3 = HomeSetting::where('name','description')->first();
         $home_setting3->value = $request->get('description');
         $home_setting3->save();
-        // Image
-        if($request->hasFile("image")) {
-            $image = $request->file('image');
-            $file = $image->getClientOriginalName();
-            $image->move(public_path('images'), $file);
-
-            $home_setting4 = HomeSetting::where('name', 'description')->first();
-            $home_setting4->value = $file;
-            $home_setting4->save();
-        }
+        // First event
+        $home_setting5 = HomeSetting::where('name', 'firstEvent')->first();
+        $home_setting5->value = $request->get('firstEvent');
+        $home_setting5->save();
+        // First event url
+        $home_setting6 = HomeSetting::where('name', 'firstEventUrl')->first();
+        $home_setting6->value = $request->get('firstEventUrl');
+        $home_setting6->save();
+        // Second event
+        $home_setting6 = HomeSetting::where('name', 'secondEvent')->first();   
+        $home_setting6->value = $request->get('secondEvent'); 
+        $home_setting6->save();
+        // Second event url
+        $home_setting8 = HomeSetting::where('name', 'secondEventUrl')->first();
+        $home_setting8->value = $request->get('secondEventUrl');
+        $home_setting8->save();
+        // Third event
+        $home_setting9 = HomeSetting::where('name', 'thirdEvent')->first();
+        $home_setting9->value = $request->get('thirdEvent');
+        $home_setting9->save();
+        // Third event url
+        $home_setting10 = HomeSetting::where('name', 'thirdEventUrl')->first();
+        $home_setting10->value = $request->get('thirdEventUrl');
+        $home_setting10->save();
+        // Fourth event
+        $home_setting11 = HomeSetting::where('name', 'fourthEvent')->first();
+        $home_setting11->value = $request->get('fourthEvent');
+        $home_setting11->save();
+        // Fourth event url
+        $home_setting12 = HomeSetting::where('name', 'fourthEventUrl')->first();
+        $home_setting12->value = $request->get('fourthEventUrl');
+        $home_setting12->save();
 
         $success_output = $message->getInsert();
         $output = array('success' => $success_output);

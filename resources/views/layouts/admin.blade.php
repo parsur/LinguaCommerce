@@ -11,6 +11,7 @@
     <title>@yield('title')</title>
     {{-- App --}}
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+
 @show
 
 <body id="body" class="hold-transition sidebar-mini">
@@ -143,7 +144,10 @@
 
         <script>
             // Ajax Setup
-            $.ajaxSetup({ processing: true, dataType: "json" });
+            $.ajaxSetup({ 
+                processing: true,
+                dataType: "json"
+            });
             // Select2
             $('select').select2({ width: '100%' });
         </script>

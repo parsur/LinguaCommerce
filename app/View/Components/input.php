@@ -6,19 +6,19 @@ use Illuminate\View\Component;
 
 class input extends Component
 {
+    public $key;
     public $name;
-    public $id;
-    public $placeholder;
+    public $type;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($name,$id,$placeholder)
+    public function __construct($key, $name, $type = 'text')
     {
+        $this->key = $key;
         $this->name = $name;
-        $this->id = $id;
-        $this->placeholder = $placeholder;
+        $this->type = $type;
     }
 
     /**

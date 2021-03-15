@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Providers\RedirectAuthentication;
+use App\Providers\EnglishConvertion;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
@@ -33,16 +34,8 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('guest');
+    protected function redirectTo(){
+        return redirect()->intended('/')->getTargetUrl();
     }
 
     /**
@@ -56,6 +49,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'phone_number' => ['required', 'numeric', 'digits:11'],
             'password' => ['required', 'string', 'min:8', 'confirmed']
         ]);
     }
@@ -68,9 +62,12 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $englishConvertion = new EnglishConvertion();
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'phone_number' => $englishConvertion->convert($data['phone_number']),
             'password' => Hash::make($data['password']),
             'role' => User::USER
         ]);

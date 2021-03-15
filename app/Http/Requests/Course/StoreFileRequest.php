@@ -25,7 +25,7 @@ class StoreFileRequest extends FormRequest
     {
         return [
             'file' => 'required',
-            'course' => 'required'
+            'courses' => 'required'
         ];
     }
 

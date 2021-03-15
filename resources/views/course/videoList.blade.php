@@ -12,8 +12,15 @@
     {{-- Insert Modal --}}
     <x-insert size="modal-lg" formId="courseVideoForm">
         <x-slot name="content">
-            {{-- Form --}}
-            @include('includes.course.video')
+            <div class="row">
+                {{-- Video --}}
+                @include("includes.courseArticle.video")
+                
+                <div class="col-md-12">
+                  {{-- Courses --}}
+                  @include('includes.form.course')
+                </div>
+            </div>
         </x-slot>
     </x-insert>
 
@@ -36,7 +43,7 @@
 
             // Record modal
             $('#create_record').click(function () {
-                $('#courses').val('').trigger('change');
+                $('#course').val('').trigger('change');
                 action.modal();
             });
 
@@ -64,7 +71,7 @@
                         $('#action').val('ویرایش');
                         $('#button_action').val('update');
                         $('#aparat_url').val(data.url);
-                        $('#courses').val(data.media_id).trigger('change');
+                        $('#course').val(data.media_id).trigger('change');
                     }
                 })
             }

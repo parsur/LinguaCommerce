@@ -13,4 +13,4 @@ require('datatables.net-responsive')
 require('select2/dist/js/select2');
 
 // particles
-require('particles.js')
+require('particles.js');
