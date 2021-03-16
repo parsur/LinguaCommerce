@@ -26,8 +26,8 @@ class StoreCourseRequest extends FormRequest
     public function rules(Request $request)
     {
         return [
-            'name' => 'required',
-            'price' => 'nullable',
+            'name' => 'required|string',
+            'price' => 'nullable|numeric',
             'description' => 'required',
             'status' => 'required'
         ];

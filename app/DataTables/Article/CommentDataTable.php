@@ -24,8 +24,7 @@ class CommentDataTable extends DataTable
             ->eloquent($query)
             ->addIndexColumn()
             ->editColumn('created_at', function(Comment $comment){
-                date_default_timezone_set('Asia/Tehran');
-                return Jalalian::forge($comment->created_at)->format('%A, %d %B %y');
+                return Jalalian::forge($comment->created_at);
             })
             ->addColumn('commentable_id', function (Comment $comment) {
                 return $comment->commentable->name;

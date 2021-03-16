@@ -4,8 +4,6 @@ namespace App\DataTables;
 
 use App\Models\Article;
 use App\Models\Status;
-use App\Models\Image;
-use App\Models\Video;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
@@ -51,25 +49,28 @@ class ArticleDataTable extends DataTable
             })
             ->editColumn('created_at', function(Article $article) {
                 date_default_timezone_set('Asia/Tehran');
-                return Jalalian::forge($article->created_at)->format('%A, %d %B %y');
+                return Jalalian::forge($article->created_at);
             })
             ->editColumn('updated_at', function(Article $article){
-                return Jalalian::forge($article->updated_at)->format('%A, %d %B %y');
+                return Jalalian::forge($article->updated_at);
             })
             ->addColumn('status', function(Article $article) {
                 if($article->statuses->status === Status::VISIBLE) return 'موجود';
                 else if($article->statuses->status === Status::INVISIBLE) return 'ناموجود';
+                else '-';
             })
             ->filterColumn('status', function ($query, $keyword) {
                 switch($keyword) {
-                    case 'موجود': $keyword = 0; break;
+                    case 'موجود': $keyword = 0; 
+                    break;
                     case 'ناموجود': $keyword = 1;
                 }
-                $statuses = Article::whereHas('statuses',function ($subquery) use ($keyword) {
-                    $subquery->where('status', 'LIKE', '%'.$keyword.'%');
-                })->get()->pluck('id')->toArray();
-
-                $query->whereIn('id', $statuses);
+                // $statuses = Article::whereHas('statuses',function ($subquery) use ($keyword) {
+                //     $subquery->where('status', 'LIKE', '%'.$keyword.'%');
+                // })->get()->pluck('id')->toArray();
+                // $query->whereIn('id', $statuses);
+                $sql = 'id in (select status_id from status where status like ?)';
+                $query->whereRaw($sql, ["%{$keyword}%"]);
             })
             ->addColumn('action',function(Article $article) {
                 $editArticle = URL::signedRoute('article.newArticle', ['id' => $article->id]);

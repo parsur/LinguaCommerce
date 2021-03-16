@@ -24,6 +24,7 @@ class StoreFileRequest extends FormRequest
     public function rules()
     {
         return [
+            'title' => 'required|max:200',
             'file' => 'required',
             'courses' => 'required'
         ];
@@ -38,6 +39,7 @@ class StoreFileRequest extends FormRequest
     {
         return [
             'hidden_files' => '"محتوا"',
+            'courses' => 'دوره'
         ];
     }
 }

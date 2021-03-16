@@ -81,8 +81,6 @@ Route::group(['middleware' => ['auth','isAdmin']], function () {
         Route::get('delete/{id}', 'ArticleController@delete');
         // Search
         Route::post('search', 'ArticleController@search');
-        // Store images of article
-        Route::post('storeImage', 'ArticleController@storeImage');
     });
      // Article Video
      Route::group(['prefix' => 'articleImage', 'as' => 'articleImage.'], function () {
@@ -145,9 +143,9 @@ Route::group(['middleware' => ['auth','isAdmin']], function () {
     });
     // Course comment
     Route::group(['prefix' => 'courseComment', 'as' => 'courseComment.'], function() {
-        Route::get('list','course\CommentController@list');
-        Route::get('table/list','course\CommentController@courseCommentTable')->name('list.table');
-        Route::post('submit', 'course\CommentController@submit');
+        Route::get('list','Course\CommentController@list');
+        Route::get('table/list','Course\CommentController@courseCommentTable')->name('list.table');
+        Route::post('submit', 'Course\CommentController@submit');
     });
     // Article comment
     Route::group(['prefix' => 'articleComment', 'as' => 'articleComment.'], function() {
@@ -164,22 +162,22 @@ Route::group(['middleware' => ['auth','isAdmin']], function () {
 });
 
 
-// Authentication {
-    Auth::routes();
-    Route::get('login','Auth\LoginController@index')->name('login');
-    Route::post('login', 'Auth\LoginController@store');
-    // Forgotten password
-    Route::get('/forgot-password', 'Auth\ForgotPasswordController@index');
-    // logout
-    Route::get('/logout','Auth\LoginController@logout')->name('logout');
-//}
+
+// Authentication 
+Auth::routes();
+Route::get('login','Auth\LoginController@index')->name('login');
+Route::post('login', 'Auth\LoginController@store');
+// Forgotten password
+Route::get('/forgot-password', 'Auth\ForgotPasswordController@index');
+// logout
+Route::get('/logout','Auth\LoginController@logout')->name('logout');
 
 // Home
 Route::get('/', 'HomeController@index')->middleware('cors');
 Route::post('search', 'HomeController@search');
 
 // User 
-// Route::group(['middleware' => ['auth']], function() {
+Route::group(['middleware' => ['auth']], function() {
     // Cart
     Route::group(['prefix' => 'cart', 'as' => 'cart.'], function() {
         Route::get('show','CartController@show');
@@ -217,7 +215,7 @@ Route::post('search', 'HomeController@search');
         Route::post('update/{article_id}', 'ArticleCommentController@update');
         Route::get('delete/{id}','ArticleCommentController@delete');
     });
-// });
+});
 
 // App
 Route::get('/', function () {

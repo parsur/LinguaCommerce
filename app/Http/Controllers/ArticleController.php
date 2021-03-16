@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Article;
 use App\Models\Category;
-use App\Models\Image;
-use App\Models\Video;
 use App\Models\Description;
 use App\Models\Status;
 use App\Models\SubCategory;
@@ -129,11 +127,6 @@ class ArticleController extends Controller
     // Delete
     public function delete(Action $action,$id) {
         return $action->delete(Article::class, $id);
-    }
-
-    // Store images 
-    public function storeImage() {
-        return response()->json('test');
     }
 
     // Search

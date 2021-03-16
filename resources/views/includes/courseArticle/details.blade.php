@@ -11,7 +11,7 @@
 
 {{-- Check if there is any poster --}}
 @if(count($table->media))
-    <h4 class="mb-2 mt-2">عکس و ویدئو</h4>
+    <h4 class="mb-2 mt-2">عکس یا ویدئو</h4>
     <div class="row">
         {{-- Image --}}
         @foreach ($table->media as $image)
@@ -34,7 +34,7 @@
     </div>
 @else
     {{-- If there were not content --}}
-    <x-emptyContent title="رسانه ای برای این دوره وجود ندارد" text="افزودن رسانه" route="/course/imageList" />
+    <x-emptyContent title="رسانه ای برای این مقاله وجود ندارد" text="افزودن رسانه" route="/article/imageList" />
 @endif
 
 {{-- Script --}}
@@ -46,6 +46,8 @@
             selector: 'textarea#description',
             height: 700,
             readonly: 1,
+            menubar: false,
+            toolbar: false
         });
     </script>
 @endsection

@@ -4,6 +4,7 @@
 <!-- Head -->
 @section('head')
     <meta charset="utf-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="پنل ادمین، کنترل ادمین"> 
     <meta name="keywords" content="ادمین، داشبورد، پنل">  
@@ -11,7 +12,6 @@
     <title>@yield('title')</title>
     {{-- App --}}
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
-
 @show
 
 <body id="body" class="hold-transition sidebar-mini">
@@ -73,7 +73,7 @@
                             </x-urlAddressParent>
 
                             {{-- Articles --}}
-                            <x-urlAddressParent text="مقالات" fontAwesome="fas fa-newspaper">
+                            <x-urlAddressParent text="مقاله" fontAwesome="fas fa-newspaper">
                                 <x-slot name="content">
                                     {{-- Articles --}}
                                     <x-urlAddress text="مقالات" fontAwesome="null" route="{{ url('article/list') }}" />
@@ -84,7 +84,7 @@
                                     {{-- Video List --}}
                                     <x-urlAddress text="ویدئو های پوستر" fontAwesome="null" route="{{ url('articleVideo/list ') }}" /> 
                                     {{-- Comment List --}}
-                                    <x-urlAddress text="نظرات" fontAwesome="null" route="{{ url('articleComment/list ') }}" />        
+                                    <x-urlAddress text="دیدگاه" fontAwesome="null" route="{{ url('articleComment/list ') }}" />        
                                 </x-slot>
                             </x-urlAddressParent>
                             
@@ -103,6 +103,8 @@
                                 <x-slot name="content">
                                     {{-- Home --}}
                                     <x-urlAddress text="صفحه خانه" fontAwesome="null" route="{{ url('homeSetting/new') }}" />
+                                    {{-- Why me --}}
+                                    <x-urlAddress text="صفحه چرا من" fontAwesome="null" route="{{ url('whyMe/new') }}"/>
                                 </x-slot>
                             </x-admin.urlAddressParent>
 
@@ -141,15 +143,15 @@
         <script src="{{ asset('js/requestHandler.js') }}"></script>
         {{-- TinyMce --}}
         <script src="{{ asset('js/tinymce.min.js') }}"></script>
-
         <script>
             // Ajax Setup
             $.ajaxSetup({ 
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
                 processing: true,
                 dataType: "json"
             });
             // Select2
-            $('select').select2({ width: '100%' });
+            $('select').select2({ width: '100%'});
         </script>
     @show
 </body>

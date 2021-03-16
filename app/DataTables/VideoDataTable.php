@@ -25,7 +25,7 @@ class VideoDataTable extends DataTable
             ->addIndexColumn()
             ->rawColumns(['action', 'url'])
             ->editColumn('url', function(Media $video) {
-                return '<iframe src="'.$video->url.'"   class="aparat_iframe" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>';
+                return '<iframe src="'.$video->url.'" class="aparat_iframe" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>';
             })
             ->addColumn('action', function (Media $video){
                 return <<<ATAG

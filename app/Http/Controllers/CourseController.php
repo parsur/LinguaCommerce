@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\Category;
-use App\Models\Image;
-use App\Models\Video;
+use App\Models\Media;
 use App\Models\SubCategory;
 use App\Models\Status;
 use App\Models\Description;
@@ -17,7 +16,6 @@ use App\Providers\EnglishConvertion;
 use Illuminate\Http\Request;
 use DB;
 use File;
-use Storage;
 
 class CourseController extends Controller
 {
@@ -59,7 +57,6 @@ class CourseController extends Controller
 
     // Store Course
     public function store(StoreCourseRequest $request,SuccessMessages $message) {
-
         // Insert or update
         $this->add($request);
 
@@ -81,6 +78,7 @@ class CourseController extends Controller
     public function add($request) {
 
         $id = $request->get('id');
+
         // English convertion
         $englishConvertion = new EnglishConvertion();
 
@@ -138,7 +136,6 @@ class CourseController extends Controller
 
     // Show course page
     public function show() {
-
         $vars['courses'] = Course::all();
         return response()->json($courses);
     }
@@ -158,7 +155,7 @@ class CourseController extends Controller
 
     // User datails
     public function userDetails($id) {
-        
+
         $course = Course::findOrFail($id);
         return response()->json($course);
     }

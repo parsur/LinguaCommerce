@@ -3,18 +3,15 @@
 <div class="row">
     {{-- Header --}}
     <div class="col-md-6 mb-3">
-        <label for="header">سر تیتر</label>
-        <input type="text" name="header" value="{{ $setting_header }}" placeholder="سر تیتر">
+        <x-input key="header" name="سر تیتر" value="{{ $setting_header }}" />
     </div>
     {{-- Sub header --}}
     <div class="col-md-6 mb-3">
-        <label for="sub_header">تیتر</label>
-        <input type="text" name="subHeader" value="{{ $setting_subHeader }}" placeholder="تیتر">
+        <x-input key="subHeader" name="تیتر" value="{{ $setting_subHeader }}" />
     </div>
     {{-- Description --}}
     <div class="col-md-12 mb-3">
-        <label for="description">توضیح</label>
-        <input type="text" name="description" value="{{ $setting_description }}" placeholder="توضیح">
+        <x-input key="description" name="توضیح" value="{{ $setting_description }}" />
     </div>
 </div>
 
@@ -25,8 +22,7 @@
 <div class="row">
     {{-- First event --}}
     <div class="col-md-6 mb-2">
-        <label for="firstEvent">رویداد اول:</label>
-        <input rows="5" type="text" name="firstEvent" value="{{ $setting_firstEvent }}" placeholder="رویداد اول">
+        <x-input key="firstEvent" name="رویداد اول" value="{{ $setting_firstEvent }}" />
     </div>
     {{-- First event url --}}
     <div class="col-md-6 mb-3">
@@ -36,8 +32,7 @@
     </div>
     {{-- Second event --}}
     <div class="col-md-6 mb-2">
-        <label for="secondEvent">رویداد دوم:</label>
-        <input type="text" name="secondEvent" value="{{ $setting_secondEvent }}" placeholder="رویداد دوم">
+        <x-input key="secondEvent" name="رویداد دوم" value="{{ $setting_secondEvent }}" />
     </div>
     {{-- Second event url --}}
     <div class="col-md-6 mb-3">
@@ -47,8 +42,7 @@
     </div>
     {{-- Third event --}}
     <div class="col-md-6 mb-2">
-        <label for="thirdEvent">رویداد سوم:</label>
-        <input type="text" name="thirdEvent" value="{{ $setting_thirdEvent }}" placeholder="رویداد سوم">
+        <x-input key="thirdEvent" name="رویداد سوم" value="{{ $setting_thirdEvent }}" />
     </div>
     {{-- Third event url --}}
     <div class="col-md-6 mb-3">
@@ -58,8 +52,7 @@
     </div>
     {{-- Fourth event --}}
     <div class="col-md-6 mb-2">
-        <label for="fourthEvent">رویداد چهارم:</label>
-        <input type="text" name="fourthEvent" value="{{ $setting_fourthEvent }}" placeholder="رویداد چهارم">
+        <x-input key="fourthEvent" name="رویداد چهارم" value="{{ $setting_fourthEvent }}" />
     </div>
     {{-- Fourth event url --}}
     <div class="col-md-6 mb-3">

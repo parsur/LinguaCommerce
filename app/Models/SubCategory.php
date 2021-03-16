@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use ShiftOneLabs\LaravelCascadeDeletes\CascadesDeletes;
 
-
 /**
  * @property int $id
  * @property int $category_id

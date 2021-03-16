@@ -56,7 +56,7 @@ class FileController extends Controller
     public function add($request) {
         foreach($request->get('courses') as $course) {
             // Insert Course videos
-            \App\Models\File::updateOrCreate(
+            $this->file::updateOrCreate(
                 ['id' => $request->get('id')],
                 ['url' => $request->get('url'), 'title' => $request->get('title'), 'course_id' => $course]
             );

@@ -53,6 +53,16 @@ class AdminController extends Controller
         return json_encode($output);
     }
 
+
+    // Store images of ckeditor
+    public function ckEditorImage(Request $request) {
+        if($request->hasFile('upload')) {
+            $file = $request->file('upload')->getClientOriginalName();
+        }
+        return response()->json('test');
+    }
+
+
     // Add or update user
     public function add($request) {
         $user = User::find($request->get('id'));

@@ -5,8 +5,6 @@ namespace App\DataTables;
 use App\Models\Course;
 use App\Models\Article;
 use App\Models\Status;
-use App\Models\Image;
-use App\Models\Video;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
@@ -54,11 +52,12 @@ class CourseDataTable extends DataTable
             ->addColumn('status', function(Course $course) { 
                 if($course->statuses->status === Status::VISIBLE) return 'موجود';
                 else if($course->statuses->status === Status::INVISIBLE) return 'ناموجود';
+                else '-';
             })  
             ->filterColumn('status', function ($query, $keyword) {
                 switch($keyword) {
                     case 'موجود': $keyword = 0; 
-                        break;
+                    break;
                     case 'ناموجود': $keyword = 1;
                 }
                 $sql = 'id in (select status_id from status where status like ?)';

@@ -32,7 +32,6 @@ class ImageController extends Controller
 
     // Store
     public function store(StoreImageRequest $request,SuccessMessages $message) {
-
         // insert or update
         $this->add($request);
 

@@ -32,14 +32,14 @@ mix.js('resources/assets/js/app.js', 'public/js')
     .copy('resources/assets/js/imagePreview.js', 'public/js/imagePreview.js')
     // Image preview
     .copy('resources/assets/js/tinymce.min.js', 'public/js/tinymce.min.js')
-    // CK Editor
-    .copy('resources/assets/ckeditor', 'public/ckeditor')
     // Fonts
     .copy('resources/assets/fonts', 'public/fonts')
     // App And Authentication
     .css('resources/assets/css/app.css', 'public/css')
     // App Css
     .css('resources/assets/css/auth.css', 'public/css/auth.css')
+    // Tinymce
+    .css('resources/assets/css/tinymce.css', 'public/css/tinymce.css')
     // App Sass
     .sass('resources/assets/sass/app.scss','public/css');
 

@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Carbon;
+use ShiftOneLabs\LaravelCascadeDeletes\CascadesDeletes;
 
 /**
  * @property int $id
@@ -30,6 +30,12 @@ class Comment extends Model
      * @var array
      */
     protected $fillable = ['name', 'comment', 'created_at', 'commentable_id', 'commentable_type'];
+
+    /**
+     * Cascade deletes.
+     */
+    use CascadesDeletes;
+    protected $cascadeDeletes = ['statuses'];
 
     /*
      * Get all of the course's status.

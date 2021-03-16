@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Article;
 
 use Illuminate\Http\Request;
+use App\Models\Comment;
 use App\Http\Controllers\Controller;
 use App\DataTables\Article\CommentDataTable;
-use App\Http\Requests\StoreArticleCommentRequest;
+use App\Http\Requests\StoreCommentRequest;
+use App\Providers\SuccessMessages;
 use App\Providers\Action;
 
 class CommentController extends Controller
@@ -37,6 +39,7 @@ class CommentController extends Controller
             $comment->statuses()->create(['status' => Status::INVISIBLE]);
 
             DB::commit();
+            
             return response()->json('دیدگاه درباره دوره با موفقیت ویرایش شد');
 
         } catch(Exception $e) {

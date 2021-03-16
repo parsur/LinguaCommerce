@@ -26,11 +26,11 @@ class UserDataTable extends DataTable
             ->addIndexColumn()
             ->rawColumns(['action'])
             ->editColumn('created_at', function(User $user){
-                date_default_timezone_set('Asia/Tehran');
-                return Jalalian::forge($user->created_at)->format('%A, %d %B %y');
+                return Jalalian::forge($user->created_at);
             })
             ->editColumn('updated_at', function(User $user){
-                return Jalalian::forge($user->updated_at)->format('%A, %d %B %y');
+                return Jalalian::forge($user->updated_at);
+                
             })->addColumn('action', function (User $user){
                 return <<<ATAG
                             <a onclick="showConfirmationModal('{$user->id}')">
@@ -52,7 +52,7 @@ class UserDataTable extends DataTable
      */
     public function query(User $model)
     {
-        return $model->where('role',$model::USER);
+        return $model->where('role', $model::USER);
     }
 
     /**

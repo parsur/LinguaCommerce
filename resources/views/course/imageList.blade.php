@@ -14,7 +14,7 @@
   <x-insert size="modal-lg" formId="courseImageForm">
     <x-slot name="content">
       <div class="row">
-        <div class="col-md-6 mb-2">
+        <div class="col-md-6 mb-3">
             {{-- Course Select Box --}}
             @include('includes.form.course')
         </div>
@@ -44,8 +44,12 @@
 
       // Record modal
       $('#create_record').click(function () {
+        // Select2
         $('#courses').val('').trigger('change');
+        // Picture
         $("#picture").attr("src", "");
+        $("#picture").attr("alt", "عکس خود را وارد نمایید");
+        // Hidden image
         $('#hidden_image').val(null);
         action.modal();
       });

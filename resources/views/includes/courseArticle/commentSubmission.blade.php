@@ -7,11 +7,11 @@
       </div>
       {{-- Success Message --}}
       <span id="form_output"></span>
+      
       <div class="modal-body text-center">
         {{-- Submission --}}
         <button type="button" id="submission" class="btn btn-primary">دیدگاه کاربر را تایید میکنم</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal">خروج</button>
-        <input type="hidden" id="_token" name="_token" value="{{ csrf_token() }}" />
       </div>
     </div>
   </div>

@@ -9,16 +9,19 @@ class input extends Component
     public $key;
     public $name;
     public $type;
+    public $value;
+    
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($key, $name, $type = 'text')
+    public function __construct($key, $name, $type = 'text', $value = null)
     {
         $this->key = $key;
         $this->name = $name;
         $this->type = $type;
+        $this->value = $value;
     }
 
     /**

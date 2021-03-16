@@ -23,12 +23,12 @@ class Article extends Model
      * Cascade On Delete.
      */
     use CascadesDeletes;
-    protected $cascadeDeletes = ['image', 'video','description','statuses','comments'];
+    protected $cascadeDeletes = ['media','description','statuses','comments'];
 
     /**
      * @var array
      */
-    protected $fillable = ['category_id', 'title', 'created_at', 'updated_at', 'article_id', 'article_type', 'subCategory_id'];
+    protected $fillable = ['title', 'created_at', 'updated_at','category_id', 'subCategory_id', 'article_id', 'article_type'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -29,15 +29,9 @@
 @section('scripts')
 @parent
     {{-- CK Editor initialization --}}
-    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+    <script src="{{ asset('js/tinymceInit.js') }}"></script>
 
     <script>
-        // CK Editor
-        CKEDITOR.replace( 'description',{
-            filebrowserUploadUrl: "{{ url('storeImage') }}",
-            filebrowserUploadMethod: 'form'
-        });
-
         // Action object
         let action = new requestHandler(null, '#courseForm', 'course');
 
