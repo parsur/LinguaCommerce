@@ -15,7 +15,6 @@
     </div>
 </div>
 
-
 {{-- News section --}}
 <h5>اخبار</h5>
 <hr>
@@ -26,9 +25,7 @@
     </div>
     {{-- First event url --}}
     <div class="col-md-6 mb-3">
-        <label for="firstEventUrl">لینک مربوط به رویداد اول:</label>
-        <textarea name="firstEventUrl" rows="3" class="form-control"
-            placeholder="لینک مربوط به رویداد اول">{{ $setting_firstEventUrl }}</textarea>
+        <x-textarea key="firstEventUrl" name="لینک مربوط به رویداد اول" value="{{ $setting_firstEventUrl }}" />
     </div>
     {{-- Second event --}}
     <div class="col-md-6 mb-2">
@@ -36,9 +33,7 @@
     </div>
     {{-- Second event url --}}
     <div class="col-md-6 mb-3">
-        <label for="secondEventUrl">لینک مربوط به رویداد دوم:</label>
-        <textarea name="secondEventUrl" rows="3" class="form-control"
-            placeholder="لینک مربوط به رویداد دوم">{{ $setting_secondEventUrl }}</textarea>
+        <x-textarea key="secondEventUrl" name="لینک مربوط به رویداد دوم" value="{{ $setting_secondEventUrl }}" />
     </div>
     {{-- Third event --}}
     <div class="col-md-6 mb-2">
@@ -46,9 +41,7 @@
     </div>
     {{-- Third event url --}}
     <div class="col-md-6 mb-3">
-        <label for="thirdEventUrl">لینک مربوط به رویداد سوم:</label>
-        <textarea name="thirdEventUrl" rows="3" class="form-control"
-            placeholder="لینک مربوط به رویداد سوم">{{ $setting_thirdEventUrl }}</textarea>
+        <x-textarea key="thirdEventUrl" name="لینک مربوط به رویداد سوم" value="{{ $setting_thirdEventUrl }}" />
     </div>
     {{-- Fourth event --}}
     <div class="col-md-6 mb-2">
@@ -56,12 +49,9 @@
     </div>
     {{-- Fourth event url --}}
     <div class="col-md-6 mb-3">
-        <label for="fourthEventUrl">لینک مربوط به رویداد چهارم:</label>
-        <textarea name="fourthEventUrl" rows="3" class="form-control"
-            placeholder="لینک مربوط به رویداد چهارم">{{ $setting_fourthEventUrl }}</textarea>
+        <x-textarea key="fourthEventUrl" name="لینک مربوط به رویداد چهارم" value="{{ $setting_fourthEventUrl }}" />
     </div>
 </div>
-
 
 
 {{-- Submit button --}}
