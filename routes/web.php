@@ -153,13 +153,13 @@ Route::group(['middleware' => ['auth','isAdmin']], function () {
     // Home Setting
     Route::group(['prefix' => 'homeSetting', 'as' => 'homeSetting.'], function() {
         // Home Setting
-        Route::get('new','Setting\HomeController@new');
-        Route::post('store','Setting\HomeController@store');
+        Route::get('new','HomeSettingController@new');
+        Route::post('store','HomeSettingController@store');
     });
     // Why us setting
     Route::group(['prefix' => 'whyMe', 'as' => 'whyMe.'], function() {
-        Route::get('new', 'Setting\WhyMeController@new');
-        Route::post('store','Setting\HomeController@store');
+        Route::get('new', 'WhyMeController@new');
+        Route::post('store','WhyMeController@store');
     });
 });
 
