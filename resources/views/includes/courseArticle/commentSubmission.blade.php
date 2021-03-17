@@ -10,7 +10,7 @@
       
       <div class="modal-body text-center">
         {{-- Submission --}}
-        <button type="button" id="submission" class="btn btn-primary">دیدگاه کاربر را تایید میکنم</button>
+        <button type="button" id="submission" class="btn btn-success">دیدگاه کاربر را تایید میکنم</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal">خروج</button>
       </div>
     </div>

@@ -10,13 +10,11 @@
             {{-- Name --}}
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    <label for="name">نام:</label>
-                    <input name="name" id="name" type="text" placeholder="نام">
+                    <x-input key="name" name="نام" />
                 </div>
                 {{-- Price --}}
                 <div class="col-md-6 mb-3">
-                    <label for="price">هزینه:</label>
-                    <input name="price" id="price" type="text" placeholder="هزینه">
+                    <x-input key="price" name="هزینه" />
                 </div>
             </div>
  
@@ -28,7 +26,7 @@
 
 @section('scripts')
 @parent
-    {{-- CK Editor initialization --}}
+    {{-- Tinymce initialization --}}
     <script src="{{ asset('js/tinymceInit.js') }}"></script>
 
     <script>

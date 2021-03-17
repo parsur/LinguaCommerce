@@ -26,7 +26,7 @@ class StoreCourseRequest extends FormRequest
     public function rules(Request $request)
     {
         return [
-            'name' => 'required|string',
+            'name' => 'required|max:120|unique:courses,id,' . $request->get('id'),
             'price' => 'nullable|numeric',
             'description' => 'required',
             'status' => 'required'

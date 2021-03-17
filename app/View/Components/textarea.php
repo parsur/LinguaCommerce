@@ -16,7 +16,7 @@ class textarea extends Component
      *
      * @return void
      */
-    public function __construct($key, $name, $value, $rows = 3)
+    public function __construct($key, $name, $value = null, $rows = 3)
     {
         $this->key = $key;
         $this->name = $name;

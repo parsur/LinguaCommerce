@@ -24,22 +24,9 @@ class StoreArticleRequest extends FormRequest
     public function rules(Request $request)
     {
         return [
-            'title' => 'required',
+            'title' => 'required|max:120|unique:articles,id,' . $request->get('id'),
             'status' => 'required',
             'description' => 'required',
-        ];
-    }
-
-    /**
-     * Get custom attributes for validator errors.
-     *
-     * @return array
-     */
-    public function attributes()
-    {
-        return [
-            'title' => '"عنوان"',
-            'status' => '"وضعیت"',
         ];
     }
 }

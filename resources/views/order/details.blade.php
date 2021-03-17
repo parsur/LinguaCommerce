@@ -3,6 +3,7 @@
 
 
 @section('content')
+    {{-- Order details --}}
     <x-page title="جزئیات سفارش" description="جزئیات سفارش کاربر به همراه محصولات مربوط" formId="">
         <x-slot name="content">
             {{-- User information --}}

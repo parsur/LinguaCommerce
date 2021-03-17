@@ -9,8 +9,7 @@
             {{-- Form --}}
             <div class="row">
                 <div class="col-md-12 mb-3">
-                    <label for="title">تیتر:</label>
-                    <input name="title" id="title" type="text" placeholder="تیتر">
+                    <x-input key="title" name="تیتر" />
                 </div>
             </div>
  
@@ -23,10 +22,9 @@
 
 @section('scripts')
 @parent
-
     {{-- Tinymce initialization --}}
     <script src="{{ asset('js/tinymceInit.js') }}"></script>
-
+    
     <script>
         let action = new requestHandler(null, '#articleForm', 'article');
         // Insert

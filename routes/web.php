@@ -14,9 +14,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::post('/image/upload', function(){
-    // return json_encode('location');
-});
 // Middleware
 Route::group(['middleware' => ['auth','isAdmin']], function () {
     // Admin
@@ -149,15 +146,20 @@ Route::group(['middleware' => ['auth','isAdmin']], function () {
     });
     // Article comment
     Route::group(['prefix' => 'articleComment', 'as' => 'articleComment.'], function() {
-        Route::get('list','article\CommentController@list');
-        Route::get('table/list','article\CommentController@articleCommentTable')->name('list.table');
-        Route::post('submit', 'article\CommentController@submit');
+        Route::get('list','Article\CommentController@list');
+        Route::get('table/list','Article\CommentController@articleCommentTable')->name('list.table');
+        Route::post('submit', 'Article\CommentController@submit');
     });
     // Home Setting
     Route::group(['prefix' => 'homeSetting', 'as' => 'homeSetting.'], function() {
         // Home Setting
-        Route::get('new','HomeSettingController@new');
-        Route::post('store','HomeSettingController@store');
+        Route::get('new','Setting\HomeController@new');
+        Route::post('store','Setting\HomeController@store');
+    });
+    // Why us setting
+    Route::group(['prefix' => 'whyMe', 'as' => 'whyMe.'], function() {
+        Route::get('new', 'Setting\WhyMeController@new');
+        Route::post('store','Setting\HomeController@store');
     });
 });
 
@@ -177,7 +179,7 @@ Route::get('/', 'HomeController@index')->middleware('cors');
 Route::post('search', 'HomeController@search');
 
 // User 
-Route::group(['middleware' => ['auth']], function() {
+// Route::group(['middleware' => ['auth']], function() {
     // Cart
     Route::group(['prefix' => 'cart', 'as' => 'cart.'], function() {
         Route::get('show','CartController@show');
@@ -215,7 +217,7 @@ Route::group(['middleware' => ['auth']], function() {
         Route::post('update/{article_id}', 'ArticleCommentController@update');
         Route::get('delete/{id}','ArticleCommentController@delete');
     });
-});
+// });
 
 // App
 Route::get('/', function () {

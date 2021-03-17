@@ -26,7 +26,7 @@ class StoreAdminRequest extends FormRequest
     public function rules(Request $request)
     {
         return [
-            'name' => 'required|string',
+            'name' => 'required',
             'password' => 'required|min:6',
             'password-confirm' => 'same:password',
             'phone_number' => 'nullable|numeric|digits:11',

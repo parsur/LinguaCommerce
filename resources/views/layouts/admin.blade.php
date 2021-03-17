@@ -142,8 +142,8 @@
         {{-- Ajax Requests --}}
         <script src="{{ asset('js/requestHandler.js') }}"></script>
         {{-- TinyMce --}}
-        {{-- <script src="{{ asset('js/tinymce.min.js') }}"></script> --}}
-        <script src="https://cdn.tiny.cloud/1/j7pd9et1cw5vwcu34uqsawojdofcldb4jwhtc13w4qwa7uh5/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+        <script src="{{ asset('js/tinymce.min.js') }}"></script>
+
         <script>
             // Ajax Setup
             $.ajaxSetup({ 

@@ -25,7 +25,8 @@ class StoreCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required'
+            'name' => 'required|max:70|unique:categories,id,' . $request->get('id'),
+            'status' => 'required'
         ];
     }
 }

@@ -27,7 +27,7 @@ class HomeController extends Controller
             'fourthEvent',
             'fourthEventUrl'
         ];
-        $home_settings = HomeSetting::whereIn('name', $names)->get();
+        $home_settings = HomeSetting::whereIn('name', $names)->select('value')->get();
 
         $vars = [];
         foreach($home_settings as $setting) {
@@ -47,4 +47,5 @@ class HomeController extends Controller
             $action->search(Article::class, $request->get('articles'), 'title');
         }
     }
+
 }

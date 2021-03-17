@@ -38,8 +38,9 @@ class StoreFileRequest extends FormRequest
     public function attributes()
     {
         return [
-            'hidden_files' => '"محتوا"',
+            'hidden_files' => 'محتوا',
             'courses' => 'دوره'
         ];
     }
+    
 }

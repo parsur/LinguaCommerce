@@ -24,8 +24,23 @@ class StoreHomeSettingRequest extends FormRequest
     public function rules()
     {
         return [
-            'header' => 'required',
-            'subHeader' => 'required'
+            'header' => 'required|max:45',
+            'subHeader' => 'required|max:45',
+            'description' => 'required|max:255'
+        ];
+    }
+
+    /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'header' => 'سرتیتر',
+            'subHeader' => 'تیتر',
+            'description' => 'توضیحات',
         ];
     }
 }

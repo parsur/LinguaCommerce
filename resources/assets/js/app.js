@@ -1,7 +1,7 @@
 // Axios
 require('./bootstrap');
 
-// Bootstrap
+// Admin
 require('./admin');
 
 // DataTables
@@ -14,3 +14,11 @@ require('select2/dist/js/select2');
 
 // particles
 require('particles.js');
+
+// Tinymce
+// window.tinymce = require('tinymce/tinymce');
+// require('tinymce/icons/default');
+// require('tinymce/themes/silver');
+// require('tinymce/plugins/paste');
+// require('tinymce/plugins/link');
+// require('tinymce/plugins/directionality');

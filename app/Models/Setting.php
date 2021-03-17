@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property string $value
  */
-class HomeSetting extends Model
+class Setting extends Model
 {
     public $timestamps = false;
     /**

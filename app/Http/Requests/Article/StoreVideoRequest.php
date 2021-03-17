@@ -18,16 +18,4 @@ class StoreVideoRequest extends FormRequest
             'article' => 'required'
         ];
     }
-
-    /**
-     * Get custom attributes for validator errors.
-     *
-     * @return array
-     */
-    public function attributes()
-    {
-        return [
-            'aparat_url' => '"لینک ویدئو آپارات"'
-        ];
-    }
 }

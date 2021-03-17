@@ -44,7 +44,7 @@
         // Tinymce implementation
         tinymce.init({
             selector: 'textarea#description',
-            height: 700,
+            plugins: 'autoresize',
             readonly: 1,
             menubar: false,
             toolbar: false

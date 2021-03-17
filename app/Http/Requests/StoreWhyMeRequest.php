@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreVideoRequest extends FormRequest
+class StoreWhyMeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,21 +22,10 @@ class StoreVideoRequest extends FormRequest
      * @return array
      */
     public function rules()
-    {   
+    {
         return [
-            'aparat_url' => 'required'
+            'description' => 'required',
         ];
     }
 
-    /**
-     * Get custom attributes for validator errors.
-     *
-     * @return array
-     */
-    public function attributes()
-    {
-        return [
-            'aparat_url' => '"لینک ویدئو آپارات"'
-        ];
-    }
 }

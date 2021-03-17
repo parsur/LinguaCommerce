@@ -11,7 +11,7 @@
     </div>
     {{-- Description --}}
     <div class="col-md-12 mb-3">
-        <x-input key="description" name="توضیح" value="{{ $setting_description }}" />
+        <x-input key="description" name="توضیحات" value="{{ $setting_description }}" />
     </div>
 </div>
 
@@ -56,5 +56,5 @@
 
 {{-- Submit button --}}
 <div class="col-md-12 text-center">
-    <button class="btn btn-primary mb-3 mt-3" type="submit">تاييد</button>
+    <button class="btn btn-success mb-3 mt-3" type="submit">تاييد</button>
 </div>
