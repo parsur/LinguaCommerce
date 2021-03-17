@@ -98,18 +98,15 @@
                                 </x-slot>
                             </x-admin.urlAddressParent>
 
-                            {{-- Settings --}}
-                            <x-urlAddressParent Text="تنظیمات" fontAwesome="fa fa-cog">
-                                <x-slot name="content">
-                                    {{-- Home --}}
-                                    <x-urlAddress text="صفحه خانه" fontAwesome="null" route="{{ url('homeSetting/new') }}" />
-                                    {{-- Why me --}}
-                                    <x-urlAddress text="صفحه چرا من" fontAwesome="null" route="{{ url('whyMe/new') }}"/>
-                                </x-slot>
-                            </x-admin.urlAddressParent>
+                            {{-- Why me --}}
+                            <x-urlAddress text="چرا من" fontAwesome="fa fa-cog" route="{{ url('homeSetting/new') }}"/>
 
                             {{-- Orders --}}
                             <x-urlAddress text="سفارشات" fontAwesome="fab fa-first-order" route="{{ url('order/list') }}"/>
+
+                            {{-- Settings --}}
+                            <x-urlAddress text="تنظیمات صفحه اصلی" fontAwesome="fa fa-cog" route="{{ url('homeSetting/new') }}"/>
+
                         </ul>
                     </nav>
                 </div>

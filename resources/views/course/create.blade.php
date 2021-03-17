@@ -5,7 +5,7 @@
     <x-page title="ذخیره دوره" description="دوره خود را اضافه یا ویرایش کنید" formId="courseForm">
         <x-slot name="content">
             {{-- Hidden Input --}}
-            <input type="hidden" name="id" id="id" value="{{ ($course) ? $course->id : "" }}" />
+            <input type="hidden" name="id" id="id" value="{{ $course->id ?? "" }}" />
  
             {{-- Name --}}
             <div class="row">

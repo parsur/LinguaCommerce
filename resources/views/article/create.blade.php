@@ -4,7 +4,7 @@
     <x-page title="ذخیره مقاله" description="مقاله خود را اضافه یا ویرایش کنید" formId="articleForm">
         <x-slot name="content">
             {{-- Hidden Inputs --}}
-            <input type="hidden" name="id" id="id" value="{{ ($article) ? $article->id : "" }}" />
+            <input type="hidden" name="id" id="id" value="{{ $article->id ?? "" }}" />
  
             {{-- Form --}}
             <div class="row">
@@ -24,7 +24,7 @@
 @parent
     {{-- Tinymce initialization --}}
     <script src="{{ asset('js/tinymceInit.js') }}"></script>
-    
+
     <script>
         let action = new requestHandler(null, '#articleForm', 'article');
         // Insert
