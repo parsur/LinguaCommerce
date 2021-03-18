@@ -43,7 +43,7 @@ class OrderController extends Controller
     // Show users's order
     public function showOrder() {
         $orders = Order::where('user_id', auth()->user()->role)
-            ->whereNotNull('order_factor')->get();
+            ->whereNotNull('factor')->get();
 
         return response()->json($orders);
     }
@@ -52,9 +52,9 @@ class OrderController extends Controller
     public function details(Request $request) {
 
         // Each order
-        $vars['order'] = Order::where('order_factor', $request->get('order_factor'))->first();
+        $vars['order'] = Order::where('factor', $request->get('factor'))->first();
         // Cart
-        $vars['carts'] = Cart::where('order_factor', $request->get('order_factor'))->get();
+        $vars['carts'] = Cart::where('factor', $request->get('factor'))->get();
 
         return view('order.details', $vars);
     }
@@ -63,7 +63,7 @@ class OrderController extends Controller
     public function store() {
 
         DB::beginTransaction();
-        $user_id =  Auth::user()->id;
+        $user_id = Auth::user()->id;
 
         try {
             // New order
@@ -73,37 +73,37 @@ class OrderController extends Controller
             // Count order where user_id is
             $orderCount = Cart::where('user_id',  $user_id)->count() . 1001;
             // Order factor
-            $order_factor = 'saraRajabi' . $orderCount .  $user_id;
-            $order->order_factor = $order_factor;
+            $factor = 'saraRajabi' . $orderCount .  $user_id;
+            $order->factor = $factor;
 
-            // Set order_factor for all carts
+            // Set order factor for all carts
             $cartProducts = Cart::where('user_id',  $user_id)
-                ->where('order_factor', null)->get();
+                ->where('factor', null)->get();
 
             foreach($cartProducts as $cartProduct) {
-                $cartProduct->order_factor = $order_factor;
+                $cartProduct->factor = $factor;
                 $cartProduct->save();
             }
 
             // Course total price
             $sum = 0;
-            $cartPrices = Cart::where('order_factor', $order_factor)->get();
+            $cartPrices = Cart::where('factor', $factor)->get();
             foreach($cartPrices as $cartPrice) {
                 $sum += $cartPrice->course->price;
             }
             // Total price
             $order->total_price = $sum;
 
+            $order->save();
+
             // Set order status to be directed
             $orderStatus = $order->statuses()->create(['status' => 1]);
             if($orderStatus) {
+
+                DB::commit();
                 // Payment Gateway
                 return Redirect::to('http://heera.it');
             }
-
-            $order->save();
-
-            DB::commit();
 
         } catch(Exception $e) {
             throw $e;

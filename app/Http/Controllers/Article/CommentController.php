@@ -40,7 +40,7 @@ class CommentController extends Controller
 
             DB::commit();
             
-            return response()->json('دیدگاه درباره دوره با موفقیت ویرایش شد');
+            return response()->json('دیدگاه درباره دوره با موفقیت ویرایش شد', JSON_UNESCAPED_UNICODE);
 
         } catch(Exception $e) {
             throw $e;
@@ -63,7 +63,7 @@ class CommentController extends Controller
                 'commentable_id' => $article_id, 'commentable_type' => Article::class]);
 
             DB::commit();
-            return response()->json('دیدگاه درباره دوره با موفقیت ویرایش شد');
+            return response()->json('دیدگاه درباره دوره با موفقیت ویرایش شد', JSON_UNESCAPED_UNICODE);
 
         } catch(Exception $e) {
             throw $e;
@@ -79,7 +79,7 @@ class CommentController extends Controller
         
         $output = array('success' => $message->getInsert());
 
-        return json_encode($output);
+        return response()->json($output);
     }
 
     // Delete

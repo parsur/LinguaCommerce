@@ -49,7 +49,7 @@ class FileController extends Controller
         }
 
         $output = array('success' => $success_output);
-        return json_encode($output);
+        return response()->json($output);
     }
 
     // Add Video
@@ -63,7 +63,6 @@ class FileController extends Controller
         }
     }
 
-
     // Delete
     public function delete($id, Action $action) {
         return $action->delete($this->file,$id);
@@ -72,28 +71,5 @@ class FileController extends Controller
     // Edit
     public function edit(Action $action,Request $request) {
         return $action->edit($this->file,$request->get('id'));
-    }
-
-    // Download file
-    public function download() {
-        // Zip file
-        $zip = new ZipArchive;
-        $zip_file = 'courseFiles.zip'; // Name of our archive to download
-
-        // Initializing PHP class
-        $zip = new \ZipArchive();
-        if($zip->open(public_path('storage/'.$zip_file), \ZipArchive::CREATE | \ZipArchive::OVERWRITE)) {
-            // Adding file: second parameter is what will the path inside of the archive
-            // So it will create another folder called "storage/" inside ZIP, and put the file there.
-            foreach(File::files(public_path('storage/courseFiles')) as $key => $file) {
-                $relativeName = basename($file);
-                $zip->addFile($file, $relativeName);
-            }
-        }
-
-        // Close
-        $zip->close();
-
-        return response()->download(public_path('storage/'.$zip_file));
     }
 }

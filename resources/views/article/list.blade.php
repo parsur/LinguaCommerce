@@ -3,7 +3,7 @@
 
 @section('content')
   {{-- Header --}}
-  <x-header pageName="مقالات" buttonValue="">
+  <x-header pageName="مقالات">
     <x-slot name="table">
       {!! $articleTable->table(['class' => 'table table-striped table-bordered w-100 nowrap text-center']) !!}
     </x-slot>

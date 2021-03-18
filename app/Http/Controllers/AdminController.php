@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\UserController;
 use App\DataTables\UserDataTable;
 use App\DataTables\AdminDataTable;
 use Illuminate\Support\Facades\Hash;
@@ -13,7 +14,6 @@ use App\Models\User;
 
 class AdminController extends Controller
 {
-
     // Admin Home
     public function admin() {
         return view('admin.home');
@@ -36,8 +36,8 @@ class AdminController extends Controller
     }
 
     // Store Admin
-    public function store(StoreUserRequest $request,SuccessMessages $message) {
-        $this->add($request);
+    public function store(StoreUserRequest $request,SuccessMessages $message,UserController $userController) {
+        $userController->add($request, User::ADMIN);
 
         // Insert
         if($request->get('button_action') == "insert") {
@@ -50,28 +50,9 @@ class AdminController extends Controller
 
         $output = array('success' => $success_output);
 
-        return json_encode($output);
+        return response()->json($output);
     }
 
-
-    // Store images of ckeditor
-    public function ckEditorImage(Request $request) {
-        if($request->hasFile('upload')) {
-            $file = $request->file('upload')->getClientOriginalName();
-        }
-        return response()->json('test');
-    }
-
-
-    // Add or update user
-    public function add($request) {
-        User::updateOrCreate(
-            ['id' => $request->get('id')],
-            ['name' => $request->get('name'),'email' => $request->get('email'),
-            'role' => User::USER,'password' => Hash::make($request->get('password')),
-            'phone_number' => $request->get('phone_number')]
-        );
-    }
     
     // Delete Each Admin
     public function delete(Action $action, $id) {

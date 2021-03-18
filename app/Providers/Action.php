@@ -8,7 +8,7 @@ class Action {
     /**
      * All reusable actions (GET,POST).
      * 
-     * @return json_encode
+     * @return json
      * 
      */
 
@@ -18,7 +18,7 @@ class Action {
     public function edit($model,$id) {
         try{
             $values = $model::find($id);
-            return json_encode($values);
+            return response()->json($values);
 
         } catch(Throwable $e) {
             return response()->json($e);
@@ -31,7 +31,7 @@ class Action {
     public function editWithStatus($model,$id) {
 
         $values = $model::where('id', $id)->with('statuses')->first();
-        return json_encode($values);
+        return response()->json($values);
     }
 
     /**
@@ -40,7 +40,7 @@ class Action {
     public function editCourseArticle($model,$id) {
 
         $values = $model::where('id', $id)->with('statuses', 'media', 'description')->first();
-        return json_encode($values);
+        return response()->json($values);
     }
 
     /**

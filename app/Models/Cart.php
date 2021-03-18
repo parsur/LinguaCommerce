@@ -10,7 +10,7 @@ use ShiftOneLabs\LaravelCascadeDeletes\CascadesDeletes;
  * @property int $user_id
  * @property int $course_id
  * @property int $count
- * @property string $order_factor
+ * @property string $factor
  * @property Course $course
  * @property User $user
  */
@@ -21,7 +21,7 @@ class Cart extends Model
     /**
      * @var array
      */
-    protected $fillable = ['order_factor', 'user_id', 'course_id'];
+    protected $fillable = ['factor', 'user_id', 'course_id'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

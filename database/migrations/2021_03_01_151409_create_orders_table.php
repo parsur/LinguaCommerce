@@ -17,7 +17,7 @@ class CreateOrdersTable extends Migration {
 		{
 			$table->integer('id', true);
 			$table->integer('user_id')->index('user_id');
-			$table->string('order_factor', 35)->nullable();
+			$table->string('factor', 35)->nullable();
 			$table->string('total_price', 55);
 		});
 	}

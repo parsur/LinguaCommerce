@@ -10,6 +10,7 @@ use App\Providers\SuccessMessages;
 use App\Providers\Action;
 use App\Models\Media;
 use App\Models\Course;
+use File;
 
 
 class ImageController extends Controller
@@ -45,7 +46,7 @@ class ImageController extends Controller
         }
         
         $output = array('success' => $success_output);
-        return json_encode($output);
+        return response()->json($output);
     }
 
     // Add Image

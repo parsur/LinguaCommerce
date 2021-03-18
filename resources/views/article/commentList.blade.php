@@ -3,7 +3,7 @@
 
 @section('content')
   {{-- Header --}}
-  <x-header pageName="دیدگاه مقاله" buttonValue="">
+  <x-header pageName="دیدگاه مقاله">
     <x-slot name="table">
       {!! $articleCommentTable->table(['class' => 'table table-striped table-bordered w-100 nowrap text-center']) !!}
     </x-slot>

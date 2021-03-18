@@ -9,7 +9,6 @@
         <div class="modal-body text-right">
           {{-- Form --}}
           <form id="{{ $formId }}" class="form-horizontal" enctype="multipart/form-data">
-            {{csrf_field()}}
             <span id="form_output"></span>
   
             @if(isset($content))
@@ -21,7 +20,7 @@
             <div class="form-group text-center">
               <input type="hidden" name="id" id="id" value="" />
               <input type="hidden" name="button_action" id="button_action" value="insert" />
-              <input type="button" name="action" id="action" value="تایید" class="btn btn-success" />
+              <input type="submit" name="action" id="action" value="تایید" class="btn btn-success" />
               <button type="button" class="btn btn-danger" data-dismiss="modal">خروج</button>
             </div>
           </form>

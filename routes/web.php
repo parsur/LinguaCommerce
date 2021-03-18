@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-// Middleware
+// Admin Middleware
 Route::group(['middleware' => ['auth','isAdmin']], function () {
     // Admin
     Route::get('adminHome', 'AdminController@admin');
@@ -131,7 +131,6 @@ Route::group(['middleware' => ['auth','isAdmin']], function () {
     // Course file
     Route::group(['prefix' => 'courseFile', 'as' => 'courseFile.'], function() {
         // File
-        Route::get('download', 'Course\FileController@download');
         Route::get('list','Course\FileController@list');
         Route::get('table/list','Course\FileController@courseFileTable')->name('list.table');
         Route::post('store', 'Course\FileController@store');
@@ -150,20 +149,29 @@ Route::group(['middleware' => ['auth','isAdmin']], function () {
         Route::get('table/list','Article\CommentController@articleCommentTable')->name('list.table');
         Route::post('submit', 'Article\CommentController@submit');
     });
+    // Consultation
+    Route::group(['prefix' => 'consultation', 'as' => 'consultation.'], function() {
+        Route::get('list', 'ConsultationController@list');
+        Route::get('table/list', 'ConsultationController@consultationTable')->name('list.table');
+        Route::get('delete/{id}', 'ConsultationController@delete');
+    });
     // Home Setting
     Route::group(['prefix' => 'homeSetting', 'as' => 'homeSetting.'], function() {
         // Home Setting
         Route::get('new','HomeSettingController@new');
         Route::post('store','HomeSettingController@store');
     });
-    // Why us setting
+    // Why me
     Route::group(['prefix' => 'whyMe', 'as' => 'whyMe.'], function() {
         Route::get('new', 'WhyMeController@new');
         Route::post('store','WhyMeController@store');
     });
 });
 
-
+// Consultation
+Route::group(['prefix' => 'consultation', 'as' => 'consultation.'], function() {
+    Route::get('store', 'ConsultationController@store')->middleware('storeConsultation');
+});
 
 // Authentication 
 Auth::routes();
@@ -176,10 +184,9 @@ Route::get('/logout','Auth\LoginController@logout')->name('logout');
 
 // Home
 Route::get('/', 'HomeController@index')->middleware('cors');
-Route::post('search', 'HomeController@search');
 
 // User 
-// Route::group(['middleware' => ['auth']], function() {
+Route::group(['middleware' => ['auth']], function() {
     // Cart
     Route::group(['prefix' => 'cart', 'as' => 'cart.'], function() {
         Route::get('show','CartController@show');
@@ -188,7 +195,7 @@ Route::post('search', 'HomeController@search');
     });
     Route::group(['prefix' => 'order', 'as' => 'order.'], function() {
         // Order
-        Route::post('store','OrderController@store');
+        Route::get('store','OrderController@store');
         // Unsubmitted orders in final order page
         Route::get('showCart', 'OrderController@showCart');
         // Submitted orders to be shown for admin and user
@@ -217,7 +224,7 @@ Route::post('search', 'HomeController@search');
         Route::post('update/{article_id}', 'ArticleCommentController@update');
         Route::get('delete/{id}','ArticleCommentController@delete');
     });
-// });
+});
 
 // App
 Route::get('/', function () {

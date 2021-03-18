@@ -23,7 +23,7 @@
                             <td>{{ $order->user->name }}</td>
                             <td>{{ $order->user->phone_number }}</td>
                             <td>{{ $order->user->email }}</td>
-                            <td>{{ $order->order_factor }}</td>
+                            <td>{{ $order->factor }}</td>
                             <td>{{ $order->total_price }} تومان</td>
                         </tr>
                     </tbody>

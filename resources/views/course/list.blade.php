@@ -3,7 +3,7 @@
 
 @section('content')
   {{-- Header --}}
-  <x-header pageName="دوره" buttonValue="">
+  <x-header pageName="دوره">
     <x-slot name="table">
       {{-- optimized it must be --}}
       {!! $courseTable->table(['class' => 'table table-striped table-bordered w-100 nowrap text-center']) !!}

@@ -17,7 +17,7 @@ class CartAction {
     public function visible() {
 
         $carts = Cart::where('user_id', auth()->user()->id)
-            ->whereNull('order_factor')->get();
+            ->whereNull('factor')->get();
 
         return response()->json($carts);
     }

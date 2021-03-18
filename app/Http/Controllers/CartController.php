@@ -24,7 +24,7 @@ class CartController extends Controller
             'course_id' => $course_id,
             'user_id' => Auth::user()->id
         ]);
-        return response()->json('اطلاعات با موفقیت به سبد خرید اضافه شد');
+        return response()->json('اطلاعات با موفقیت به سبد خرید اضافه شد', JSON_UNESCAPED_UNICODE);
     }
 
     // delete

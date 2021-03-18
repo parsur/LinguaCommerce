@@ -2,17 +2,14 @@
 
 namespace App\DataTables;
 
-use App\Models\Order;
+use App\Models\Consultation;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
-use Illuminate\Support\Facades\URL;
-use DataTables;
 
-
-class OrderDataTable extends DataTable
+class ConsultationDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -25,40 +22,33 @@ class OrderDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addIndexColumn()
-            ->addColumn('user_name', function (Order $order) {
-                return $order->user->name;
+            ->rawColumns(['action'])
+            ->addColumn('user_name', function(Consultation $consultation) {
+                optional($consultation->user)->name;
             })
-            ->filterColumn('user_name', function($query, $keyword) {
-                $sql = 'user_id in (select id from users where name like ?)';
-                $query->whereRaw($sql, ["%{$keyword}%"]);
+            ->addColumn('description', function(Consultation $consultation) {
+                optional($consultation->descriptions)->description;
             })
-            ->addColumn('phone_number', function (Order $order) {
-                return $order->user->phone_number;
-            })
-            ->filterColumn('user_id', function($query, $keyword) {
-                $sql = 'user_id in (select id from users where phone_number like ?)';
-                $query->whereRaw($sql, ["%{$keyword}%"]);
-            })
-            ->addColumn('action',function(Order $order) {
-                $orderDetails = URL::signedRoute('order.details', ['factor' => $order->factor]);
-
-                return '<a onclick="showConfirmationModal('.$order->id.')">
-                            <i class="fa fa-trash text-danger" aria-hidden="true"></i>
-                        </a>
-                        &nbsp;
-                        <a href="'.$orderDetails.'">
-                            <i class="fa fa-info-circle text-danger" aria-hidden="true"></i>
-                        </a>';
+            ->addColumn('action',function(Consultation $consultation) {
+                return <<<ATAG
+                            <a onclick="showConfirmationModal('{$consultation->id}')">
+                                <i class="fa fa-trash text-danger" aria-hidden="true"></i>
+                            </a>
+                            &nbsp;
+                            <a onclick="showEditModal('{$consultation->id}')">
+                                <i class="fa fa-edit text-danger" aria-hidden="true"></i>
+                            </a>
+                        ATAG; 
             });
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Order $model
+     * @param \App\Models\Consultation $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Order $model)
+    public function query(Consultation $model)
     {
         return $model->newQuery();
     }
@@ -71,9 +61,9 @@ class OrderDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-            ->setTableId('orderTable')
+            ->setTableId('consultationTable')
             ->columns($this->getColumns())
-            ->minifiedAjax(route('order.list.table'))
+            ->minifiedAjax(route('consultation.list.table'))
             ->columnDefs(
                 [
                     ["className" => 'dt-center text-center', "target" => '_all'],
@@ -84,7 +74,14 @@ class OrderDataTable extends DataTable
             ->responsive(true)
             ->dom('PBCfrtip')
             ->orderBy(1)
-            ->language(asset('js/persian.json'));          
+            ->language(asset('js/persian.json'))
+            ->buttons(
+                Button::make('create'),
+                Button::make('export'),
+                Button::make('print'),
+                Button::make('reset'),
+                Button::make('reload')
+            );
     }
 
     /**
@@ -102,24 +99,21 @@ class OrderDataTable extends DataTable
                 ->orderable(false),
             Column::make('user_name')
             ->title('نام کاربر')
-                ->addCLass("column-title")
+                ->addClass("column-title")
                 ->orderable(false),
             Column::make('phone_number')
-            ->title('تلفن همراه')
-                ->addCLass("column-title")
-                ->orderable(false),
-            Column::make('factor')    
-            ->title('فاکتور خرید')
+            ->title('شماره تلفن')
                 ->addClass("column-title"),
-            Column::make('total_price')    
-            ->title('هزینه کل')
-                ->addCLass("column-title"),
+            Column::make('description')
+            ->title('توضیحات')
+                ->addClass("column-title")
+                ->orderable(false),
             Column::computed('action') // This Column is not in database
                 ->exportable(false)
                 ->searchable(false)
                 ->printable(false)
                 ->orderable(false)
-                ->title('حذف،ویرایش،جزئیات(توضیحات،رسانه)')
+                ->title('حذف')
                 ->addClass('column-title')
         ];
     }
@@ -131,6 +125,6 @@ class OrderDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'Order_' . date('YmdHis');
+        return 'Consultation_' . date('YmdHis');
     }
 }

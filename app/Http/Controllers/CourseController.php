@@ -71,7 +71,7 @@ class CourseController extends Controller
 
         $output = array('success' => $success_output);
 
-        return json_encode($output);
+        return response()->json($output);
     }
 
     // Insert

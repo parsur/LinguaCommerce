@@ -33,7 +33,7 @@ class HomeSettingController extends Controller
             $vars["setting_$setting->name"] = $setting->value;
         }
 
-        return view('setting.home',$vars);
+        return view('homeSetting',$vars);
     }
 
     // Store data

@@ -11,8 +11,6 @@ use App\Providers\Action;
 use App\Models\User;
 use Hash;
 
-
-
 class UserController extends Controller
 {
     // User Dashboard(profile)
@@ -40,7 +38,7 @@ class UserController extends Controller
     // Store user
     public function store(StoreUserRequest $request,SuccessMessages $message) {
 
-        $this->add($request);
+        $this->add($request,User::USER);
 
         // Insert
         if($request->get('button_action') == "insert") {
@@ -53,15 +51,15 @@ class UserController extends Controller
 
         $output = array('success' => $success_output);
 
-        return json_encode($output);
+        return response()->json($output);
     }
 
     // Add or update user
-    public function add($request) {
+    public function add($request,$role) {
         User::updateOrCreate(
             ['id' => $request->get('id')],
             ['name' => $request->get('name'),'email' => $request->get('email'),
-            'role' => User::USER,'password' => Hash::make($request->get('password')),
+            'role' => $role,'password' => Hash::make($request->get('password')),
             'phone_number' => $request->get('phone_number')]
         );
     }

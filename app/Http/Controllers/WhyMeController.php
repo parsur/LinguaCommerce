@@ -13,7 +13,7 @@ class WhyMeController extends Controller
     public function new() {
 
         $vars['whyMe'] = Setting::where('name', 'whyMe')->select('value')->first();
-        return view('setting.whyMe', $vars);
+        return view('whyMe', $vars);
     }
 
     // Store data

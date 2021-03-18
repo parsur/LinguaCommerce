@@ -40,8 +40,7 @@
 </div>
 
 {{-- Buttons --}}
-<div class="col-md-12 mb-3" align="center">
+<div class="col-md-12 text-center mb-3">
     <input type="hidden" name="button_action" id="button_action" value="insert" />
-    <button type="submit" name="action" id="action" class="btn btn-success">تاييد</button>
-    
+    <input type="submit" name="action" id="action" value="تایید" class="btn btn-success" />
 </div>

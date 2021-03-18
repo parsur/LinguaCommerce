@@ -45,7 +45,7 @@ class CategoryController extends Controller
 
         $output = array('success' => $success_output);
         
-        return json_encode($output);
+        return response()->json($output);
     }
 
     // Store
@@ -90,7 +90,7 @@ class CategoryController extends Controller
         $c_id = $request->get('category_id');
         $subCategory = SubCategory::where('category_id', $c_id)->get();
 
-        return json_encode($subCategory);
+        return response()->json($subCategory);
     }
 
 

@@ -37,15 +37,4 @@ class HomeController extends Controller
         return response()->json($vars);
     }
 
-    // Search
-    public function search(Action $action,Request $request) {
-        // If search is requested
-        if($request->get('courses')) {
-            $action->search(Course::class, $request->get('courses'), 'name');
-        } 
-        else if($request->get('articles')) { 
-            $action->search(Article::class, $request->get('articles'), 'title');
-        }
-    }
-
 }

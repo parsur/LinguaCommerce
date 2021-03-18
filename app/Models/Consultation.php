@@ -8,27 +8,29 @@ use ShiftOneLabs\LaravelCascadeDeletes\CascadesDeletes;
 /**
  * @property int $id
  * @property int $user_id
- * @property string $factor
- * @property string $total_price
- * @property string $transportation
- * @property string $payment
- * @property int $status
+ * @property string $phone_number
  * @property User $user
  */
-class Order extends Model
+class Consultation extends Model
 {
     public $timestamps = false;
+    /**
+     * @var array
+     */
+    protected $fillable = ['phone_number', 'user_id'];
 
     /**
      * Cascade On Delete.
      */
     use CascadesDeletes;
-    protected $cascadeDeletes = ['statuses'];
+    protected $cascadeDeletes = ['descriptions'];
 
-    /**
-     * @var array
-     */
-    protected $fillable = ['factor', 'total_price', 'user_id'];
+    /*
+     * Get all of the course's descriptions.
+    */
+    public function descriptions() {
+        return $this->morphOne('App\Models\Description','description');
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -36,12 +38,5 @@ class Order extends Model
     public function user()
     {
         return $this->belongsTo('App\Models\User');
-    }
-
-    /*
-     * Get all of the order's status.
-     */
-    public function statuses() {
-        return $this->morphOne('App\Models\Status', 'status');
     }
 }

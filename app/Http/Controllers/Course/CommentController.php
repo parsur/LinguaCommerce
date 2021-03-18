@@ -43,7 +43,7 @@ class CommentController extends Controller
             $comment->statuses()->create(['status' => Status::INVISIBLE]);
 
             DB::commit();
-            return response()->json('دیدگاه درباره دوره با موفقیت ویرایش شد');
+            return response()->json('دیدگاه مرتبط به دوره با موفقیت ویرایش شد', JSON_UNESCAPED_UNICODE);
 
         } catch(Exception $e) {
             throw $e;
@@ -66,7 +66,7 @@ class CommentController extends Controller
                 'commentable_id' => $course_id, 'commentable_type' => Course::class]);
 
             DB::commit();
-            return response()->json('دیدگاه درباره دوره با موفقیت ویرایش شد');
+            return response()->json('دیدگاه مرتبط به دوره با موفقیت ویرایش شد', JSON_UNESCAPED_UNICODE);
 
         } catch(Exception $e) {
             throw $e;
@@ -80,14 +80,14 @@ class CommentController extends Controller
     }
 
     // Submit the comment
-    public function submit(Request $request, SuccessMessages $message) {
+    public function submit(Request $request) {
         // Set the course's comment visible
         $comment = Comment::find($request->get('submission'));
         $comment->statuses()->update(['status' => Status::VISIBLE]);
         
-        $output = array('success' => $message->getInsert());
+        $output = array('success' => '<div class="alert alert-success">دیدگاه کاربر با موفقیت تایید شد</div>');
 
-        return json_encode($output);
+        return response()->json($output);
     }
 
 }
