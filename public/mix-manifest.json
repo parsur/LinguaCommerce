@@ -1,17 +1,17 @@
 {
     "/js/app.js": "/js/app.js",
     "/js/reactJs/react.js": "/js/reactJs/react.js",
-    "/css/app.css": "/css/app.css",
-    "/css/tinymce.css": "/css/tinymce.css",
-    "/css/auth.css": "/css/auth.css",
-    "/js/persian.json": "/js/persian.json",
-    "/js/particles.json": "/js/particles.json",
     "/js/tinymceInit.js": "/js/tinymceInit.js",
-    "/js/requestHandler.js": "/js/requestHandler.js",
     "/js/commentSubmission.js": "/js/commentSubmission.js",
     "/js/imagePreview.js": "/js/imagePreview.js",
     "/js/tinymce.min.js": "/js/tinymce.min.js",
+    "/css/app.css": "/css/app.css",
+    "/css/tinymce.css": "/css/tinymce.css",
+    "/css/auth.css": "/css/auth.css",
+    "/js/requestHandler.js": "/js/requestHandler.js",
     "/fonts/Shabnam-Bold.ttf": "/fonts/Shabnam-Bold.ttf",
     "/fonts/Shabnam.ttf": "/fonts/Shabnam.ttf",
-    "/fonts/dambeldor.ttf": "/fonts/dambeldor.ttf"
+    "/fonts/dambeldor.ttf": "/fonts/dambeldor.ttf",
+    "/js/persian.json": "/js/persian.json",
+    "/js/particles.json": "/js/particles.json"
 }

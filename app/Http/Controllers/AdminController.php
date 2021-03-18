@@ -6,7 +6,7 @@ use App\DataTables\UserDataTable;
 use App\DataTables\AdminDataTable;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreAdminRequest;
+use App\Http\Requests\StoreUserRequest;
 use App\Providers\SuccessMessages;
 use App\Providers\Action;
 use App\Models\User;
@@ -36,7 +36,7 @@ class AdminController extends Controller
     }
 
     // Store Admin
-    public function store(StoreAdminRequest $request,SuccessMessages $message) {
+    public function store(StoreUserRequest $request,SuccessMessages $message) {
         $this->add($request);
 
         // Insert
@@ -65,18 +65,12 @@ class AdminController extends Controller
 
     // Add or update user
     public function add($request) {
-        $user = User::find($request->get('id'));
-        if(!$user) {
-            $user = new User();
-        }
-        $user->name = $request->get('name');
-        $user->email = $request->get('email');
-        $user->role = User::ADMIN;
-        $user->password = Hash::make($request->get('password'));
-        if($request->get('phone_number'))
-            $user->phone_number = $request->get('phone_number');
-        
-        $user->save();
+        User::updateOrCreate(
+            ['id' => $request->get('id')],
+            ['name' => $request->get('name'),'email' => $request->get('email'),
+            'role' => User::USER,'password' => Hash::make($request->get('password')),
+            'phone_number' => $request->get('phone_number')]
+        );
     }
     
     // Delete Each Admin

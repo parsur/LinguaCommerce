@@ -99,7 +99,7 @@
                             </x-admin.urlAddressParent>
 
                             {{-- Why me --}}
-                            <x-urlAddress text="چرا من" fontAwesome="fa fa-cog" route="{{ url('homeSetting/new') }}"/>
+                            <x-urlAddress text="چرا من" fontAwesome="fa fa-question" route="{{ url('whyMe/new') }}"/>
 
                             {{-- Orders --}}
                             <x-urlAddress text="سفارشات" fontAwesome="fab fa-first-order" route="{{ url('order/list') }}"/>

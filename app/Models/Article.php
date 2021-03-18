@@ -28,7 +28,7 @@ class Article extends Model
     /**
      * @var array
      */
-    protected $fillable = ['title', 'created_at', 'updated_at','category_id', 'subCategory_id', 'article_id', 'article_type'];
+    protected $fillable = ['title', 'created_at', 'updated_at', 'article_id', 'article_type', 'category_id', 'subCategory_id'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

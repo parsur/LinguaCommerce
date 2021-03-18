@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use App\Providers\EnglishConvertion;
 use Illuminate\Http\Request;
 
-class StoreAdminRequest extends FormRequest
+class StoreUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -29,7 +29,7 @@ class StoreAdminRequest extends FormRequest
             'name' => 'required',
             'password' => 'required|min:6',
             'password-confirm' => 'same:password',
-            'phone_number' => 'nullable|numeric|digits:11',
+            'phone_number' => 'required|numeric|digits:11',
             'email' => 'email:rfc,dns|required|max:255|unique:users,email,' . $request->get('id')
         ];
     }

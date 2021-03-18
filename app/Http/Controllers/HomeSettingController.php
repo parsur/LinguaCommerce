@@ -3,13 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreHomeSettingRequest;
 use App\Providers\SuccessMessages;
 use App\Models\Setting;
 
 
-class HomeController extends Controller
+class HomeSettingController extends Controller
 {
     // Show Setting Data
     public function new() {

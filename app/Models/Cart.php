@@ -21,7 +21,7 @@ class Cart extends Model
     /**
      * @var array
      */
-    protected $fillable = ['user_id', 'course_id', 'order_factor'];
+    protected $fillable = ['order_factor', 'user_id', 'course_id'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

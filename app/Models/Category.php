@@ -20,12 +20,12 @@ class Category extends Model
      * Cascade deletes.
      */
     use CascadesDeletes;
-    protected $cascadeDeletes = ['courses', 'subCategories','statuses'];
+    protected $cascadeDeletes = ['courses', 'subCategories', 'statuses'];
 
     /**
      * @var array
      */
-    protected $fillable = ['name', 'status'];
+    protected $fillable = ['name'];
 
 
     /**

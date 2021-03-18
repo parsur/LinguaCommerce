@@ -6,10 +6,10 @@
     <x-page title="چرا من" description="توضیحات مربوط به دستاورد ها، و ..." formId="whyMeForm">
         <x-slot name="content">
             {{-- Home setting form --}}
-            <x-textarea key="description" name="چرا من" value="{{ $whyMe->value }}" />
+            <x-textarea key="description" name="چرا من" value="{!! $whyMe->value !!}" />
             {{-- Submit button --}}
-            <div class="col-md-12 text-center">
-                <button class="btn btn-success mb-3 mt-3" type="submit">تاييد</button>
+            <div class="col-md-12 mt-3 text-center">
+                <button class="btn btn-success" type="submit">تاييد</button>
             </div>
         </x-slot>
     </x-admin.page>

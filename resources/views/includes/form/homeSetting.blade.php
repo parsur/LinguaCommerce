@@ -55,6 +55,6 @@
 
 
 {{-- Submit button --}}
-<div class="col-md-12 text-center">
-    <button class="btn btn-success mb-3 mt-3" type="submit">تاييد</button>
+<div class="col-md-12 text-center mb-3 mt-3">
+    <button class="btn btn-success" type="submit">تاييد</button>
 </div>

@@ -7,8 +7,8 @@ window.showSubmissionModal = function showSubmissionModal(id) {
 
 // Store or Update
 $("#submission").click(function(e) {
-    e.preventDefault();
-    $.ajax({
+  e.preventDefault();
+  $.ajax({
     type: "POST",
     url: "/courseComment/submit/",
     data: { 

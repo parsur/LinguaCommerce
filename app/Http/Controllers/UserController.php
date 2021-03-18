@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreAdminRequest;
+use App\Http\Requests\StoreUserRequest;
 use App\Providers\SuccessMessages;
 use App\Providers\EnglishConvertion;
 use App\DataTables\UserDataTable;
@@ -38,7 +38,7 @@ class UserController extends Controller
     }
 
     // Store user
-    public function store(StoreAdminRequest $request,SuccessMessages $message) {
+    public function store(StoreUserRequest $request,SuccessMessages $message) {
 
         $this->add($request);
 

@@ -27,7 +27,7 @@ class Course extends Model
     /**
      * @var array
      */
-    protected $fillable = ['category_id', 'subCategory_id', 'name', 'price'];
+    protected $fillable = ['name', 'price', 'category_id', 'subCategory_id'];
 
     /*
      * Get all of the course's image.

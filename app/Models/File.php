@@ -17,7 +17,7 @@ class File extends Model
     /**
      * @var array
      */
-    protected $fillable = ['title', 'course_id', 'url'];
+    protected $fillable = ['title', 'url', 'course_id'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -28,7 +28,7 @@ class Order extends Model
     /**
      * @var array
      */
-    protected $fillable = ['user_id', 'order_factor', 'totalـprice'];
+    protected $fillable = ['order_factor', 'totalـprice', 'user_id'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

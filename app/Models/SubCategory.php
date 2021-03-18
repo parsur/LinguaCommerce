@@ -31,7 +31,7 @@ class SubCategory extends Model
     /**
      * @var array
      */
-    protected $fillable = ['category_id', 'name', 'status'];
+    protected $fillable = ['name', 'category_id'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
