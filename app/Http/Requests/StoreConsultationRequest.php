@@ -25,7 +25,7 @@ class StoreConsultationRequest extends FormRequest
     {
         return [
             'description' => 'max:500',
-            'phone_number' => 'required_without:description|numeric|digits:11',
+            'phone_number' => 'required_without:description|numeric|digits:11|regex:/(09)[0-9]{9}',
         ];
     }
 }

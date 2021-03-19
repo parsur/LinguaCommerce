@@ -8,6 +8,8 @@ use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
+use \Illuminate\Support\Str;
+use URL;
 
 class ConsultationDataTable extends DataTable
 {
@@ -24,21 +26,33 @@ class ConsultationDataTable extends DataTable
             ->addIndexColumn()
             ->rawColumns(['action'])
             ->addColumn('user_name', function(Consultation $consultation) {
-                optional($consultation->user)->name;
+                return optional($consultation->user)->name;
+            })
+            ->filterColumn('user_name', function($query, $keyword) {
+                $sql = 'user_id in (select id from users where name like ?)';
+                $query->whereRaw($sql, ["%{$keyword}%"]);
             })
             ->addColumn('description', function(Consultation $consultation) {
-                optional($consultation->descriptions)->description;
+                return Str::limit(optional($consultation->descriptions)->description, 30, '(جزئیات)');
+            })
+            ->filterColumn('description', function($query, $keyword) {
+                $sql = 'id in (select description_id from descriptions where description like ?)';
+                $query->whereRaw($sql, ["%{$keyword}%"]);
             })
             ->addColumn('action',function(Consultation $consultation) {
-                return <<<ATAG
-                            <a onclick="showConfirmationModal('{$consultation->id}')">
-                                <i class="fa fa-trash text-danger" aria-hidden="true"></i>
-                            </a>
-                            &nbsp;
-                            <a onclick="showEditModal('{$consultation->id}')">
-                                <i class="fa fa-edit text-danger" aria-hidden="true"></i>
-                            </a>
-                        ATAG; 
+                $details = '';
+
+                if($consultation->descriptions)
+                    $details = URL::signedRoute('consultation.details', ['id' => $consultation->id]);
+
+                return '<a onclick="showConfirmationModal('.$consultation->id.')">
+                            <i class="fa fa-trash text-danger" aria-hidden="true"></i>
+                        </a>
+                        &nbsp;
+                        <a href="'.$details.'">
+                            <i class="fa fa-info-circle text-danger" aria-hidden="true"></i>
+                        </a>
+                        '; 
             });
     }
 
@@ -113,7 +127,7 @@ class ConsultationDataTable extends DataTable
                 ->searchable(false)
                 ->printable(false)
                 ->orderable(false)
-                ->title('حذف')
+                ->title('حذف|جزئیات')
                 ->addClass('column-title')
         ];
     }

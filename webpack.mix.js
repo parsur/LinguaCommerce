@@ -20,6 +20,8 @@ mix.js('resources/assets/js/app.js', 'public/js')
     .js('resources/assets/js/react', 'public/js/reactJs').react()
     // Tinymce initialization
     .js('resources/assets/js/tinymceInit.js', 'public/js/tinymceInit.js')
+    // Tinymce(read only) initialization
+    .js('resources/assets/js/tinymceInitReadOnly.js', 'public/js/tinymceInitReadOnly.js')
     // Ajax Request Handler
     .copy('resources/assets/js/requestHandler.js', 'public/js/requestHandler.js')
     // Comment Submission

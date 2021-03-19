@@ -6,7 +6,7 @@ document.getElementById("images").onchange = function () {
       var img = document.getElementById("picture");
       img.src = e.target.result;
       // Image input style
-      document.getElementById("images").style.marginBottom = "10px";
+      document.getElementById("images").style.marginBottom = "10px"; 
       // Hidden input
       document.getElementById("hidden_image").value = e.target.result;
     };

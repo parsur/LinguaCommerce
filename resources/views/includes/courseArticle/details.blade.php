@@ -33,21 +33,12 @@
         @endforeach
     </div>
 @else
-    {{-- If there were not content --}}
+    {{-- If there were not any content --}}
     <x-emptyContent title="رسانه ای برای این مقاله وجود ندارد" text="افزودن رسانه" route="/article/imageList" />
 @endif
 
 {{-- Script --}}
 @section('scripts')
-@parent
-    <script>
-        // Tinymce implementation
-        tinymce.init({
-            selector: 'textarea#description',
-            plugins: 'autoresize',
-            readonly: 1,
-            menubar: false,
-            toolbar: false
-        });
-    </script>
+@parent  
+    <script src="{{ asset('js/tinymceInitReadOnly.js') }}"></script>
 @endsection

@@ -13,7 +13,7 @@ class insert extends Component
      *
      * @return void
      */
-    public function __construct($size,$formId)
+    public function __construct($size,$formId = null)
     {
         $this->size = $size;
         $this->formId = $formId;

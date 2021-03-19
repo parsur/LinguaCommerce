@@ -2,6 +2,7 @@
     "/js/app.js": "/js/app.js",
     "/js/reactJs/react.js": "/js/reactJs/react.js",
     "/js/tinymceInit.js": "/js/tinymceInit.js",
+    "/js/tinymceInitReadOnly.js": "/js/tinymceInitReadOnly.js",
     "/js/commentSubmission.js": "/js/commentSubmission.js",
     "/js/imagePreview.js": "/js/imagePreview.js",
     "/js/tinymce.min.js": "/js/tinymce.min.js",

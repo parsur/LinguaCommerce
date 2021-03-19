@@ -8,7 +8,7 @@
     {{-- Button --}}
     @if($buttonValue != null)
         <button type="button" id="create_record"
-            class="btn btn-success btn-sm">افزودن {{ $buttonValue }}</button>
+            class="btn btn-success btn-sm">افزودن {{ $buttonValue }}</button> 
         <hr>
     @endif
     

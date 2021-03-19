@@ -35,7 +35,7 @@
 {{-- Description --}}
 <div class="row">
     <div class="col-md-12 fr-view mb-3">
-        <x-textarea key="description" name="توضیح" />
+        <x-textarea key="description" name="توضیحات" />
     </div>
 </div>
 

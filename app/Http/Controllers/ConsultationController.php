@@ -19,12 +19,18 @@ class ConsultationController extends Controller
         // Order table
         $vars["consultationTable"] = $dataTable->html();
 
-        return view('consultationlist', $vars);
+        return view('consultation.list', $vars);
     }
 
     // Get order
     public function consultationTable(ConsultationDataTable $dataTable) {
-        return $dataTable->render('consultationlist');
+        return $dataTable->render('consultation.list');
+    }
+
+    // Details
+    public function details(Request $request) {
+        $vars['consultation'] = Consultation::find($request->get('id'));
+        return view('consultation.details', $vars);
     }
 
     // delete

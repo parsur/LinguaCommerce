@@ -1,6 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'بخش چرا من')
-
+@section('title', ' چرا من')
 
 @section('content')
     <x-page title="چرا من" description="توضیحات مربوط به دستاورد ها، و ..." formId="whyMeForm">
@@ -12,7 +11,7 @@
                 <button class="btn btn-success" type="submit">تاييد</button>
             </div>
         </x-slot>
-    </x-admin.page>
+    </x-page>
 @endsection
 
 @section('scripts')

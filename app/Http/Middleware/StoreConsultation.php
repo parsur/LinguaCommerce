@@ -23,7 +23,7 @@ class StoreConsultation
             return redirect('login');
         }
 
-        // if not, call the next middleware
+        // if not, authenticate.
         return $next($request);
     }
 }

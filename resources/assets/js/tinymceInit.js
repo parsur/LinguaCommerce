@@ -22,6 +22,5 @@ tinymce.init({
         help: { title: 'Help', items: 'help' }
     },
     content_style: "css/tinymce.css",
-    language: 'fa',
-  
+    language: 'fa'
 });

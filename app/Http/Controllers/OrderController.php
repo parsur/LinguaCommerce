@@ -50,7 +50,6 @@ class OrderController extends Controller
 
     // Details
     public function details(Request $request) {
-
         // Each order
         $vars['order'] = Order::where('factor', $request->get('factor'))->first();
         // Cart

@@ -8,7 +8,7 @@
             {{-- Home setting form --}}
             @include('includes.form.homeSetting')
         </x-slot>
-    </x-admin.page>
+    </x-page>
 @endsection
 
 @section('scripts')

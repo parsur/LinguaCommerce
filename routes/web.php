@@ -153,6 +153,7 @@ Route::group(['middleware' => ['auth','isAdmin']], function () {
     Route::group(['prefix' => 'consultation', 'as' => 'consultation.'], function() {
         Route::get('list', 'ConsultationController@list');
         Route::get('table/list', 'ConsultationController@consultationTable')->name('list.table');
+        Route::get('details', 'ConsultationController@details')->name('details');
         Route::get('delete/{id}', 'ConsultationController@delete');
     });
     // Home Setting
@@ -168,10 +169,8 @@ Route::group(['middleware' => ['auth','isAdmin']], function () {
     });
 });
 
-// Consultation
-Route::group(['prefix' => 'consultation', 'as' => 'consultation.'], function() {
-    Route::get('store', 'ConsultationController@store')->middleware('storeConsultation');
-});
+// Store Consultation 
+Route::post('consultation/store', 'ConsultationController@store')->middleware('storeConsultation');
 
 // Authentication 
 Auth::routes();

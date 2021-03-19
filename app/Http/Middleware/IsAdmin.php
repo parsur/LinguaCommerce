@@ -22,6 +22,6 @@ class IsAdmin
         }
 
         // 404 Not Found
-        return redirect('/');
+        return redirect('/')->with('error', 'شما به بخش ادمین دسترسی ندارید.');
     }
 }
