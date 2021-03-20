@@ -15,11 +15,11 @@ class page extends Component
      *
      * @return void
      */
-    public function __construct($title,$formId,$description)
+    public function __construct($title,$description,$formId = null)
     {
         $this->title = $title;
-        $this->description = $description;
         $this->formId = $formId;
+        $this->description = $description;
     }
 
     /**

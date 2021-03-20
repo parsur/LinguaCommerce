@@ -3,11 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
-use App\Models\Category;
-use App\Models\Media;
-use App\Models\SubCategory;
-use App\Models\Status;
-use App\Models\Description;
 use App\DataTables\CourseDataTable;
 use App\Http\Requests\StoreCourseRequest;
 use App\Providers\Action;
@@ -44,13 +39,13 @@ class CourseController extends Controller
             $vars['course'] = '';
         }
         // Categories
-        $vars['categories'] = Category::select('id','name')->get();
+        $vars['categories'] = App\Models\Category::select('id','name')->get();
         // Sub Categories
-        $vars['subCategories'] = SubCategory::select('id','name')->get();
+        $vars['subCategories'] = App\Models\SubCategory::select('id','name')->get();
         // Status
-        $vars['status'] = Status::select('id','status')->get();
+        $vars['status'] = App\Models\Status::select('id','status')->get();
         // Description
-        $vars['description'] = Description::select('id','description')->get();
+        $vars['description'] = App\Models\Description::select('id','description')->get();
 
         return view('course.create', $vars);
     }
@@ -70,7 +65,6 @@ class CourseController extends Controller
         }
 
         $output = array('success' => $success_output);
-
         return response()->json($output);
     }
 
@@ -142,12 +136,11 @@ class CourseController extends Controller
 
     // Search
     public function search(Action $action,Request $request) {
-
         $action->search(Course::class,$request->get('search'),'name');
     }
 
     // Admin Details
-    public function adminDetails(Request $request) {
+    public function details(Request $request) {
 
         $course = Course::findOrFail($request->get('id'));
         return view('course.details', compact('course'));

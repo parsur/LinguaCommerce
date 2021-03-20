@@ -22,14 +22,16 @@ mix.js('resources/assets/js/app.js', 'public/js')
     .js('resources/assets/js/tinymceInit.js', 'public/js/tinymceInit.js')
     // Tinymce(read only) initialization
     .js('resources/assets/js/tinymceInitReadOnly.js', 'public/js/tinymceInitReadOnly.js')
-    // Ajax Request Handler
-    .copy('resources/assets/js/requestHandler.js', 'public/js/requestHandler.js')
     // Comment Submission
     .js('resources/assets/js/commentSubmission.js', 'public/js/commentSubmission.js')
     // Image preview
     .js('resources/assets/js/imagePreview.js', 'public/js/imagePreview.js')
     // Image preview
     .js('resources/assets/js/tinymce.min.js', 'public/js/tinymce.min.js')
+    // Ajax Request Handler
+    .copy('resources/assets/js/ImageHandler.js', 'public/js/ImageHandler.js')
+    // Ajax Request Handler
+    .copy('resources/assets/js/RequestHandler.js', 'public/js/RequestHandler.js')
     // Fonts
     .copy('resources/assets/fonts', 'public/fonts')
     // DataTable Persian Language

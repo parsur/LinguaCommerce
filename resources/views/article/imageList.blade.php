@@ -14,12 +14,12 @@
   <x-insert size="modal-lg" formId="articleImageForm">
     <x-slot name="content">
       <div class="row">
-        {{-- Image --}}
-        @include('includes.courseArticle.image')
         {{-- Article --}}
         <div class="col-md-6 mt-3">
           @include('includes.form.article')
         </div>
+        {{-- Image --}}
+        @include('includes.courseArticle.image')
       </div>
     </x-slot>
   </x-insert>
@@ -34,17 +34,24 @@
   {{-- Article Image DataTable --}}
   {!! $articleImageTable->scripts() !!}
 
-  <script>
+  {{-- Image handler --}}
+  <script src="{{ asset('js/ImageHandler.js') }}"></script>
 
+  {{-- Image Preview --}}
+  <script src="{{ asset('js/imagePreview.js') }}"></script>
+  
+  <script>
     $(document).ready(function () {
       // Article Image DataTable And Action Object
       let dt = window.LaravelDataTables['articleImageTable'];
-      let action = new requestHandler(dt,'#articleImageForm','articleImage');
+      let action = new RequestHandler(dt,'#articleImageForm','articleImage');
+
+      // Image handler
+      let imageHandler = new ImageHandler('course');
 
       // Record modal
       $('#create_record').click(function () {
-        $('#articles').val('').trigger('change');
-        $("#picture").attr("src", "");
+        imageHandler.picture();
         action.modal();
       });
 
@@ -56,30 +63,23 @@
         action.delete(url);
       }
       // Edit
-      window.showEditModal = function showEditModal(url) {
-        edit(url);
+      window.showEditModal = function showEditModal(id) {
+        edit(id);
       }
-      function edit($url) {
-        $('#form_output').html('');
-        $('#formModal').modal('show');
+      function edit($id) {
+        action.edit();
 
         $.ajax({
           url: "{{ url('articleImage/edit') }}",
           method: "get",
-          data: {id: $url},
+          data: {id: $id},
           success: function(data) {
-            $('#id').val($url);
-            $('#action').val('ویرایش');
-            $('#button_action').val('update');
-            $('#picture').attr("src", "/images/" + data.url);
-            $('#hidden_image').val(data.url);
-            $('#articles').val(data.media_id).trigger('change');
+            $('#id').val($id);
+            imageHandler.successfulEdit(data);  
           }
         })
       }
     });
   </script>
-  {{-- Image Preview --}}
-  <script src="{{ asset('js/imagePreview.js') }}"></script>
-  
+
 @endsection

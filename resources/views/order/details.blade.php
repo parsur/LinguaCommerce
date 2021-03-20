@@ -4,7 +4,7 @@
 
 @section('content')
     {{-- Order details --}}
-    <x-page title="جزئیات سفارش" description="جزئیات سفارش کاربر به همراه محصولات مربوط">
+    <x-page title="جزئیات سفارش" description="جزئیات سفارش کاربر به همراه دوره های مربوط">
         <x-slot name="content">
             {{-- User information --}}
             <div class="table-responsive mb-2">

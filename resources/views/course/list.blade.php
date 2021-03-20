@@ -5,7 +5,7 @@
   {{-- Header --}}
   <x-header pageName="دوره">
     <x-slot name="table">
-      {{-- optimized it must be --}}
+      {{-- Optimized it must be --}}
       {!! $courseTable->table(['class' => 'table table-striped table-bordered w-100 nowrap text-center']) !!}
     </x-slot>
   </x-header>
@@ -23,7 +23,7 @@
     $(document).ready(function () {
       // Actions(DataTable,Form,Url)
       let dt = window.LaravelDataTables['courseTable'];
-      let action = new requestHandler(dt,'','course');
+      let action = new RequestHandler(dt,'','course');
 
       // Delete
       window.showConfirmationModal = function showConfirmationModal(url) {

@@ -31,7 +31,7 @@ class VideoController extends Controller
 
     public function store(StoreVideoRequest $request,SuccessMessages $message) {
         // Insert or update
-        $this->add($request);
+        $this->add($request, $request->get('course'), Course::class);
         
         // Insert
         if($request->get('button_action') == 'insert') {
@@ -48,15 +48,12 @@ class VideoController extends Controller
     }
 
     // Add Video
-    public function add($request) {
-        foreach($request->get('courses') as $course) {
-            // Insert Course videos
-            Media::updateOrCreate(
-                ['id' => $request->get('id')],
-                ['url' => $request->get('aparat_url'), 'media_id' => $course, 'media_type' => Course::class, 'type' => Media::VIDEO]
-            );
-
-        }
+    public function add($request, $id, $type) {
+        // Insert Course videos
+        Media::updateOrCreate(
+            ['id' => $request->get('id')],
+            ['url' => $request->get('aparat_url'), 'media_id' => $id, 'media_type' => $type, 'type' => Media::VIDEO]
+        );
     }
     
     // Edit

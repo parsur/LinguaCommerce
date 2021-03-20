@@ -28,47 +28,44 @@
   {!! $subCategoryTable->scripts() !!}
   <script>
     $(document).ready(function () {
+      // Actions(DataTable,Form,Url)
+      let dt = window.LaravelDataTables['subCategoryTable'];
+      let action = new RequestHandler(dt,'#subCategoryForm','subCategory');
 
-        // Actions(DataTable,Form,Url)
-        let dt = window.LaravelDataTables['subCategoryTable'];
-        let action = new requestHandler(dt,'#subCategoryForm','subCategory');
+      // Record modal
+      $('#create_record').click(function () {
+          action.modal();
+      });
 
-        // Record modal
-        $('#create_record').click(function () {
-            action.modal();
-        });
+      // Insert
+      action.insert();
 
-        // Insert
-        action.insert();
+      // Delete
+      window.showConfirmationModal = function showConfirmationModal(url) {
+          action.delete(url);
+      }
 
-        // Delete
-        window.showConfirmationModal = function showConfirmationModal(url) {
-            action.delete(url);
-        }
+      // Edit
+      window.showEditModal = function showEditModal(id) {
+          edit(id);
+      }
+      function edit($id) {
+        action.edit();
 
-        // Edit
-        window.showEditModal = function showEditModal(url) {
-            edit(url);
-        }
-        function edit($url) {
-            var id = $url;
-            $('#formModal').modal('show');
-            $('#form_output').html('');
-
-            $.ajax({
-                url: "{{ url('subCategory/edit') }}",
-                method: "get",
-                data: {id:id},
-                success: function(data) {
-                    $('#id').val(data.id);
-                    $('#action').val('ویرایش');
-                    $('#button_action').val('update');
-                    $('#name').val(data.name);
-                    $('#status').val(data.statuses.status).trigger('change');
-                    $('#categories').val(data.category_id).trigger('change');
-                }
-            })
-        }
+        $.ajax({
+          url: "{{ url('subCategory/edit') }}",
+          method: "get",
+          data: {id: $id},
+          success: function(data) {
+            $('#id').val($id);
+            $('#action').val('ویرایش');
+            $('#button_action').val('update');
+            $('#name').val(data.name);
+            $('#status').val(data.statuses.status).trigger('change');
+            $('#categories').val(data.category_id).trigger('change');
+          }
+        })
+      }
     });
   </script>
 @endsection

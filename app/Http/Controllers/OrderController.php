@@ -37,12 +37,12 @@ class OrderController extends Controller
 
     // Show user's carts
     public function showCart(CartAction $cart) {
-        $cart->visible();
+        return $cart->visible();
     }
 
     // Show users's order
     public function showOrder() {
-        $orders = Order::where('user_id', auth()->user()->role)
+        $orders = Order::where('user_id', auth()->user()->id)
             ->whereNotNull('factor')->get();
 
         return response()->json($orders);
@@ -50,10 +50,22 @@ class OrderController extends Controller
 
     // Details
     public function details(Request $request) {
-        // Each order
-        $vars['order'] = Order::where('factor', $request->get('factor'))->first();
+        return $this->factor($request->get('factor'));
+    }
+
+    // User details
+    public function userDetails($id) {
+        return $this->factor($id, 'user');
+    }
+
+    public function factor($factor, $role = 'admin') {
+        // Each order 
+        $vars['order'] = Order::where('factor', $factor)->first();
         // Cart
-        $vars['carts'] = Cart::where('factor', $request->get('factor'))->get();
+        $vars['carts'] = Cart::where('factor', $factor)->get();
+
+        if($role != 'admin')
+            return response()->json($vars);
 
         return view('order.details', $vars);
     }
@@ -68,7 +80,7 @@ class OrderController extends Controller
             // New order
             $order = new Order();
             // Username
-            $order->user_id =  $user_id;
+            $order->user_id = $user_id;
             // Count order where user_id is
             $orderCount = Cart::where('user_id',  $user_id)->count() . 1001;
             // Order factor

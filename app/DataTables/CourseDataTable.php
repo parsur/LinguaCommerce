@@ -26,7 +26,7 @@ class CourseDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addIndexColumn()
-            ->rawColumns(['action','course_id','image_url','status'])
+            ->rawColumns(['action','image_url','status'])
             ->addColumn('image_url', function(Course $course) {
                 foreach($course->media as $media) { 
                     return "<img src=/images/" . optional($media)->url . " height='100px' width='150px' />";
@@ -132,7 +132,7 @@ class CourseDataTable extends DataTable
             Column::make('name')
             ->title('نام')
                 ->addCLass("column-title"),
-            Column::computed('image_url')
+            Column::make('image_url')
             ->title('تصویر')
                 ->addClass('column-title')
                 ->orderable(false),

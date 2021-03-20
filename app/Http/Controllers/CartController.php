@@ -14,7 +14,7 @@ class CartController extends Controller
 {
     // Show Cart
     public function show(CartAction $cart) {
-        $cart->visible();
+        return $cart->visible();
     }
 
     // Store
@@ -22,7 +22,7 @@ class CartController extends Controller
         // Insert into cart
         $cart = Cart::create([
             'course_id' => $course_id,
-            'user_id' => Auth::user()->id
+            'user_id' => Auth::user()->id   
         ]);
         return response()->json('اطلاعات با موفقیت به سبد خرید اضافه شد', JSON_UNESCAPED_UNICODE);
     }

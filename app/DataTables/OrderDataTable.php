@@ -28,6 +28,10 @@ class OrderDataTable extends DataTable
             ->addColumn('user_name', function (Order $order) {
                 return $order->user->name;
             })
+            ->editColumn('total_price', function (Order $order) {
+                if($order->total_price == 0) 
+                    return 'رایگان';
+            })
             ->filterColumn('user_name', function($query, $keyword) {
                 $sql = 'user_id in (select id from users where name like ?)';
                 $query->whereRaw($sql, ["%{$keyword}%"]);

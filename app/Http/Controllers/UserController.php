@@ -15,7 +15,7 @@ class UserController extends Controller
 {
     // User Dashboard(profile)
     public function show() {
-        $users = User::where('id', 32)->where('role', User::USER)->get();
+        $users = User::where('id', auth()->user()->id)->where('role', User::USER)->get();
         return response()->json($users);
     }
 

@@ -10,6 +10,7 @@ use App\Providers\SuccessMessages;
 use App\Providers\Action;
 use App\Models\Video;
 use App\Models\Article;
+use App\Models\Media;
 
 class VideoController extends Controller
 {
@@ -28,10 +29,10 @@ class VideoController extends Controller
         return $dataTable->render('article.videoList');
     }
 
-    public function store(StoreVideoRequest $request,SuccessMessages $message) {
+    public function store(StoreVideoRequest $request,SuccessMessages $message, \App\Http\Controllers\Course\VideoController $articleVideo) {
 
         // Insert or update
-        $this->add($request);
+        $articleVideo->add($request, $request->get('article'), Article::class);
         
         // Insert
         if($request->get('button_action') == 'insert') {
@@ -45,16 +46,6 @@ class VideoController extends Controller
         $output = array('success' => $success_output);
         return response()->json($output);
 
-    }
-
-    // Add Video
-    public function add($request) {
-
-        // Article videos
-        Video::updateOrCreate(
-            ['id' => $request->get('id')],
-            ['video_url' => $request->get('aparat_url'), 'video_id' => $request->get('article'), 'video_type' => Article::class, 'type' => Media::VIDEO]
-        );
     }
 
     // Delete

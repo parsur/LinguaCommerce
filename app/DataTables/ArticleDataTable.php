@@ -141,7 +141,7 @@ class ArticleDataTable extends DataTable
             Column::make('title')
             ->title('تیتر')
                 ->addClass('column-title'),
-            Column::computed('image_url')
+            Column::make('image_url')
             ->title('تصویر')
                 ->addClass('column-title')
                 ->orderable(false),

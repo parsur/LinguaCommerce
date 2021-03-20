@@ -27,7 +27,8 @@
     $(document).ready(function () {
       // Actions(DataTable,Form,Url)
       let dt = window.LaravelDataTables['articleCommentTable'];
-      let action = new requestHandler(dt,'','articleComment');
+      let action = new RequestHandler(dt,'','articleComment');
+      
       // Delete
       window.showConfirmationModal = function showConfirmationModal(url) {
         action.delete(url);

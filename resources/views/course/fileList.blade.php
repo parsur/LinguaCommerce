@@ -31,11 +31,11 @@
         $(document).ready(function() {
             // Course Image DataTable And Action Object
             let dt = window.LaravelDataTables['courseFileTable'];
-            let action = new requestHandler(dt, '#courseFileForm', 'courseFile');
+            let action = new RequestHandler(dt, '#courseFileForm', 'courseFile');
 
             // Record modal
             $('#create_record').click(function() {
-                $('#courses').val('').trigger('change');
+                $('#course').val('').trigger('change');
                 action.modal();
             });
 
@@ -47,27 +47,24 @@
                 action.delete(url);
             }
             // Edit
-            window.showEditModal = function showEditModal(url) {
-                edit(url);
+            window.showEditModal = function showEditModal(id) {
+                edit(id);
             }
 
-            function edit($url) {
-                $('#form_output').html('');
-                $('#formModal').modal('show');
+            function edit($id) {
+                action.edit();
 
                 $.ajax({
                     url: "{{ url('courseFile/edit') }}",
                     method: "get",
-                    data: {
-                        id: $url
-                    },
+                    data: {id: $id},
                     success: function(data) {
-                        $('#id').val($url);
+                        $('#id').val($id);
                         $('#action').val('ویرایش');
                         $('#button_action').val('update');
                         $('#title').val(data.title);
                         $('#url').val(data.url);
-                        $('#courses').val(data.course_id).trigger('change');
+                        $('#course').val(data.course_id).trigger('change');
                     }
                 })
             }

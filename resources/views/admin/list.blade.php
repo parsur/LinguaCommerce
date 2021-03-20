@@ -35,7 +35,7 @@
     $(document).ready(function () {
       // Admin DataTable And Action Object
       let dt = window.LaravelDataTables['adminTable'];
-      let action = new requestHandler(dt,'#adminForm','admin');
+      let action = new RequestHandler(dt,'#adminForm','admin');
 
       // Record modal
       $('#create_record').click(function () {
@@ -50,20 +50,18 @@
         action.delete(url);
       }
       // Edit
-      window.showEditModal = function showEditModal(url) {
-        edit(url);
+      window.showEditModal = function showEditModal(id) {
+        edit(id);
       }
-      function edit($url) {
-        var id = $url;
-        $('#form_output').html('');
-        $('#formModal').modal('show');
+      function edit($id) {
+        action.edit();
 
         $.ajax({
           url: "{{ url('admin/edit') }}",
           method: "get",
-          data: {id: id},
+          data: {id: $id},
           success: function(data) {
-            $('#id').val(id);
+            $('#id').val($id);
             $('#action').val('ویرایش');
             $('#button_action').val('update');
             $('#name').val(data.name);

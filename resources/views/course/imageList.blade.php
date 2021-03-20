@@ -15,10 +15,10 @@
     <x-slot name="content">
       <div class="row">
         <div class="col-md-6 mb-3">
-            {{-- Course Select Box --}}
-            @include('includes.form.course')
+          {{-- Course Select Box --}}
+          @include('includes.form.course')
         </div>
-    
+        
         {{-- Image --}}
         @include('includes.courseArticle.image')
       </div>
@@ -34,23 +34,25 @@
   @parent
   {{-- Course Image DataTable --}}
   {!! $courseImageTable->scripts() !!}
+  
+  {{-- Image handler --}}
+  <script src="{{ asset('js/ImageHandler.js') }}"></script>
+
+  {{-- Image Preview --}}
+  <script src="{{ asset('js/imagePreview.js') }}"></script>
 
   <script>
-
     $(document).ready(function () {  
       // Course Image DataTable And Action Object
       let dt = window.LaravelDataTables['courseImageTable'];
-      let action = new requestHandler(dt,'#courseImageForm','courseImage');
+      let action = new RequestHandler(dt,'#courseImageForm','courseImage');
+
+      // Image handler
+      let imageHandler = new ImageHandler('course');
 
       // Record modal
       $('#create_record').click(function () {
-        // Select2
-        $('#courses').val('').trigger('change');
-        // Picture
-        $("#picture").attr("src", "");
-        $("#picture").attr("alt", "عکس خود را وارد نمایید");
-        // Hidden image
-        $('#hidden_image').val(null);
+        imageHandler.picture();
         action.modal();
       });
 
@@ -62,31 +64,23 @@
         action.delete(url);
       }
       // Edit
-      window.showEditModal = function showEditModal(url) {
-        edit(url);
+      window.showEditModal = function showEditModal(id) {
+        edit(id);
       }
-      function edit($url) {
-        var id = $url;
-        $('#form_output').html('');
-        $('#formModal').modal('show');
+      function edit($id) {
+        action.edit();
 
         $.ajax({
           url: "{{ url('courseImage/edit') }}",
           method: "get",
-          data: {id: id},
+          data: {id: $id},
           success: function(data) {
-            $('#id').val(id);
-            $('#action').val('ویرایش');
-            $('#button_action').val('update');
-            $('#picture').attr("src", "/images/" + data.url);
-            $('#hidden_image').val(data.url);
-            $('#courses').val(data.media_id).trigger('change');
+            $('#id').val($id);
+            imageHandler.successfulEdit(data);
           }
         })
       }
     });
   </script>
-  {{-- Image Preview --}}
-  <script src="{{ asset('js/imagePreview.js') }}"></script>
 
 @endsection

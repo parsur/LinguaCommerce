@@ -79,14 +79,13 @@ class CommentController extends Controller
         return $action->delete(Comment::class, $id);
     }
 
-    // Submit the comment
+    // Comment submitted by admin to be shown for user.
     public function submit(Request $request) {
         // Set the course's comment visible
         $comment = Comment::find($request->get('submission'));
         $comment->statuses()->update(['status' => Status::VISIBLE]);
         
         $output = array('success' => '<div class="alert alert-success">دیدگاه کاربر با موفقیت تایید شد</div>');
-
         return response()->json($output);
     }
 

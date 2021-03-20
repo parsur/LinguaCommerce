@@ -24,35 +24,11 @@
       // Article DataTable
       let dt = window.LaravelDataTables['articleTable'];
       // Actions(DataTable,Form,Url)
-      let action = new requestHandler(dt,'#articleForm','article');
+      let action = new RequestHandler(dt,'#articleForm','article');
 
       // Delete
       window.showConfirmationModal = function showConfirmationModal(url) {
         action.delete(url);
-      }
-      // Edit
-      window.showEditModal = function showEditModal(url) {
-        edit(url);
-      }
-      function edit($url) {
-        var id = $url;
-        $('#formModal').modal('show');
-        $('#form_output').html('');
-
-        $.ajax({
-          url: "{{ url('articleVideo/edit') }}",
-          data: {id: id},
-          success: function(data) {
-            $('#id').val(id);
-            $('#button_action').val('update');
-            $('#action').val('ویرایش');
-            $('#title').val(data.title);
-            if(data.status == 0) 
-              $('#status').val(0).trigger('change');
-            else if(data.status == 1) 
-              $('#status').val(1).trigger('change');
-          }
-        })
       }
     });
   </script>

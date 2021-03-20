@@ -3,6 +3,7 @@
 namespace App\DataTables\Course;
 
 use App\Models\Media;
+use App\Models\Course;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;

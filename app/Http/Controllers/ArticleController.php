@@ -68,7 +68,6 @@ class ArticleController extends Controller
         }
 
         $output = array('success' => $success_output);
-
         return response()->json($output);
     }
 
@@ -79,7 +78,6 @@ class ArticleController extends Controller
         $id = $request->get('id');
 
         DB::beginTransaction();
-        
         try {
             $article = Article::updateOrCreate(
                 ['id' => $id],
@@ -99,7 +97,6 @@ class ArticleController extends Controller
             );
 
             DB::commit();
-
         } catch(Exception $e) {
             throw $e;
             DB::rollBack();

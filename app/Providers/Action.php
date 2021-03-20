@@ -52,9 +52,9 @@ class Action {
         if ($values) {
             $values->delete();
         } else {
-            return response()->json([], 404);
+            return response()->json(404, 'Deleted Unsuccessfuly');
         }
-        return response()->json([], 200);
+        return response()->json(200, 'Deleted Successfuly');
 
     }
 
@@ -68,9 +68,9 @@ class Action {
             File::delete(public_path("images/" . $modelImage->$column)); 
             $modelImage->delete();
         } else {
-            return response()->json([], 404);
+            return response()->json(404, 'Deleted Unsuccessfuly');
         }
-        return response()->json([], 200);
+        return response()->json(200, 'Deleted Successfuly');
     }
 
 
@@ -85,10 +85,10 @@ class Action {
             if(count($values) > 0)
                 return response()->json($values);
             else 
-                return response()->json('متاسفانه نتیجه ای یافت نشد');
+                return response()->json('متاسفانه نتیجه ای یافت نشد', JSON_UNESCAPED_UNICODE); // 404
         }
         else {
-            return response()->json('لطفا نوشته مورد دیدگاه خود را جستجو کنید');
+            return response()->json('لطفا نوشته مورد دیدگاه خود را جستجو کنید', JSON_UNESCAPED_UNICODE); // 200
         }
     }
 }

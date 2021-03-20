@@ -22,11 +22,11 @@
     $(document).ready(function () {
       // Actions(DataTable,Form,Url)
       let dt = window.LaravelDataTables['orderTable'];
-      let action = new requestHandler(dt,'#orderForm','order');
+      let action = new RequestHandler(dt,'#orderForm','order');
 
       // Delete
-      window.showConfirmationModal = function showConfirmationModal(url) {
-        action.delete(url);
+      window.showConfirmationModal = function showConfirmationModal(id) {
+        action.delete(id);
       }
     });
   </script>

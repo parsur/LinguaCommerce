@@ -57,7 +57,7 @@
                             {{-- Courses --}}
                             <x-urlAddressParent text="دوره" fontAwesome="fas fa-graduation-cap">
                                 <x-slot name="content">
-                                    {{-- Courses --}}
+                                    {{-- List --}}
                                     <x-urlAddress text="دوره ها" fontAwesome="null" route="{{ url('course/list') }}" />
                                     {{-- New Course --}}
                                     <x-urlAddress text="افزودن دوره" fontAwesome="null" route="{{ url('course/new') }}" />
@@ -75,7 +75,7 @@
                             {{-- Articles --}}
                             <x-urlAddressParent text="مقاله" fontAwesome="fas fa-newspaper">
                                 <x-slot name="content">
-                                    {{-- Articles --}}
+                                    {{-- List --}}
                                     <x-urlAddress text="مقالات" fontAwesome="null" route="{{ url('article/list') }}" />
                                     {{-- New Article --}}
                                     <x-urlAddress text="افزودن مقاله" fontAwesome="null" route="{{ url('article/new') }}" />
@@ -139,9 +139,10 @@
         {{-- App --}}
         <script src="{{ mix('js/app.js') }}"></script>
         {{-- Ajax Requests --}}
-        <script src="{{ asset('js/requestHandler.js') }}"></script>
+        <script src="{{ asset('js/RequestHandler.js') }}"></script>
         {{-- TinyMce --}}
-        <script src="{{ asset('js/tinymce.min.js') }}"></script>
+        <script src="https://cdn.tiny.cloud/1/j7pd9et1cw5vwcu34uqsawojdofcldb4jwhtc13w4qwa7uh5/tinymce/5/tinymce.min.js" 
+            referrerpolicy="origin"></script>
 
         <script>
             // Ajax Setup

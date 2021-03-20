@@ -32,7 +32,7 @@
     $(document).ready(function () {
       // User DataTable And Action Object
       let dt = window.LaravelDataTables['userTable'];
-      let action = new requestHandler(dt,'#userForm','user');
+      let action = new RequestHandler(dt,'#userForm','user');
 
       // Record modal
       $('#create_record').click(function () {
@@ -48,20 +48,18 @@
       }
 
       // Edit
-      window.showEditModal = function showEditModal(url) {
-        edit(url);
+      window.showEditModal = function showEditModal(id) {
+        edit(id);
       }
-      function edit($url) {
-        var id = $url;
-        $('#form_output').html('');
-        $('#formModal').modal('show');
+      function edit($id) {
+        action.edit();
 
         $.ajax({
           url: "{{ url('user/edit') }}",
           method: "get",
-          data: {id: id},
+          data: {id: $id},
           success: function(data) {
-            $('#id').val(id);
+            $('#id').val($id);
             $('#action').val('ویرایش');
             $('#button_action').val('update');
             $('#name').val(data.name);

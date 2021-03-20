@@ -30,7 +30,7 @@
         $(document).ready(function () {
             // Category Table and Action Object
             let dt = window.LaravelDataTables["categoryTable"];
-            let action = new requestHandler(dt,'#categoryForm','category');
+            let action = new RequestHandler(dt,'#categoryForm','category');
 
             // create modal
             $('#create_record').click(function () {
@@ -46,20 +46,18 @@
             }
             
             // Edit
-            window.showEditModal = function showEditModal(url) {
-                edit(url);
+            window.showEditModal = function showEditModal(id) {
+                edit(id);
             }
-            function edit($url) {
-                var id = $url;
-                $('#formModal').modal('show');
-                $('#form_output').html('');
+            function edit($id) {
+                action.edit();
 
                 $.ajax({
                     url: "{{ url('category/edit') }}",
                     method: 'get',
                     data: { id: id },
                     success: function (data) {  
-                        $('#id').val(id);
+                        $('#id').val($id);
                         $('#button_action').val('update');
                         $('#action').val('ویرایش');
                         $('#name').val(data.name);

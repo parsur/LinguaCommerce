@@ -23,12 +23,12 @@ class VideoDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addIndexColumn()
-            ->rawColumns(['action','video_url']) 
-            ->editColumn('video_url', function(Media $video) {
+            ->rawColumns(['action','url']) 
+            ->editColumn('url', function(Media $video) {
                 return '<iframe src="'.$video->media_url.'"  width="50%" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>';
             })
             ->addColumn('media_id', function (Media $video) {
-                return $video->media->name;
+                return $video->media->title;
             })
             ->filterColumn('media_id', function ($query, $keyword) {
                 $sql = 'media_id in (select id from articles where title like ?)';
@@ -95,9 +95,10 @@ class VideoDataTable extends DataTable
                 ->addClass('column-title')
                 ->searchable(false)
                 ->orderable(false),
-            Column::make('video_url')
+            Column::make('url')
             ->title('ویدئو')
-                ->addClass('column-title'),
+                ->addClass('column-title')
+                ->orderColumn(false),
             Column::make('media_id')
             ->title('مقاله مرتبط')
                 ->addClass('column-title')

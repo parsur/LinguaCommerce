@@ -14,7 +14,7 @@
 @section('scripts')
 @parent
     <script>
-        let action = new requestHandler(null,'#homeSettingForm','homeSetting');
+        let action = new RequestHandler(null,'#homeSettingForm','homeSetting');
         // Insert
         action.insert();
     </script>

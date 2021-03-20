@@ -34,10 +34,10 @@ class ImageController extends Controller
     }
 
     // Store
-    public function store(StoreImageRequest $request,SuccessMessages $message) {
+    public function store(StoreImageRequest $request,SuccessMessages $message,\App\Http\Controllers\Course\ImageController $courseImage ) {
 
         // insert or update
-        $this->add($request);
+        $courseImage->add($request, $request->get('article'), Article::class);
 
         // Insert
         if($request->get('button_action') == 'insert') {
@@ -50,35 +50,6 @@ class ImageController extends Controller
         
         $output = array('success' => $success_output);
         return response()->json($output);
-    }
-
-    // Add Image
-    public function add($request) {
-
-        if($request->hasFile('images')) {
-            foreach($request->file('images') as $image) {
-                // File
-                $file = $image->getClientOriginalName();
-
-                // Update
-                $imageUpload = Media::find($request->get('id'));
-                if(!$imageUpload) {
-                    // Insert
-                    $imageUpload = new Media();
-                }
-                $imageUpload->media_id = $request->get('article');
-                $imageUpload->media_type = Article::class;
-                // 0 = image / 1 = video
-                $imageUpload->type = Media::IMAGE;
-
-                if(isset($file)) {
-                    File::delete(public_path("images/$imageUpload->url")); 
-                    $imageUpload->url = $file;
-                    $image->move(public_path('images'), $file);
-                }
-                $imageUpload->save();
-            }
-        }
     }
 
     // Delete

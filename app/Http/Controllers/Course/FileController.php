@@ -54,13 +54,11 @@ class FileController extends Controller
 
     // Add Video
     public function add($request) {
-        foreach($request->get('courses') as $course) {
-            // Insert Course videos
-            $this->file::updateOrCreate(
-                ['id' => $request->get('id')],
-                ['url' => $request->get('url'), 'title' => $request->get('title'), 'course_id' => $course]
-            );
-        }
+        // Insert Course videos
+        $this->file::updateOrCreate(
+            ['id' => $request->get('id')],
+            ['url' => $request->get('url'), 'title' => $request->get('title'), 'course_id' => $request->get('course')]
+        );
     }
 
     // Delete

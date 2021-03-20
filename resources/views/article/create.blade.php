@@ -26,7 +26,7 @@
     <script src="{{ asset('js/tinymceInit.js') }}"></script>
 
     <script>
-        let action = new requestHandler(null, '#articleForm', 'article');
+        let action = new RequestHandler(null, '#articleForm', 'article');
         // Insert
         action.insert();
 

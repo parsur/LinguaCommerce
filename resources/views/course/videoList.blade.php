@@ -39,7 +39,7 @@
         $(document).ready(function() {
             // Course Video DataTable And Action Object
             let dt = window.LaravelDataTables['courseVideoTable'];
-            let action = new requestHandler(dt,'#courseVideoForm','courseVideo');
+            let action = new RequestHandler(dt,'#courseVideoForm','courseVideo');
 
             // Record modal
             $('#create_record').click(function () {
@@ -55,19 +55,18 @@
                 action.delete(url);
             }
             // Edit
-            window.showEditModal = function showEditModal(url) {
-                edit(url);
+            window.showEditModal = function showEditModal(id) {
+                edit(id);
             }
-            function edit($url) {
-                $('#form_output').html('');
-                $('#formModal').modal('show');
+            function edit($id) {
+                action.edit();
 
                 $.ajax({
                     url: "{{ url('courseVideo/edit') }}",
                     method: "get",
-                    data: {id: $url},
+                    data: {id: $id},
                     success: function(data) {
-                        $('#id').val($url);
+                        $('#id').val($id);
                         $('#action').val('ویرایش');
                         $('#button_action').val('update');
                         $('#aparat_url').val(data.url);

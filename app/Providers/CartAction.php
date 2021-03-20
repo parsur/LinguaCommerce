@@ -13,7 +13,7 @@ class CartAction {
      */
     
 
-    // Visible
+    // Carts have not gone to order.
     public function visible() {
 
         $carts = Cart::where('user_id', auth()->user()->id)

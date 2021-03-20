@@ -31,7 +31,7 @@
 
     <script>
         // Action object
-        let action = new requestHandler(null, '#courseForm', 'course');
+        let action = new RequestHandler(null, '#courseForm', 'course');
 
         // Insert
         action.insert();

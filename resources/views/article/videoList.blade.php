@@ -36,11 +36,11 @@
         $(document).ready(function() {
             // Article video DataTable And Action Object
             let dt = window.LaravelDataTables['articleVideoTable'];
-            let action = new requestHandler(dt,'#articleVideoForm','articleVideo');
+            let action = new RequestHandler(dt,'#articleVideoForm','articleVideo');
 
             // Record modal
             $('#create_record').click(function () {
-                $('#articles').val('').trigger('change');
+                $('#article').val('').trigger('change');
                 action.modal();
             });
 
@@ -52,23 +52,23 @@
                 action.delete(url);
             }
             // Edit
-            window.showEditModal = function showEditModal(url) {
-                edit(url);
+            window.showEditModal = function showEditModal(id) {
+                edit(id);
             }
-            function edit($url) {
-                $('#form_output').html('');
-                $('#formModal').modal('show');
+            function edit($id) {
+                action.edit();
 
                 $.ajax({
                     url: "{{ url('articleVideo/edit') }}",
                     method: "get",
-                    data: {id: $url},
+                    data: {id: $id},
                     success: function(data) {
-                        $('#id').val($url);
+                        console.log(data.media_id);
+                        $('#id').val($id);
                         $('#action').val('ویرایش');
                         $('#button_action').val('update');
                         $('#aparat_url').val(data.url);
-                        $('#articles').val(data.media_id).trigger('change');
+                        $('#article').val(data.media_id).trigger('change');
                     }
                 })
             }
