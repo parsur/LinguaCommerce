@@ -181,7 +181,7 @@ Route::get('/logout','Auth\LoginController@logout')->name('logout');
 Route::get('/', 'HomeController@index')->middleware('cors');
 
 // User 
-Route::group(['middleware' => ['auth']], function() {
+// Route::group(['middleware' => ['auth']], function() {
     // Cart
     Route::group(['prefix' => 'cart', 'as' => 'cart.'], function() {
         Route::post('store/{course_id}','CartController@store');
@@ -223,9 +223,16 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('course/userDetails', 'CourseController@userDetails')->name('course.userDetails')->middleware('signed');
     // Details of article shown for user
     Route::get('article/userDetails', 'ArticleController@userDetails')->name('article.userDetails')->middleware('signed');
-});
+// });
 
 // App
 Route::get('/', function () {
     return view('app');
 });
+
+
+// use App\Mail\OrderShipped;
+// // Email
+// Route::get('/email', function() {
+//     return new OrderShipped;
+// });

@@ -7,8 +7,11 @@ use App\Providers\Action;
 use App\Models\Order;
 use App\Models\Cart;
 use App\Providers\CartAction;
+use App\Mail\SubmittedOrder;
 use App\DataTables\OrderDataTable;
+use App\Mail\OrderShipped;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Mail;
 use Auth;
 use DB;
 
@@ -74,7 +77,7 @@ class OrderController extends Controller
     public function store() {
 
         DB::beginTransaction();
-        $user_id = Auth::user()->id;
+        $user_id = 32;
 
         try {
             // New order
@@ -113,7 +116,9 @@ class OrderController extends Controller
 
                 DB::commit();
                 // Payment Gateway
-                return Redirect::to('http://heera.it');
+                Mail::to($user_id)->send(new SubmittedOrder($order));
+                // return Redirect::to('http://heera.it');
+                return response()->json('data sent');
             }
 
         } catch(Exception $e) {

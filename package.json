@@ -18,17 +18,14 @@
     },
     "dependencies": {
         "@babel/preset-react": "^7.12.13",
-        "@ckeditor/ckeditor5-build-classic": "^26.0.0",
         "@fortawesome/fontawesome-free": "^5.15.2",
         "@fortawesome/fontawesome-svg-core": "^1.2.32",
-        "axios": "^0.21",
         "bootstrap": "^4.6.0",
         "datatables.net": "^1.10.24",
         "datatables.net-bs4": "^1.10.24",
         "datatables.net-buttons-dt": "^1.7.0",
         "datatables.net-responsive": "^2.2.7",
         "datatables.net-responsive-bs4": "^2.2.7",
-        "froala-editor": "^3.2.6-1",
         "jquery": "^3.6.0",
         "laravel-mix": "^6.0.13",
         "lodash": "^4.17.21",
@@ -45,9 +42,7 @@
         "sass-loader": "^11.0.1",
         "select2": "^4.1.0-rc.0",
         "styled-components": "^5.2.1",
-        "tinymce": "^5.7.0",
-        "vue": "^2.5.17",
-        "vue-template-compiler": "^2.6.10"
+        "tinymce": "^5.7.0"
     },
     "devDependencies": {
         "postcss": "^8.2.8",

@@ -26,8 +26,6 @@ mix.js('resources/assets/js/app.js', 'public/js')
     .js('resources/assets/js/commentSubmission.js', 'public/js/commentSubmission.js')
     // Image preview
     .js('resources/assets/js/imagePreview.js', 'public/js/imagePreview.js')
-    // Image preview
-    .js('resources/assets/js/tinymce.min.js', 'public/js/tinymce.min.js')
     // Ajax Request Handler
     .copy('resources/assets/js/ImageHandler.js', 'public/js/ImageHandler.js')
     // Ajax Request Handler
