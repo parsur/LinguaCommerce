@@ -7,7 +7,6 @@ use App\Providers\Action;
 use App\Providers\CartAction;
 use App\Mail\SubmittedOrder;
 use App\DataTables\OrderDataTable;
-use App\Mail\OrderShipped;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Order;
@@ -53,15 +52,16 @@ class OrderController extends Controller
 
     // Details
     public function details(Request $request) {
-        return $this->factor($request->get('factor'));
+        return $this->detailsHandler($request->get('factor'));
     }
 
     // User details
     public function userDetails($id) {
-        return $this->factor($id, 'user');
+        return $this->detailsHandler($id, 'user');
     }
 
-    public function factor($factor, $role = 'admin') {
+    // Factor
+    public function detailsHandler($factor, $role = 'admin') {
         // Each order 
         $vars['order'] = Order::where('factor', $factor)->first();
         // Cart
@@ -77,7 +77,7 @@ class OrderController extends Controller
     public function store() {
 
         DB::beginTransaction();
-        $user_id = 32;
+        $user_id = auth()->user()->id;
 
         try {
             // New order
@@ -91,19 +91,19 @@ class OrderController extends Controller
             $order->factor = $factor;
 
             // Set order factor for all carts
-            $cartProducts = Cart::where('user_id',  $user_id)
+            $cartFactors = Cart::where('user_id',  $user_id)
                 ->where('factor', null)->get();
 
-            foreach($cartProducts as $cartProduct) {
-                $cartProduct->factor = $factor;
-                $cartProduct->save();
+            foreach($cartFactors as $cartFactor) {
+                $cartFactor->factor = $factor;
+                $cartFactor->save();
             }
 
             // Course total price
             $sum = 0;
-            $cartPrices = Cart::where('factor', $factor)->get();
-            foreach($cartPrices as $cartPrice) {
-                $sum += $cartPrice->course->price;
+            $carts = Cart::where('factor', $factor)->get();
+            foreach($carts as $cart) {
+                $sum += $cart->course->price;
             }
             // Total price
             $order->total_price = $sum;
@@ -115,10 +115,9 @@ class OrderController extends Controller
             if($orderStatus) {
 
                 DB::commit();
-                // Payment Gateway
-                Mail::to($user_id)->send(new SubmittedOrder($order));
-                // return Redirect::to('http://heera.it');
-                return response()->json('data sent');
+                // Email
+                Mail::to('parsasamandizadeh@gmail.com')->send(new SubmittedOrder($order, $carts));
+                return Redirect::to('http://heera.it');
             }
 
         } catch(Exception $e) {

@@ -29,7 +29,7 @@ class StoreUserRequest extends FormRequest
             'name' => 'required',
             'password' => 'required|min:6',
             'password-confirm' => 'same:password',
-            'phone_number' => 'required|numeric|digits:11|regex:/(09)[0-9]{9}',
+            'phone_number' => 'required|numeric|digits:11',
             'email' => 'email:rfc,dns|required|max:255|unique:users,email,' . $request->get('id')
         ];
     }

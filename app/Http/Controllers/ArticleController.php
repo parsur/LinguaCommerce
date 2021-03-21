@@ -52,9 +52,8 @@ class ArticleController extends Controller
         return view('article.create', $vars);
     }
 
-     // Store Course
-     public function store(StoreArticleRequest $request,SuccessMessages $message) {
-
+    // Store Course
+    public function store(StoreArticleRequest $request,SuccessMessages $message) {
         // Insert or update
         $this->add($request);
 
@@ -122,8 +121,15 @@ class ArticleController extends Controller
     }
 
     // Delete
-    public function delete(Action $action,$id) {
+    public function delete(Action $action, $id) {
         return $action->delete(Article::class, $id);
+    }
+
+    // Show
+    public function show() {
+        
+        $vars['artciles'] = Article::select('title', 'created_at','updated_at')->get();
+        return response()->json($vars);
     }
 
     // Search
@@ -132,18 +138,22 @@ class ArticleController extends Controller
     }
 
     // Admin details
-    public function adminDetails(Request $request) {
-
-        $article = Article::findOrFail($request->get('id'));    
-        return view('article.details', compact('article'));
+    public function details(Request $request) {
+        return $this->detailsHandler($request->get('id'));
     }
 
     // User details
     public function userDetails($id) {
-
-        $article = Article::find($id);
-        return response()->json($article);
-        
+        return $this->detailsHandler($request->get('id'), 'user');
     }   
+
+    public function detailsHandler($id, $role = 'admin') {
+        $vars['article'] = Article::find($id);
+
+        if($role != 'admin')
+            return response()->json($vars);
+
+        return view('article.details', $vars);
+    }
 
 }

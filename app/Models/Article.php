@@ -11,8 +11,6 @@ use ShiftOneLabs\LaravelCascadeDeletes\CascadesDeletes;
  * @property string $title
  * @property string $created_at
  * @property string $updated_at
- * @property int $article_id
- * @property string $article_type
  * @property int $subCategory_id
  * @property Category $category
  * @property SubCategory $subCategory
@@ -28,7 +26,7 @@ class Article extends Model
     /**
      * @var array
      */
-    protected $fillable = ['title', 'created_at', 'updated_at', 'article_id', 'article_type', 'category_id', 'subCategory_id'];
+    protected $fillable = ['title', 'created_at', 'updated_at', 'category_id', 'subCategory_id'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

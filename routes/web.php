@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-// Admin Middleware
+// Admin
 Route::group(['middleware' => ['auth','isAdmin']], function () {
     // Admin
     Route::get('adminHome', 'AdminController@admin');
@@ -42,7 +42,7 @@ Route::group(['middleware' => ['auth','isAdmin']], function () {
         Route::get('delete/{id}','CourseController@delete');
         Route::get('edit', 'CourseController@edit');
         // Details shown for admin
-        Route::get('adminDetails', 'CourseController@adminDetails')->name('adminDetails');
+        Route::get('details', 'CourseController@details')->name('details');
         // Search
         Route::post('search', 'CourseController@search');
     });
@@ -70,7 +70,7 @@ Route::group(['middleware' => ['auth','isAdmin']], function () {
         Route::post('store', 'ArticleController@store');
         Route::get('edit', 'ArticleController@edit');
         // Admin details
-        Route::get('details', 'ArticleController@details')->name('adminDetails');
+        Route::get('details', 'ArticleController@details')->name('details');
         Route::get('delete/{id}', 'ArticleController@delete');
         // Search
         Route::post('search', 'ArticleController@search');
@@ -165,23 +165,8 @@ Route::group(['middleware' => ['auth','isAdmin']], function () {
     });
 });
 
-// Store Consultation 
-Route::post('consultation/store', 'ConsultationController@store')->middleware('storeConsultation');
-
-// Authentication 
-Auth::routes();
-Route::get('login','Auth\LoginController@index')->name('login');
-Route::post('login', 'Auth\LoginController@store');
-// Forgotten password
-Route::get('/forgot-password', 'Auth\ForgotPasswordController@index');
-// logout
-Route::get('/logout','Auth\LoginController@logout')->name('logout');
-
-// Home
-Route::get('/', 'HomeController@index')->middleware('cors');
-
 // User 
-// Route::group(['middleware' => ['auth']], function() {
+// Route::group(['middleware' => ['auth','verified']], function() {
     // Cart
     Route::group(['prefix' => 'cart', 'as' => 'cart.'], function() {
         Route::post('store/{course_id}','CartController@store');
@@ -205,6 +190,18 @@ Route::get('/', 'HomeController@index')->middleware('cors');
         Route::get('edit', 'UserController@edit');
         Route::get('delete/{id}', 'UserController@delete');
     });
+    // Article
+    Route::group(['prefix' => 'article', 'as' => 'article.'], function () {
+        Route::get('show', 'ArticleController@show');
+        // Details of article shown for user
+        Route::get('userDetails', 'ArticleController@userDetails')->name('userDetails')->middleware('signed');
+    });
+     // Course
+     Route::group(['prefix' => 'course', 'as' => 'course.'], function () {
+        Route::get('show', 'CourseController@show');
+        // Details of article shown for user
+        Route::get('userDetails', 'CourseController@userDetails')->name('userDetails')->middleware('signed');
+    });
     // Course comment
     Route::group(['prefix' => 'courseComment', 'as' => 'courseComment.'], function() {
         Route::post('store/{course_id}', 'CourseCommentController@store');
@@ -219,11 +216,26 @@ Route::get('/', 'HomeController@index')->middleware('cors');
         Route::post('update/{article_id}', 'ArticleCommentController@update');
         Route::get('delete/{id}','ArticleCommentController@delete');
     });
-    // Details of course shown for user
-    Route::get('course/userDetails', 'CourseController@userDetails')->name('course.userDetails')->middleware('signed');
-    // Details of article shown for user
-    Route::get('article/userDetails', 'ArticleController@userDetails')->name('article.userDetails')->middleware('signed');
 // });
+
+// Store Consultation 
+Route::post('consultation/store', 'ConsultationController@store')->middleware('storeConsultation');
+
+// Authentication 
+Auth::routes(['verify' => true]);
+Route::get('login','Auth\LoginController@index')->name('login');
+Route::post('login', 'Auth\LoginController@store');
+
+// Forgotten password
+Route::get('/forgot-password', 'Auth\ForgotPasswordController@index');
+// logout
+Route::get('/logout','Auth\LoginController@logout')->name('logout');
+// Home
+Route::get('/', 'HomeController@index')->middleware(['cors','verified']);
+
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
 
 // App
 Route::get('/', function () {
@@ -231,8 +243,4 @@ Route::get('/', function () {
 });
 
 
-// use App\Mail\OrderShipped;
-// // Email
-// Route::get('/email', function() {
-//     return new OrderShipped;
-// });
+

@@ -139,19 +139,24 @@ class CourseController extends Controller
         $action->search(Course::class,$request->get('search'),'name');
     }
 
-    // Admin Details
+
+    // Admin details
     public function details(Request $request) {
-
-        $course = Course::findOrFail($request->get('id'));
-        return view('course.details', compact('course'));
+        return $this->detailsHandler($request->get('id'));
     }
 
-    // User datails
+    // User details
     public function userDetails($id) {
+        return $this->detailsHandler($request->get('id'), 'user');
+    }   
 
-        $course = Course::findOrFail($id);
-        return response()->json($course);
+    public function detailsHandler($id, $role = 'admin') {
+        $vars['course'] = Course::find($id);
+
+        if($role != 'admin')
+            return response()->json($vars);
+
+        return view('course.details', $vars);
     }
-
 
 }

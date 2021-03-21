@@ -52,9 +52,9 @@ class Action {
         if ($values) {
             $values->delete();
         } else {
-            return response()->json(404, 'Deleted Unsuccessfuly');
+            return response()->json('Deleted Unsuccessfuly', 404);
         }
-        return response()->json(200, 'Deleted Successfuly');
+        return response()->json('Deleted Successfuly', 200);
 
     }
 
@@ -68,9 +68,9 @@ class Action {
             File::delete(public_path("images/" . $modelImage->$column)); 
             $modelImage->delete();
         } else {
-            return response()->json(404, 'Deleted Unsuccessfuly');
+            return response()->json('Deleted Unsuccessfuly', 404);
         }
-        return response()->json(200, 'Deleted Successfuly');
+        return response()->json('Deleted Successfuly', 200);
     }
 
 

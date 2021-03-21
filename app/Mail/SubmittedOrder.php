@@ -12,21 +12,20 @@ class SubmittedOrder extends Mailable
 {
     use Queueable, SerializesModels;
 
-    /**
-     * The order instance.
-     *
-     * @var \App\Models\Order
-     */
+    // Order Model
     public $order;
+    // Course name
+    public $carts;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(Order $order)
+    public function __construct(Order $order,$carts)
     {
         $this->order = $order;
+        $this->carts = $carts;
     }
 
     /**
@@ -36,7 +35,7 @@ class SubmittedOrder extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.orders.shipped')
-                ->from('parsasamandizadeh@gmail.com');
+        return $this->markdown('emails.submittedOrder')
+            ->from('sararajabiart3@gmail.com');
     }
 }

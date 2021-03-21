@@ -38,10 +38,10 @@ class UserController extends Controller
     // Store user
     public function store(StoreUserRequest $request,SuccessMessages $message) {
 
-        $this->add($request,User::USER);
+        $this->add($request, User::USER);
 
         // Insert
-        if($request->get('button_action') == "insert") {
+        if($request->get('button_action') == 'insert') {
             $success_output = $message->getInsert();
         }
         // Update
@@ -50,12 +50,12 @@ class UserController extends Controller
         }
 
         $output = array('success' => $success_output);
-
         return response()->json($output);
     }
 
     // Add or update user
     public function add($request,$role) {
+
         User::updateOrCreate(
             ['id' => $request->get('id')],
             ['name' => $request->get('name'),'email' => $request->get('email'),

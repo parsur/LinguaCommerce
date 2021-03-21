@@ -74,7 +74,7 @@ class ArticleDataTable extends DataTable
             })
             ->addColumn('action',function(Article $article) {
                 $editArticle = URL::signedRoute('article.newArticle', ['id' => $article->id]);
-                $articleDetails = URL::signedRoute('article.adminDetails', ['id' => $article->id]);
+                $articleDetails = URL::signedRoute('article.details', ['id' => $article->id]);
 
                 return '<a onclick="showConfirmationModal('.$article->id.')">
                             <i class="fa fa-trash text-danger" aria-hidden="true"></i>

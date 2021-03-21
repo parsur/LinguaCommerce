@@ -2,11 +2,14 @@
 # Introduction
 
 The body of your message.
-
-<div>
-    Price: {{ $order->total_price }}
-    Factor: {{ $order->factor }}
-</div>
+Price: {{ $order->price }}
+<br>
+Factor: {{ $order->factor }}
+<br>
+Course names: 
+@foreach($carts as $cart)
+    {{ $cart->course->name }}
+@endforeach
 
 @component('mail::button', ['url' => ''])
 Button Text

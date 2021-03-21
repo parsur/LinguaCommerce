@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\UserController;
 use App\DataTables\UserDataTable;
 use App\DataTables\AdminDataTable;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\Request;
 use App\Http\Requests\StoreUserRequest;
 use App\Providers\SuccessMessages;
 use App\Providers\Action;
@@ -49,7 +49,6 @@ class AdminController extends Controller
         }
 
         $output = array('success' => $success_output);
-
         return response()->json($output);
     }
 
