@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Providers\Action;
-use App\Models\Order;
-use App\Models\Cart;
 use App\Providers\CartAction;
 use App\Mail\SubmittedOrder;
 use App\DataTables\OrderDataTable;
 use App\Mail\OrderShipped;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Mail;
+use App\Models\Order;
+use App\Models\Cart;
 use Auth;
 use DB;
 

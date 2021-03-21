@@ -39,7 +39,7 @@ class OrderDataTable extends DataTable
             ->addColumn('phone_number', function (Order $order) {
                 return $order->user->phone_number;
             })
-            ->filterColumn('user_id', function($query, $keyword) {
+            ->filterColumn('phone_number', function($query, $keyword) {
                 $sql = 'user_id in (select id from users where phone_number like ?)';
                 $query->whereRaw($sql, ["%{$keyword}%"]);
             })

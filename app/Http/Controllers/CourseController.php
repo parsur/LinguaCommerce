@@ -39,13 +39,13 @@ class CourseController extends Controller
             $vars['course'] = '';
         }
         // Categories
-        $vars['categories'] = App\Models\Category::select('id','name')->get();
+        $vars['categories'] = \App\Models\Category::select('id','name')->get();
         // Sub Categories
-        $vars['subCategories'] = App\Models\SubCategory::select('id','name')->get();
+        $vars['subCategories'] = \App\Models\SubCategory::select('id','name')->get();
         // Status
-        $vars['status'] = App\Models\Status::select('id','status')->get();
+        $vars['status'] = \App\Models\Status::select('id','status')->get();
         // Description
-        $vars['description'] = App\Models\Description::select('id','description')->get();
+        $vars['description'] = \App\Models\Description::select('id','description')->get();
 
         return view('course.create', $vars);
     }

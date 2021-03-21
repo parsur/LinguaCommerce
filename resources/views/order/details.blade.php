@@ -34,29 +34,35 @@
 
     {{-- If it were not empty --}}
     @if(count($carts))
-        {{-- Course List --}}
-        <div class="col-md-12">
-            <h4>لیست دوره ها</h4>
-            {{-- Cart --}}
-            @foreach($carts as $cart)
-                <div class="col-md-3">
-                    <div class="card">
-                        <div class="card-body">
-                            {{-- Image --}}
-                            <img class="card-img-top mb-3" src="/images/{{ $cart->course->image[0]->image_url }}">
-                            {{-- Name --}}
-                            <h5 class="card-title">{{ $cart->course->name }}</h5>
-                            {{-- Price --}}
-                            <p class="card-text">{{ $cart->course->price }} تومان</p>
-                            {{-- Status --}}
-                            @if($cart->course->status == 0) <p class="card-text">موجود</p> @else <p class="card-text">ناموجود</p> @endif
-                            {{-- Description --}}
-                            {{-- {!! $cart->course->description->description !!} --}}
-                        </div>
+        {{-- Cart --}}
+        @foreach($carts as $cart)
+            <div class="col-md-3 mt-3">
+                {{-- Course List --}}
+                <h4>لیست دوره ها:</h4>
+                
+                <div class="card">
+                    <div class="card-body">
+                        {{-- Image --}}
+                        @foreach($cart->course->media->where('type', 0) as $media)
+                            @once
+                                <img class="card-img-top mb-3" src="/images/{{ $media->url }}"> 
+                            @endonce
+                        @endforeach 
+                        {{-- Name --}}
+                        <h5 class="card-title">{{ $cart->course->name }}</h5>
+                        {{-- Price --}}
+                        <p class="card-text">{{ $cart->course->price }} تومان</p>
+                        {{-- Status --}}
+                        @if($cart->course->status == 0) <p class="card-text">موجود</p> @else <p class="card-text">ناموجود</p> @endif
+                        {{-- Files --}}
+                        @foreach($cart->course->files as $file) 
+                            <a href="{{ $file->url }}">{{ $file->title }}</a>
+                        @endforeach
                     </div>
                 </div>
-            @endforeach
-        </div>
+            </div>
+        @endforeach
+
     @endif
 @endsection
 
