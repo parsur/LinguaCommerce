@@ -35,7 +35,6 @@ class SubmittedOrder extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.submittedOrder')
-            ->from('sararajabiart3@gmail.com');
+        return $this->markdown('vendor.notifications.submittedOrder');
     }
 }

@@ -29,10 +29,6 @@ class AppServiceProvider extends ServiceProvider
         $vars['courses'] = \App\Models\Course::select('id','name')->get();
         // Articles
         $vars['articles'] = \App\Models\Article::select('id','title')->get();
-        // Categories
-        $vars['categories'] = \App\Models\Category::select('id', 'name')->get();
-        // Sub Category
-        $vars['subCategories'] = \App\Models\SubCategory::select('id', 'name')->get();
         
         View::share($vars); 
         

@@ -166,7 +166,7 @@ Route::group(['middleware' => ['auth','isAdmin']], function () {
 });
 
 // User 
-// Route::group(['middleware' => ['auth','verified']], function() {
+Route::group(['middleware' => ['auth','verified']], function() {
     // Cart
     Route::group(['prefix' => 'cart', 'as' => 'cart.'], function() {
         Route::post('store/{course_id}','CartController@store');
@@ -216,31 +216,22 @@ Route::group(['middleware' => ['auth','isAdmin']], function () {
         Route::post('update/{article_id}', 'ArticleCommentController@update');
         Route::get('delete/{id}','ArticleCommentController@delete');
     });
-// });
+});
 
 // Store Consultation 
 Route::post('consultation/store', 'ConsultationController@store')->middleware('storeConsultation');
-
 // Authentication 
 Auth::routes(['verify' => true]);
 Route::get('login','Auth\LoginController@index')->name('login');
 Route::post('login', 'Auth\LoginController@store');
-
 // Forgotten password
 Route::get('/forgot-password', 'Auth\ForgotPasswordController@index');
+// Warning verification
+Route::get('/email/verify', 'Auth\VerificationController@warningVerification')->middleware('auth')->name('verification.notice');
+// Email vertification
+Route::get('/email/verify/{id}/{hash}', 'Auth\VerificationController@finalVerification')->middleware(['auth', 'signed'])->name('verification.verify');
+
 // logout
 Route::get('/logout','Auth\LoginController@logout')->name('logout');
 // Home
-Route::get('/', 'HomeController@index')->middleware(['cors','verified']);
-
-Route::get('/email/verify', function () {
-    return view('auth.verify-email');
-})->middleware('auth')->name('verification.notice');
-
-// App
-Route::get('/', function () {
-    return view('app');
-});
-
-
-
+Route::get('/', 'HomeController@index')->middleware(['cors']);

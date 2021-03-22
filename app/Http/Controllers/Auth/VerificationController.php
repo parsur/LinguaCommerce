@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\VerifiesEmails;
 use App\Providers\RedirectAuthentication;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 
 class VerificationController extends Controller
@@ -40,5 +42,18 @@ class VerificationController extends Controller
         $this->middleware('auth');
         $this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');
+    }
+
+    //  Verification warning 
+    public function warningVerification() {
+        return view('auth.verify');
+    }
+
+
+    // Final vertification
+    public function finalVerification(EmailVerificationRequest $request) {
+        $request->fulfill();
+        // Verification redirection
+        return redirect('/');
     }
 }

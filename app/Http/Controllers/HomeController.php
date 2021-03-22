@@ -3,10 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Setting;
 
 class HomeController extends Controller
 {
+    // App blade
+    public function app() {
+        return view('app');
+    }
+
     /**
      * Show the home page.
      *
@@ -27,14 +32,14 @@ class HomeController extends Controller
             'fourthEvent',
             'fourthEventUrl'
         ];
-        $home_settings = HomeSetting::whereIn('name', $names)->select('value')->get();
+        $home_settings = Setting::whereIn('name', $names)->select('value')->get();
 
         $vars = [];
         foreach($home_settings as $setting) {
             $setting["setting_$setting->name"] = $setting->value;
         }
 
-        return response()->json($vars);
+        return view('app', $vars);
     }
 
 }

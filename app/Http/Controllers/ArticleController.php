@@ -127,8 +127,13 @@ class ArticleController extends Controller
 
     // Show
     public function show() {
-        
-        $vars['artciles'] = Article::select('title', 'created_at','updated_at')->get();
+        // Articles
+        $vars['artciles'] = Article::all();
+        // Categories
+        $vars['categories'] = \App\Models\Category::select('id', 'name')->get();
+        // Sub Category
+        $vars['subCategories'] = \App\Models\SubCategory::select('id', 'name')->get();
+
         return response()->json($vars);
     }
 

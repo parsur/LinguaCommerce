@@ -116,7 +116,7 @@ class OrderController extends Controller
 
                 DB::commit();
                 // Email
-                Mail::to('parsasamandizadeh@gmail.com')->send(new SubmittedOrder($order, $carts));
+                Mail::to(auth()->user()->email)->send(new SubmittedOrder($order, $carts));
                 return Redirect::to('http://heera.it');
             }
 

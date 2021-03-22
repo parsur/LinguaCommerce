@@ -130,8 +130,14 @@ class CourseController extends Controller
 
     // Show course page
     public function show() {
+        // Courses
         $vars['courses'] = Course::all();
-        return response()->json($courses);
+        // Categories
+        $vars['categories'] = \App\Models\Category::select('id', 'name')->get();
+        // Sub Category
+        $vars['subCategories'] = \App\Models\SubCategory::select('id', 'name')->get();
+        
+        return response()->json($vars);
     }
 
     // Search
