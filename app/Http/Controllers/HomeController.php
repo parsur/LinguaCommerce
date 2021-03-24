@@ -32,7 +32,7 @@ class HomeController extends Controller
             'fourthEvent',
             'fourthEventUrl'
         ];
-        $home_settings = Setting::whereIn('name', $names)->select('value')->get();
+        $home_settings = Setting::whereIn('name', $names)->select('name', 'value')->get();
 
         $vars = [];
         foreach($home_settings as $setting) {

@@ -44,9 +44,8 @@ class ConsultationController extends Controller
         DB::beginTransaction();
         try {
             if($request->get('description')) {
-
+                
                 $consultation = Consultation::create(['user_id' => auth()->user()->id]);
-
                 $consultation->descriptions->create(['description' => $request->get('description')]);
 
             } else if($request->get('phone_number')) {

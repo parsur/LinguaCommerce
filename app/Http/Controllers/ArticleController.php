@@ -3,15 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Article;
-use App\Models\Category;
-use App\Models\Description;
-use App\Models\Status;
-use App\Models\SubCategory;
 use App\DataTables\ArticleDataTable;
 use App\Http\Requests\StoreArticleRequest;
 use App\Providers\Action;
+use App\Providers\CourseArticleAction;
 use App\Providers\SuccessMessages;
+use App\Models\Article;
+use App\Models\Category;
+use App\Models\SubCategory;
 use DB;
 
 class ArticleController extends Controller
@@ -23,10 +22,6 @@ class ArticleController extends Controller
 
         // Article Table
         $vars['articleTable'] = $dataTable->html();
-        // Categories
-        $vars['categories'] = Category::select('id','name')->get();
-        // Sub Categories
-        $vars['subCategories'] = SubCategory::select('id','name')->get();
 
         return view('article.list', $vars);
     }
@@ -37,17 +32,18 @@ class ArticleController extends Controller
     }
 
     // Get Course Description Page
-    public function new(Request $request) {
+    public function new(Request $request, CourseArticleAction $action) {
         // Edit
         if($request->get('id')) {
             $vars['article'] = Article::find($request->get('id'));
         } else {
             $vars['article'] = '';
         }
-        // Status
-        $vars['status'] = Status::select('id','status')->get();
-        // Description
-        $vars['description'] = Description::select('id','description')->get();
+    
+        // Categories
+        $vars['categories'] = Category::select('id', 'name')->with('articles')->get();
+        // Sub Categories
+        $vars['subCategories'] = SubCategory::select('id', 'name')->with('articles')->get();
 
         return view('article.create', $vars);
     }
@@ -104,7 +100,7 @@ class ArticleController extends Controller
 
     // Product SubSet
     public function subSet($request) {
-        // Category Or Sub Category
+        // Category Or Subcategory
         switch($request) {
             case '':
                 return null;
@@ -115,9 +111,9 @@ class ArticleController extends Controller
     }
 
     // Edit Course
-    public function edit(Action $action, Request $request) {
+    public function edit(CourseArticleAction $action, Request $request) {
         // Edit
-        return $action->editCourseArticle(Article::class, $request->get('id'));
+        return $action->edit(Article::class, $request->get('id'));
     }
 
     // Delete
@@ -128,37 +124,24 @@ class ArticleController extends Controller
     // Show
     public function show() {
         // Articles
-        $vars['artciles'] = Article::all();
+        $vars['artciles'] = Article::select('title','created_at','updated_at')->with('statuses:status_id,status',
+            'description:description_id,description','category:id,name','subCategory:id,name', 'media:media_id,url');
         // Categories
-        $vars['categories'] = \App\Models\Category::select('id', 'name')->get();
-        // Sub Category
-        $vars['subCategories'] = \App\Models\SubCategory::select('id', 'name')->get();
+        $vars['categories'] = Category::select('id', 'name')->with('articles')->get();
+        // Sub Categories
+        $vars['subCategories'] = SubCategory::select('id', 'name')->with('articles')->get();
 
         return response()->json($vars);
     }
 
     // Search
     public function search(Request $request) {
-        $action->search(Article::class,$request->get('search'),'title');
+        return $action->search(Article::class,$request->get('search'),'title');
     }
 
-    // Admin details
-    public function details(Request $request) {
-        return $this->detailsHandler($request->get('id'));
-    }
-
-    // User details
-    public function userDetails($id) {
-        return $this->detailsHandler($request->get('id'), 'user');
-    }   
-
-    public function detailsHandler($id, $role = 'admin') {
-        $vars['article'] = Article::find($id);
-
-        if($role != 'admin')
-            return response()->json($vars);
-
-        return view('article.details', $vars);
+    // Details
+    public function details(CourseArticleAction $action, Request $request) {
+        return $action->details($request->get('id'), Article::class, 'article', $request->get('role'));
     }
 
 }

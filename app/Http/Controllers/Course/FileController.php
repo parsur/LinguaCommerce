@@ -59,15 +59,15 @@ class FileController extends Controller
             ['id' => $request->get('id')],
             ['url' => $request->get('url'), 'title' => $request->get('title'), 'course_id' => $request->get('course')]
         );
+    }   
+
+    // Edit
+    public function edit(Action $action,Request $request) {
+        return $action->edit($this->file,$request->get('id'));
     }
 
     // Delete
     public function delete($id, Action $action) {
         return $action->delete($this->file,$id);
-    }
-
-    // Edit
-    public function edit(Action $action,Request $request) {
-        return $action->edit($this->file,$request->get('id'));
     }
 }

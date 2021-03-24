@@ -45,7 +45,7 @@ class VerificationController extends Controller
     }
 
     //  Verification warning 
-    public function warningVerification() {
+    public function noticeVerification() {
         return view('auth.verify');
     }
 

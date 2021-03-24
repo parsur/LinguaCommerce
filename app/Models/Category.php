@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use ShiftOneLabs\LaravelCascadeDeletes\CascadesDeletes;
 
-
 /**
  * @property int $id
  * @property string $name
  * @property int $status
  * @property SubCategory[] $subCategories
  */
+
 class Category extends Model
 {
     public $timestamps = false;
@@ -20,13 +20,19 @@ class Category extends Model
      * Cascade deletes.
      */
     use CascadesDeletes;
-    protected $cascadeDeletes = ['courses', 'subCategories', 'statuses'];
+    protected $cascadeDeletes = ['articles', 'courses', 'subCategories', 'statuses', 'media'];
 
     /**
      * @var array
      */
     protected $fillable = ['name'];
 
+    /**
+     * Get all of the category articles.
+     */
+    public function articles() {
+        return $this->hasMany('App\Models\Article');
+    }
 
     /**
      * Get all of the category courses.

@@ -77,14 +77,14 @@ class ImageController extends Controller
         $imageUpload->save();
     }
 
-    // Delete
-    public function delete(Action $action, $id) {
-        return $action->deleteWithImage(Media::class,$id,'url');
-    }
-
     // Edit
     public function edit(Action $action,Request $request) {
         return $action->edit(Media::class,$request->get('id'));
+    }
+    
+    // Delete
+    public function delete(Action $action, $id) {
+        return $action->deleteWithImage(Media::class,$id,'url');
     }
 }
 

@@ -44,12 +44,11 @@ class VideoController extends Controller
 
         $output = array('success' => $success_output);
         return response()->json($output);
-
     }
 
     // Add Video
     public function add($request, $id, $type) {
-        // Insert Course videos
+        // Insert course videos
         Media::updateOrCreate(
             ['id' => $request->get('id')],
             ['url' => $request->get('aparat_url'), 'media_id' => $id, 'media_type' => $type, 'type' => Media::VIDEO]

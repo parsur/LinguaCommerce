@@ -1,8 +1,9 @@
 {{-- Form --}}
 @include('includes.form.category')
+
 {{-- Category --}}
 <div class="row">
-  <div class="col-md-12 mb-2">
+  <div class="col-md-12 mt-3">
     <label for="categories">در دسته بندی اول:</label>
     <select class="custom-select" id="categories" name="categories">
       @foreach($categories as $category)

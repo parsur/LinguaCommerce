@@ -2,13 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+
 use App\Models\Course;
+use App\Models\Category;
+use App\Models\SubCategory;
 use App\DataTables\CourseDataTable;
 use App\Http\Requests\StoreCourseRequest;
 use App\Providers\Action;
+use App\Providers\CourseArticleAction;
 use App\Providers\SuccessMessages;
 use App\Providers\EnglishConvertion;
-use Illuminate\Http\Request;
+use Auth;
 use DB;
 use File;
 
@@ -31,21 +36,18 @@ class CourseController extends Controller
     }
 
     // Get Course Page
-    public function new(Request $request) {
+    public function new(Request $request, CourseArticleAction $action) {
         // Edit
         if($request->get('id')) {
             $vars['course'] = Course::find($request->get('id'));
         } else {
             $vars['course'] = '';
         }
+
         // Categories
-        $vars['categories'] = \App\Models\Category::select('id','name')->get();
+        $vars['categories'] = Category::select('id','name')->with('courses')->get();
         // Sub Categories
-        $vars['subCategories'] = \App\Models\SubCategory::select('id','name')->get();
-        // Status
-        $vars['status'] = \App\Models\Status::select('id','status')->get();
-        // Description
-        $vars['description'] = \App\Models\Description::select('id','description')->get();
+        $vars['subCategories'] = SubCategory::select('id','name')->with('courses')->get();
 
         return view('course.create', $vars);
     }
@@ -117,52 +119,59 @@ class CourseController extends Controller
         }
     }
 
-    // Edit Course
-    public function edit(Action $action, Request $request) {
-        // Edit
-        return $action->editCourseArticle(Course::class, $request->get('id'));
+    // Edit
+    public function edit(CourseArticleAction $action, Request $request) {
+        return $action->edit(Course::class, $request->get('id'));
     }
 
-    // Delete Each Course
+    // Delete
     public function delete(Action $action,$id) {
         return $action->delete(Course::class, $id);
     }
 
-    // Show course page
+    // Show course list page
     public function show() {
         // Courses
-        $vars['courses'] = Course::all();
+        $vars['courses'] = Course::select('name','created_at','updated_at')->with('statuses:status_id,status',
+        'description:description_id,description','category:id,name','subCategory:id,name', 'media:media_id,url');
         // Categories
-        $vars['categories'] = \App\Models\Category::select('id', 'name')->get();
+        $vars['categories'] = Category::select('id', 'name')->with('courses')->get();
         // Sub Category
-        $vars['subCategories'] = \App\Models\SubCategory::select('id', 'name')->get();
+        $vars['subCategories'] = SubCategory::select('id', 'name')->with('courses')->get();
         
         return response()->json($vars);
-    }
+    } 
 
     // Search
-    public function search(Action $action,Request $request) {
-        $action->search(Course::class,$request->get('search'),'name');
+    public function search(Action $action, Request $request) {
+        return $action->search(Course::class,$request->get('search'),'name');
     }
 
-
-    // Admin details
-    public function details(Request $request) {
-        return $this->detailsHandler($request->get('id'));
+    // Details
+    public function details(CourseArticleAction $action, Request $request) {
+        return $action->details($request->get('id'), Course::class, 'course', $request->get('role'));
     }
+
+     // Details
+     public function test() {
+         $test = $this->test2();
+        return response()->json(compact('test'));
+    }
+
 
     // User details
-    public function userDetails($id) {
-        return $this->detailsHandler($request->get('id'), 'user');
-    }   
+    // public function userDetails($id, CourseArticleAction $action) {
+    //     return $this->detailsHandler($request->get('id'), 'user');
+    // }   
 
-    public function detailsHandler($id, $role = 'admin') {
-        $vars['course'] = Course::find($id);
+    // // Detials handler
+    // public function detailsHandler($id, $role = 'admin') {
+    //     $vars['course'] = Course::find($id);
 
-        if($role != 'admin')
-            return response()->json($vars);
+    //     if($role != 'admin')
+    //         return response()->json($vars);
 
-        return view('course.details', $vars);
-    }
+    //     return view('course.details', $vars);
+    // }
 
 }

@@ -45,7 +45,14 @@ class SubCategory extends Model
      * Get all of the sub category courses.
      */
     public function courses() {
-        return $this->hasMany('App\Models\Course');
+        return $this->hasMany('App\Models\Course', 'subCategory_id');
+    }
+
+    /**
+     * Get all of the sub category courses.
+     */
+    public function articles() {
+        return $this->hasMany('App\Models\Article', 'subCategory_id');
     }
 
     /*

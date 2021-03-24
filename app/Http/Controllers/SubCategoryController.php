@@ -17,10 +17,10 @@ class SubCategoryController extends Controller
 {
     // get Category Data
     public function list(Request $request) {
-
         $datatable = new SubCategoryDataTable;
+        
+        // Sub categories
         $vars['subCategoryTable'] = $datatable->html();
-
         // Categories
         $vars['categories'] = Category::select('name','id')->get();
 
@@ -32,7 +32,7 @@ class SubCategoryController extends Controller
         return $datatable->render('category.subCategoryList');
     }
 
-    // Storing And Updating Category
+    // Store or Update Category
     public function store(StoreSubCategoryRequest $request,SuccessMessages $message) {
         // Add
         $this->add($request);
@@ -45,7 +45,7 @@ class SubCategoryController extends Controller
             $success_output = $message->getUpdate();
         }
 
-        $output = array('success'   =>  $success_output);
+        $output = array('success' => $success_output);
         return response()->json($output);
     }
 

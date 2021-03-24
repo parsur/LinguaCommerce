@@ -27,7 +27,7 @@ class ImageDataTable extends DataTable
             ->editColumn('url', function(Media $image) {
                 return "<img src=/images/" . $image->url . " height='auto' width='80%' />";
             })
-            ->addColumn('media_id', function (Media $image) {
+            ->editColumn('media_id', function (Media $image) {
                 return $image->media->title;
             })
             ->filterColumn('media_id', function ($query, $keyword) {

@@ -45,6 +45,8 @@ Route::group(['middleware' => ['auth','isAdmin']], function () {
         Route::get('details', 'CourseController@details')->name('details');
         // Search
         Route::post('search', 'CourseController@search');
+        // Search
+        Route::get('search', 'CourseController@search');
     });
     // Course Image
     Route::group(['prefix' => 'courseImage', 'as' => 'courseImage.'], function () {
@@ -180,7 +182,7 @@ Route::group(['middleware' => ['auth','verified']], function() {
         Route::get('showCart', 'OrderController@showCart');
         // Submitted orders to be shown for admin and user
         Route::get('showOrder', 'OrderController@showOrder');
-        Route::get('userDetails/{id}','OrderController@userDetails')->name('userDetails');
+        Route::get('userDetails','OrderController@details')->name('userDetails');
         Route::get('delete/{id}','OrderController@delete');
     });
     // Profile
@@ -200,7 +202,7 @@ Route::group(['middleware' => ['auth','verified']], function() {
      Route::group(['prefix' => 'course', 'as' => 'course.'], function () {
         Route::get('show', 'CourseController@show');
         // Details of article shown for user
-        Route::get('userDetails', 'CourseController@userDetails')->name('userDetails')->middleware('signed');
+        Route::get('userDetails', 'CourseController@details')->name('userDetails')->middleware('signed');
     });
     // Course comment
     Route::group(['prefix' => 'courseComment', 'as' => 'courseComment.'], function() {
@@ -227,7 +229,7 @@ Route::post('login', 'Auth\LoginController@store');
 // Forgotten password
 Route::get('/forgot-password', 'Auth\ForgotPasswordController@index');
 // Warning verification
-Route::get('/email/verify', 'Auth\VerificationController@warningVerification')->middleware('auth')->name('verification.notice');
+Route::get('/email/verify', 'Auth\VerificationController@noticeVerification')->middleware('auth')->name('verification.notice');
 // Email vertification
 Route::get('/email/verify/{id}/{hash}', 'Auth\VerificationController@finalVerification')->middleware(['auth', 'signed'])->name('verification.verify');
 
@@ -235,3 +237,6 @@ Route::get('/email/verify/{id}/{hash}', 'Auth\VerificationController@finalVerifi
 Route::get('/logout','Auth\LoginController@logout')->name('logout');
 // Home
 Route::get('/', 'HomeController@index')->middleware(['cors']);
+
+
+Route::get('test', 'CourseController@test');

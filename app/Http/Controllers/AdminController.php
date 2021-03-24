@@ -37,6 +37,7 @@ class AdminController extends Controller
 
     // Store Admin
     public function store(StoreUserRequest $request,SuccessMessages $message,UserController $userController) {
+        
         $userController->add($request, User::ADMIN);
 
         // Insert

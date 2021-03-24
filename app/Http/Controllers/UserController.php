@@ -15,8 +15,8 @@ class UserController extends Controller
 {
     // User Dashboard(profile)
     public function show() {
-        $users = User::where('id', auth()->user()->id)->where('role', User::USER)->get();
-        return response()->json($users);
+        $vars['user'] = User::where('id', auth()->user()->id)->where('role', User::USER)->first();
+        return response()->json($vars);
     }
 
     // DataTable to blade
@@ -26,7 +26,7 @@ class UserController extends Controller
 
         // User Table
         $vars['userTable'] = $dataTable->html();
-
+ 
         return view('user.list', $vars);
     }
 
@@ -64,13 +64,14 @@ class UserController extends Controller
         );
     }
 
-    // Delete Each Admin
-    public function delete(Action $action, $id) {
-        return $action->delete(User::class,$id);
-    }
-
     // Edit Data
     public function edit(Action $action,Request $request) {
         return $action->edit(User::class,$request->get('id'));
     }
+    
+    // Delete
+    public function delete(Action $action, $id) {
+        return $action->delete(User::class,$id);
+    }
+
 }

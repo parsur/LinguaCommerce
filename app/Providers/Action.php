@@ -30,19 +30,10 @@ class Action {
      */
     public function editWithStatus($model,$id) {
 
-        $values = $model::where('id', $id)->with('statuses')->first();
+        $values = $model::where('id', $id)->with('statuses:status_id,status')->first();
         return response()->json($values);
     }
-
-    /**
-     * Edit Course and Article.
-     */
-    public function editCourseArticle($model,$id) {
-
-        $values = $model::where('id', $id)->with('statuses', 'media', 'description')->first();
-        return response()->json($values);
-    }
-
+    
     /**
      * Delete
      */
@@ -83,12 +74,12 @@ class Action {
 
             $values = $model::where($column, $search)->paginate(9);
             if(count($values) > 0)
-                return response()->json($values);
+                return response()->json($values); // 200
             else 
                 return response()->json('متاسفانه نتیجه ای یافت نشد', JSON_UNESCAPED_UNICODE); // 404
         }
         else {
-            return response()->json('لطفا نوشته مورد دیدگاه خود را جستجو کنید', JSON_UNESCAPED_UNICODE); // 200
+            return response()->json('لطفا نوشته مورد دیدگاه خود را جستجو کنید', JSON_UNESCAPED_UNICODE); 
         }
     }
 }

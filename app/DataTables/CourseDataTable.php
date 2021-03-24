@@ -65,7 +65,7 @@ class CourseDataTable extends DataTable
             })
             ->addColumn('action',function(Course $course) {
                 $editCourse = URL::signedRoute('course.new', ['id' => $course->id]);
-                $courseDetails = URL::signedRoute('course.details', ['id' => $course->id]);
+                $courseDetails = URL::signedRoute('course.details', ['id' => $course->id, 'role' => 'admin']);
 
                 return '<a onclick="showConfirmationModal('.$course->id.')">
                             <i class="fa fa-trash text-danger" aria-hidden="true"></i>

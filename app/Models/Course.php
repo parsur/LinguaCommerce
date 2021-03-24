@@ -29,6 +29,13 @@ class Course extends Model
      */
     protected $fillable = ['name', 'price', 'category_id', 'subCategory_id'];
 
+    /**
+     * Exclude.
+     */
+    public function scopeExclude($query, $value = []) {
+        return $query->select(array_diff($this->columns, (array) $value));
+    }
+
     /*
      * Get all of the course's image.
      */

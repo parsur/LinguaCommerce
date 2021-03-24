@@ -3,7 +3,7 @@
     <div class="col-md-12 mb-3">
         <label for="description">توضیحات:</label>
         <textarea id="description" name="description" rows="5"
-            class="form-control">{{ optional($table->description)->description }}</textarea>
+            class="form-control">{{ $table->description->description }}</textarea>
     </div>
 </div>
 

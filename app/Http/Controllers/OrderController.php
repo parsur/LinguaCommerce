@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Providers\Action;
-use App\Providers\CartAction;
+use App\Http\Controllers\CartController;
 use App\Mail\SubmittedOrder;
 use App\DataTables\OrderDataTable;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Order;
 use App\Models\Cart;
+use App\Models\Status;
 use Auth;
 use DB;
 
@@ -38,8 +39,8 @@ class OrderController extends Controller
     }
 
     // Show user's carts
-    public function showCart(CartAction $cart) {
-        return $cart->visible();
+    public function showCart(CartController $cart) {
+        return $cart->show();
     }
 
     // Show users's order
@@ -52,22 +53,12 @@ class OrderController extends Controller
 
     // Details
     public function details(Request $request) {
-        return $this->detailsHandler($request->get('factor'));
-    }
-
-    // User details
-    public function userDetails($id) {
-        return $this->detailsHandler($id, 'user');
-    }
-
-    // Factor
-    public function detailsHandler($factor, $role = 'admin') {
         // Each order 
-        $vars['order'] = Order::where('factor', $factor)->first();
+        $vars['order'] = Order::where('factor', $request->get('factor'))->first();
         // Cart
-        $vars['carts'] = Cart::where('factor', $factor)->get();
+        $vars['carts'] = Cart::where('factor', $request->get('factor'))->get();
 
-        if($role != 'admin')
+        if($request->get('role') != 'admin')
             return response()->json($vars);
 
         return view('order.details', $vars);
@@ -76,53 +67,64 @@ class OrderController extends Controller
     // Submit final order
     public function store() {
 
-        DB::beginTransaction();
-        $user_id = auth()->user()->id;
+        $user_id = Auth::user()->id;
 
-        try {
-            // New order
-            $order = new Order();
-            // Username
-            $order->user_id = $user_id;
-            // Count order where user_id is
-            $orderCount = Cart::where('user_id',  $user_id)->count() . 1001;
-            // Order factor
-            $factor = 'saraRajabi' . $orderCount .  $user_id;
-            $order->factor = $factor;
+        // Count unpaid order
+        $unpaidOrder = Order::where('user_id',  $user_id)->whereHas('statuses', function($query) {
+            $query->where('status', Status::VISIBLE);
+        })->count();
+        // Number of unpaid order
+        if($unpaidOrder > 4) {
+            return response()->json('شما اجازه داشتن بیش از ۴ سفارش پرداخت نشده ندارید', JSON_UNESCAPED_UNICODE);
+        } 
+        else {
 
-            // Set order factor for all carts
-            $cartFactors = Cart::where('user_id',  $user_id)
-                ->where('factor', null)->get();
+            DB::beginTransaction();
+            try {
+                // New order
+                $order = new Order();
+                // Username
+                $order->user_id = $user_id;
+                // Count orders where user_id is
+                $orderCount = Cart::where('user_id',  $user_id)->count() . 1001;
+                // Order factor
+                $factor = 'saraRajabi' . $orderCount .  $user_id;
+                $order->factor = $factor;
 
-            foreach($cartFactors as $cartFactor) {
-                $cartFactor->factor = $factor;
-                $cartFactor->save();
+                // Set order factor for all carts
+                $cartFactors = Cart::where('user_id',  $user_id)
+                    ->whereNull('factor')->get();
+
+                foreach($cartFactors as $cartFactor) {
+                    $cartFactor->factor = $factor;
+                    $cartFactor->save();
+                }
+
+                // Order total price
+                $sum = 0;
+                $carts = Cart::where('factor', $factor)->get();
+                foreach($carts as $cart) {
+                    $sum += $cart->course->price;
+                }
+                // Total price
+                $order->total_price = $sum;
+
+                $order->save();
+
+                // Set order status to be directed
+                $orderStatus = $order->statuses()->create(['status' => Status::INVISIBLE]);
+                if($orderStatus) {
+
+                    DB::commit();
+                    // Email
+                    Mail::to(auth()->user()->email)->send(new SubmittedOrder($order, $carts));
+                    return Redirect::to('http://heera.it');
+                }
+
+            } catch(Exception $e) {
+                throw $e;
+                DB::rollBack();
             }
-
-            // Course total price
-            $sum = 0;
-            $carts = Cart::where('factor', $factor)->get();
-            foreach($carts as $cart) {
-                $sum += $cart->course->price;
-            }
-            // Total price
-            $order->total_price = $sum;
-
-            $order->save();
-
-            // Set order status to be directed
-            $orderStatus = $order->statuses()->create(['status' => 1]);
-            if($orderStatus) {
-
-                DB::commit();
-                // Email
-                Mail::to(auth()->user()->email)->send(new SubmittedOrder($order, $carts));
-                return Redirect::to('http://heera.it');
-            }
-
-        } catch(Exception $e) {
-            throw $e;
-            DB::rollBack();
         }
     }
 }

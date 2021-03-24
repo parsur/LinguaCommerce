@@ -9,6 +9,11 @@ Factor: {{ $order->factor }}
 Course names: 
 @foreach($carts as $cart)
     {{ $cart->course->name }}
+    <br>
+    @foreach($cart->course->files as $file)
+        @once Course files: @endonce
+        {{ $file->title }}
+    @endforeach
 @endforeach
 
 @component('mail::button', ['url' => ''])

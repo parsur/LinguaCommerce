@@ -34,9 +34,11 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected function redirectTo(){
-        return redirect()->intended('/')->getTargetUrl();
-    }
+    // protected function redirectTo(){
+    //     return redirect()->intended('/')->getTargetUrl();
+    // }
+    protected $redirectTo = '/email/verify';
+
 
 
     /**
