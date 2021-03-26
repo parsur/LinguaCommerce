@@ -16,14 +16,13 @@ class CourseArticleAction {
     public function details($id, $model, $name, $role) {
 
         $vars["$name"] =$model::where('id', $id)->with('statuses:status_id,status',
-            'description:description_id,description','category:id,name','subCategory:id,name', 'media:media_id,url');
+            'description:description_id,description','category:id,name','subCategory:id,name', 'media:media_id,url')->first();
 
         if($role != 'admin')
             return response()->json($vars);
 
         return view("$name.details", $vars);
     }
-
 
     // Edit
     public function edit($model, $id) {
@@ -32,5 +31,18 @@ class CourseArticleAction {
 
         return response()->json($values);
     }
+
+    // Category and subCategory SubSet
+    public function subSet($request) {
+        // Category or Sub Category
+        switch($request) {
+            case '':
+                return null;
+                break;
+            default:
+                return $request;
+        }
+    }
+    
 
 }

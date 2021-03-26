@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Course;
 use App\Models\Category;
 use App\Models\SubCategory;
+use App\Models\Status;
 use App\DataTables\CourseDataTable;
 use App\Http\Requests\StoreCourseRequest;
 use App\Providers\Action;
@@ -37,6 +38,7 @@ class CourseController extends Controller
 
     // Get Course Page
     public function new(Request $request, CourseArticleAction $action) {
+
         // Edit
         if($request->get('id')) {
             $vars['course'] = Course::find($request->get('id'));
@@ -72,9 +74,11 @@ class CourseController extends Controller
 
     // Insert
     public function add($request) {
-
+ 
         $id = $request->get('id');
 
+        // Course article
+        $courseArticle = new CourseArticleAction;
         // English convertion
         $englishConvertion = new EnglishConvertion();
 
@@ -84,7 +88,8 @@ class CourseController extends Controller
             $course = Course::updateOrCreate(
                 ['id' => $id],
                 ['name' => $request->get('name'), 'price' => $englishConvertion->convert($request->get('price')), 
-                'category_id' => $this->subSet($request->get('categories')), 'subCategory_id' => $this->subSet($request->get('subCategories'))]
+                'category_id' => $courseArticle->subSet($request->get('categories')), 
+                'subCategory_id' => $courseArticle->subSet($request->get('subCategories'))]
             );
             // Status
             $course->statuses()->updateOrCreate(
@@ -106,19 +111,6 @@ class CourseController extends Controller
         }
     }
 
-
-    // Product SubSet
-    public function subSet($request) {
-        // Category Or Sub Category
-        switch($request) {
-            case '':
-                return null;
-                break;
-            default:
-                return $request;
-        }
-    }
-
     // Edit
     public function edit(CourseArticleAction $action, Request $request) {
         return $action->edit(Course::class, $request->get('id'));
@@ -132,12 +124,19 @@ class CourseController extends Controller
     // Show course list page
     public function show() {
         // Courses
-        $vars['courses'] = Course::select('name','created_at','updated_at')->with('statuses:status_id,status',
-        'description:description_id,description','category:id,name','subCategory:id,name', 'media:media_id,url');
+        $vars['courses'] = Course::select('name','price')->with('statuses:status_id,status',
+        'description:description_id,description','category:id,name','subCategory:id,name',
+        'media:media_id,url', 'comments:commentable_id,comment')->get();
+    
         // Categories
-        $vars['categories'] = Category::select('id', 'name')->with('courses')->get();
-        // Sub Category
-        $vars['subCategories'] = SubCategory::select('id', 'name')->with('courses')->get();
+        $vars['categories'] = Category::select('id', 'name')->whereHas('statuses', function($query) {
+            $query->active();
+        })->with('courses')->get();
+
+        // Sub Categories
+        $vars['subCategories'] = SubCategory::select('id', 'name')->whereHas('statuses', function($query) {
+            $query->active();
+        })->with('courses')->get();
         
         return response()->json($vars);
     } 
@@ -150,12 +149,6 @@ class CourseController extends Controller
     // Details
     public function details(CourseArticleAction $action, Request $request) {
         return $action->details($request->get('id'), Course::class, 'course', $request->get('role'));
-    }
-
-     // Details
-     public function test() {
-         $test = $this->test2();
-        return response()->json(compact('test'));
     }
 
 

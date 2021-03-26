@@ -18,6 +18,16 @@ class Status extends Model
     const INVISIBLE = 1;
 
     /**
+     * Scope a query to only include visible categories.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeActive($query) {
+        return $query->where('status', Status::VISIBLE);
+    }
+
+    /**
      * The table associated with the model.
      * 
      * @var string

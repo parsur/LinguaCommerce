@@ -12,11 +12,15 @@ use Illuminate\Support\Facades\Mail;
 use App\Models\Order;
 use App\Models\Cart;
 use App\Models\Status;
+use Shetabit\Multipay\Invoice;
+use Shetabit\Payment\Facade\Payment;
+use Shetabit\Payment\Exceptions\InvalidPaymentException;
 use Auth;
 use DB;
 
 class OrderController extends Controller
-{
+{   
+
     // Datatable To blade
     public function list() {
         // dataTable
@@ -64,32 +68,35 @@ class OrderController extends Controller
         return view('order.details', $vars);
     }
 
+    // Order
+    public $order;
+
     // Submit final order
     public function store() {
-
         $user_id = Auth::user()->id;
 
         // Count unpaid order
         $unpaidOrder = Order::where('user_id',  $user_id)->whereHas('statuses', function($query) {
-            $query->where('status', Status::VISIBLE);
+            $query->active();
         })->count();
+
         // Number of unpaid order
         if($unpaidOrder > 4) {
             return response()->json('شما اجازه داشتن بیش از ۴ سفارش پرداخت نشده ندارید', JSON_UNESCAPED_UNICODE);
         } 
         else {
-
             DB::beginTransaction();
+
             try {
                 // New order
-                $order = new Order();
+                $this->order = new Order();
                 // Username
-                $order->user_id = $user_id;
+                $this->order->user_id = $user_id;
                 // Count orders where user_id is
                 $orderCount = Cart::where('user_id',  $user_id)->count() . 1001;
                 // Order factor
                 $factor = 'saraRajabi' . $orderCount .  $user_id;
-                $order->factor = $factor;
+                $this->order->factor = $factor;
 
                 // Set order factor for all carts
                 $cartFactors = Cart::where('user_id',  $user_id)
@@ -107,24 +114,62 @@ class OrderController extends Controller
                     $sum += $cart->course->price;
                 }
                 // Total price
-                $order->total_price = $sum;
+                $this->order->total_price = $sum;
 
-                $order->save();
+                if($sum == 0) {
 
-                // Set order status to be directed
-                $orderStatus = $order->statuses()->create(['status' => Status::INVISIBLE]);
-                if($orderStatus) {
-
+                    $this->order->save();
                     DB::commit();
+
                     // Email
-                    Mail::to(auth()->user()->email)->send(new SubmittedOrder($order, $carts));
-                    return Redirect::to('http://heera.it');
+                    Mail::to(auth()->user()->email)->send(new SubmittedOrder($this->order, $carts));
+                    return Redirect::to('/'); // Paid
+
+                } else {
+                    // Create new invoice.
+                    $invoice = new Invoice;
+
+                    // // Set invoice amount.
+                    $invoice->amount(100000);
+                    $invoice->Uuid($this->order->factor);
+                    $invoice->transactionId('test');
+                    $invoice->detail(['name','yoRRskdsakjdjksadjkskdksdjkasdjkasjkd']);
+                    $invoice->detail(['phone','your detail1 goes here']);
+                    $invoice->detail(['email','your detail1 goes here']);
+                    $invoice->detail(['description','your detail1 goes here']);
+
+                    $payment = Payment::purchase($invoice, function($driver, $transactionId) {
+                        // Store transactionId in database, to verify payment in future.
+                        $this->order->test = $transactionId;
+                        // Save order
+                        $this->order->save();
+
+                        DB::commit();
+
+                    })->pay()->render();
+
+                    return $payment;
                 }
 
             } catch(Exception $e) {
                 throw $e;
                 DB::rollBack();
             }
+        }
+    }
+
+    // Verify payment
+    public function verify(Request $request) {
+        # you need to verify the payment to insure the invoice has been paid successfully
+        try {
+            $receipt = Payment::amount(1000)->transactionId($transaction_id)->verify();
+
+            // you can show payment's referenceId to user
+            echo $receipt->getReferenceId();
+
+        } catch (InvalidPaymentException $exception) {
+            // when payment is not verified , it throw an exception.
+            echo $exception->getMessage();
         }
     }
 }

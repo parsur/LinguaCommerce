@@ -3,14 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Article;
+use App\Models\Category;
+use App\Models\SubCategory;
+use App\Models\Status;
 use App\DataTables\ArticleDataTable;
 use App\Http\Requests\StoreArticleRequest;
 use App\Providers\Action;
 use App\Providers\CourseArticleAction;
 use App\Providers\SuccessMessages;
-use App\Models\Article;
-use App\Models\Category;
-use App\Models\SubCategory;
 use DB;
 
 class ArticleController extends Controller
@@ -72,12 +73,15 @@ class ArticleController extends Controller
 
         $id = $request->get('id');
 
+        // Course article
+        $courseArticle = new CourseArticleAction;
+
         DB::beginTransaction();
         try {
             $article = Article::updateOrCreate(
                 ['id' => $id],
-                ['title' => $request->get('title'), 'category_id' => $this->subSet($request->get('categories')), 
-                'subCategory_id' => $this->subSet($request->get('subCategories'))]
+                ['title' => $request->get('title'), 'category_id' => $courseArticle->subSet($request->get('categories')), 
+                'subCategory_id' => $courseArticle->subSet($request->get('subCategories'))]
             );
             // Status
             $article->statuses()->updateOrCreate(
@@ -98,18 +102,6 @@ class ArticleController extends Controller
         }
     }
 
-    // Product SubSet
-    public function subSet($request) {
-        // Category Or Subcategory
-        switch($request) {
-            case '':
-                return null;
-                break;
-            default:
-                return $request;
-        }
-    }
-
     // Edit Course
     public function edit(CourseArticleAction $action, Request $request) {
         // Edit
@@ -125,11 +117,18 @@ class ArticleController extends Controller
     public function show() {
         // Articles
         $vars['artciles'] = Article::select('title','created_at','updated_at')->with('statuses:status_id,status',
-            'description:description_id,description','category:id,name','subCategory:id,name', 'media:media_id,url');
+            'description:description_id,description','category:id,name','subCategory:id,name',
+            'media:media_id,url', 'comments:commentable_id,comment')->get();
+        
         // Categories
-        $vars['categories'] = Category::select('id', 'name')->with('articles')->get();
-        // Sub Categories
-        $vars['subCategories'] = SubCategory::select('id', 'name')->with('articles')->get();
+        $vars['categories'] = Category::select('id', 'name')->whereHas('statuses', function($query) {
+            $query->active();
+        })->with('courses')->get();
+        
+        // Sub Category
+        $vars['subCategories'] = SubCategory::select('id', 'name')->whereHas('statuses', function($query) {
+            $query->active();
+        })->with('courses')->get();
 
         return response()->json($vars);
     }

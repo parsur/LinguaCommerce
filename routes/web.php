@@ -178,6 +178,8 @@ Route::group(['middleware' => ['auth','verified']], function() {
     Route::group(['prefix' => 'order', 'as' => 'order.'], function() {
         // Order
         Route::post('store','OrderController@store');
+        // Verify order
+        Route::get('verify','OrderController@verify');
         // Unsubmitted orders in final order page
         Route::get('showCart', 'OrderController@showCart');
         // Submitted orders to be shown for admin and user
@@ -237,6 +239,3 @@ Route::get('/email/verify/{id}/{hash}', 'Auth\VerificationController@finalVerifi
 Route::get('/logout','Auth\LoginController@logout')->name('logout');
 // Home
 Route::get('/', 'HomeController@index')->middleware(['cors']);
-
-
-Route::get('test', 'CourseController@test');

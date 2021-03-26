@@ -30,11 +30,8 @@ class CommentDataTable extends DataTable
                 return $comment->commentable->name;
             })
             ->filterColumn('commentable_id', function ($query, $keyword) {
-                $articles = Comment::whereHas('commentable', function($subquery) use ($keyword) {
-                    $subquery->where('title', 'LIKE', '%'.$keyword.'%');
-                })->get()->pluck('id')->toArray();
-
-                $query->whereIn('id', $articles);
+                $sql = 'id in (select commentable_id from comments where comment like ?)';
+                $query->whereRaw($sql, ["%{$keyword}%"]);
             })
             ->addColumn('action', function(Comment $comment){
                 return <<<ATAG

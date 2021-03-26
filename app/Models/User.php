@@ -12,6 +12,17 @@ use ShiftOneLabs\LaravelCascadeDeletes\CascadesDeletes;
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable, CascadesDeletes;
+
+    public static function boot() 
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            
+            if($model->role == User::ADMIN)
+                $model->email_verified_at = $model->freshTimestamp();
+        });
+    }
     
     // Cascade On Delete
     protected $cascadeDeletes = ['comments', 'orders', 'carts'];
