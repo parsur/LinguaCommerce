@@ -19,7 +19,7 @@ class WhyMeController extends Controller
     // Store data
     public function store(Request $request,SuccessMessages $message) {
         // Header
-        $whyMe = Setting::where('name', 'whyMe')->first();
+        $whyMe = Setting::where('name','whyMe')->first();
         $whyMe->value = $request->get('description');
         $whyMe->save();
 

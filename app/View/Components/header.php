@@ -7,13 +7,13 @@ use Illuminate\View\Component;
 class header extends Component
 {
     public $pageName;
-    public $buttonValue;
+    public $buttonValue; // Default: null
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($pageName,$buttonValue = null)
+    public function __construct($pageName, $buttonValue = null)
     {
         $this->pageName = $pageName;
         $this->buttonValue = $buttonValue;

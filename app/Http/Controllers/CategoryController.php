@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\DataTables\CategoryDataTable;
 use App\Models\Category;
 use App\Models\SubCategory;
@@ -8,7 +9,8 @@ use App\Providers\Action;
 use App\Providers\SuccessMessages;
 use App\Http\Requests\StoreCategoryRequest; 
 use Illuminate\Http\Request;
-use DB;
+use Illuminate\Support\Facades\DB;
+
 
 class CategoryController extends Controller
 {
@@ -30,7 +32,6 @@ class CategoryController extends Controller
 
     // Store
     public function store(StoreCategoryRequest $request,SuccessMessages $message) {
-
         // Add
         $this->add($request);
 
@@ -44,7 +45,6 @@ class CategoryController extends Controller
         }
 
         $output = array('success' => $success_output);
-        
         return response()->json($output);
     }
 
@@ -53,7 +53,7 @@ class CategoryController extends Controller
 
         $id = $request->get('id');
 
-        DB::beginTransaction();
+        \DB::beginTransaction();
         try {
             $category = Category::updateOrCreate(
                 ['id' => $id],
@@ -66,12 +66,13 @@ class CategoryController extends Controller
                 ['status' => $request->get('status'), 'status_type' => Category::class]
             );
 
-            D‌‌‌‌B::commit();
+            \DB::commit();
 
         } catch(Exception $e) {
             throw $e;
-            DB::rollBack();
+            \DB::rollBack();
         }
+        
     }
 
     // Edit

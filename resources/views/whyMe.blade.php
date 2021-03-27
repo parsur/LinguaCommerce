@@ -20,7 +20,7 @@
     <script src="{{ asset('js/tinymceInit.js') }}"></script>
 
     <script>
-        let action = new RequestHandler(null,'#whyMeForm','whyMe');
+        let action = new RequestHandler(null,'#whyMeForm', 'whyMe');
         // Insert
         action.insert();
     </script>

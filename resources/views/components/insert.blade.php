@@ -8,7 +8,7 @@
   
         <div class="modal-body text-right">
           {{-- Form --}}
-          <form id="{{ $formId }}" class="form-horizontal" enctype="multipart/form-data">
+          <form id="{{ $formId ?? null }}" class="form-horizontal" enctype="multipart/form-data">
             <span id="form_output"></span>
   
             @if(isset($content))

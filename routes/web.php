@@ -50,19 +50,19 @@ Route::group(['middleware' => ['auth','isAdmin']], function () {
     });
     // Course Image
     Route::group(['prefix' => 'courseImage', 'as' => 'courseImage.'], function () {
-        Route::get('list', 'course\ImageController@list');
-        Route::get('table/list', 'course\ImageController@courseImageTable')->name('list.table');
-        Route::post('store', 'course\ImageController@store');
-        Route::get('edit', 'course\ImageController@edit');
-        Route::get('delete/{id}', 'course\ImageController@delete');
+        Route::get('list', 'Course\ImageController@list');
+        Route::get('table/list', 'Course\ImageController@courseImageTable')->name('list.table');
+        Route::post('store', 'Course\ImageController@store');
+        Route::get('edit', 'Course\ImageController@edit');
+        Route::get('delete/{id}', 'Course\ImageController@delete');
     });
     // Course Video
     Route::group(['prefix' => 'courseVideo', 'as' => 'courseVideo.'], function () {
-        Route::get('list', 'course\VideoController@list');
-        Route::get('table/list', 'course\VideoController@courseVideoTable')->name('list.table');
-        Route::post('store', 'course\VideoController@store');
-        Route::get('edit', 'course\VideoController@edit');
-        Route::get('delete/{id}', 'course\VideoController@delete');
+        Route::get('list', 'Course\VideoController@list');
+        Route::get('table/list', 'Course\VideoController@courseVideoTable')->name('list.table');
+        Route::post('store', 'Course\VideoController@store');
+        Route::get('edit', 'Course\VideoController@edit');
+        Route::get('delete/{id}', 'Course\VideoController@delete');
     });
     Route::group(['prefix' => 'article', 'as' => 'article.'], function () {
         // Article
@@ -79,19 +79,19 @@ Route::group(['middleware' => ['auth','isAdmin']], function () {
     });
      // Article Video
      Route::group(['prefix' => 'articleImage', 'as' => 'articleImage.'], function () {
-        Route::get('list', 'article\ImageController@list');
-        Route::get('table/list', 'article\ImageController@articleImageTable')->name('list.table');
-        Route::post('store', 'article\ImageController@store');
-        Route::get('edit', 'article\ImageController@edit');
-        Route::get('delete/{id}', 'article\ImageController@delete');
+        Route::get('list', 'Article\ImageController@list');
+        Route::get('table/list', 'Article\ImageController@articleImageTable')->name('list.table');
+        Route::post('store', 'Article\ImageController@store');
+        Route::get('edit', 'Article\ImageController@edit');
+        Route::get('delete/{id}', 'Article\ImageController@delete');
     });
     // Article Video
     Route::group(['prefix' => 'articleVideo', 'as' => 'articleVideo.'], function () {
-        Route::get('list', 'article\VideoController@list');
-        Route::get('table/list', 'article\VideoController@articleVideoTable')->name('list.table');
-        Route::post('store', 'article\VideoController@store');
-        Route::get('edit', 'article\VideoController@edit');
-        Route::get('delete/{id}', 'article\VideoController@delete');
+        Route::get('list', 'Article\VideoController@list');
+        Route::get('table/list', 'Article\VideoController@articleVideoTable')->name('list.table');
+        Route::post('store', 'Article\VideoController@store');
+        Route::get('edit', 'Article\VideoController@edit');
+        Route::get('delete/{id}', 'Article\VideoController@delete');
     });
     // Sub Categories based on Categories   
     Route::get('/subCategory', 'CategoryController@ajax_subCategory');
@@ -168,7 +168,7 @@ Route::group(['middleware' => ['auth','isAdmin']], function () {
 });
 
 // User 
-Route::group(['middleware' => ['auth','verified']], function() {
+Route::group(['middleware' => ['auth','verified','cors']], function() {
     // Cart
     Route::group(['prefix' => 'cart', 'as' => 'cart.'], function() {
         Route::post('store/{course_id}','CartController@store');
@@ -239,3 +239,4 @@ Route::get('/email/verify/{id}/{hash}', 'Auth\VerificationController@finalVerifi
 Route::get('/logout','Auth\LoginController@logout')->name('logout');
 // Home
 Route::get('/', 'HomeController@index')->middleware(['cors']);
+

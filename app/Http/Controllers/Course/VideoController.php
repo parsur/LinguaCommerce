@@ -6,10 +6,11 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Course\StoreVideoRequest;
 use App\DataTables\Course\VideoDataTable;
-use App\Providers\SuccessMessages;
-use App\Providers\Action;
 use App\Models\Media;
 use App\Models\Course;
+use App\Providers\SuccessMessages;
+use App\Providers\Action;
+use App\Providers\CourseArticleAction;
 use DB;
 
 class VideoController extends Controller
@@ -29,9 +30,9 @@ class VideoController extends Controller
         return $dataTable->render('course.videoList');
     }
 
-    public function store(StoreVideoRequest $request,SuccessMessages $message) {
+    public function store(StoreVideoRequest $request, SuccessMessages $message, CourseArticleAction $action) {
         // Insert or update
-        $this->add($request, $request->get('course'), Course::class);
+        $action->video($request, $request->get('course'), Course::class);
         
         // Insert
         if($request->get('button_action') == 'insert') {
@@ -44,15 +45,6 @@ class VideoController extends Controller
 
         $output = array('success' => $success_output);
         return response()->json($output);
-    }
-
-    // Add Video
-    public function add($request, $id, $type) {
-        // Insert course videos
-        Media::updateOrCreate(
-            ['id' => $request->get('id')],
-            ['url' => $request->get('aparat_url'), 'media_id' => $id, 'media_type' => $type, 'type' => Media::VIDEO]
-        );
     }
     
     // Edit

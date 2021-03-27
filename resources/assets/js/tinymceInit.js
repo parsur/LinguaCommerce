@@ -21,6 +21,6 @@ tinymce.init({
         table: { title: 'Table', items: 'inserttable | cell row column | tableprops deletetable' },
         help: { title: 'Help', items: 'help' }
     },
-    content_style: "css/tinymce.css",
+    content_style: "/css/tinymce.css",
     language: 'fa'
 });

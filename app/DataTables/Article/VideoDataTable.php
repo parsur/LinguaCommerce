@@ -79,7 +79,7 @@ class VideoDataTable extends DataTable
                 ->responsive(true)
                 ->dom('PBCfrtip')
                 ->orderBy(1)
-                ->language(asset('js/Persian.json'));
+                ->language(asset('js/persian.json'));
     }
 
     /**

@@ -73,7 +73,6 @@ function success(data) {
         window.dt.draw(false);
 }
 
-
 // Error
 function error(data) {
     // Parse To Json

@@ -65,8 +65,8 @@
             $('#name').val(data.name);
             $('#email').val(data.email);
             $('#phone_number').val(data.phone_number);
-            $('#password').val('رمز عبور جدید');
-            $('#password2').val('رمز عبور جدید');
+            $('#password').val('NewPassword');
+            $('#password-confirm').val('NewPassword');
           }
         })
       }

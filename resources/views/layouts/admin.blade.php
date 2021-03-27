@@ -3,15 +3,20 @@
 
 <!-- Head -->
 @section('head')
-    <meta charset="utf-8">
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="پنل ادمین، کنترل ادمین"> 
-    <meta name="keywords" content="ادمین، داشبورد، پنل">  
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>@yield('title')</title>
-    {{-- App --}}
-    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    <head>
+        {{-- TinyMce --}}
+        <script src="https://cdn.tiny.cloud/1/j7pd9et1cw5vwcu34uqsawojdofcldb4jwhtc13w4qwa7uh5/tinymce/5/tinymce.min.js" 
+            referrerpolicy="origin"></script>
+        <meta charset="utf-8">
+        <meta name="csrf-token" content="{{ csrf_token() }}" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="پنل ادمین، کنترل ادمین"> 
+        <meta name="keywords" content="ادمین، داشبورد، پنل">  
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>@yield('title')</title>
+        {{-- App --}}
+        <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    </head>
 @show
 
 <body id="body" class="hold-transition sidebar-mini">
@@ -84,7 +89,7 @@
                                     {{-- Video List --}}
                                     <x-urlAddress text="ویدئو های پوستر" fontAwesome="null" route="{{ url('articleVideo/list ') }}" /> 
                                     {{-- Comment List --}}
-                                    <x-urlAddress text="دیدگاه" fontAwesome="null" route="{{ url('articleComment/list ') }}" />        
+                                    <x-urlAddress text="نظرات" fontAwesome="null" route="{{ url('articleComment/list ') }}" />        
                                 </x-slot>
                             </x-urlAddressParent>
                             
@@ -140,9 +145,6 @@
         <script src="{{ mix('js/app.js') }}"></script>
         {{-- Ajax Requests --}}
         <script src="{{ asset('js/RequestHandler.js') }}"></script>
-        {{-- TinyMce --}}
-        <script src="https://cdn.tiny.cloud/1/j7pd9et1cw5vwcu34uqsawojdofcldb4jwhtc13w4qwa7uh5/tinymce/5/tinymce.min.js" 
-            referrerpolicy="origin"></script>
 
         <script>
             // Ajax Setup

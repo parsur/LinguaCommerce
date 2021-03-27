@@ -6,11 +6,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Article\StoreVideoRequest;
 use App\DataTables\Article\VideoDataTable;
-use App\Providers\SuccessMessages;
-use App\Providers\Action;
 use App\Models\Video;
 use App\Models\Article;
 use App\Models\Media;
+use App\Providers\SuccessMessages;
+use App\Providers\Action;
+use App\Providers\CourseArticleAction;
 
 class VideoController extends Controller
 {
@@ -29,10 +30,10 @@ class VideoController extends Controller
         return $dataTable->render('article.videoList');
     }
 
-    public function store(StoreVideoRequest $request,SuccessMessages $message, \App\Http\Controllers\Course\VideoController $articleVideo) {
+    public function store(StoreVideoRequest $request,SuccessMessages $message, CourseArticleAction $action) {
 
         // Insert or update
-        $articleVideo->add($request, $request->get('article'), Article::class);
+        $action->video($request, $request->get('article'), Article::class);
         
         // Insert
         if($request->get('button_action') == 'insert') {

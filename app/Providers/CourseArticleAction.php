@@ -1,8 +1,11 @@
 <?php
 
 namespace App\Providers;
+
 use App\Models\Cart;
 use App\Models\Order;
+use App\Models\Media;
+use File;
 
 class CourseArticleAction {
 
@@ -43,6 +46,42 @@ class CourseArticleAction {
                 return $request;
         }
     }
-    
+
+    // Add Image
+    public function image($request, $id, $type) {
+        // Update
+        $imageUpload = Media::find($request->get('id'));
+        if(!$imageUpload) {
+            // Insert
+            $imageUpload = new Media();
+        }
+        $imageUpload->media_id = $id;
+        $imageUpload->media_type = $type;
+        // 0 = image
+        $imageUpload->type = Media::IMAGE;
+
+        if($request->hasFile('images')) {
+            foreach($request->file('images') as $image) {
+                // File
+                $file = $image->getClientOriginalName();
+
+                if(isset($file)) {
+                    File::delete(public_path("images/$imageUpload->url")); 
+                    $imageUpload->url = $file;
+                    $image->move(public_path('images'), $file);
+                }
+            }
+        }
+        $imageUpload->save();
+    }
+
+    // Add Video
+    public function video($request, $id, $type) {
+        // Insert course videos
+        Media::updateOrCreate(
+            ['id' => $request->get('id')],
+            ['url' => $request->get('aparat_url'), 'media_id' => $id, 'media_type' => $type, 'type' => Media::VIDEO]
+        );
+    }
 
 }

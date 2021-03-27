@@ -67,8 +67,8 @@
             $('#name').val(data.name);
             $('#email').val(data.email);
             $('#phone_number').val(data.phone_number);
-            $('#password').val('newPassword');
-            $('#password-confirm').val('newPassword');
+            $('#password').val('NewPassword');
+            $('#password-confirm').val('NewPassword');
           }
         })
       }

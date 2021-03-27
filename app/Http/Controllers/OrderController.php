@@ -117,7 +117,6 @@ class OrderController extends Controller
                 $this->order->total_price = $sum;
 
                 if($sum == 0) {
-
                     $this->order->save();
                     DB::commit();
 
@@ -130,7 +129,7 @@ class OrderController extends Controller
                     $invoice = new Invoice;
 
                     // // Set invoice amount.
-                    $invoice->amount(100000);
+                    $invoice->amount($sum);
                     $invoice->Uuid($this->order->factor);
                     $invoice->transactionId('test');
                     $invoice->detail(['name','yoRRskdsakjdjksadjkskdksdjkasdjkasjkd']);
@@ -143,7 +142,6 @@ class OrderController extends Controller
                         $this->order->test = $transactionId;
                         // Save order
                         $this->order->save();
-
                         DB::commit();
 
                     })->pay()->render();

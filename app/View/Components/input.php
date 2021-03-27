@@ -8,8 +8,8 @@ class input extends Component
 {
     public $key;
     public $name;
-    public $type;
-    public $value;
+    public $type; // Default: text
+    public $value; // Default: null
     
     /**
      * Create a new component instance.

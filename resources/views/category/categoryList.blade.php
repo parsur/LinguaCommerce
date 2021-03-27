@@ -54,15 +54,15 @@
 
                 $.ajax({
                     url: "{{ url('category/edit') }}",
-                    method: 'get',
-                    data: { id: id },
-                    success: function (data) {  
+                    method: "get",
+                    data: {id: $id},
+                    success: function(data) {
                         $('#id').val($id);
                         $('#button_action').val('update');
                         $('#action').val('ویرایش');
                         $('#name').val(data.name);
                         $('#status').val(data.statuses.status).trigger('change');
-                    }
+                    } 
                 })
             }
         });

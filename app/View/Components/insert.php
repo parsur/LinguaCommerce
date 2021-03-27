@@ -7,13 +7,13 @@ use Illuminate\View\Component;
 class insert extends Component
 {
     public $size;
-    public $formId;
+    public $formId; // Default: null
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($size,$formId = null)
+    public function __construct($size, $formId = null)
     {
         $this->size = $size;
         $this->formId = $formId;

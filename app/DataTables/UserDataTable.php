@@ -79,7 +79,7 @@ class UserDataTable extends DataTable
                 ->pageLength(8)
                 ->dom('PBCfrtip')
                 ->orderBy(1)
-                ->language(asset('js/Persian.json'));
+                ->language(asset('js/persian.json'));
     }
 
     /**

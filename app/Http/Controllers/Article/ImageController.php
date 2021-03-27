@@ -6,10 +6,11 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\DataTables\Article\ImageDataTable;
 use App\Http\Requests\Article\StoreImageRequest;
-use App\Providers\SuccessMessages;
-use App\Providers\Action;
 use App\Models\Article;
 use App\Models\Media;
+use App\Providers\SuccessMessages;
+use App\Providers\Action;
+use App\Providers\CourseArticleAction;
 use File;
 use DB;
 
@@ -34,10 +35,10 @@ class ImageController extends Controller
     }
 
     // Store
-    public function store(StoreImageRequest $request,SuccessMessages $message,\App\Http\Controllers\Course\ImageController $courseImage ) {
+    public function store(StoreImageRequest $request,SuccessMessages $message,CourseArticleAction $action) {
 
         // insert or update
-        $courseImage->add($request, $request->get('article'), Article::class);
+        $action->image($request, $request->get('article'), Article::class);
 
         // Insert
         if($request->get('button_action') == 'insert') {

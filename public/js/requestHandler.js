@@ -19,7 +19,7 @@ class RequestHandler {
     insert() {
         // Store or Update
         $(window.formId).on('submit', function (event) {
-            //tinyMCE.triggerSave();
+            tinyMCE.triggerSave();
             event.preventDefault();
             // Form Data
             var form_data = new FormData(this);
@@ -72,7 +72,6 @@ function success(data) {
     if(window.dt != null)
         window.dt.draw(false);
 }
-
 
 // Error
 function error(data) {

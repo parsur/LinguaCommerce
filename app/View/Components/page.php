@@ -8,7 +8,7 @@ class page extends Component
 {
     public $title;
     public $description;
-    public $formId;
+    public $formId; // Default: null
     
     /**
      * Create a new component instance.

@@ -9,7 +9,7 @@
     <span id="form_output"></span>
     
     {{-- Form Submittion --}}
-    <form id="{{ $formId }}" class="tableBackground" enctype="multipart/form-data">
+    <form id="{{ $formId ?? null }}" class="tableBackground" enctype="multipart/form-data">
         @csrf
 
         {{-- Content --}}

@@ -95,7 +95,7 @@ class SubCategoryDataTable extends DataTable
                 Button::make('print')
             )
             ->dom('Bfrtip')
-            ->language(asset('js/Persian.json'));
+            ->language(asset('js/persian.json'));
     }
 
     /**

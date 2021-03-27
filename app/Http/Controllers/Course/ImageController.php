@@ -6,10 +6,11 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\DataTables\Course\ImageDataTable;
 use App\Http\Requests\Course\StoreImageRequest;
-use App\Providers\SuccessMessages;
-use App\Providers\Action;
 use App\Models\Media;
 use App\Models\Course;
+use App\Providers\SuccessMessages;
+use App\Providers\Action;
+use App\Providers\CourseArticleAction;
 use File;
 
 
@@ -26,15 +27,15 @@ class ImageController extends Controller
         return view('course.imageList', $vars);
     }
 
-    // Get Course Image
+    // Get course image
     public function courseImageTable(ImageDataTable $dataTable) {
         return $dataTable->render('course.imageList');
     }
 
     // Store
-    public function store(StoreImageRequest $request,SuccessMessages $message) {
+    public function store(StoreImageRequest $request, SuccessMessages $message, CourseArticleAction $action) {
         // insert or update
-        $this->add($request, $request->get('course'), Course::class);
+        $action->image($request, $request->get('course'), Course::class);
 
         // Insert
         if($request->get('button_action') == 'insert') {
@@ -47,34 +48,6 @@ class ImageController extends Controller
         
         $output = array('success' => $success_output);
         return response()->json($output);
-    }
-
-    // Add Image
-    public function add($request, $id, $type) {
-        // Update
-        $imageUpload = Media::find($request->get('id'));
-        if(!$imageUpload) {
-            // Insert
-            $imageUpload = new Media();
-        }
-        $imageUpload->media_id = $id;
-        $imageUpload->media_type = $type;
-        // 0 = image
-        $imageUpload->type = Media::IMAGE;
-
-        if($request->hasFile('images')) {
-            foreach($request->file('images') as $image) {
-                // File
-                $file = $image->getClientOriginalName();
-
-                if(isset($file)) {
-                    File::delete(public_path("images/$imageUpload->url")); 
-                    $imageUpload->url = $file;
-                    $image->move(public_path('images'), $file);
-                }
-            }
-        }
-        $imageUpload->save();
     }
 
     // Edit
