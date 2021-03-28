@@ -4,9 +4,6 @@
 <!-- Head -->
 @section('head')
     <head>
-        {{-- TinyMce --}}
-        <script src="https://cdn.tiny.cloud/1/j7pd9et1cw5vwcu34uqsawojdofcldb4jwhtc13w4qwa7uh5/tinymce/5/tinymce.min.js" 
-            referrerpolicy="origin"></script>
         <meta charset="utf-8">
         <meta name="csrf-token" content="{{ csrf_token() }}" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -145,6 +142,8 @@
         <script src="{{ mix('js/app.js') }}"></script>
         {{-- Ajax Requests --}}
         <script src="{{ asset('js/RequestHandler.js') }}"></script>
+        {{-- ckeditor --}}
+        <script src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
 
         <script>
             // Ajax Setup

@@ -18,10 +18,12 @@ mix.setResourceRoot('../');
 mix.js('resources/assets/js/app.js', 'public/js')
     // React
     .js('resources/assets/js/react', 'public/js/reactJs').react()
-    // Tinymce initialization
-    .js('resources/assets/js/tinymceInit.js', 'public/js/tinymceInit.js')
-    // Tinymce(read only) initialization
-    .js('resources/assets/js/tinymceInitReadOnly.js', 'public/js/tinymceInitReadOnly.js')
+    // ckeditor
+    .js('resources/assets/js/ckeditor/ckeditor.js', 'public/js/ckeditor/ckeditor.js')
+    // ckeditor initialization
+    .js('resources/assets/js/ckeditor/ckeditorInit.js', 'public/js/ckeditor/ckeditorInit.js')
+    // ckeditor(read only) initialization
+    .js('resources/assets/js/ckeditor/ckeditorInitReadOnly.js', 'public/js/ckeditor/ckeditorInitReadOnly.js')
     // Comment Submission
     .js('resources/assets/js/commentSubmission.js', 'public/js/commentSubmission.js')
     // Image preview
@@ -41,7 +43,7 @@ mix.js('resources/assets/js/app.js', 'public/js')
     // App Css
     .css('resources/assets/css/auth.css', 'public/css/auth.css')
     // App Css
-    .css('resources/assets/css/tinymce.css', 'public/css/tinymce.css')
+    .css('resources/assets/css/ckeditor.css', 'public/css/ckeditor.css')
     // App Sass
     .sass('resources/assets/sass/app.scss','public/css');
 

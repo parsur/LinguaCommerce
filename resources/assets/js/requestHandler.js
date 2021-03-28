@@ -19,7 +19,6 @@ class RequestHandler {
     insert() {
         // Store or Update
         $(window.formId).on('submit', function (event) {
-            tinyMCE.triggerSave();
             event.preventDefault();
             // Form Data
             var form_data = new FormData(this);

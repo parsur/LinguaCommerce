@@ -15,9 +15,6 @@
 
 @section('scripts')
   @parent
-
-  <script src="{{ asset('js/tinymceInitReadOnly.js') }}"></script>
-
   {{-- Course Table --}}
   {!! $consultationTable->scripts() !!}
 

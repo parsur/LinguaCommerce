@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\DataTables\Article\CommentDataTable;
 use App\Http\Requests\StoreCommentRequest;
 use App\Providers\SuccessMessages;
+use App\Providers\CourseArticleAction;
 use App\Providers\Action;
 
 class CommentController extends Controller
@@ -71,19 +72,14 @@ class CommentController extends Controller
         }
     }
 
-    // Submit the comment
-    public function submit(StoreCommentRequest $request, SuccessMessages $message) {
-        // Set the article's comment visible
-        $comment = Comment::find($request->get('submission'));
-        $comment->statuses()->update(['status' => Status::VISIBLE]);
-        
-        $output = array('success' => $message->getInsert());
-
-        return response()->json($output);
-    }
-
     // Delete
     public function delete($id,Action $action) {
         return $action->delete(Comment::class, $id);
+    }
+
+    // Comment submitted by admin to be shown for user.
+    public function submit(Request $request, CourseArticleAction $action) {
+        // Set the course's comment visible
+        return $action->comment($request->get('submission'));
     }
 }

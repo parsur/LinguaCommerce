@@ -12,6 +12,6 @@
 
 @section('scripts')
 @parent
-    {{-- Tinymce initialization --}}
-    <script src="{{ asset('js/tinymceInitReadOnly.js') }}"></script>
+    {{-- ckeditor initialization --}}
+    <script src="{{ asset('js/ckeditor/ckeditorInitReadOnly.js') }}"></script>
 @endsection

@@ -16,9 +16,11 @@ require('select2/dist/js/select2');
 require('particles.js');
 
 // Tinymce
-// window.tinymce = require('tinymce/tinymce');
+// window.tinymce = require('tinymce/tinymce.min.js');
 // require('tinymce/icons/default');
 // require('tinymce/themes/silver');
-// require('tinymce/plugins/paste');
+// require('tinymce/plugins');
 // require('tinymce/plugins/link');
 // require('tinymce/plugins/directionality');
+
+

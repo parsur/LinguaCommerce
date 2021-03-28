@@ -22,8 +22,8 @@
 
 @section('scripts')
 @parent
-    {{-- Tinymce initialization --}}
-    <script src="{{ asset('js/tinymceInit.js') }}"></script>
+    {{-- ckeditor initialization --}}
+    <script src="{{ asset('js/ckeditor/ckeditorInit.js') }}"></script>
 
     <script>
         let action = new RequestHandler(null, '#articleForm', 'article');
@@ -53,7 +53,7 @@
             $('#action').val('ویرایش');
             $('#title').val(data.title);
             $('#price').val(data.price);
-            $('#description').val(data.description.description);
+            editor.setData(data.description.description);
             $('#status').val(data.statuses.status).trigger('change');
             $('#subCategories').val(data.subCategory_id).trigger('change');
             $('#categories').val(data.category_id).trigger('change');

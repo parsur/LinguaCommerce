@@ -26,8 +26,8 @@
 
 @section('scripts')
 @parent
-    {{-- Tinymce initialization --}}
-    <script src="{{ asset('js/tinymceInit.js') }}"></script>
+    {{-- ckeditor initialization --}}
+    <script src="{{ asset('js/ckeditor/ckeditorInit.js') }}"></script>
 
     <script>
         // Action object
@@ -53,13 +53,13 @@
                 }
             })
         }
-        // Display data after editing
+        // Display data for editing
         function displayData(data) {
             $('#button_action').val('update');
             $('#action').val('ویرایش');
             $('#name').val(data.name);
             $('#price').val(data.price);
-            $('#description').val(data.description.description);
+            editor.setData(data.description.description);
             $('#status').val(data.statuses.status).trigger('change');
         }
 

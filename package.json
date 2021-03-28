@@ -9,7 +9,7 @@
         "prod": "npm run production",
         "production": "mix --production"
     },
-    "name": "saraRajabi",
+    "name": "SaraRajabi",
     "version": "1.0.0",
     "description": "<p align=\"center\"><a href=\"https://laravel.com\" target=\"_blank\"><img src=\"https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg\" width=\"400\"></a></p>",
     "main": "webpack.mix.js",
@@ -21,6 +21,7 @@
         "@fortawesome/fontawesome-free": "^5.15.2",
         "@fortawesome/fontawesome-svg-core": "^1.2.32",
         "bootstrap": "^4.6.0",
+        "ckeditor4": "github:ckeditor/ckeditor4-releases#full/latest",
         "datatables.net": "^1.10.24",
         "datatables.net-bs4": "^1.10.24",
         "datatables.net-buttons-dt": "^1.7.0",
@@ -41,8 +42,7 @@
         "sass": "^1.32.8",
         "sass-loader": "^11.0.1",
         "select2": "^4.1.0-rc.0",
-        "styled-components": "^5.2.1",
-        "tinymce": "^5.7.0"
+        "styled-components": "^5.2.1"
     },
     "devDependencies": {
         "postcss": "^8.2.8",

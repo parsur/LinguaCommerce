@@ -34,11 +34,11 @@
     </div>
 @else
     {{-- If there were not any content --}}
-    <x-emptyContent title="رسانه ای برای این مقاله وجود ندارد" text="افزودن رسانه" route="/article/imageList" />
+    <x-emptyContent title="رسانه ای برای این مقاله وجود ندارد" text="افزودن رسانه" route="/articleImage/list" />
 @endif
 
 {{-- Script --}}
 @section('scripts')
 @parent  
-    <script src="{{ asset('js/tinymceInitReadOnly.js') }}"></script>
+    <script src="{{ asset('js/ckeditor/ckeditorInitReadOnly.js') }}"></script>
 @endsection

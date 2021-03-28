@@ -16,8 +16,8 @@
 
 @section('scripts')
 @parent
-    {{-- Tinymce initialization --}}
-    <script src="{{ asset('js/tinymceInit.js') }}"></script>
+    {{-- ckeditor initialization --}}
+    <script src="{{ asset('js/ckeditor/ckeditorInit.js') }}"></script>
 
     <script>
         let action = new RequestHandler(null,'#whyMeForm', 'whyMe');

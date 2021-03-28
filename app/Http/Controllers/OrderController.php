@@ -73,10 +73,10 @@ class OrderController extends Controller
 
     // Submit final order
     public function store() {
-        $user_id = Auth::user()->id;
+        $user = User::find(Auth::user()->id);
 
         // Count unpaid order
-        $unpaidOrder = Order::where('user_id',  $user_id)->whereHas('statuses', function($query) {
+        $unpaidOrder = Order::where('user_id',  $user->id)->whereHas('statuses', function($query) {
             $query->active();
         })->count();
 
@@ -91,15 +91,15 @@ class OrderController extends Controller
                 // New order
                 $this->order = new Order();
                 // Username
-                $this->order->user_id = $user_id;
+                $this->order->user_id = $user->id;
                 // Count orders where user_id is
-                $orderCount = Cart::where('user_id',  $user_id)->count() . 1001;
+                $orderCount = Cart::where('user_id',  $user->id)->count() . 1001;
                 // Order factor
-                $factor = 'saraRajabi' . $orderCount .  $user_id;
+                $factor = 'saraRajabi' . $orderCount .  $user->id;
                 $this->order->factor = $factor;
 
                 // Set order factor for all carts
-                $cartFactors = Cart::where('user_id',  $user_id)
+                $cartFactors = Cart::where('user_id',  $user->id)
                     ->whereNull('factor')->get();
 
                 foreach($cartFactors as $cartFactor) {
@@ -132,14 +132,15 @@ class OrderController extends Controller
                     $invoice->amount($sum);
                     $invoice->Uuid($this->order->factor);
                     $invoice->transactionId('test');
-                    $invoice->detail(['name','yoRRskdsakjdjksadjkskdksdjkasdjkasjkd']);
-                    $invoice->detail(['phone','your detail1 goes here']);
-                    $invoice->detail(['email','your detail1 goes here']);
-                    $invoice->detail(['description','your detail1 goes here']);
+                    $invoice->detail(['name', $user->name]);
+                    $invoice->detail(['phone', $user->phone_number]);
+                    $invoice->detail(['email', $user->email]);
+                    $invoice->detail(['description','Order payment']);
 
                     $payment = Payment::purchase($invoice, function($driver, $transactionId) {
                         // Store transactionId in database, to verify payment in future.
                         $this->order->test = $transactionId;
+                        
                         // Save order
                         $this->order->save();
                         DB::commit();

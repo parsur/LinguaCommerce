@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
 // Admin
 Route::group(['middleware' => ['auth','isAdmin']], function () {
     // Admin
@@ -167,7 +166,7 @@ Route::group(['middleware' => ['auth','isAdmin']], function () {
     });
 });
 
-// User 
+// User
 Route::group(['middleware' => ['auth','verified','cors']], function() {
     // Cart
     Route::group(['prefix' => 'cart', 'as' => 'cart.'], function() {
@@ -234,9 +233,10 @@ Route::get('/forgot-password', 'Auth\ForgotPasswordController@index');
 Route::get('/email/verify', 'Auth\VerificationController@noticeVerification')->middleware('auth')->name('verification.notice');
 // Email vertification
 Route::get('/email/verify/{id}/{hash}', 'Auth\VerificationController@finalVerification')->middleware(['auth', 'signed'])->name('verification.verify');
-
 // logout
 Route::get('/logout','Auth\LoginController@logout')->name('logout');
 // Home
-Route::get('/', 'HomeController@index')->middleware(['cors']);
+Route::get('/', 'HomeController@index')->middleware(['cors']); 
+
+
 

@@ -5,6 +5,8 @@ namespace App\Providers;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\Media;
+use App\Models\Comment;
+use App\Models\Status;
 use File;
 
 class CourseArticleAction {
@@ -82,6 +84,16 @@ class CourseArticleAction {
             ['id' => $request->get('id')],
             ['url' => $request->get('aparat_url'), 'media_id' => $id, 'media_type' => $type, 'type' => Media::VIDEO]
         );
+    }
+
+    // Comment submitted by admin to be shown for user.
+    public function comment($request) {
+        // Set the course's comment visible
+        $comment = Comment::find($request);
+        $comment->statuses()->update(['status' => Status::VISIBLE]);
+        
+        $output = array('success' => '<div class="alert alert-success">دیدگاه کاربر با موفقیت تایید شد</div>');
+        return response()->json($output);
     }
 
 }

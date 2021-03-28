@@ -7,8 +7,9 @@ use App\Http\Controllers\Controller;
 use App\DataTables\Course\CommentDataTable;
 use App\Http\Requests\StoreCommentRequest;
 use App\Providers\Action;
-use App\Models\Comment;
+use App\Providers\CourseArticleAction;
 use App\Providers\SuccessMessages;
+use App\Models\Comment;
 use App\Models\Course;
 use App\Models\Status;
 use DB;
@@ -80,13 +81,9 @@ class CommentController extends Controller
     }
 
     // Comment submitted by admin to be shown for user.
-    public function submit(Request $request) {
+    public function submit(Request $request, CourseArticleAction $action) {
         // Set the course's comment visible
-        $comment = Comment::find($request->get('submission'));
-        $comment->statuses()->update(['status' => Status::VISIBLE]);
-        
-        $output = array('success' => '<div class="alert alert-success">دیدگاه کاربر با موفقیت تایید شد</div>');
-        return response()->json($output);
+        return $action->comment($request->get('submission'));
     }
 
 }

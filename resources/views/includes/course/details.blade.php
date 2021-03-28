@@ -12,5 +12,5 @@
 @else 
     <hr>
     {{-- It there were not any content --}}
-    <x-emptyContent title="محتوایی برای این دوره وجود ندارد" text="افزودن محتوا" route="/course/fileList" />
+    <x-emptyContent title="محتوایی برای این دوره وجود ندارد" text="افزودن محتوا" route="/courseFile/list" />
 @endif
