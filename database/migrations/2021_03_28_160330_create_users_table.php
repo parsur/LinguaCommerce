@@ -22,8 +22,8 @@ class CreateUsersTable extends Migration {
 			$table->dateTime('email_verified_at')->nullable();
 			$table->string('password');
 			$table->string('remember_token', 100)->nullable();
+			$table->integer('role')->default(0)->comment('0 = User | 1 = Admin');
 			$table->timestamps(10);
-			$table->string('role', 20)->comment('0 = User\n\n1 = Admin\n');
 		});
 	}
 

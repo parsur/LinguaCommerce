@@ -124,9 +124,9 @@ class CourseController extends Controller
     // Show course list page
     public function show() {
         // Courses
-        $vars['courses'] = Course::select('name','price')->with('statuses:status_id,status',
-        'description:description_id,description','category:id,name','subCategory:id,name',
-        'media:media_id,url', 'comments:commentable_id,comment')->get();
+        $vars['courses'] = Course::select('id', 'name', 'price')->with('statuses:status_id,status',
+            'description:description_id,description','category:id,name','subCategory:id,name',
+            'media:media_id,url', 'comments:commentable_id,comment')->get();
     
         // Categories
         $vars['categories'] = Category::select('id', 'name')->whereHas('statuses', function($query) {

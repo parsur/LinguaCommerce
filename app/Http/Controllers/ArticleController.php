@@ -116,7 +116,7 @@ class ArticleController extends Controller
     // Show
     public function show() {
         // Articles
-        $vars['artciles'] = Article::select('title','created_at','updated_at')->with('statuses:status_id,status',
+        $vars['artciles'] = Article::select('id', 'title','created_at','updated_at')->with('statuses:status_id,status',
             'description:description_id,description','category:id,name','subCategory:id,name',
             'media:media_id,url', 'comments:commentable_id,comment')->get();
         

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFilesTable extends Migration {
+class CreateConsultationsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -13,12 +13,11 @@ class CreateFilesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('files', function(Blueprint $table)
+		Schema::create('consultations', function(Blueprint $table)
 		{
-			$table->integer('id', true)->comment('0 = image
-1 = video');
-			$table->text('url')->nullable();
-			$table->integer('course_id')->index('course_id');
+			$table->integer('id', true);
+			$table->string('phone_number', 50)->nullable();
+			$table->integer('user_id')->nullable()->index('user_id');
 		});
 	}
 
@@ -30,7 +29,7 @@ class CreateFilesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('files');
+		Schema::drop('consultations');
 	}
 
 }

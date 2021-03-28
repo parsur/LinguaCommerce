@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCartsTable extends Migration {
+class CreateOrdersTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -13,12 +13,14 @@ class CreateCartsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('carts', function(Blueprint $table)
+		Schema::create('orders', function(Blueprint $table)
 		{
 			$table->integer('id', true);
-			$table->string('factor', 55)->nullable();
+			$table->string('factor', 35);
+			$table->string('total_price', 55);
+			$table->string('test', 265)->nullable()->comment('// TransactionId
+In test process.');
 			$table->integer('user_id')->index('user_id');
-			$table->integer('course_id')->index('course_id');
 		});
 	}
 
@@ -30,7 +32,7 @@ class CreateCartsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('carts');
+		Schema::drop('orders');
 	}
 
 }

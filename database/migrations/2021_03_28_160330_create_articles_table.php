@@ -16,10 +16,8 @@ class CreateArticlesTable extends Migration {
 		Schema::create('articles', function(Blueprint $table)
 		{
 			$table->integer('id', true);
-			$table->string('title', 120);
+			$table->string('title', 120)->unique('title_UNIQUE');
 			$table->timestamps(10);
-			$table->integer('article_id')->nullable();
-			$table->string('article_type')->nullable();
 			$table->integer('category_id')->nullable()->index('category');
 			$table->integer('subCategory_id')->nullable()->index('subCategory');
 		});

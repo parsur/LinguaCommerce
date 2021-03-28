@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePostersTable extends Migration {
+class CreateStatusTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -13,14 +13,12 @@ class CreatePostersTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('posters', function(Blueprint $table)
+		Schema::create('status', function(Blueprint $table)
 		{
-			$table->integer('id', true)->comment('0 = image
-1 = video');
-			$table->text('url')->nullable();
-			$table->integer('type');
-			$table->integer('poster_id');
-			$table->string('poster_type');
+			$table->integer('id', true);
+			$table->integer('status')->comment('0 = VISIBLE | 1 = INVISIBLE');
+			$table->integer('status_id');
+			$table->string('status_type', 100);
 		});
 	}
 
@@ -32,7 +30,7 @@ class CreatePostersTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('posters');
+		Schema::drop('status');
 	}
 
 }

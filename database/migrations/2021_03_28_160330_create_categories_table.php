@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStatusTable extends Migration {
+class CreateCategoriesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -13,12 +13,10 @@ class CreateStatusTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('status', function(Blueprint $table)
+		Schema::create('categories', function(Blueprint $table)
 		{
 			$table->integer('id', true);
-			$table->integer('status')->comment('0 = VISIBLE /////////\\n1 = INVISIBLE /////////\\n');
-			$table->integer('status_id');
-			$table->string('status_type', 100);
+			$table->string('name', 100)->unique('name_UNIQUE');
 		});
 	}
 
@@ -30,7 +28,7 @@ class CreateStatusTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('status');
+		Schema::drop('categories');
 	}
 
 }

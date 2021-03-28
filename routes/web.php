@@ -239,4 +239,10 @@ Route::get('/logout','Auth\LoginController@logout')->name('logout');
 Route::get('/', 'HomeController@index')->middleware(['cors']); 
 
 
+// Route::get('test', function() {
+//     $vars['courses'] = \App\Models\Course::with('statuses:status_id,status',
+//     'description:description_id,description','category:id,name','subCategory:id,name',
+//     'media:media_id,url', 'comments:commentable_id,comment')->select('id', 'name', 'price')->get();
+//     return $vars;
+// });
 

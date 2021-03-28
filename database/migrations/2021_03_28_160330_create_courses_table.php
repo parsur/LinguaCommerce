@@ -16,7 +16,7 @@ class CreateCoursesTable extends Migration {
 		Schema::create('courses', function(Blueprint $table)
 		{
 			$table->integer('id', true)->comment('0 = Active\n//\n1 = Inactive');
-			$table->string('name', 220);
+			$table->string('name', 120)->unique('name_UNIQUE');
 			$table->float('price', 10, 0)->nullable();
 			$table->integer('category_id')->nullable()->index('c_id');
 			$table->integer('subCategory_id')->nullable()->index('sc_id');

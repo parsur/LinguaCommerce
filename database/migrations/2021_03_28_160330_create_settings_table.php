@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCommentsTable extends Migration {
+class CreateSettingsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -13,14 +13,11 @@ class CreateCommentsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('comments', function(Blueprint $table)
+		Schema::create('settings', function(Blueprint $table)
 		{
 			$table->integer('id', true);
-			$table->integer('user_id');
-			$table->text('idea');
-			$table->dateTime('created_at')->nullable();
-			$table->integer('commentable_id');
-			$table->string('commentable_type');
+			$table->string('name');
+			$table->text('value')->nullable();
 		});
 	}
 
@@ -32,7 +29,7 @@ class CreateCommentsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('comments');
+		Schema::drop('settings');
 	}
 
 }
