@@ -45,6 +45,27 @@ ClassicEditor
         'redo'
       ]
     },
+    mediaEmbed: {
+      providers: 
+      [
+        {
+          name: 'aparat',
+          url: /^aparat\.com/,
+          html: match => {
+            const url = getAttribute( 'url' );
+
+            return (
+              '<div style="position: relative; padding-bottom: 100%; height: 0; ">' +
+                `<iframe src="${ url }" ` +
+                  'style="position: absolute; width: 100%; height: 100%; top: 0; left: 0;" ' +
+                  'frameborder="0" width="480" height="270" allowfullscreen allow="autoplay">' +
+                '</iframe>' +
+              '</div>'
+            );
+          }
+        },
+      ],
+    },
     language: 'fa',
     image: {
       toolbar: [
@@ -65,10 +86,17 @@ ClassicEditor
   })
   .then(editor => {
     window.editor = editor;
+    editor.execute( 'fontFamily', 'shabnam' );
+    /**
+		 * The media registry managing the media providers in the editor.
+		 *
+		 * @member {module:media-embed/mediaregistry~MediaRegistry} #registry
+		 */
+		this.registry = new MediaRegistry( editor.locale, editor.config.get( 'mediaEmbed' ) );
   })
   .catch(error => {
-    console.error('Oops, something went wrong!');
     console.error('Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:');
-    console.warn('Build id: s89oahtndfi-x395lbqqgvz0');
     console.error(error);
   });
+
+  

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Consultation;
 use App\Providers\Action;
 use App\Providers\SuccessMessages;
+use App\Providers\StoreConsultationRequest;
 use App\DataTables\ConsultationDataTable;
 use Illuminate\Http\Request;
 use DB;
@@ -39,7 +40,7 @@ class ConsultationController extends Controller
     }
 
     // Submit final order
-    public function store(Request $request) {
+    public function store(StoreConsultationRequest $request) {
 
         DB::beginTransaction();
         try {

@@ -44,7 +44,7 @@ class CommentController extends Controller
             $comment->statuses()->create(['status' => Status::INVISIBLE]);
 
             DB::commit();
-            return response()->json('دیدگاه مرتبط به دوره با موفقیت ویرایش شد', JSON_UNESCAPED_UNICODE);
+            return response()->json('دیدگاه مرتبط به دوره با موفقیت ثبت شد', JSON_UNESCAPED_UNICODE);
 
         } catch(Exception $e) {
             throw $e;
@@ -53,9 +53,8 @@ class CommentController extends Controller
     }
 
     // Edit
-    public function edit($id) {
-        $vars['courseComment'] = Comment::findOrFail($id);
-        return response()->json($vars); 
+    public function edit(Action $action, Request $request) {
+        $action->edit(Comment::class, $request->get('id')); 
     }
 
     // Update

@@ -42,9 +42,14 @@ class ArticleController extends Controller
         }
     
         // Categories
-        $vars['categories'] = Category::select('id', 'name')->with('articles')->get();
+        $vars['categories'] = Category::select('id', 'name')->whereHas('statuses', function($query) {
+            $query->active();
+        })->get();
+
         // Sub Categories
-        $vars['subCategories'] = SubCategory::select('id', 'name')->with('articles')->get();
+        $vars['subCategories'] = SubCategory::select('id', 'name')->whereHas('statuses', function($query) {
+            $query->active();
+        })->get();
 
         return view('article.create', $vars);
     }
@@ -118,17 +123,17 @@ class ArticleController extends Controller
         // Articles
         $vars['artciles'] = Article::select('id', 'title','created_at','updated_at')->with('statuses:status_id,status',
             'description:description_id,description','category:id,name','subCategory:id,name',
-            'media:media_id,url', 'comments:commentable_id,comment')->get();
+            'media:media_id,url')->get();
         
         // Categories
         $vars['categories'] = Category::select('id', 'name')->whereHas('statuses', function($query) {
             $query->active();
-        })->with('courses')->get();
+        })->get();
         
-        // Sub Category
+        // Sub Categories
         $vars['subCategories'] = SubCategory::select('id', 'name')->whereHas('statuses', function($query) {
             $query->active();
-        })->with('courses')->get();
+        })->get();
 
         return response()->json($vars);
     }

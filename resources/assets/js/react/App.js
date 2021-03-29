@@ -6,7 +6,7 @@ function App() {
 
   useEffect(() => {
     // here is fetch id. change it if you want
-    fetch("http://sararajabi.com/home")
+    fetch("api/")
     .then(res => res.json())
     .then((data) => {
       setCategories(data);

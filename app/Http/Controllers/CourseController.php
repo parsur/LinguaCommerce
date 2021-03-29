@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Models\Course;
 use App\Models\Category;
 use App\Models\SubCategory;
@@ -47,9 +46,14 @@ class CourseController extends Controller
         }
 
         // Categories
-        $vars['categories'] = Category::select('id','name')->with('courses')->get();
+        $vars['categories'] = Category::select('id', 'name')->whereHas('statuses', function($query) {
+            $query->active();
+        })->with('courses')->get();
+
         // Sub Categories
-        $vars['subCategories'] = SubCategory::select('id','name')->with('courses')->get();
+        $vars['subCategories'] = SubCategory::select('id', 'name')->whereHas('statuses', function($query) {
+            $query->active();
+        })->with('courses')->get();
 
         return view('course.create', $vars);
     }
@@ -126,31 +130,30 @@ class CourseController extends Controller
         // Courses
         $vars['courses'] = Course::select('id', 'name', 'price')->with('statuses:status_id,status',
             'description:description_id,description','category:id,name','subCategory:id,name',
-            'media:media_id,url', 'comments:commentable_id,comment')->get();
+            'media:media_id,url')->get();
     
         // Categories
         $vars['categories'] = Category::select('id', 'name')->whereHas('statuses', function($query) {
             $query->active();
-        })->with('courses')->get();
+        })->get();
 
         // Sub Categories
         $vars['subCategories'] = SubCategory::select('id', 'name')->whereHas('statuses', function($query) {
             $query->active();
-        })->with('courses')->get();
+        })->get();
         
         return response()->json($vars);
     } 
 
     // Search
     public function search(Action $action, Request $request) {
-        return $action->search(Course::class,$request->get('search'),'name');
+        return $action->search(Course::class, $request->get('search'),'name');
     }
 
     // Details
     public function details(CourseArticleAction $action, Request $request) {
         return $action->details($request->get('id'), Course::class, 'course', $request->get('role'));
     }
-
 
     // User details
     // public function userDetails($id, CourseArticleAction $action) {

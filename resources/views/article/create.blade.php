@@ -25,6 +25,9 @@
     {{-- ckeditor initialization --}}
     <script src="{{ asset('js/ckeditor/ckeditorInit.js') }}"></script>
 
+    {{-- Sub categories based on categories --}}
+    <script src="{{ asset('js/subCategoryWithCategory.js') }}"></script>
+
     <script>
         let action = new RequestHandler(null, '#articleForm', 'article');
         // Insert

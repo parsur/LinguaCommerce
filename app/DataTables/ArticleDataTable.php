@@ -57,7 +57,6 @@ class ArticleDataTable extends DataTable
             ->addColumn('status', function(Article $article) {
                 if($article->statuses->status === Status::VISIBLE) return 'موجود';
                 else if($article->statuses->status === Status::INVISIBLE) return 'ناموجود';
-                else '-';
             })
             ->filterColumn('status', function ($query, $keyword) {
                 switch($keyword) {

@@ -20,8 +20,13 @@ class CourseArticleAction {
     // Details
     public function details($id, $model, $name, $role) {
 
-        $vars["$name"] =$model::where('id', $id)->with('statuses:status_id,status',
-            'description:description_id,description','category:id,name','subCategory:id,name', 'media:media_id,url')->first();
+        $vars["$name"] =$model::where('id', $id)->with(['statuses:status_id,status',
+            'description:description_id,description','category:id,name','subCategory:id,name', 
+            'media:media_id,url', 'comments' => function($query) {
+                $query->select('id', 'commentable_id', 'comment')->whereHas('statuses', function ($query) {
+                    $query->active();
+                });
+            }])->first();
 
         if($role != 'admin')
             return response()->json($vars);
@@ -95,5 +100,4 @@ class CourseArticleAction {
         $output = array('success' => '<div class="alert alert-success">دیدگاه کاربر با موفقیت تایید شد</div>');
         return response()->json($output);
     }
-
 }

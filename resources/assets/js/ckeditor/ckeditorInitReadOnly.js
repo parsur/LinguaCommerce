@@ -6,7 +6,8 @@ ClassicEditor
 .then( editor => {
     window.editor = editor;
     editor.isReadOnly = true;
-} )
+    editor.contentsLangDirection= 'rtl';
+})
 .catch( error => {
     console.error( error );
-} );
+});

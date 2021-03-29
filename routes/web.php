@@ -197,25 +197,26 @@ Route::group(['middleware' => ['auth','verified','cors']], function() {
     Route::group(['prefix' => 'article', 'as' => 'article.'], function () {
         Route::get('show', 'ArticleController@show');
         // Details of article shown for user
-        Route::get('userDetails', 'ArticleController@userDetails')->name('userDetails')->middleware('signed');
+        Route::get('userDetails', 'ArticleController@userDetails')->name('userDetails');
+        // ->middleware('signed') must be pondered with the mixture of laravel and react
     });
      // Course
      Route::group(['prefix' => 'course', 'as' => 'course.'], function () {
         Route::get('show', 'CourseController@show');
         // Details of article shown for user
-        Route::get('userDetails', 'CourseController@details')->name('userDetails')->middleware('signed');
+        Route::get('userDetails', 'CourseController@details')->name('userDetails');
     });
     // Course comment
     Route::group(['prefix' => 'courseComment', 'as' => 'courseComment.'], function() {
         Route::post('store/{course_id}', 'CourseCommentController@store');
-        Route::get('edit/{course_id}', 'CourseCommentController@edit');
+        Route::get('edit', 'CourseCommentController@edit');
         Route::post('update/{course_id}', 'CourseCommentController@update');
         Route::get('delete/{id}','CourseCommentController@delete');
     });
     // Article comment
     Route::group(['prefix' => 'articleComment', 'as' => 'articleComment.'], function() {
         Route::post('store/{article_id}', 'ArticleCommentController@store');
-        Route::get('edit/{article_id}', 'ArticleCommentController@edit');
+        Route::get('edit', 'ArticleCommentController@edit');
         Route::post('update/{article_id}', 'ArticleCommentController@update');
         Route::get('delete/{id}','ArticleCommentController@delete');
     });
@@ -236,13 +237,5 @@ Route::get('/email/verify/{id}/{hash}', 'Auth\VerificationController@finalVerifi
 // logout
 Route::get('/logout','Auth\LoginController@logout')->name('logout');
 // Home
-Route::get('/', 'HomeController@index')->middleware(['cors']); 
-
-
-// Route::get('test', function() {
-//     $vars['courses'] = \App\Models\Course::with('statuses:status_id,status',
-//     'description:description_id,description','category:id,name','subCategory:id,name',
-//     'media:media_id,url', 'comments:commentable_id,comment')->select('id', 'name', 'price')->get();
-//     return $vars;
-// });
+Route::get('api/', 'HomeController@index')->middleware(['cors']); 
 

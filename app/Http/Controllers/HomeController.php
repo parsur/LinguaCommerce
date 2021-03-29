@@ -7,11 +7,6 @@ use App\Models\Setting;
 
 class HomeController extends Controller
 {
-    // App blade
-    public function app() {
-        return view('app');
-    }
-
     /**
      * Show the home page.
      *

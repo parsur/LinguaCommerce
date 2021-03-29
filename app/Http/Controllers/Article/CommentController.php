@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Article;
 
 use Illuminate\Http\Request;
-use App\Models\Comment;
 use App\Http\Controllers\Controller;
 use App\DataTables\Article\CommentDataTable;
 use App\Http\Requests\StoreCommentRequest;
 use App\Providers\SuccessMessages;
 use App\Providers\CourseArticleAction;
 use App\Providers\Action;
+use App\Models\Comment;
 
 class CommentController extends Controller
 {
@@ -41,7 +41,7 @@ class CommentController extends Controller
 
             DB::commit();
             
-            return response()->json('دیدگاه درباره دوره با موفقیت ویرایش شد', JSON_UNESCAPED_UNICODE);
+            return response()->json('دیدگاه درباره دوره با موفقیت ثبت شد', JSON_UNESCAPED_UNICODE);
 
         } catch(Exception $e) {
             throw $e;
@@ -50,9 +50,8 @@ class CommentController extends Controller
     }
 
     // Edit
-    public function edit($id) {
-        $vars['courseComment'] = Comment::findOrFail($id);
-        return response()->json($vars); 
+    public function edit(Request $request) {
+        $action->edit(Comment::class, $request->get('id')); 
     }
 
     // Update
@@ -73,7 +72,7 @@ class CommentController extends Controller
     }
 
     // Delete
-    public function delete($id,Action $action) {
+    public function delete($id, Action $action) {
         return $action->delete(Comment::class, $id);
     }
 

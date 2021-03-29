@@ -6,6 +6,7 @@
     "/js/ckeditor/ckeditorInitReadOnly.js": "/js/ckeditor/ckeditorInitReadOnly.js",
     "/js/commentSubmission.js": "/js/commentSubmission.js",
     "/js/imagePreview.js": "/js/imagePreview.js",
+    "/js/subCategoryWithCategory.js": "/js/subCategoryWithCategory.js",
     "/css/app.css": "/css/app.css",
     "/css/ckeditor.css": "/css/ckeditor.css",
     "/css/auth.css": "/css/auth.css",

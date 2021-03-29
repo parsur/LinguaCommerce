@@ -28,7 +28,6 @@ class SubCategoryDataTable extends DataTable
             ->addColumn('status', function (SubCategory $subCategory) {
                 if($subCategory->statuses->status == Status::VISIBLE) return "موجود";
                 else if($subCategory->statuses->status == Status::INVISIBLE) return 'ناموجود';
-                else '-';
             })
             ->filterColumn('status', function ($query, $keyword) {
                 switch($keyword) {
