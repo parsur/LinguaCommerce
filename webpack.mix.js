@@ -1,6 +1,6 @@
 const mix = require('laravel-mix');
 
-mix.setPublicPath('public');
+// mix.setPublicPath('public'); // in public_html
 mix.setResourceRoot('../');
 
 

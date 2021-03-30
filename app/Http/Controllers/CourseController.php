@@ -91,7 +91,7 @@ class CourseController extends Controller
         try {
             $course = Course::updateOrCreate(
                 ['id' => $id],
-                ['name' => $request->get('name'), 'price' => $englishConvertion->convert($request->get('price')), 
+                ['name' => $request->get('name'), 'price' => $request->get('price'), 
                 'category_id' => $courseArticle->subSet($request->get('categories')), 
                 'subCategory_id' => $courseArticle->subSet($request->get('subCategories'))]
             );

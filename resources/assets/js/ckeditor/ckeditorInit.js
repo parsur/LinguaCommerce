@@ -46,7 +46,7 @@ ClassicEditor
       ]
     },
     mediaEmbed: {
-      providers: 
+      extraProviders: 
       [
         {
           name: 'aparat',
@@ -55,12 +55,7 @@ ClassicEditor
             const url = getAttribute( 'url' );
 
             return (
-              '<div style="position: relative; padding-bottom: 100%; height: 0; ">' +
-                `<iframe src="${ url }" ` +
-                  'style="position: absolute; width: 100%; height: 100%; top: 0; left: 0;" ' +
-                  'frameborder="0" width="480" height="270" allowfullscreen allow="autoplay">' +
-                '</iframe>' +
-              '</div>'
+              { $url }
             );
           }
         },
@@ -86,13 +81,7 @@ ClassicEditor
   })
   .then(editor => {
     window.editor = editor;
-    editor.execute( 'fontFamily', 'shabnam' );
-    /**
-		 * The media registry managing the media providers in the editor.
-		 *
-		 * @member {module:media-embed/mediaregistry~MediaRegistry} #registry
-		 */
-		this.registry = new MediaRegistry( editor.locale, editor.config.get( 'mediaEmbed' ) );
+    editor.execute( 'fontFamily', 'shabnam');
   })
   .catch(error => {
     console.error('Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:');

@@ -6,10 +6,10 @@ function App() {
 
   useEffect(() => {
     // here is fetch id. change it if you want
-    fetch("api/")
+    fetch("/home")
     .then(res => res.json())
     .then((data) => {
-      setCategories(data);
+    console.log(data);
     })
   }, []);
 

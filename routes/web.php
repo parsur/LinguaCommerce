@@ -166,64 +166,6 @@ Route::group(['middleware' => ['auth','isAdmin']], function () {
     });
 });
 
-// User
-Route::group(['middleware' => ['auth','verified','cors']], function() {
-    // Cart
-    Route::group(['prefix' => 'cart', 'as' => 'cart.'], function() {
-        Route::post('store/{course_id}','CartController@store');
-        Route::get('show','CartController@show');
-        Route::get('delete/{id}','CartController@delete');
-    });
-    Route::group(['prefix' => 'order', 'as' => 'order.'], function() {
-        // Order
-        Route::post('store','OrderController@store');
-        // Verify order
-        Route::get('verify','OrderController@verify');
-        // Unsubmitted orders in final order page
-        Route::get('showCart', 'OrderController@showCart');
-        // Submitted orders to be shown for admin and user
-        Route::get('showOrder', 'OrderController@showOrder');
-        Route::get('userDetails','OrderController@details')->name('userDetails');
-        Route::get('delete/{id}','OrderController@delete');
-    });
-    // Profile
-    Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
-        Route::post('store', 'UserController@store');
-        Route::get('show', 'UserController@show');
-        Route::get('edit', 'UserController@edit');
-        Route::get('delete/{id}', 'UserController@delete');
-    });
-    // Article
-    Route::group(['prefix' => 'article', 'as' => 'article.'], function () {
-        Route::get('show', 'ArticleController@show');
-        // Details of article shown for user
-        Route::get('userDetails', 'ArticleController@userDetails')->name('userDetails');
-        // ->middleware('signed') must be pondered with the mixture of laravel and react
-    });
-     // Course
-     Route::group(['prefix' => 'course', 'as' => 'course.'], function () {
-        Route::get('show', 'CourseController@show');
-        // Details of article shown for user
-        Route::get('userDetails', 'CourseController@details')->name('userDetails');
-    });
-    // Course comment
-    Route::group(['prefix' => 'courseComment', 'as' => 'courseComment.'], function() {
-        Route::post('store/{course_id}', 'CourseCommentController@store');
-        Route::get('edit', 'CourseCommentController@edit');
-        Route::post('update/{course_id}', 'CourseCommentController@update');
-        Route::get('delete/{id}','CourseCommentController@delete');
-    });
-    // Article comment
-    Route::group(['prefix' => 'articleComment', 'as' => 'articleComment.'], function() {
-        Route::post('store/{article_id}', 'ArticleCommentController@store');
-        Route::get('edit', 'ArticleCommentController@edit');
-        Route::post('update/{article_id}', 'ArticleCommentController@update');
-        Route::get('delete/{id}','ArticleCommentController@delete');
-    });
-});
-
-// Store Consultation 
-Route::post('consultation/store', 'ConsultationController@store')->middleware('storeConsultation');
 // Authentication 
 Auth::routes(['verify' => true]);
 Route::get('login','Auth\LoginController@index')->name('login');
@@ -232,10 +174,8 @@ Route::post('login', 'Auth\LoginController@store');
 Route::get('/forgot-password', 'Auth\ForgotPasswordController@index');
 // Warning verification
 Route::get('/email/verify', 'Auth\VerificationController@noticeVerification')->middleware('auth')->name('verification.notice');
-// Email vertification
+// Email vertification 
 Route::get('/email/verify/{id}/{hash}', 'Auth\VerificationController@finalVerification')->middleware(['auth', 'signed'])->name('verification.verify');
 // logout
 Route::get('/logout','Auth\LoginController@logout')->name('logout');
-// Home
-Route::get('api/', 'HomeController@index')->middleware(['cors']); 
 
