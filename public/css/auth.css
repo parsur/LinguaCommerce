@@ -1,6 +1,6 @@
 /* Body */
 body {
-    font-family: 'BYekan';
+    font-family: 'shabnam';
     height: 100vh;
     background: url("/images/logo_pic.jpg") 50% fixed;
     background-size: cover;
@@ -19,7 +19,7 @@ body {
 
 /* Wrapper and Parent Div */
 .wrapper {
-    font-family: 'BYekan';
+    font-family: 'shabnam';
     display: flex;
     align-items: center;
     flex-direction: column;

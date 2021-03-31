@@ -10,11 +10,15 @@
     top: 0;
     right: -100%;
     transition: 850ms;
+
+    z-index: 20;
 }
 
 .nav-menu.active {
     right: 0;
     transition: 350ms;
+
+    z-index: 20;
 }
 
 .nav-menu-filler {
@@ -24,12 +28,16 @@
     position: fixed;
     top: 0;
     right: -100%;
-    transition: 850ms;  
+    transition: 850ms; 
+
+    z-index: 20;
 }
 
 .nav-menu-filler.active {
     right: 250px;
     transition: 350ms;
+
+    z-index: 20;
 }
 
 @media only screen and (min-width: 900px) {

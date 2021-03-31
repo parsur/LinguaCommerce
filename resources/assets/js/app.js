@@ -12,9 +12,6 @@ require('datatables.net-responsive')
 // Select 2
 require('select2/dist/js/select2');
 
-// particles
-require('particles.js');
-
 // Tinymce
 // window.tinymce = require('tinymce/tinymce.min.js');
 // require('tinymce/icons/default');

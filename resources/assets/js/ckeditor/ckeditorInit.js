@@ -1,20 +1,9 @@
 ClassicEditor
   .create(document.querySelector('#description'), {
-    fontFamily: {
-      options: [
-        'Arial, Helvetica, sans-serif',
-        'Courier New, Courier, monospace',
-        'Georgia, serif',
-        'Lucida Sans Unicode, Lucida Grande, sans-serif',
-        'Tahoma, Geneva, sans-serif',
-        'Times New Roman, Times, serif',
-        'Trebuchet MS, Helvetica, sans-serif',
-        'Verdana, Geneva, sans-serif'
-      ]
-    },
     toolbar: {
       items: [
         'heading',
+        'alignment',
         '|',
         'bold',
         'italic',
@@ -25,41 +14,27 @@ ClassicEditor
         'outdent',
         'indent',
         '|',
+        'imageUpload',
         'blockQuote',
         'insertTable',
-        'htmlEmbed',
         'mediaEmbed',
-        'imageUpload',
-        'imageInsert',
+        'htmlEmbed',
         'exportPdf',
-        'CKFinder',
-        'fontSize',
-        'fontColor',
-        'fontBackgroundColor',
-        'fontFamily',
-        'pageBreak',
-        'horizontalLine',
-        'codeBlock',
-        'alignment',
+        'imageInsert',
+        'redo',
         'undo',
-        'redo'
-      ]
-    },
-    mediaEmbed: {
-      extraProviders: 
-      [
-        {
-          name: 'aparat',
-          url: /^aparat\.com/,
-          html: match => {
-            const url = getAttribute( 'url' );
-
-            return (
-              { $url }
-            );
-          }
-        },
+        '-',
+        'highlight',
+        'fontColor',
+        'fontSize',
+        'fontFamily',
+        'fontBackgroundColor',
+        '-',
+        'previousPage',
+        'nextPage',
+        'pageNavigation'
       ],
+      shouldNotGroupWhenFull: true
     },
     language: 'fa',
     image: {
@@ -78,14 +53,13 @@ ClassicEditor
       ]
     },
     licenseKey: '',
+
+
   })
   .then(editor => {
     window.editor = editor;
-    editor.execute( 'fontFamily', 'shabnam');
   })
   .catch(error => {
     console.error('Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:');
     console.error(error);
   });
-
-  

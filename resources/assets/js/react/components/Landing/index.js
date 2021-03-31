@@ -100,13 +100,13 @@ const Hero = ({welcome, main, desc, data}) => {
                         </Link>
                       </Col>
                       <Col>
-                        <Link to='/' style={{textDecoration:"none"}}>
+                        <Link to='/whyme' style={{textDecoration:"none"}}>
                           <HeroIcon><img src={shop} width='100%' height='100%'/></HeroIcon>
-                          <IconTextContainer><IconText>فروشگاه</IconText></IconTextContainer>
+                          <IconTextContainer><IconText>چرا من؟</IconText></IconTextContainer>
                         </Link>
                       </Col>
                       <Col>
-                        <Link to='/' style={{textDecoration:"none"}}>
+                        <Link to='/consultante' style={{textDecoration:"none"}}>
                           <HeroIcon><img src={callus} width='100%' height='100%'/></HeroIcon>
                           <IconTextContainer><IconText>مشاوره</IconText></IconTextContainer>
                         </Link>

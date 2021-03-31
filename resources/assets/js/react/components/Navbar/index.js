@@ -38,15 +38,15 @@ function NavbarTwo(props) {
                             </MenuLinkTop>
                         </MenuLiTop>
                         <MenuLiTop>
-                            <MenuLinkTop to='/reports'>
+                            <MenuLinkTop to='/consultante'>
                                 <AiFillHome />
                                 <span style={{marginLeft: '16px'}}>مشاوره</span>
                             </MenuLinkTop>
                         </MenuLiTop>
                         <MenuLiTop>
-                            <MenuLinkTop to='/reports'>
+                            <MenuLinkTop to='/whyme'>
                                 <AiFillHome />
-                                <span style={{marginLeft: '16px'}}>فروشگاه</span>
+                                <span style={{marginLeft: '16px'}}>چرا من؟</span>
                             </MenuLinkTop>
                         </MenuLiTop>
                         <MenuLiTop>
@@ -94,13 +94,13 @@ function NavbarTwo(props) {
                             </MenuLink>
                         </MenuLi>
                         <MenuLi>
-                            <MenuLink to='/reports'>
+                            <MenuLink to='/whyme'>
                                 <AiFillHome />
-                                <span style={{marginLeft: '16px'}}>فروشگاه</span>
+                                <span style={{marginLeft: '16px'}}>چرا من</span>
                             </MenuLink>
                         </MenuLi>
                         <MenuLi>
-                            <MenuLink to='/reports'>
+                            <MenuLink to='/consultante'>
                                 <AiFillHome />
                                 <span style={{marginLeft: '16px'}}>مشاوره</span>
                             </MenuLink>

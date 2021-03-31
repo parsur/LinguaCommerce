@@ -1,4 +1,5 @@
 import { AiFillAlert, AiFillAlipayCircle, AiFillCarryOut, AiFillDropboxCircle } from 'react-icons/ai';
+import { Block } from './components/Course/CourseElements';
 
 export const mainPageData =
     {
@@ -45,6 +46,30 @@ export const userDash = [
     to: '/userpage',
     text: 'دیدگاه‌های مقاله',
     icon: <AiFillDropboxCircle />
+  }
+]
+
+export const courseData = [
+  {
+    text: "something"
+  },
+  {
+    text: "sduhiw"
+  },
+  {
+    text: "adwrggv"
+  },
+  {
+    text: "asdrgjil"
+  },
+  {
+    text: "sadwwr"
+  },
+  {
+    text: "ololhjk"
+  },
+  {
+    text: "czvvbbv"
   }
 ]
 

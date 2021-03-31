@@ -12,16 +12,16 @@ class CartController extends Controller
 {
     // Show Cart
     public function show() {
-        $carts = Cart::where('user_id', auth()->user()->id)
+        $vars['carts'] = Cart::where('user_id', auth()->user()->id)
             ->whereNull('factor')->get();
 
-        return response()->json($carts);
+        return response()->json($varts);
     }
 
     // Store
     public function store($course_id,Request $request) {
         // Insert into cart
-        $cart = Cart::create([
+        Cart::create([
             'course_id' => $course_id,
             'user_id' => auth()->user()->id  
         ]);

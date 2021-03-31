@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 // User
-Route::group(['middleware' => ['auth:api','verified','cors']], function() {
+Route::group(['middleware' => ['cors']], function() {
     // Cart
     Route::group(['prefix' => 'cart', 'as' => 'cart.'], function() {
         Route::post('store/{course_id}','CartController@store');

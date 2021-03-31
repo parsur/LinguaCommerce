@@ -49,7 +49,6 @@ mix.js('resources/assets/js/app.js', 'public/js')
     // App Sass
     .sass('resources/assets/sass/app.scss','public/css');
 
-    
 mix.sourceMaps();
 
 

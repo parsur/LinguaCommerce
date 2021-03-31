@@ -4,7 +4,7 @@ import { dash, userDash } from '../../Data';
 import Nsi from '../User/notsignedin';
 
 const UserPage = () => {
-    const [isSignedIn] = useState(true)
+    const [isSignedIn] = useState(true);
     return (
         <>
         <div style={isSignedIn ? {display:"unset"} : {display:"none"}}>

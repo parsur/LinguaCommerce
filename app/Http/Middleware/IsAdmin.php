@@ -21,7 +21,7 @@ class IsAdmin
             return $next($request);
         }
 
-        // 404 Not Found
-        return redirect('/')->with('error', 'شما به بخش ادمین دسترسی ندارید.');
+        // 403 Forbidden
+        return response()->view('errors/403', ['exception' => 'شما اجازه دسترسی به این بخش را ندارید' ], 403);
     }
 }

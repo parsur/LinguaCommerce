@@ -49,10 +49,11 @@ class OrderController extends Controller
 
     // Show users's order
     public function showOrder() {
-        $orders = Order::where('user_id', auth()->user()->id)
+        $vars['orders'] = Cart::where('user_id', auth()->user()->id)
+            ->with('course:id,name,price')
             ->whereNotNull('factor')->get();
 
-        return response()->json($orders);
+        return response()->json($vars);
     }
 
     // Details

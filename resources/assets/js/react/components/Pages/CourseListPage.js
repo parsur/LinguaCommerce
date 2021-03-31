@@ -1,15 +1,17 @@
 import React from 'react';
 import Footer from '../Footer';
 import Navbar from'../Navbar';
+import Course from '../Course';
+import { courseData } from '../../Data';
 
 const CourseListPage = () => {
     return (
         <>
         <Navbar />
-        <h1 style={{margin:'200px 50px', fontSize:'50px'}}>// This is course lists page</h1>
-        <Footer />
+        <Course data={courseData} />
+        <Footer style={{background:"#fff"}} />
         </>
     )
 }
 
-export default CourseListPage
+export default CourseListPage;

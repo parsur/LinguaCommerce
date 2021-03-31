@@ -178,4 +178,4 @@ Route::get('/email/verify', 'Auth\VerificationController@noticeVerification')->m
 Route::get('/email/verify/{id}/{hash}', 'Auth\VerificationController@finalVerification')->middleware(['auth', 'signed'])->name('verification.verify');
 // logout
 Route::get('/logout','Auth\LoginController@logout')->name('logout');
-
+Route::get('/', 'HomeController@app')->middleware(['cors']); 

@@ -20,27 +20,27 @@ class HomeController extends Controller
      */
     public function index() {
         // Home settings
-        // $names = [
-        //     'header',
-        //     'subHeader',
-        //     'description',
-        //     'firstEvent',
-        //     'firstEventUrl',
-        //     'secondEvent',
-        //     'secondEventUrl',
-        //     'thirdEvent',
-        //     'thirdEventUrl',
-        //     'fourthEvent',
-        //     'fourthEventUrl'
-        // ];
-        // $home_settings = Setting::whereIn('name', $names)->select('name', 'value')->get();
+        $names = [
+            'header',
+            'subHeader',
+            'description',
+            'firstEvent',
+            'firstEventUrl',
+            'secondEvent',
+            'secondEventUrl',
+            'thirdEvent',
+            'thirdEventUrl',
+            'fourthEvent',
+            'fourthEventUrl'
+        ];
+        $home_settings = Setting::whereIn('name', $names)->select('name', 'value')->get();
 
-        // $vars = [];
-        // foreach($home_settings as $setting) {
-        //     $vars[$setting->name] = $setting->value;
-        // }
+        $vars = [];
+        foreach($home_settings as $setting) {
+            $vars[$setting->name] = $setting->value;
+        }
 
-        return json_encode('۲۰۰۰', JSON_UNESCAPED_UNICODE);
+        return json_encode($vars, JSON_UNESCAPED_UNICODE);
     }
 
 }
