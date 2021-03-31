@@ -55,17 +55,18 @@ ClassicEditor
           name: 'aparat',
           url: "<style>.h_iframe-aparat_embed_frame",
 
-					html: match => {
-						return (
-							`${ match.input }`
-						);
-					}
+          html: match => {
+            return (
+              `${match.input}`
+            );
+          }
         },
       ]
     },
     // Remove plugin
     removePlugins: ['MediaEmbedToolbar'],
     language: 'fa',
+    // Image
     image: {
       toolbar: [
         'imageTextAlternative',
@@ -74,6 +75,7 @@ ClassicEditor
         'linkImage'
       ]
     },
+    // Table
     table: {
       contentToolbar: [
         'tableColumn',

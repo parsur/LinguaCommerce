@@ -16,7 +16,7 @@
 </div>
 
 {{-- News section --}}
-<h5>اخبار</h5>
+<h5>رویداد</h5>
 <hr>
 <div class="row">
     {{-- First event --}}

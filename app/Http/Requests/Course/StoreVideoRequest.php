@@ -24,7 +24,7 @@ class StoreVideoRequest extends FormRequest
     public function rules()
     {   
         return [
-            'aparat_url' => 'required|url',
+            'aparat_url' => 'required|regex:/^https?:\/\/www\.aparat\.com\/video\/video\/embed/',
             'course' => 'required'
         ];
     }
