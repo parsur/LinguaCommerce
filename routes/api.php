@@ -56,7 +56,7 @@ Route::group(['middleware' => ['cors']], function() {
      Route::group(['prefix' => 'course', 'as' => 'course.'], function () {
         Route::get('show', 'CourseController@show');
         // Details of article shown for user
-        Route::get('userDetails', 'CourseController@details')->name('userDetails');
+        Route::get('details', 'CourseController@details');
     });
     // Course comment
     Route::group(['prefix' => 'courseComment', 'as' => 'courseComment.'], function() {

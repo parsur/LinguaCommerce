@@ -1,5 +1,19 @@
 ClassicEditor
   .create(document.querySelector('#description'), {
+    // Font family
+    fontFamily: {
+      options: [
+        'Arial, Helvetica, sans-serif',
+        'Courier New, Courier, monospace',
+        'Georgia, serif',
+        'Lucida Sans Unicode, Lucida Grande, sans-serif',
+        'Tahoma, Geneva, sans-serif',
+        'Times New Roman, Times, serif',
+        'Trebuchet MS, Helvetica, sans-serif',
+        'Verdana, Geneva, sans-serif'
+      ]
+    },
+    // Toolbar
     toolbar: {
       items: [
         'heading',
@@ -15,12 +29,12 @@ ClassicEditor
         'indent',
         '|',
         'imageUpload',
+        'imageInsert',
         'blockQuote',
         'insertTable',
         'mediaEmbed',
         'htmlEmbed',
         'exportPdf',
-        'imageInsert',
         'redo',
         'undo',
         '-',
@@ -30,12 +44,27 @@ ClassicEditor
         'fontFamily',
         'fontBackgroundColor',
         '-',
-        'previousPage',
-        'nextPage',
-        'pageNavigation'
       ],
-      shouldNotGroupWhenFull: true
+      shouldNotGroupWhenFull: true,
     },
+    // Media embed aparat
+    mediaEmbed: {
+      extraProviders: [
+        {
+          // Aparat
+          name: 'aparat',
+          url: "<style>.h_iframe-aparat_embed_frame",
+
+					html: match => {
+						return (
+							`${ match.input }`
+						);
+					}
+        },
+      ]
+    },
+    // Remove plugin
+    removePlugins: ['MediaEmbedToolbar'],
     language: 'fa',
     image: {
       toolbar: [
@@ -53,8 +82,6 @@ ClassicEditor
       ]
     },
     licenseKey: '',
-
-
   })
   .then(editor => {
     window.editor = editor;
