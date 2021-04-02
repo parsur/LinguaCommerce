@@ -42,10 +42,6 @@ Route::group(['middleware' => ['auth','isAdmin']], function () {
         Route::get('edit', 'CourseController@edit');
         // Details shown for admin
         Route::get('details', 'CourseController@details')->name('details');
-        // Search
-        Route::post('search', 'CourseController@search');
-        // Search
-        Route::get('search', 'CourseController@search');
     });
     // Course Image
     Route::group(['prefix' => 'courseImage', 'as' => 'courseImage.'], function () {
@@ -179,3 +175,6 @@ Route::get('/email/verify/{id}/{hash}', 'Auth\VerificationController@finalVerifi
 // logout
 Route::get('/logout','Auth\LoginController@logout')->name('logout');
 Route::get('/', 'HomeController@app')->middleware(['cors']); 
+
+// React app
+Route::view('/{path?}', 'app');

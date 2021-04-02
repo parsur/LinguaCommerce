@@ -20,16 +20,30 @@ class CourseArticleAction {
     // Details
     public function details($id, $model, $name, $role) {
 
-        $vars["$name"] =$model::where('id', $id)->with(['statuses:status_id,status',
+        $vars["$name"] = $model::where('id', $id)->with(['statuses:status_id,status',
             'description:description_id,description','category:id,name','subCategory:id,name', 
-            'media:media_id,url', 'comments' => function($query) {
+                'comments' => function($query) {
                 $query->select('id', 'commentable_id', 'comment')->whereHas('statuses', function ($query) {
                     $query->active();
                 });
             }])->first();
+        
 
-        if($role != 'admin')
+        if($role != 'admin') {
+             
+            $media_urls = Media::where('media_id', $id)->where('media_type', $model)->get();
+            foreach($media_urls as $media_url) {
+                switch($media_url->type) {
+                    case Media::IMAGE:
+                        $vars[] = ['image_url' => 'http://sararajabi.com/images/' . $media_url->url];
+                        break;
+                    case MEDIA::VIDEO:
+                        $vars[] = ['video_url' => $media_url->url];
+                }
+            }
+
             return response()->json($vars);
+        }
 
         return view("$name.details", $vars);
     }

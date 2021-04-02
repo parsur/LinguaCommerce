@@ -52,11 +52,13 @@ Route::group(['middleware' => ['cors']], function() {
         Route::get('userDetails', 'ArticleController@userDetails')->name('userDetails');
         // ->middleware('signed') must be pondered with the mixture of laravel and react
     });
-     // Course
-     Route::group(['prefix' => 'course', 'as' => 'course.'], function () {
+    // Course
+    Route::group(['prefix' => 'course', 'as' => 'course.'], function () {
         Route::get('show', 'CourseController@show');
         // Details of article shown for user
         Route::get('details', 'CourseController@details');
+        // Search
+        Route::post('search', 'CourseController@search');
     });
     // Course comment
     Route::group(['prefix' => 'courseComment', 'as' => 'courseComment.'], function() {

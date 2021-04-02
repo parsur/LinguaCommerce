@@ -1,4 +1,4 @@
-// Axios
+// bootstrap
 require('./bootstrap');
 
 // Admin

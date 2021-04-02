@@ -68,11 +68,12 @@ class Action {
     /**
      * Search.
      */
-    public function search($model,$search,$coulmn) {
-        // If search is requested
-        if(!empty($search)) {
+    public function search($model, $search, $column) {
 
-            $values = $model::where($column, $search)->paginate(9);
+        // If search is requested
+        if($search != null) {
+            
+            $values = $model::where($column, 'LIKE', "%{$search}%")->get();
             if(count($values) > 0)
                 return response()->json($values); // 200
             else 

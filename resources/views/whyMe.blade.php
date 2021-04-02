@@ -23,5 +23,6 @@
         let action = new RequestHandler(null,'#whyMeForm', 'whyMe');
         // Insert
         action.insert();
+
     </script>
 @endsection

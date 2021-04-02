@@ -31,7 +31,8 @@ class HomeController extends Controller
             'thirdEvent',
             'thirdEventUrl',
             'fourthEvent',
-            'fourthEventUrl'
+            'fourthEventUrl',
+            'footer'
         ];
         $home_settings = Setting::whereIn('name', $names)->select('name', 'value')->get();
 

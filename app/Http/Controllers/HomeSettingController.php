@@ -24,7 +24,8 @@ class HomeSettingController extends Controller
             'thirdEvent',
             'thirdEventUrl',
             'fourthEvent',
-            'fourthEventUrl'
+            'fourthEventUrl',
+            'footer'
         ];
 
         $home_settings = Setting::whereIn('name', $names)->select('name', 'value')->get();
@@ -93,6 +94,11 @@ class HomeSettingController extends Controller
         $home_setting12 = Setting::where('name', 'fourthEventUrl')->first();
         $home_setting12->value = $request->get('fourthEventUrl');
         $home_setting12->save();
+
+        // Footer
+        $home_setting13 = Setting::where('name', 'footer')->first();
+        $home_setting13->value = $request->get('footer');
+        $home_setting13->save();
 
         $success_output = $message->getInsert();
         $output = array('success' => $success_output);

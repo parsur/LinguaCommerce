@@ -53,6 +53,16 @@
     </div>
 </div>
 
+{{-- Footer --}}
+<h5>پاورقی</h5>
+<hr>
+<div class="row">
+    {{-- First event --}}
+    <div class="col-md-12 mb-2">
+        <x-input key="footer" name="پاورقی" value="{{ $setting_footer }}" />
+    </div>
+</div>
+
 
 {{-- Submit button --}}
 <div class="col-md-12 text-center mb-3 mt-3">
