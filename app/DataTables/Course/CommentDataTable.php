@@ -9,8 +9,10 @@ use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
+use \Illuminate\Support\Str;
 use Morilog\Jalali\Jalalian;
 use Carbon\Carbon;
+use URL;
 
 
 class CommentDataTable extends DataTable
@@ -29,6 +31,9 @@ class CommentDataTable extends DataTable
             ->editColumn('created_at', function(Comment $comment){
                 return Jalalian::forge($comment->created_at);
             })
+            ->editColumn('comment', function(Comment $comment) {
+                return Str::limit(optional($comment)->comment, 15, '(جزئیات)');
+            })
             ->addColumn('commentable_id', function (Comment $comment) {
                 return $comment->commentable->name;
             })
@@ -37,15 +42,22 @@ class CommentDataTable extends DataTable
                 $query->whereRaw($sql, ["%{$keyword}%"]);
             })
             ->addColumn('action', function(Comment $comment){
-                return <<<ATAG
-                            <a onclick="showConfirmationModal('{$comment->id}')">
-                                <i class="fa fa-trash text-danger" aria-hidden="true"></i>
-                            </a>
-                            &nbsp;
-                            <a onclick="showSubmissionModal('{$comment->id}')">
-                                <i class="fa fa-paper-plane text-danger" aria-hidden="true"></i>
-                            </a>
-                        ATAG;
+                $details = '';
+
+                if($comment->comment)
+                    $details = URL::signedRoute('courseComment.details', ['id' => $comment->id]);
+
+                return '<a onclick="showConfirmationModal('.$comment->id.')">
+                            <i class="fa fa-trash text-danger" aria-hidden="true"></i>
+                        </a>
+                        &nbsp;
+                        <a onclick="showSubmissionModal('.$comment->id.')">
+                            <i class="fa fa-paper-plane text-danger" aria-hidden="true"></i>
+                        </a>
+                        &nbsp;
+                        <a href="'.$details.'">
+                            <i class="fa fa-info-circle text-danger" aria-hidden="true"></i>
+                        </a>'; 
             });
     }
 
@@ -116,7 +128,7 @@ class CommentDataTable extends DataTable
                 ->searchable(false)
                 ->printable(false)
                 ->orderable(false)
-                ->title('حذف،تایید دیدگاه')
+                ->title('حذف | تایید دیدگاه | جزئیات')
                 ->addClass('column-title')
         ];
     }

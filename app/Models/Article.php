@@ -33,7 +33,7 @@ class Article extends Model
      */
     public function category()
     {
-        return $this->belongsTo('App\Models\Category');
+        return $this->belongsTo('App\Models\Category', 'category_id');
     }
 
     /**
@@ -41,7 +41,7 @@ class Article extends Model
      */
     public function subCategory()
     {
-        return $this->belongsTo('App\Models\SubCategory');
+        return $this->belongsTo('App\Models\SubCategory', 'subCategory_id');
     }
 
     /*

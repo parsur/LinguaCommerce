@@ -9,6 +9,7 @@ use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
+use URL;
 
 class CommentDataTable extends DataTable
 {
@@ -25,6 +26,9 @@ class CommentDataTable extends DataTable
             ->addIndexColumn()
             ->editColumn('created_at', function(Comment $comment){
                 return Jalalian::forge($comment->created_at);
+            })
+            ->editColumn('comment', function(Comment $comment) {
+                return Str::limit(optional($comment)->comment, 30, '(جزئیات)');
             })
             ->addColumn('commentable_id', function (Comment $comment) {
                 return $comment->commentable->name;
@@ -114,7 +118,7 @@ class CommentDataTable extends DataTable
                 ->searchable(false)
                 ->printable(false)
                 ->orderable(false)
-                ->title('حذف،تایید دیدگاه')
+                ->title('حذف | تایید دیدگاه')
                 ->addClass('column-title')
         ];
     }

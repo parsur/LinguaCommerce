@@ -35,14 +35,14 @@ class CourseArticleAction {
             foreach($media_urls as $media_url) {
                 switch($media_url->type) {
                     case Media::IMAGE:
-                        $vars[] = ['image_url' => 'http://sararajabi.com/images/' . $media_url->url];
+                        $images[] = ['image_url' => 'http://sararajabi.com/images/' . $media_url->url];
                         break;
                     case MEDIA::VIDEO:
-                        $vars[] = ['video_url' => $media_url->url];
+                        $videos[] = ['video_url' => $media_url->url];
                 }
             }
 
-            return response()->json($vars);
+            return response()->json([$vars, ['images' => $images], ['videos' => $videos]]);
         }
 
         return view("$name.details", $vars);

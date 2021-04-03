@@ -114,8 +114,6 @@ class OrderController extends Controller
                 foreach($carts as $cart) {
                     $sum += $cart->course->price;
                 }
-                // Total price
-                $this->order->total_price = $sum;
 
                 if($sum == 0) {
                     $this->order->save();

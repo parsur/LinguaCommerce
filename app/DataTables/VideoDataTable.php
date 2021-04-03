@@ -96,7 +96,7 @@ class VideoDataTable extends DataTable
                 ->searchable(false)
                 ->printable(false)
                 ->orderable(false)
-                ->title('حذف،ویرایش')
+                ->title('حذف | ویرایش')
                 ->addClass('column-title')
         ];
     }

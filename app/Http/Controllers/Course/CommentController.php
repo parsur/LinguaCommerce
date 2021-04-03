@@ -24,12 +24,12 @@ class CommentController extends Controller
         // Course comment Table
         $vars['courseCommentTable'] = $dataTable->html();
 
-        return view('course.commentList', $vars);
+        return view('course.comment.list', $vars);
     }
 
     // Get course comment
     public function courseCommentTable(CommentDataTable $dataTable) {
-        return $dataTable->render('course.commentList');
+        return $dataTable->render('course.comment.list');
     }
 
     // Store
@@ -83,6 +83,12 @@ class CommentController extends Controller
     public function submit(Request $request, CourseArticleAction $action) {
         // Set the course's comment visible
         return $action->comment($request->get('submission'));
+    }
+
+    // Details
+    public function details(Request $request) {
+        $vars['comment'] = Comment::find($request->get('id'));
+        return view('course.comment.details', $vars);
     }
 
 }

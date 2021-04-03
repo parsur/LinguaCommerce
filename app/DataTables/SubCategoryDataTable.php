@@ -121,7 +121,7 @@ class SubCategoryDataTable extends DataTable
             ->title('دسته بندی اول')
                 ->addClass('column-title'),
             Column::computed('action') // This column is not in database
-            ->title('حذف،ویرایش')
+            ->title('حذف | ویرایش')
                 ->exportable(false)
                 ->searchable(false)
                 ->printable(false)

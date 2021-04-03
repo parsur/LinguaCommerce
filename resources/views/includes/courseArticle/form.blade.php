@@ -20,7 +20,7 @@
             @endforeach
         </select>
     </div>
-    {{-- Sub Category --}}
+    {{-- Sub Categories --}}
     <div class="col-md-6 mb-3">
         <label for="subCategories">دسته بندی سطح-۲:</label>
         <select id="subCategories" name="subCategories" class="custom-select">

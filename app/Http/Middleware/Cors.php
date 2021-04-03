@@ -16,8 +16,14 @@ class Cors
      */
     public function handle($request, Closure $next)
     {
-        return $next($request)
-            ->header('Access-Control-Allow-Origin', '*')
-            ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+        if(env('API_KEY') == $request->header('api_key')) {
+
+            return $next($request)
+                ->header('Access-Control-Allow-Origin', '*') // https://www.mydomain.com
+                ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+        }
+        
+        // 403 Forbidden
+        return response()->view('errors/403', ['exception' => 'شما اجازه دسترسی به این بخش را ندارید' ], 403);
     }
 }

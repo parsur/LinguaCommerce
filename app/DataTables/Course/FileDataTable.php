@@ -113,7 +113,7 @@ class FileDataTable extends DataTable
                 ->searchable(false)
                 ->printable(false)
                 ->orderable(false)
-                ->title('حذف،ویرایش،جزئیات(توضیحات،رسانه)')
+                ->title('حذف | ویرایش | جزئیات(توضیحات،رسانه)')
                 ->addClass('column-title')
         ];
     }

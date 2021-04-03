@@ -41,7 +41,7 @@ Route::group(['middleware' => ['auth','isAdmin']], function () {
         Route::get('delete/{id}','CourseController@delete');
         Route::get('edit', 'CourseController@edit');
         // Details shown for admin
-        Route::get('details', 'CourseController@details')->name('details');
+        Route::get('details', 'CourseController@details')->name('details')->middleware('signed');
     });
     // Course Image
     Route::group(['prefix' => 'courseImage', 'as' => 'courseImage.'], function () {
@@ -67,7 +67,7 @@ Route::group(['middleware' => ['auth','isAdmin']], function () {
         Route::post('store', 'ArticleController@store');
         Route::get('edit', 'ArticleController@edit');
         // Admin details
-        Route::get('details', 'ArticleController@details')->name('details');
+        Route::get('details', 'ArticleController@details')->name('details')->middleware('signed');
         Route::get('delete/{id}', 'ArticleController@delete');
         // Search
         Route::post('search', 'ArticleController@search');
@@ -118,7 +118,7 @@ Route::group(['middleware' => ['auth','isAdmin']], function () {
         // Order
         Route::get('list','OrderController@list');
         Route::get('table/list','OrderController@orderTable')->name('list.table');
-        Route::get('details','OrderController@details')->name('details');
+        Route::get('details','OrderController@details')->name('details')->middleware('signed');
         Route::get('delete/{id}','OrderController@delete');
     });
     // Course file
@@ -134,12 +134,14 @@ Route::group(['middleware' => ['auth','isAdmin']], function () {
     Route::group(['prefix' => 'courseComment', 'as' => 'courseComment.'], function() {
         Route::get('list','Course\CommentController@list');
         Route::get('table/list','Course\CommentController@courseCommentTable')->name('list.table');
+        Route::get('details', 'Course\CommentController@details')->name('details')->middleware('signed');
         Route::post('submit', 'Course\CommentController@submit');
     });
     // Article comment
     Route::group(['prefix' => 'articleComment', 'as' => 'articleComment.'], function() {
         Route::get('list','Article\CommentController@list');
         Route::get('table/list','Article\CommentController@articleCommentTable')->name('list.table');
+        Route::get('details', 'Article\CommentController@details')->name('details')->middleware('signed');
         Route::post('submit', 'Article\CommentController@submit');
     });
     // Consultation

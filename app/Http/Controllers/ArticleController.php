@@ -85,8 +85,7 @@ class ArticleController extends Controller
         try {
             $article = Article::updateOrCreate(
                 ['id' => $id],
-                ['title' => $request->get('title'), 'category_id' => $courseArticle->subSet($request->get('categories')), 
-                'subCategory_id' => $courseArticle->subSet($request->get('subCategories'))]
+                ['title' => $request->get('title'), 'category_id' => $courseArticle->subSet($request->get('categories')), 'subCategory_id' => $courseArticle->subSet($request->get('subCategories'))]
             );
             // Status
             $article->statuses()->updateOrCreate(

@@ -51,8 +51,7 @@ class ConsultationDataTable extends DataTable
                         &nbsp;
                         <a href="'.$details.'">
                             <i class="fa fa-info-circle text-danger" aria-hidden="true"></i>
-                        </a>
-                        '; 
+                        </a>'; 
             });
     }
 
@@ -127,7 +126,7 @@ class ConsultationDataTable extends DataTable
                 ->searchable(false)
                 ->printable(false)
                 ->orderable(false)
-                ->title('حذف|جزئیات')
+                ->title('حذف | جزئیات')
                 ->addClass('column-title')
         ];
     }
