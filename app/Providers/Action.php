@@ -63,24 +63,4 @@ class Action {
         }
         return response()->json('Deleted Successfuly', 200);
     }
-
-
-    /**
-     * Search.
-     */
-    public function search($model, $search, $column) {
-
-        // If search is requested
-        if($search != null) {
-            
-            $values = $model::where($column, 'LIKE', "%{$search}%")->get();
-            if(count($values) > 0)
-                return response()->json($values); // 200
-            else 
-                return response()->json('متاسفانه نتیجه ای یافت نشد', JSON_UNESCAPED_UNICODE); // 404
-        }
-        else {
-            return response()->json('لطفا نوشته مورد دیدگاه خود را جستجو کنید', JSON_UNESCAPED_UNICODE); 
-        }
-    }
 }

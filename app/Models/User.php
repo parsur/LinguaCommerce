@@ -13,6 +13,12 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable, CascadesDeletes;
 
+    // Cascade On Delete
+    protected $cascadeDeletes = ['comments', 'orders', 'carts'];
+    
+    const USER = 0;
+    const ADMIN = 1;
+
     public static function boot() 
     {
         parent::boot();
@@ -23,12 +29,6 @@ class User extends Authenticatable implements MustVerifyEmail
                 $model->email_verified_at = $model->freshTimestamp();
         });
     }
-    
-    // Cascade On Delete
-    protected $cascadeDeletes = ['comments', 'orders', 'carts'];
-    
-    const USER = 0;
-    const ADMIN = 1;
 
     /**
      * The attributes that are mass assignable.

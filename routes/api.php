@@ -19,7 +19,8 @@ use Illuminate\Support\Facades\Route;
 // });
 
 // User
-Route::group(['middleware' => ['cors']], function() {
+// auth:api
+// Route::group(['middleware' => ['cors']], function() {
     // Cart
     Route::group(['prefix' => 'cart', 'as' => 'cart.'], function() {
         Route::post('store/{course_id}','CartController@store');
@@ -49,7 +50,7 @@ Route::group(['middleware' => ['cors']], function() {
     Route::group(['prefix' => 'article', 'as' => 'article.'], function () {
         Route::get('show', 'ArticleController@show');
         // Details of article shown for user
-        Route::get('userDetails', 'ArticleController@userDetails')->name('userDetails');
+        Route::get('details', 'ArticleController@details');
         // ->middleware('signed') must be pondered with the mixture of laravel and react
     });
     // Course
@@ -74,7 +75,7 @@ Route::group(['middleware' => ['cors']], function() {
         Route::post('update/{article_id}', 'ArticleCommentController@update');
         Route::get('delete/{id}','ArticleCommentController@delete');
     });
-});
+// });
 
 // Store Consultation 
 Route::post('consultation/store', 'ConsultationController@store')->middleware('storeConsultation');

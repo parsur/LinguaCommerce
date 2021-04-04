@@ -120,7 +120,7 @@ class ArticleController extends Controller
     // Show
     public function show() {
         // Articles
-        $vars['artciles'] = Article::select('id', 'title','created_at','updated_at')->with('statuses:status_id,status',
+        $vars['artciles'] = Article::select('id', 'title', 'created_at', 'updated_at', 'category_id', 'subCategory_id')->with('statuses:status_id,status',
             'description:description_id,description','category:id,name','subCategory:id,name',
             'media:media_id,url')->get();
         
@@ -138,13 +138,13 @@ class ArticleController extends Controller
     }
 
     // Search
-    public function search(Request $request) {
-        return $action->search(Article::class,$request->get('search'),'title');
+    public function search(CourseArticleAction $action, Request $request) {
+        return $action->search(Article::class, $request->get('search'), 'title');
     }
 
     // Details
     public function details(CourseArticleAction $action, Request $request) {
-        return $action->details($request->get('id'), Article::class, 'article', $request->get('role'));
+        return $action->details($request->get('id'), 'App\Models\Article', $request->get('role'));
     }
 
 }

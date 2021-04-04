@@ -128,7 +128,7 @@ class CourseController extends Controller
     // Show course list page
     public function show() {
         // Courses
-        $vars['courses'] = Course::select('id', 'name', 'price')->with('statuses:status_id,status',
+        $vars['courses'] = Course::select('id', 'name', 'price', 'category_id', 'subCategory_id')->with('statuses:status_id,status',
             'description:description_id,description','category:id,name','subCategory:id,name',
             'media:media_id,url')->get();
     
@@ -146,13 +146,13 @@ class CourseController extends Controller
     } 
 
     // Search
-    public function search(Action $action, Request $request) {
+    public function search(CourseArticleAction $action, Request $request) {
         return $action->search(Course::class, $request->get('search'), 'name');
     }
 
     // Details
     public function details(CourseArticleAction $action, Request $request) {
-        return $action->details($request->get('id'), Course::class, 'course', $request->get('role'));
+        return $action->details($request->get('id'), 'App\Models\Course', $request->get('role'));
     }
 
     // User details

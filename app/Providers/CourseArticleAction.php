@@ -18,8 +18,16 @@ class CourseArticleAction {
      */
     
     // Details
-    public function details($id, $model, $name, $role) {
+    public function details($id, $model, $role) {
 
+        switch($model) {
+            case 'App\Models\Course':
+                $name = 'course';
+                break;
+            case 'App\Models\Article':
+                $name = 'article';
+        }
+        
         $vars["$name"] = $model::where('id', $id)->with(['statuses:status_id,status',
             'description:description_id,description','category:id,name','subCategory:id,name', 
                 'comments' => function($query) {
@@ -30,19 +38,27 @@ class CourseArticleAction {
         
 
         if($role != 'admin') {
-             
+
+            $images = [];
+            $videos = [];
+
             $media_urls = Media::where('media_id', $id)->where('media_type', $model)->get();
             foreach($media_urls as $media_url) {
                 switch($media_url->type) {
                     case Media::IMAGE:
-                        $images[] = ['image_url' => 'http://sararajabi.com/images/' . $media_url->url];
+                        $images[] = ['url' => 'http://sararajabi.com/images/' . $media_url->url];
                         break;
                     case MEDIA::VIDEO:
-                        $videos[] = ['video_url' => $media_url->url];
+                        $videos[] = ['url' => $media_url->url];
                 }
             }
 
-            return response()->json([$vars, ['images' => $images], ['videos' => $videos]]);
+            // Images
+            $vars['images'] = $images;
+            // Videos
+            $vars['videos'] = $videos;
+
+            return response()->json($vars);
         }
 
         return view("$name.details", $vars);
@@ -113,5 +129,24 @@ class CourseArticleAction {
         
         $output = array('success' => '<div class="alert alert-success">دیدگاه کاربر با موفقیت تایید شد</div>');
         return response()->json($output);
+    }
+
+    /**
+     * Search.
+     */
+    public function search($model, $search, $column) {
+
+        // If search is requested
+        if($search != null) {
+            
+            $values = $model::where($column, 'LIKE', "%{$search}%")->get();
+            if(count($values) > 0)
+                return response()->json($values); // 200
+            else 
+                return response()->json('متاسفانه نتیجه ای یافت نشد', JSON_UNESCAPED_UNICODE); // 404
+        }
+        else {
+            return response()->json('لطفا نوشته مورد دیدگاه خود را جستجو کنید', JSON_UNESCAPED_UNICODE); 
+        }
     }
 }
