@@ -144,9 +144,7 @@
         <script src="{{ asset('js/RequestHandler.js') }}"></script>
         {{-- ckeditor --}}
         <script src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
-        {{-- <script src="https://cdn.ckeditor.com/ckeditor5/27.0.0/classic/ckeditor.js"></script> --}}
-
-
+        
         <script>
             // Ajax Setup
             $.ajaxSetup({ 

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7c20584e24dcdf402b5016201fac8f6c",
+    "content-hash": "04fea98b072458acfe8bd391bef6024e",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -6144,16 +6144,16 @@
         },
         {
             "name": "yajra/laravel-datatables-buttons",
-            "version": "v4.12.0",
+            "version": "v4.12.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yajra/laravel-datatables-buttons.git",
-                "reference": "bf27009520f4e09deb4ba09991b114b041c3fc55"
+                "reference": "f5d02fa0f423c1a49163ca7d670775150c7490ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yajra/laravel-datatables-buttons/zipball/bf27009520f4e09deb4ba09991b114b041c3fc55",
-                "reference": "bf27009520f4e09deb4ba09991b114b041c3fc55",
+                "url": "https://api.github.com/repos/yajra/laravel-datatables-buttons/zipball/f5d02fa0f423c1a49163ca7d670775150c7490ec",
+                "reference": "f5d02fa0f423c1a49163ca7d670775150c7490ec",
                 "shasum": ""
             },
             "require": {
@@ -6206,7 +6206,7 @@
             ],
             "support": {
                 "issues": "https://github.com/yajra/laravel-datatables-buttons/issues",
-                "source": "https://github.com/yajra/laravel-datatables-buttons/tree/v4.12.0"
+                "source": "https://github.com/yajra/laravel-datatables-buttons/tree/v4.12.1"
             },
             "funding": [
                 {
@@ -6218,7 +6218,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2021-03-19T09:01:03+00:00"
+            "time": "2021-04-03T02:56:07+00:00"
         },
         {
             "name": "yajra/laravel-datatables-editor",

@@ -319,3 +319,7 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before, table.dataT
     border-color: #28A745 !important;
 }
 
+.dataTables_wrapper .dt-buttons.btn-group.flex-wrap {
+    margin-bottom: 1em;
+    background: #6C752D;
+}

@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 // User
 // auth:api
-// Route::group(['middleware' => ['cors']], function() {
+Route::group(['middleware' => ['cors']], function() {
     // Cart
     Route::group(['prefix' => 'cart', 'as' => 'cart.'], function() {
         Route::post('store/{course_id}','CartController@store');
@@ -36,7 +36,7 @@ use Illuminate\Support\Facades\Route;
         Route::get('showCart', 'OrderController@showCart');
         // Submitted orders to be shown for admin and user
         Route::get('showOrder', 'OrderController@showOrder');
-        Route::get('userDetails','OrderController@details')->name('userDetails');
+        Route::get('details','OrderController@details');
         Route::get('delete/{id}','OrderController@delete');
     });
     // Profile
@@ -75,7 +75,7 @@ use Illuminate\Support\Facades\Route;
         Route::post('update/{article_id}', 'ArticleCommentController@update');
         Route::get('delete/{id}','ArticleCommentController@delete');
     });
-// });
+});
 
 // Store Consultation 
 Route::post('consultation/store', 'ConsultationController@store')->middleware('storeConsultation');
