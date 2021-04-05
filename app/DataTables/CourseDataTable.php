@@ -111,6 +111,7 @@ class CourseDataTable extends DataTable
             ->info(false)
             ->responsive(true)
             ->dom('PBCfrtip')
+            ->lengthMenu([10,25,40])
             ->orderBy(1)
             ->language(asset('js/persian.json'));
     }

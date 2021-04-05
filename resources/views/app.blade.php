@@ -10,7 +10,7 @@
     <body>
         <div id="app"></div>
     </body>
-    
+
     {{-- Script --}}
     <script src="{{ asset('js/reactJs/react.js') }}"></script>
 </html>

@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 // User
 // auth:api
-Route::group(['middleware' => ['cors']], function() {
+// Route::group(['middleware' => ['cors']], function() {
     // Cart
     Route::group(['prefix' => 'cart', 'as' => 'cart.'], function() {
         Route::post('store/{course_id}','CartController@store');
@@ -75,7 +75,7 @@ Route::group(['middleware' => ['cors']], function() {
         Route::post('update/{article_id}', 'ArticleCommentController@update');
         Route::get('delete/{id}','ArticleCommentController@delete');
     });
-});
+// });
 
 // Store Consultation 
 Route::post('consultation/store', 'ConsultationController@store')->middleware('storeConsultation');

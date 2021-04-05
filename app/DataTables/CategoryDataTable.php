@@ -74,7 +74,7 @@ class CategoryDataTable extends DataTable
                 ->columns($this->getColumns())
                 ->columnDefs([["className" => 'dt-center text-center', "target" => '_all']])
                 ->searching(true)
-                // ->lengthMenu([10,25,40])a
+                // ->lengthMenu([10,25,40])
                 ->info(false)
                 ->ordering(true)
                 ->responsive(true)

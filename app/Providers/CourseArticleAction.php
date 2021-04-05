@@ -143,7 +143,7 @@ class CourseArticleAction {
             if(count($values) > 0)
                 return response()->json($values); // 200
             else 
-                return response()->json('متاسفانه نتیجه ای یافت نشد', JSON_UNESCAPED_UNICODE); // 404
+                return response()->json(''); // 404
         }
         else {
             return response()->json('لطفا نوشته مورد دیدگاه خود را جستجو کنید', JSON_UNESCAPED_UNICODE); 

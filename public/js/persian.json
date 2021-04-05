@@ -20,7 +20,12 @@
         "sSortDescending": ": فعال سازی نمایش به صورت نزولی"
     },
     "search": "_INPUT_",
-    "searchPlaceholder": "جستجو ..."
+    "searchPlaceholder": "جستجو ...",
+    "buttons": {
+        "print": "چاپ",
+        "csv": "فایل CSV",
+        "print": "چاپ"
+    }
 }
 
 

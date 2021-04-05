@@ -321,5 +321,15 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before, table.dataT
 
 .dataTables_wrapper .dt-buttons.btn-group.flex-wrap {
     margin-bottom: 1em;
-    background: #6C752D;
+}
+
+.btn-group > .btn:not(:last-child):not(.dropdown-toggle), .btn-group > .btn-group:not(:last-child) > .btn {
+    border-radius: 0.5em;
+    border-bottom-right-radius: 0;
+}
+
+.btn-group > .btn:not(:first-child), .btn-group > .btn-group:not(:first-child) > .btn {
+    border-radius: 0.5em;
+    border-bottom-right-radius: 0;
+    margin-right: 0.3em;
 }
