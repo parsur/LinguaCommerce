@@ -10,8 +10,8 @@ use App\Providers\EnglishConvertion;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use App\Models\User;
-
 
 
 class RegisterController extends Controller
@@ -38,7 +38,6 @@ class RegisterController extends Controller
     //     return redirect()->intended('/')->getTargetUrl();
     // }
     protected $redirectTo = '/email/verify';
-
 
 
     /**

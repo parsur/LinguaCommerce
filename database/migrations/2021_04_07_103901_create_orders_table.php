@@ -17,7 +17,6 @@ class CreateOrdersTable extends Migration {
 		{
 			$table->integer('id', true);
 			$table->string('factor', 35);
-			$table->string('total_price', 55);
 			$table->string('test', 265)->nullable()->comment('// TransactionId
 In test process.');
 			$table->integer('user_id')->index('user_id');

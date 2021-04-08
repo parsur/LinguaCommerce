@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Setting;
 use Illuminate\Support\Facades\Http;
+use App\Models\Setting;
+use App\Models\User;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -34,6 +36,7 @@ class HomeController extends Controller
             'fourthEventUrl',
             'footer'
         ];
+
         $home_settings = Setting::whereIn('name', $names)->select('name', 'value')->get();
 
         $vars = [];
@@ -41,7 +44,16 @@ class HomeController extends Controller
             $vars[$setting->name] = $setting->value;
         }
 
-        return json_encode($vars, JSON_UNESCAPED_UNICODE);
+        $vars['authentication'] = false;
+
+        if(Auth::check()) {
+            
+            $vars['authentication'] = true;
+
+            $vars['user'] = User::where('id', Auth::user()->id)->first();
+        }
+
+        return response()->json($vars);
     }
 
 }

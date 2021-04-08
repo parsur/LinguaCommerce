@@ -14,6 +14,10 @@ export const NameContainer = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    @media screen and (max-width: 500px){
+        display: none;
+    }
 `
 
 export const DetailContainer = styled.div`
@@ -25,6 +29,10 @@ export const DetailContainer = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    @media screen and (max-width: 500px){
+        height: 100%;
+    }
 `
 
 export const H1 = styled.h1`

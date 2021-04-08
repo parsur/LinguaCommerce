@@ -10,6 +10,8 @@ use App\Providers\SuccessMessages;
 use App\Providers\CourseArticleAction;
 use App\Providers\Action;
 use App\Models\Comment;
+use App\Models\Status;
+use DB;
 
 class CommentController extends Controller
 {
@@ -30,18 +32,18 @@ class CommentController extends Controller
     }
 
     // Store
-    public function store($article_id, StoreCommentRequest $request) {
+    public function store(StoreCommentRequest $request) {
         DB::beginTransaction();
         try {
             $comment = Comment::create(['name' => $request->get('name'), 'comment' => $request->get('comment'), 
-                'commentable_id' => $article_id, 'commentable_type' => Article::class]);
+                'commentable_id' => $request->get('article_id'), 'commentable_type' => Article::class]);
 
             // Set the course's comment invisible
             $comment->statuses()->create(['status' => Status::INVISIBLE]);
 
             DB::commit();
             
-            return response()->json('دیدگاه درباره دوره با موفقیت ثبت شد', JSON_UNESCAPED_UNICODE);
+            return response()->json('دیدگاه درباره مقاله با موفقیت ثبت شد', JSON_UNESCAPED_UNICODE);
 
         } catch(Exception $e) {
             throw $e;
@@ -55,15 +57,15 @@ class CommentController extends Controller
     }
 
     // Update
-    public function update($article_id, Request $request) {
+    public function update(Request $request) {
         DB::beginTransaction();
         try {
             $comment = Comment::where('commentable_id', $article_id)->where('commentable_type', Article::class)
-                ->update(['comment' => $request->get('comment'), 
-                'commentable_id' => $article_id, 'commentable_type' => Article::class]);
+                ->update(['comment' => $request->get('comment')]);
 
             DB::commit();
-            return response()->json('دیدگاه درباره دوره با موفقیت ویرایش شد', JSON_UNESCAPED_UNICODE);
+
+            return response()->json('دیدگاه درباره مقاله با موفقیت ویرایش شد', JSON_UNESCAPED_UNICODE);
 
         } catch(Exception $e) {
             throw $e;

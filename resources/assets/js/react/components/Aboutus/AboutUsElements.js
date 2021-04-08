@@ -74,6 +74,7 @@ export const SmallerBox = styled.div`
     width: 600px;
     height: 250px;
     background: #f7e172;
+    padding: 15px;
 
     @media screen and (max-width: 677px) {
         width: 90vw;
@@ -93,4 +94,14 @@ export const BoxImg = styled.img`
     @media screen and (max-width: 924px) {
         width: 80vw;
     }
+`
+
+export const H3 = styled.h3`
+    direction: rtl;
+    font-size: 20px;
+    margin-bottom: 10px;
+`
+
+export const P = styled.p`
+    direction: rtl;
 `

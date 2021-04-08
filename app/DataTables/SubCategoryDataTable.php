@@ -90,9 +90,10 @@ class SubCategoryDataTable extends DataTable
             ->searching(true)
             ->info(false)
             ->responsive(true)
-            // ->buttons(
-            //     Button::make('print')
-            // )
+            ->buttons(
+                Button::make('print'),
+                Button::make('copy')
+            )
             ->dom('Bfrtip')
             ->language(asset('js/persian.json'));
     }

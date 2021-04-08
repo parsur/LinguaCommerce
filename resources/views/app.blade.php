@@ -12,5 +12,5 @@
     </body>
 
     {{-- Script --}}
-    <script src="{{ asset('js/reactJs/react.js') }}"></script>
+    {{-- <script src="{{ asset('js/reactJs/react.js') }}"></script> --}}
 </html>

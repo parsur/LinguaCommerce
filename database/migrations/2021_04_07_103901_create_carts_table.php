@@ -16,7 +16,7 @@ class CreateCartsTable extends Migration {
 		Schema::create('carts', function(Blueprint $table)
 		{
 			$table->integer('id', true);
-			$table->string('factor', 55)->nullable()->unique('factor_UNIQUE');
+			$table->string('factor', 55)->nullable();
 			$table->integer('user_id')->index('user_id');
 			$table->integer('course_id')->index('course_id');
 		});

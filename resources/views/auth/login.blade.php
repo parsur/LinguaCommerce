@@ -44,13 +44,6 @@
                     @endforeach
                 @endif
             </div>
-            {{-- Failure --}}
-            @if(isset($failure))
-                {{-- Failiure in login --}}
-                <div class="alert alert-danger">
-                    {{ $failure }}
-                </div>
-            @endif
         </div>
     </body>
 </html>

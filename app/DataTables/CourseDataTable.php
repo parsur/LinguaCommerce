@@ -110,7 +110,12 @@ class CourseDataTable extends DataTable
             ->searching(true)
             ->info(false)
             ->responsive(true)
-            ->dom('PBCfrtip')
+            ->dom('PBCfrtip') // length menu without this, works fine.
+            // ->lengthMenu([10,25,40])
+            ->buttons(
+                Button::make('print'),
+                Button::make('copy')
+            )
             ->lengthMenu([10,25,40])
             ->orderBy(1)
             ->language(asset('js/persian.json'));

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Contracts\Auth\CanResetPassword;
@@ -11,7 +12,7 @@ use ShiftOneLabs\LaravelCascadeDeletes\CascadesDeletes;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasFactory, Notifiable, CascadesDeletes;
+    use HasApiTokens, HasFactory, Notifiable, CascadesDeletes;
 
     // Cascade On Delete
     protected $cascadeDeletes = ['comments', 'orders', 'carts'];

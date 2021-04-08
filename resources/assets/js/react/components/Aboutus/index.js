@@ -9,7 +9,8 @@ import {
     BoxBottomTwo,
     SmallerBox,
     BoxImgContainer,
-    BoxImg
+    BoxImg,
+    H3, P
  } from './AboutUsElements';
  import aboutlogo from '../../images/officeabout.svg';
  import Footer from '../Footer';
@@ -26,6 +27,12 @@ const About = () => {
                 <AboutRowTwo>
                     <BoxBottomOne>
                         <SmallerBox>
+                            <H3>برای ارتباط بیشتر با مدرس از راه های ارتباطی زیر اقدام کنید :</H3>
+                            <P>شماره تماس : 09140734880 <br/>
+آیدی اینستاگرام سارا رجبی : <a href="https://www.instagram.com/sararajabi.ir/">sararajabi.ir@</a> <br/>
+گروه آموزشی تلگرام : <a href="https://t.me/joinchat/UzdcLu101RM6DgAp">sararajabi</a> <br/>
+کانال تلگرام : <a href="https://t.me/sara_rajabi">@sara_rajabi</a> <br/>
+ایمیل : <a href="mailto:sararajabiart3@gmail.com">sararajabiart3@gmail.com</a></P>
                             {/* Here is going to be the petit box things */}
                         </SmallerBox>
                     </BoxBottomOne>

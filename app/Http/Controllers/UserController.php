@@ -4,18 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\StoreLoginRequest;
 use App\Providers\SuccessMessages;
 use App\Providers\EnglishConvertion;
 use App\DataTables\UserDataTable;
 use App\Providers\Action;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Hash;
 
 class UserController extends Controller
 {
     // User Dashboard(profile)
     public function show() {
-        $vars['user'] = User::where('id', auth()->user()->id)->where('role', User::USER)->first();
+        $vars['user'] = User::where('id', Auth::user()->id)->first();
         return response()->json($vars);
     }
 
@@ -64,6 +66,7 @@ class UserController extends Controller
         );
     }
 
+    
     // Edit Data
     public function edit(Action $action,Request $request) {
         return $action->edit(User::class,$request->get('id'));

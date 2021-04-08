@@ -16,14 +16,11 @@ class Cors
      */
     public function handle($request, Closure $next)
     {
-        // if(env('API_KEY') == $request->header('api_key')) {
-
         return $next($request)
-            ->header('Access-Control-Allow-Origin', '*') // https://www.mydomain.com
-            ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-        // }
-        
-        // 403 Forbidden
-        return response()->view('errors/401');
+            ->header('Access-Control-Allow-Origin', '*') // www.domain.com // http://localhost:3000
+            ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+            ->header('Access-Control-Allow-Headers',' Origin, Content-Type, Accept, Authorization, X-Request-With')
+            ->header('Access-Control-Allow-Credentials','true');
+
     }
 }

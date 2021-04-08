@@ -24,7 +24,7 @@
     "buttons": {
         "print": "چاپ",
         "csv": "فایل CSV",
-        "print": "چاپ"
+        "copy": "کپی"
     }
 }
 

@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Admin
-Route::group(['middleware' => ['auth','isAdmin']], function () {
+Route::group(['middleware' => ['auth', 'web', 'isAdmin']], function () {
     // Admin
     Route::get('adminHome', 'AdminController@admin');
     Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
@@ -69,8 +69,6 @@ Route::group(['middleware' => ['auth','isAdmin']], function () {
         // Admin details
         Route::get('details', 'ArticleController@details')->name('details')->middleware('signed');
         Route::get('delete/{id}', 'ArticleController@delete');
-        // Search
-        Route::post('search', 'ArticleController@search');
     });
      // Article Video
      Route::group(['prefix' => 'articleImage', 'as' => 'articleImage.'], function () {
@@ -180,3 +178,4 @@ Route::get('/', 'HomeController@app')->middleware(['cors']);
 
 // React app
 Route::view('/{path?}', 'app');
+Route::view('/{path?}/{id}', 'app');

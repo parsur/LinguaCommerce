@@ -121,6 +121,7 @@ class OrderController extends Controller
 
                     // Email
                     Mail::to(auth()->user()->email)->send(new SubmittedOrder($this->order, $carts));
+                    
                     return Redirect::to('/'); // Paid
 
                 } else {

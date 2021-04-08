@@ -33,12 +33,12 @@ class CommentController extends Controller
     }
 
     // Store
-    public function store($course_id, StoreCourseCommentRequest $request) {
+    public function store(StoreCommentRequest $request) {
 
         DB::beginTransaction();
         try {
             $comment = Comment::create(['name' => $request->get('name'), 'comment' => $request->get('comment'), 
-                'commentable_id' => $course_id, 'commentable_type' => Course::class]);
+                'commentable_id' => $request->get('course_id'), 'commentable_type' => Course::class]);
 
             // Set the course's comment invisible
             $comment->statuses()->create(['status' => Status::INVISIBLE]);
@@ -58,12 +58,11 @@ class CommentController extends Controller
     }
 
     // Update
-    public function update($course_id,StoreCommentRequest $request,SuccessMessages $message) {
+    public function update(StoreCommentRequest $request,SuccessMessages $message) {
         DB::beginTransaction();
         try {
-            $comment = Comment::where('commentable_id', $course_id)->where('commentable_type', Course::class)
-                ->update(['comment' => $request->get('comment'), 
-                'commentable_id' => $course_id, 'commentable_type' => Course::class]);
+            $comment = Comment::where('id', $request->get('id'))->where('commentable_type', Course::class)
+                ->update(['comment' => $request->get('comment')]);
 
             DB::commit();
             return response()->json('دیدگاه مرتبط به دوره با موفقیت ویرایش شد', JSON_UNESCAPED_UNICODE);

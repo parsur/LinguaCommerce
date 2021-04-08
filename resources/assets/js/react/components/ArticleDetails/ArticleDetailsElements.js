@@ -1,0 +1,249 @@
+import styled from 'styled-components';
+import detailstop from '../../images/detailstop.png';
+
+export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  background: #fff;
+`
+
+export const Top = styled.div`
+  width: 100%;
+  height: 180px;
+  background: url(${detailstop});
+  background-size: cover;
+`
+
+export const Middle = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap-reverse;
+`
+
+export const Left = styled.div`
+  width: 340px;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 50px;
+`
+
+export const Center = styled.div`
+  width: 650px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+
+export const Right = styled.div`
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+
+export const Sidebar = styled.div`
+  width: 300px;
+  height: 350px;
+  background: #F4DD4F;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+`
+
+export const Figure = styled.div`
+  width: 380px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+
+export const Img = styled.img`
+  width: 100%;
+  height: auto;
+`
+
+export const FigCaption = styled.figcaption`
+  width: 100%;
+  direction: rtl;
+  font-size: 30px;
+  padding-right: 40px;
+`
+
+export const STop = styled.div`
+  width: 100%;
+  height: 60%;
+  padding: 20px;
+`
+
+export const SMiddle = styled.div`
+  width: 100%;
+  height: 20%;
+  display: flex;
+`
+
+export const SBottom = styled.div`
+  width: 100%;
+  height: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`
+
+export const Price = styled.div`
+  width: 90%;
+  height: 60%;
+  background: #fff;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  cursor: pointer;
+`
+
+export const HR = styled.hr`
+  width: 70%;
+  border: 1px solid grey;
+  margin: 20px 0;
+`
+
+export const H = styled.h1`
+  width: 75%;
+  direction: rtl;
+`
+
+export const H3 = styled.h3`
+  direction: rtl;
+  margin-top: 10px;
+  margin-right: 20px;
+`
+
+export const Category = styled.p`
+  width: 65%;
+  direction: rtl;
+  color: darkcyan;
+  cursor: pointer;
+`
+
+export const Description = styled.div`
+  width: 75%;
+  direction: rtl;
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+`
+
+export const Ul = styled.ul`
+  display: flex;
+  flex-direction: column;
+  margin-right: 50px;
+`
+
+export const Li = styled.li`
+  margin-top: 10px;
+`
+
+export const Room = styled.div`
+  width: 380px;
+  min-height: 150px;
+  background: #eee;
+  margin: 10px 10px;
+  border-radius: 15px;
+  padding: 10px;
+`
+
+export const SMLeft = styled.div`
+  width: 50%;
+  height: 100%;
+  direction: rtl;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 18px;
+`
+
+export const SMRight = styled.div`
+  width: 50%;
+  height: 100%;
+  direction: rtl;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 20px;
+  font-weight: bold;
+`
+
+export const STH = styled.h3`
+  direction: rtl;
+  margin-bottom: 15px;
+  font-size: 25px;
+`
+
+export const STUL = styled.ul`
+  display: flex;
+  flex-direction: column;
+  direction: rtl;
+`
+
+export const STLI = styled.li`
+  margin-right: 25px;
+  margin-bottom: 10px;
+`
+
+export const STHR = styled.hr`
+  border: 1px solid #fff;
+  margin-top: 20px;
+`
+
+export const Bottom = styled.div`
+  width: 90%;
+  height: auto;
+  direction: ltr;
+  padding: 0 35px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+`
+
+export const BLeft = styled.div`
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 250px;
+`
+
+export const BRight = styled.div`
+  width: 70%;
+  direction: rtl;
+  background: #eee;
+  padding: 5px 20px;
+  border-radius: 10px;
+  min-height: 450px;
+  min-width: 350px;
+`
+
+export const SBC = styled.div`
+  padding-top: 40px;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+`

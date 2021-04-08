@@ -9,8 +9,8 @@ window.showSubmissionModal = function showSubmissionModal(id) {
 $("#submission").click(function(e) {
   e.preventDefault();
   $.ajax({
-    method: "POST",
-    url: "/courseComment/submit/",
+    type: "POST",
+    url: "/courseComment/submission",
     data: { 
       submission: $(this).val(),
     },

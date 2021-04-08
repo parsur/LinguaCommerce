@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import FirstPage from './components/Pages/FirstPage';
 import GlobalStyle from './globalStyles';
@@ -8,6 +7,9 @@ import AboutUsPage from './components/Pages/AboutUsPage';
 import UserPage from './components/Pages/UserPage';
 import Consultante from './components/Pages/Consultante';
 import WhymePage from './components/Pages/WhymePage';
+import CourseDetailsPage from './components/Pages/CourseDetails';
+import ArticleDetails from './components/Pages/ArticleDetails';
+import ArticleLists from './components/Pages/ArticleListPage';
 
 function App() {
 
@@ -110,6 +112,9 @@ function App() {
           <Route path='/userpage' exact component={UserPage}/>
           <Route path='/consultante' exact component={Consultante}/>
           <Route path='/whyme' exact component={WhymePage}/>
+          <Route path='/course/:id' exact component={CourseDetailsPage}/>
+          <Route path='/articledetails' exact component={ArticleDetails}/>
+          <Route path='/articlelists' exact component={ArticleLists}/>
         </Switch>
       </Router>
     </>

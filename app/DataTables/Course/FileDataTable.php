@@ -82,6 +82,10 @@ class FileDataTable extends DataTable
             ->responsive(true)
             ->dom('PBCfrtip')
             ->orderBy(1)
+            ->buttons(
+                Button::make('print'),
+                Button::make('copy')
+            )
             ->language(asset('js/persian.json'));
     }
 

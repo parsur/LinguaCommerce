@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { 
     HeroContainer,
     HeroMainContainer,
@@ -40,9 +40,21 @@ import shop from '../../images/shop.png';
 import mainlogo from '../../images/mainlogo.png';
 import { backStyle, gifStyle } from '../../Data';
 import { Link } from 'react-router-dom';
+import Loader from 'react-loader-spinner';
+import api from '../../api';
 
-const Hero = ({welcome, main, desc, data}) => {
-    return (
+const Hero = () => {
+
+   const [home, setHome] = useState(null);
+
+  useEffect(() => {
+        api("api/home")
+            .then((data) => {
+                setHome(data);
+            })
+    }, []);
+
+    return home ? (
         <HeroContainer>
             <HeroMainContainer>
                 <HeroTopContainer>
@@ -57,9 +69,9 @@ const Hero = ({welcome, main, desc, data}) => {
                         </LogIn>
                       </HeroLoginContainer>
                       <HeroTextContainer>
-                          <HeroP>{welcome}</HeroP>
-                          <HeroH1>{main}</HeroH1>
-                          <HeroDesc>{desc}</HeroDesc>
+                        <HeroP>{home.subHeader}</HeroP>
+                        <HeroH1>{home.header}</HeroH1>
+                        <HeroDesc>{home.description}</HeroDesc>
                       </HeroTextContainer>
                     </HeroLeftSide>
                     <HeroRightSide>
@@ -67,13 +79,21 @@ const Hero = ({welcome, main, desc, data}) => {
                             <HeroSearchContainer>
                                 <Swrap>
                                     <Smove>
-                                        {data.map(({slideText}) => {
-                                            return(
-                                                <Slide>
-                                                    <SlideH3>{slideText}</SlideH3>
-                                                </Slide>
-                                            );
-                                        })}
+                                        <Slide>
+                                          <SlideH3>{home.firstEvent}</SlideH3>
+                                        </Slide>
+
+                                        <Slide>
+                                          <SlideH3>{home.secondEvent}</SlideH3>
+                                        </Slide>
+
+                                        <Slide>
+                                          <SlideH3>{home.thirdEvent}</SlideH3>
+                                        </Slide>
+
+                                        <Slide>
+                                          <SlideH3>{home.fourthEvent}</SlideH3>
+                                        </Slide>
                                     </Smove>
                                 </Swrap>
                             </HeroSearchContainer>
@@ -89,19 +109,19 @@ const Hero = ({welcome, main, desc, data}) => {
                     <HeroIconContainer>
                       <Col>
                         <Link to='/courselist' style={{textDecoration:"none"}}>
-                          <HeroIcon><img src={course} width='100%' height='100%'/></HeroIcon>
+                          <HeroIcon><img src={shop} width='100%' height='100%'/></HeroIcon>
                           <IconTextContainer><IconText>دوره ها</IconText></IconTextContainer>
                         </Link>
                       </Col>
                       <Col>
-                        <Link to='/' style={{textDecoration:"none"}}>
+                        <Link to='/articlelists' style={{textDecoration:"none"}}>
                           <HeroIcon><img src={article} width='100%' height='100%'/></HeroIcon>
                           <IconTextContainer><IconText>مقاله ها</IconText></IconTextContainer>
                         </Link>
                       </Col>
                       <Col>
                         <Link to='/whyme' style={{textDecoration:"none"}}>
-                          <HeroIcon><img src={shop} width='100%' height='100%'/></HeroIcon>
+                          <HeroIcon><img src={course} width='100%' height='100%'/></HeroIcon>
                           <IconTextContainer><IconText>چرا من؟</IconText></IconTextContainer>
                         </Link>
                       </Col>
@@ -122,7 +142,18 @@ const Hero = ({welcome, main, desc, data}) => {
                 </HeroIcons>
             </HeroMainContainer>
         </HeroContainer>
-    )
+    ) : (
+        <div style={{width:"100vw", height:"100vh", display:"flex", background: "#F4DD4F"}}>
+            <Loader
+            type="Oval"
+            color="#fff"
+            height={150}
+            width={150}
+            timeout={3000} //3 secs
+            style={{margin: "auto"}}
+            />
+        </div>
+    );
 }
 
 export default Hero;

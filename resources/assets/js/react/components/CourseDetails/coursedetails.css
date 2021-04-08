@@ -1,0 +1,17 @@
+@import "~react-image-gallery/styles/css/image-gallery.css";
+
+.course-details-description{
+  width: 70%;
+  direction: rtl;
+  background: #eee;
+  padding: 5px 20px;
+  border-radius: 10px;
+  min-height: 450px;
+  min-width: 350px;
+  font-size: larger;
+}
+
+.course-details-description img {
+  width: 400px;
+  height: auto;
+}

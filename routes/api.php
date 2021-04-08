@@ -18,9 +18,9 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
+
 // User
-// auth:api
-// Route::group(['middleware' => ['cors']], function() {
+Route::group(['middleware' => 'apiKey'], function() { 
     // Cart
     Route::group(['prefix' => 'cart', 'as' => 'cart.'], function() {
         Route::post('store/{course_id}','CartController@store');
@@ -39,19 +39,13 @@ use Illuminate\Support\Facades\Route;
         Route::get('details','OrderController@details');
         Route::get('delete/{id}','OrderController@delete');
     });
-    // Profile
-    Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
-        Route::post('store', 'UserController@store');
-        Route::get('show', 'UserController@show');
-        Route::get('edit', 'UserController@edit');
-        Route::get('delete/{id}', 'UserController@delete');
-    });
     // Article
     Route::group(['prefix' => 'article', 'as' => 'article.'], function () {
         Route::get('show', 'ArticleController@show');
         // Details of article shown for user
         Route::get('details', 'ArticleController@details');
-        // ->middleware('signed') must be pondered with the mixture of laravel and react
+        // Search
+        Route::post('search', 'ArticleController@search');
     });
     // Course
     Route::group(['prefix' => 'course', 'as' => 'course.'], function () {
@@ -63,23 +57,40 @@ use Illuminate\Support\Facades\Route;
     });
     // Course comment
     Route::group(['prefix' => 'courseComment', 'as' => 'courseComment.'], function() {
-        Route::post('store/{course_id}', 'CourseCommentController@store');
-        Route::get('edit', 'CourseCommentController@edit');
-        Route::post('update/{course_id}', 'CourseCommentController@update');
-        Route::get('delete/{id}','CourseCommentController@delete');
+        Route::post('store', 'Course\CommentController@store');
+        Route::get('edit', 'Course\CommentController@edit');
+        Route::post('update', 'Course\CommentController@update');
+        Route::get('delete/{id}','Course\CommentController@delete');
     });
     // Article comment
     Route::group(['prefix' => 'articleComment', 'as' => 'articleComment.'], function() {
-        Route::post('store/{article_id}', 'ArticleCommentController@store');
-        Route::get('edit', 'ArticleCommentController@edit');
-        Route::post('update/{article_id}', 'ArticleCommentController@update');
-        Route::get('delete/{id}','ArticleCommentController@delete');
+        Route::post('store', 'Article\CommentController@store');
+        Route::get('edit', 'Article\CommentController@edit');
+        Route::post('update', 'Article\CommentController@update');
+        Route::get('delete/{id}','Article\CommentController@delete');
     });
-// });
 
-// Store Consultation 
-Route::post('consultation/store', 'ConsultationController@store')->middleware('storeConsultation');
-// Home
-Route::get('/', 'HomeController@app')->middleware(['cors']); 
-Route::get('home', 'HomeController@index')->middleware(['cors']); 
+    // Store Consultation 
+    Route::post('consultation/store', 'ConsultationController@store')->middleware('storeConsultation');
+    // App
+    Route::get('/', 'HomeController@app'); 
+    // Home
+    Route::get('home', 'HomeController@index');
+    // Login
+    Route::post('login', 'Auth\LoginController@store');
+    Route::post('register', 'Auth\RegisterController@create');
+    Route::get('logout', 'Auth\LoginController@logout'); 
+});
+
+
+// Profile
+Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth:sanctum'], function() { 
+    Route::post('store', 'UserController@store');
+    Route::get('show', 'UserController@show');
+    Route::get('edit', 'UserController@edit');
+    Route::get('delete/{id}', 'UserController@delete');
+});
+
+
+
 

@@ -17,11 +17,12 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next)
     {
+        // Admin
         if(auth()->user()->role == User::ADMIN) {
             return $next($request);
         }
 
-        // 403 Forbidden
-        return response()->view('errors/403', ['exception' => 'شما اجازه دسترسی به این بخش را ندارید' ], 403);
+        // User
+        return redirect()->intended('/');
     }
 }

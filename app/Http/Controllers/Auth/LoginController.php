@@ -9,6 +9,7 @@ use App\Providers\RedirectAuthentication;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreLoginRequest;
+use App\Models\User;
 use Redirect;
 
 
@@ -43,6 +44,7 @@ class LoginController extends Controller
         return view('auth.login');
     }
 
+
     /**
      * Store data.
      *
@@ -60,19 +62,31 @@ class LoginController extends Controller
         // Auth
         $credentials = $request->only('email', 'password');
         if (Auth::attempt(($credentials), $remember_me)) {
-            // Authentication passed...
-            return redirect()->intended('/adminHome');
+
+            $user = User::where('email', $request->get('email'))->first();
+
+            if($user->role == User::ADMIN) {
+                // Authentication passed...
+                return redirect()->intended('/adminHome');
+            }
+
+            $authToken = $user->createToken('auth-token')->plainTextToken;
+
+            return response()->json([
+                'access_token' => $authToken,
+            ]);
         } 
-         
-        return Redirect::back()->withErrors('رمز عبور یا ایمیل شما نادرست است');
-    }
-    
+
+        // ٍErrors
+        return response()->json(['رمز عبور یا ایمیل شما نادرست است'], 401); ;
+    }   
+
     /**
      * logout.
      *
      * @var string
      */
-    public function logout(Request $request) {
+    public function logout() {
 
         Auth::logout();
         return redirect('/');

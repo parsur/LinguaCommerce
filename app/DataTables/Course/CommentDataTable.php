@@ -94,6 +94,10 @@ class CommentDataTable extends DataTable
                 ->responsive(true)
                 ->pageLength(8)
                 ->dom('PBCfrtip')
+                ->buttons(
+                    Button::make('print'),
+                    Button::make('copy')
+                )
                 ->orderBy(1)
                 ->language(asset('js/persian.json'));
     }

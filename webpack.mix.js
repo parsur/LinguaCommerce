@@ -17,7 +17,7 @@ mix.setResourceRoot('../');
 
 mix.js('resources/assets/js/app.js', 'public/js')
     // React
-    .js('resources/assets/js/react', 'public/js/reactJs').react()
+    // .js('resources/assets/js/react', 'public/js/reactJs').react()
     // ckeditor
     .js('resources/assets/js/ckeditor/ckeditor.js', 'public/js/ckeditor/ckeditor.js')
     // ckeditor initialization

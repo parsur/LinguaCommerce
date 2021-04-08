@@ -78,6 +78,10 @@ class ImageDataTable extends DataTable
             ->info(false)
             ->responsive(true)
             ->dom('PBCfrtip')
+            ->buttons(
+                Button::make('print'),
+                Button::make('copy')
+            )
             ->orderBy(1)
             ->language(asset('js/persian.json'));
     }

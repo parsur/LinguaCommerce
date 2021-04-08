@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { CgLogIn } from 'react-icons/cg';
 
 export const HeroContainer = styled.div`
-    background: #064F7C;
+    background: #fff;
 `
 
 export const HeroMainContainer = styled.div`
@@ -83,6 +83,10 @@ export const HeroLeftSide = styled.div`
 	    border-bottom: 40px solid #F4DD4F;
         border-radius: 0 0 0 0;
         flex-direction: column;
+    }
+
+    @media screen and (max-height: 680px) and (max-width: 500px){
+        height: 240vh;
     }
 `
 
@@ -167,13 +171,17 @@ export const HeroTextContainer = styled.div`
 `
 
 export const HeroP = styled.p`
-    font-size: clamp(1rem, 1.8vw, 2.5rem);
+    font-size: clamp(0.8rem, 1.8vw, 2.5rem);
     margin-bottom: 0.1vh;
 `
 
 export const HeroH1 = styled.h1`
-    font-size: clamp(2rem, 2.5vw, 4rem);
+    font-size: clamp(1.8rem, 2.5vw, 4rem);
     margin-bottom: 2vh;
+
+    @media screen and (max-width:350px){
+        font-size: clamp(1.3rem, 2.5vw, 4rem);
+    }
 `
 
 export const HeroDesc = styled.p`
@@ -323,7 +331,8 @@ export const Col = styled.div`
     transition: 0.3s;
 
     &:hover {
-        transform: scale(1.1);
+        background: #eeeeee;
+        border-radius: 10px;
         transition: 0.3s;
     }
 `
@@ -342,7 +351,8 @@ export const IconText = styled.p`
     border-radius: 0 0 20px 20px;
     height: 100%;
     direction: rtl;
-    font-size: clamp(1rem, 2vw, 2rem)
+    font-size: clamp(1rem, 2vw, 2rem);
+    color: black;
 `
 
 export const HeroIcon = styled.div`
