@@ -147,12 +147,12 @@ class CourseController extends Controller
 
     // Search
     public function search(CourseArticleAction $action, Request $request) {
-        return $action->search(Course::class, $request->get('search'), $request->get('column'));
+        return $action->search($request, Course::class);
     }
 
     // Details
     public function details(CourseArticleAction $action, Request $request) {
-        return $action->details($request->get('id'), 'App\Models\Course', $request->get('role'));
+        return $action->details($request, 'App\Models\Course');
     }
 
     // User details

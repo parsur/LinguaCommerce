@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 
 // User
-Route::group(['middleware' => 'apiKey'], function() { 
+Route::group(['middleware' => ['apiKey', 'cors']], function() { 
     // Cart
     Route::group(['prefix' => 'cart', 'as' => 'cart.'], function() {
         Route::post('store/{course_id}','CartController@store');
@@ -70,6 +70,14 @@ Route::group(['middleware' => 'apiKey'], function() {
         Route::get('delete/{id}','Article\CommentController@delete');
     });
 
+    // Profile
+    Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth:sanctum'], function() { 
+        Route::post('store', 'UserController@store');
+        Route::get('show', 'UserController@show');
+        Route::get('edit', 'UserController@edit');
+        Route::get('delete/{id}', 'UserController@delete');
+    });
+
     // Store Consultation 
     Route::post('consultation/store', 'ConsultationController@store')->middleware('storeConsultation');
     // App
@@ -82,14 +90,6 @@ Route::group(['middleware' => 'apiKey'], function() {
     Route::get('logout', 'Auth\LoginController@logout'); 
 });
 
-
-// Profile
-Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth:sanctum'], function() { 
-    Route::post('store', 'UserController@store');
-    Route::get('show', 'UserController@show');
-    Route::get('edit', 'UserController@edit');
-    Route::get('delete/{id}', 'UserController@delete');
-});
 
 
 

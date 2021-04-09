@@ -139,12 +139,12 @@ class ArticleController extends Controller
 
     // Search
     public function search(CourseArticleAction $action, Request $request) {
-        return $action->search(Article::class, $request->get('search'), 'title');
+        return $action->search($request, Article::class);
     }
 
     // Details
     public function details(CourseArticleAction $action, Request $request) {
-        return $action->details($request->get('id'), 'App\Models\Article', $request->get('role'));
+        return $action->details($request, 'App\Models\Article');
     }
 
 }

@@ -18,7 +18,10 @@ class CourseArticleAction {
      */
     
     // Details
-    public function details($id, $model, $role) {
+    public function details($request, $model) {
+
+        $id = $request->get('id');
+        $role = $request->get('role');
 
         switch($model) {
             case 'App\Models\Course':
@@ -134,19 +137,24 @@ class CourseArticleAction {
     /**
      * Search.
      */
-    public function search($model, $search, $column) {
+    public function search($request, $model) {
 
         // If search is requested
-        if($search != null) {
+        if($request->has('search') and $request->has('column')) {
             
-            $values = $model::where($column, 'LIKE', "%{$search}%")->get();
-            if(count($values) > 0)
-                return response()->json($values); // 200
-            else 
-                return response()->json(''); // 404
+            $values = $model::where($request->column, 'LIKE', "%{$request->search}%")->get();
         }
-        else {
-            return response()->json('لطفا نوشته مورد دیدگاه خود را جستجو کنید', JSON_UNESCAPED_UNICODE); 
+        if($request->has('category_id')) {
+
+            $values = $model::where('category_id', $request->category_id)->whereNotNull('category_id')->get();
         }
+        if($request->has('sub_category_id')) {
+            $values = $model::where('subCategory_id', $request->sub_category_id)->whereNotNull('subCategory_id')->get();
+        }
+
+        if(count($values) > 0)
+            return response()->json($values); // 200
+        else 
+            return response()->json(''); // 404
     }
 }
