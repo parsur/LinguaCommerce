@@ -14,9 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Admin
-Route::group(['middleware' => ['auth', 'web', 'isAdmin']], function () {
+Route::group(['middleware' => ['auth', 'isAdmin']], function () {
     // Admin
-    Route::get('adminHome', 'AdminController@admin');
+    Route::get('admin/home', 'AdminController@admin');
     Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('list', 'AdminController@list');
         Route::get('table/list', 'AdminController@adminTable')->name('list.table');
@@ -86,7 +86,7 @@ Route::group(['middleware' => ['auth', 'web', 'isAdmin']], function () {
         Route::get('edit', 'Article\VideoController@edit');
         Route::get('delete/{id}', 'Article\VideoController@delete');
     });
-    // Sub Categories based on Categories   
+    // Sub categories based on categories   
     Route::get('/subCategory', 'CategoryController@ajax_subCategory');
     // Categories
     Route::group(['prefix' => 'category', 'as' => 'category.'], function () {
@@ -164,8 +164,6 @@ Route::group(['middleware' => ['auth', 'web', 'isAdmin']], function () {
 
 // Authentication 
 Auth::routes(['verify' => true]);
-Route::get('login','Auth\LoginController@index')->name('login');
-Route::post('login', 'Auth\LoginController@store');
 // Forgotten password
 Route::get('/forgot-password', 'Auth\ForgotPasswordController@index');
 // Warning verification
@@ -174,7 +172,7 @@ Route::get('/email/verify', 'Auth\VerificationController@noticeVerification')->m
 Route::get('/email/verify/{id}/{hash}', 'Auth\VerificationController@finalVerification')->middleware(['auth', 'signed'])->name('verification.verify');
 // logout
 Route::get('/logout','Auth\LoginController@logout')->name('logout');
-Route::get('/', 'HomeController@app')->middleware(['cors']); 
+Route::get('/', 'HomeController@app');
 
 // React app
 Route::view('/{path?}', 'app');

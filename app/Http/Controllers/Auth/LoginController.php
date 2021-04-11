@@ -40,45 +40,64 @@ class LoginController extends Controller
      *
      * @var string
      */
-    public function index() {
+    public function showLoginForm() {
         return view('auth.login');
     }
 
+
+    /**
+     * Store admin.
+     *
+     * @var string
+     */
+    public function admin(StoreLoginRequest $request) {
+        return $this->store($request, 'admin');
+    }   
+
+    /**
+     * Store user.
+     *
+     * @var string
+     */
+    public function storeUser(StoreLoginRequest $request) {
+        return $this->store($request);
+    }  
 
     /**
      * Store data.
      *
      * @var string
      */
-    public function store(StoreLoginRequest $request) {
+    public function store($request, $role = 'user') {
         // Remember Token
-        $remember = $request->get('remember_me');
-
         $remember_me = false;
-        if(isset($remember)) {
+        if($request->has('remember_me')) {
             $remember_me = true;
         }
 
         // Auth
         $credentials = $request->only('email', 'password');
-        if (Auth::attempt(($credentials), $remember_me)) {
+        if (!Auth::attempt(($credentials), $remember_me)) {
 
-            $user = User::where('email', $request->get('email'))->first();
-
-            if($user->role == User::ADMIN) {
-                // Authentication passed...
-                return redirect()->intended('/adminHome');
+            if($role == 'admin') {
+                return Redirect::back()->withErrors('رمز عبور یا ایمیل شما نادرست است');
             }
 
-            $authToken = $user->createToken('auth-token')->plainTextToken;
-
-            return response()->json([
-                'access_token' => $authToken,
-            ]);
+            // ٍErrors
+            return response()->json(['رمز عبور یا ایمیل شما نادرست است'], 401);
         } 
 
-        // ٍErrors
-        return response()->json(['رمز عبور یا ایمیل شما نادرست است'], 401); ;
+        if($role == 'admin') {
+            return redirect()->intended('/admin/home');
+        }
+
+        $user = User::where('email', Auth::user()->email)->first();
+        $authToken = $user->createToken('auth-token')->plainTextToken;
+
+        return response()->json([
+            'access_token' => $authToken,
+        ]);
+
     }   
 
     /**
@@ -88,7 +107,13 @@ class LoginController extends Controller
      */
     public function logout() {
 
+        // Revoke a specific user token
+        Auth::user()->tokens->each(function($token, $key) {
+            $token->delete();
+        });
+
         Auth::logout();
+
         return redirect('/');
     }
 }

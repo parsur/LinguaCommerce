@@ -45,7 +45,8 @@ import {
   UserComment,
   Commenter,
   HiOutlineUserCircles,
-  Videos, Iframe
+  Videos, Iframe,
+  NoComments
 } from './CourseDetailsElements';
 import test2bg from '../../images/test2bg.jpeg';
 import ImageGallery from 'react-image-gallery';
@@ -56,6 +57,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import Carousel, { Dots, slidesToShowPlugin} from '@brainhubeu/react-carousel';
 import '@brainhubeu/react-carousel/lib/style.css';
 import axios from 'axios';
+import Loader from 'react-loader-spinner';
 
 const images = [
   {
@@ -75,8 +77,13 @@ const images = [
 const CourseDetails = () => {
   let { id } = useParams();
 
-  const [course, setCourse] = useState([]);
-  const [desc, setDesc] = useState([]);
+  const [course, setCourse] = useState();
+  const [desc, setDesc] = useState();
+  const [comments, setComments] = useState();
+  const [name, setName] = useState("");
+  const [NewComment, setNewComment] = useState("");
+  const [subCategoryName, setSubCategoryName] = useState("");
+  const [category, setCategory] = useState({});
 
 useEffect(() => {
   api(`api/course/details?id=${id}`)
@@ -84,10 +91,45 @@ useEffect(() => {
           console.log(data);
           setCourse(data.course);
           setDesc(data.course.description);
+          setComments(data.course.comments);
+          setCategory(data.course.category);
+          if(data.course.sub_category === null){
+            setSubCategoryName("");
+          } else {
+            setSubCategoryName(data.course.sub_category.name);
+          }
       })
 }, []);
 
-  return (
+function noComments(){
+  if(comments == 0){
+    return <NoComments>اولین کسی باشید که کامنت میگذارید!</NoComments>
+  }
+}
+
+const token = 'parsur';
+
+function submit(){
+  console.log(id);
+  axios.post('http://www.sararajabi.com/api/courseComment/store', {
+      comment: NewComment,
+      name: name,
+      course_id: id,
+  }, {
+      headers: {
+        'api_key': `${token}` 
+      }
+    }
+  )
+  .then(function (response) {
+      console.log(response);
+  })
+  .catch(function (error) {
+      console.log(error);
+  });
+}
+
+  return course && desc && comments ? (
     <Container>
 
       <Top></Top>
@@ -140,7 +182,7 @@ useEffect(() => {
 
           <HR/>
 
-          <Category>دوره ها / فن بیان</Category>
+          <Category>{category.name} / {subCategoryName}</Category>
 
           <Description>
 
@@ -289,7 +331,7 @@ useEffect(() => {
 
             <MNLeft>
 
-              <NameInput type="text" placeholder="نام شما"></NameInput>
+              <NameInput onChange={(item)=>{setName(item.target.value)}} required type="text" placeholder="نام شما"></NameInput>
 
             </MNLeft>
 
@@ -303,7 +345,7 @@ useEffect(() => {
 
           <MNBottom>
 
-            <TextArea placeholder="کامنت شما" >
+            <TextArea onChange={(item)=>{setNewComment(item.target.value)}} placeholder="کامنت شما" >
 
             </TextArea>
 
@@ -311,13 +353,16 @@ useEffect(() => {
 
           <MNSubBottom>
 
-            <SubmitComments>ثبت کامنت</SubmitComments>
+            <SubmitComments onClick={()=>submit()}>ثبت کامنت</SubmitComments>
 
           </MNSubBottom>
 
         </MakeNew>
 
-        {/* {comments.map(({ comment }) => {
+        {noComments()}
+
+        <div style={comments ? {display:"unset"} : {display:"none"}}>
+        {comments.map(({ comment }) => {
           return(
         <Comment>
           
@@ -329,12 +374,24 @@ useEffect(() => {
 
           <UserComment>{comment}</UserComment>
         
-        </Comment> );
-})} */}
+        </Comment>);
+})}
+        </div>
 
       </Comments>
 
     </Container>
+  ) : (
+        <div style={{width:"100vw", height:"100vh", display:"flex", background: "#fff"}}>
+            <Loader
+            type="Oval"
+            color="#F4DD4F"
+            height={150}
+            width={150}
+            timeout={3000} //3 secs
+            style={{margin: "auto"}}
+            />
+        </div>
   )
 }
 

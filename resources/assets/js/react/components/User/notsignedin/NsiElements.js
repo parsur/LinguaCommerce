@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -32,7 +33,7 @@ export const Hr = styled.hr`
     border: 1px solid #000;
 `
 
-export const Button = styled.button`
+export const Button = styled(Link)`
     height: 75px;
     width: 300px;
     font-size: 25px;
@@ -41,10 +42,15 @@ export const Button = styled.button`
     color: #fff;
     transition: 0.5s;
     border-radius: 0 25px 25px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    cursor: pointer;
 
     &:hover {
-        width: 500px;
         transition: 0.5s;
-        border-radius: 0 0 25px 25px;
+        color: yellow;
     }
 `

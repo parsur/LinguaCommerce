@@ -6,13 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Providers\RedirectAuthentication;
-use App\Providers\EnglishConvertion;
+use App\Http\Requests\StoreRegisterRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use App\Models\User;
-
 
 class RegisterController extends Controller
 {
@@ -30,48 +29,24 @@ class RegisterController extends Controller
     use RegistersUsers;
 
     /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    // protected function redirectTo(){
-    //     return redirect()->intended('/')->getTargetUrl();
-    // }
-    protected $redirectTo = '/email/verify';
-
-
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'phone_number' => ['required', 'numeric', 'digits:11'],
-            'password' => ['required', 'string', 'min:8', 'confirmed']
-        ]);
-    }
-
-    /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
+     * @param  Request $request
      * @return \App\Models\User
      */
-    protected function create(array $data)
-    {
-        $englishConvertion = new EnglishConvertion();
-
-        return User::create([
+    public function register(StoreRegisterRequest $request) {
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'phone_number' => $englishConvertion->convert($data['phone_number']),
+            'phone_number' => $data['phone_number'],
             'password' => Hash::make($data['password']),
             'role' => User::USER
+        ]);
+
+        $authToken = $user->createToken('auth-token')->plainTextToken;
+
+        return response()->json([
+            'access_token' => $authToken,
         ]);
     }
 }

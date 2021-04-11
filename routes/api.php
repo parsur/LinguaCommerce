@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 
 // User
-Route::group(['middleware' => ['apiKey', 'cors']], function() { 
+Route::group(['prefix' => 'v1', 'as' => 'v1.', 'middleware' => 'apiKey'], function() {  // verified
     // Cart
     Route::group(['prefix' => 'cart', 'as' => 'cart.'], function() {
         Route::post('store/{course_id}','CartController@store');
@@ -78,6 +78,9 @@ Route::group(['middleware' => ['apiKey', 'cors']], function() {
         Route::get('delete/{id}', 'UserController@delete');
     });
 
+    // Sub categories based on categories   
+    Route::get('/subCategory', 'CategoryController@ajax_subCategory');
+
     // Store Consultation 
     Route::post('consultation/store', 'ConsultationController@store')->middleware('storeConsultation');
     // App
@@ -85,8 +88,8 @@ Route::group(['middleware' => ['apiKey', 'cors']], function() {
     // Home
     Route::get('home', 'HomeController@index');
     // Login
-    Route::post('login', 'Auth\LoginController@store');
-    Route::post('register', 'Auth\RegisterController@create');
+    Route::post('login', 'Auth\LoginController@user');
+    Route::post('register', 'Auth\RegisterController@register');
     Route::get('logout', 'Auth\LoginController@logout'); 
 });
 

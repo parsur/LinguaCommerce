@@ -42,34 +42,39 @@ import Loader from 'react-loader-spinner';
 import axios from 'axios';
 import CourseDetails from '../CourseDetails';
 
-const options = [
-    { value: 'دسته بندی اول', label: 'دسته بندی اول' },
-    { value: 'دسته بندی دوم', label: 'دسته بندی دوم' },
-    { value: 'دسته بندی سوم', label: 'دسته بندی سوم' }
-  ]
-
 const token = 'parsur';
 
 const Course = ({ data }) => {
     const [course, setCourse] = useState(null);
     const [search, setSearch] = useState("");
     const [noRes, setNoRes] = useState(null);
+    const [categories, setCategories] = useState([]);
+    const [subCategories, setSubCategories] = useState([]);
 
     useEffect(() => {
-        api("api/course/show")
+        api("course/show")
             .then((data) => {
                 setCourse([])
                 setCourse(data.courses);
+                setCategories(data.categories);
+                setSubCategories(data.subCategories);
+                if(data.subCategories === []){
+                    setCategories([{"name" : "mamad", "id" : "20"}])
+                }
+                console.log(data);
             })
     }, []);
 
+    const options = categories.map(({name, id}, i) => ({ value: id, label: name }))
+    const optionsTwo = subCategories.map(({name, id}, i) => ({ value: id, label: name }))
+    
     function submit(){
         console.log(search);
         axios.post('http://sararajabi.com/api/course/search', {
             search: search,
         }, {
             headers: {
-              'api_key': `Basic ${token}` 
+              'api_key': `${token}` 
             }
           }
         )
@@ -87,8 +92,6 @@ const Course = ({ data }) => {
             console.log(error);
         });
     }
-
-    
 
     function handleSearchChaneg(event){
         if (event.target.value === "") {
@@ -121,10 +124,10 @@ const Course = ({ data }) => {
                                 </Searchs>
                                 <FilterContainer>
                                     <Filter>
-                                        <SelectS options={options} placeholder="دسته بندی اول" />
+                                        <SelectS options={options/* "value :" `${categories.map(({name}, i) =>{ return({name})})}`*/} placeholder="دسته بندی اول" />
                                     </Filter>
                                     <Filter>
-                                        <SelectS options={options} placeholder="دسته بندی دوم" />
+                                        <SelectS options={optionsTwo} placeholder="دسته بندی دوم" />
                                     </Filter>
                                 </FilterContainer>
                             </SearchContainer>

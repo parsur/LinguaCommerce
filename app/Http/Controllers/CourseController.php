@@ -7,12 +7,13 @@ use App\Models\Course;
 use App\Models\Category;
 use App\Models\SubCategory;
 use App\Models\Status;
-use App\DataTables\CourseDataTable;
-use App\Http\Requests\StoreCourseRequest;
 use App\Providers\Action;
 use App\Providers\CourseArticleAction;
 use App\Providers\SuccessMessages;
 use App\Providers\EnglishConvertion;
+use App\DataTables\CourseDataTable;
+use App\Http\Requests\StoreCourseRequest;
+use App\Http\Requests\SearchRequest;
 use Auth;
 use DB;
 use File;
@@ -146,7 +147,7 @@ class CourseController extends Controller
     } 
 
     // Search
-    public function search(CourseArticleAction $action, Request $request) {
+    public function search(CourseArticleAction $action, SearchRequest $request) {
         return $action->search($request, Course::class);
     }
 

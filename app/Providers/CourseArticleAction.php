@@ -149,6 +149,7 @@ class CourseArticleAction {
             $values = $model::where('category_id', $request->category_id)->whereNotNull('category_id')->get();
         }
         if($request->has('sub_category_id')) {
+            
             $values = $model::where('subCategory_id', $request->sub_category_id)->whereNotNull('subCategory_id')->get();
         }
 

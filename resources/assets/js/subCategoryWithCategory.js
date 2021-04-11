@@ -1,4 +1,4 @@
-// Ajax Category Based on Sub Category
+// Ajax category Based on Sub category
 $('#categories').on('change', function (e) {
     var category_id = e.target.value;
     $.get('/subCategory?category_id=' + category_id, function (data) {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import FirstPage from './components/Pages/FirstPage';
 import GlobalStyle from './globalStyles';
@@ -10,6 +10,7 @@ import WhymePage from './components/Pages/WhymePage';
 import CourseDetailsPage from './components/Pages/CourseDetails';
 import ArticleDetails from './components/Pages/ArticleDetails';
 import ArticleLists from './components/Pages/ArticleListPage';
+import Login from './components/Login';
 
 function App() {
 
@@ -113,8 +114,9 @@ function App() {
           <Route path='/consultante' exact component={Consultante}/>
           <Route path='/whyme' exact component={WhymePage}/>
           <Route path='/course/:id' exact component={CourseDetailsPage}/>
-          <Route path='/articledetails' exact component={ArticleDetails}/>
+          <Route path='/article/:id' exact component={ArticleDetails}/>
           <Route path='/articlelists' exact component={ArticleLists}/>
+          <Route path='/login' exact component={Login}/>
         </Switch>
       </Router>
     </>

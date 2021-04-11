@@ -20,6 +20,7 @@ import Details from './details';
 import { dash } from '../../Data';
 import api from '../../api';
 import Orders from './orders';
+import axios from 'axios';
 
 // these down here are just test
 const DisplayOne = () => {
@@ -33,6 +34,8 @@ const DisplayTwo = () => {
     );
 }
 
+const token = 'parsur';
+
 const User = ({
     dashboardName,
     data
@@ -42,10 +45,23 @@ const User = ({
     const [user, setUser] = useState();
 
     useEffect(() => {
-        api("api/user/show")
-            .then(({ user }) => {
-                setUser(user);
-            })
+        axios.get('http://sararajabi.com/api/user/show', {
+            headers: {
+                'api_key': `${token}`,
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            }
+          }
+        ).then(function (response) {
+            console.log(response);
+            setUser(response.data.user);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+        // api("api/user/show")
+        //     .then(({ user }) => {
+        //         setUser(user);
+        //     })
     }, []);
 
 

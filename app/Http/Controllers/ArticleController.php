@@ -7,11 +7,12 @@ use App\Models\Article;
 use App\Models\Category;
 use App\Models\SubCategory;
 use App\Models\Status;
-use App\DataTables\ArticleDataTable;
-use App\Http\Requests\StoreArticleRequest;
 use App\Providers\Action;
 use App\Providers\CourseArticleAction;
 use App\Providers\SuccessMessages;
+use App\DataTables\ArticleDataTable;
+use App\Http\Requests\StoreArticleRequest;
+use App\Http\Requests\SearchRequest;
 use DB;
 
 class ArticleController extends Controller
@@ -138,7 +139,7 @@ class ArticleController extends Controller
     }
 
     // Search
-    public function search(CourseArticleAction $action, Request $request) {
+    public function search(CourseArticleAction $action, SearchRequest $request) {
         return $action->search($request, Article::class);
     }
 

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { CgLogIn } from 'react-icons/cg';
+import { Link } from 'react-router-dom';
 
 export const HeroContainer = styled.div`
     background: #fff;
@@ -129,6 +130,8 @@ export const LogIn = styled.button`
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    align-items: center;
+    justify-content: center;
 
     &:hover {
         background: #064F7C;
@@ -145,8 +148,10 @@ export const LogIn = styled.button`
     }
 `
 
-export const LoginCol = styled.div`
+export const LoginCol = styled(Link)`
     display: flex;
+    text-decoration: none;
+    color: unset;
 `
 
 export const LoginButton = styled.p`
@@ -371,4 +376,17 @@ export const HeroIcon = styled.div`
         height: 70px;
         margin: 10px;
     }
+`
+
+export const Welcome = styled(Link)`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: unset;
+`
+
+export const WelcomeUser = styled.div`
+    font-size: clamp(1.2rem, 2vw, 2rem);
 `

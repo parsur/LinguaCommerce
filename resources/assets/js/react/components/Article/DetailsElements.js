@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import whymebg from '../../images/test2bg.jpeg';
 import { Link } from 'react-router-dom';
 import Select from 'react-select';
+import { VscSearchStop } from 'react-icons/vsc';
 
 export const Container = styled.div`
     display: flex;
@@ -44,7 +45,6 @@ export const Right = styled.div`
 
 export const Top = styled.div`
     width: 100%;
-    height: 60vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -84,6 +84,8 @@ export const Img = styled.img`
 
 export const H1 = styled.h1`
     font-size: clamp(2rem, 3vw, 2.5rem);
+    width: 100%;
+    text-align: center;
 `
 
 export const P = styled.p`
@@ -132,33 +134,6 @@ export const Submit = styled.button`
     align-items: center;
     justify-content: center;
     font-size: 20px;
-`
-
-export const Block = styled.div`
-    width: 250px;
-    height: 300px;
-    background: #F4DD4F;
-    margin: 10px 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-
-    @media screen and (max-width: 250px) {
-        width: 95%;
-    }
-`
-
-export const MainB = styled(Link)`
-    width: 95%;
-    height: 95%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    color: unset;
 `
 
 export const Photo = styled.div`
@@ -219,4 +194,169 @@ export const Filter = styled.div`
 
 export const SelectS = styled(Select)`
     width: 100%;
+`
+
+export const NoResult = styled.div`
+    width: 60%;
+    height: 200px;
+    font-size: 40px;
+    direction: rtl;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #F4DD4F;
+    border-radius: 20px;
+    margin-top: 50px;
+`
+
+export const VscSearchStops = styled(VscSearchStop)`
+    font-size: 100px;
+`
+
+export const OtherCourses = styled.div`
+    width: 90%;
+    min-height: 350px;
+    border-radius: 10px;
+    margin: 40px 0 10px 0;
+    background: #eee;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`
+
+export const OCTop = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0;
+`
+
+export const OCHR = styled.hr`
+    border: 1px solid gray;
+    width: 50%;
+`
+
+export const OCBottom = styled.div`
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px 0;
+    background: #00000050;
+`
+
+export const H3 = styled.h3`
+    direction: rtl;
+    font-size: 30px;
+`
+
+export const Suggested = styled.div`
+    width: 500px;
+    height: 250px;
+    background: #F4DD4F;
+    margin: 0 10px;
+    border-radius: 10px;
+    overflow: scroll;
+`
+
+export const Block = styled.div`
+    width: 80%;
+    height: 300px;
+    background: #F4DD4F;
+    margin: 10px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    transition: 0.2s;
+    
+    &:hover{
+        box-shadow: 3px 3px 5px grey;
+        transition: 0.2s;
+    }
+
+    @media screen and (max-width: 250px) {
+        width: 95%;
+    }
+`
+
+export const MainB = styled(Link)`
+    width: 95%;
+    height: 95%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: unset;
+`
+
+export const MBLeft = styled.div`
+    width: 60%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+`
+
+export const MBRight = styled.div`
+    width: 40%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+`
+
+export const MBImage = styled.image`
+    background: url(${whymebg});
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+`
+
+export const MBLTop = styled.div`
+    width: 100%;
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px;
+`
+
+export const MBLBottom = styled.div`
+    width: 100%;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+`
+
+export const MBLH1 = styled.h1`
+    direction: rtl;
+    font-size: 25px;
+`
+
+export const MBLGoTo = styled.div`
+    width: 80%;
+    height: 50px;
+    background: #eee;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    transition: 0.2s;
+
+    &:hover{
+        box-shadow: 3px 3px 5px grey;
+        transition: 0.2s;
+    }
 `

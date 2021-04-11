@@ -414,3 +414,12 @@ export const Videos = styled.div`
 export const Iframe = styled.iframe`
   width: unset;
 `
+
+export const NoComments = styled.div`
+  direction: rtl;
+  padding: 10px 30px;
+  font-size: 30px;
+  background: #eee;
+  margin-top: 20px;
+  border-radius: 10px;
+`

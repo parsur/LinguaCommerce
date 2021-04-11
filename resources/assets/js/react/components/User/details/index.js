@@ -13,6 +13,7 @@ import {
 import Edit from './edit detail';
 import api from '../../../api';
 import Loader from "react-loader-spinner";
+import axios from 'axios';
 
 const Details = ({
     dashboardName,
@@ -28,13 +29,23 @@ const Details = ({
     
     const [user, setUser] = useState();
 
-    useEffect(() => {
-        api("api/user/show")
-            .then(({ user }) => {
-                setUser(user);
-            })
-    }, []);
+    const token = 'parsur';
 
+    useEffect(() => {
+        axios.get('http://sararajabi.com/api/user/show', {
+            headers: {
+                'api_key': `${token}`,
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            }
+          }
+        ).then(function (response) {
+            console.log(response);
+            setUser(response.data.user);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    }, []);
     // const list = user(({ phone_number, email, i }) => {
     //     return  <D1 key={i}>
     //                 <Number>شماره تلفن شما :<span style={{color:"grey"}}>{phone_number}</span></Number>
