@@ -22,7 +22,7 @@ class IsAdmin
             return $next($request);
         }
 
-        // User
-        return redirect()->intended('/');
+        // Forbidden message
+        return response()->view('errors.403', ['exception' => 'شما اجازه دسترسی به این بخش را ندارید'], 403);
     }
 }

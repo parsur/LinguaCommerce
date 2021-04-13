@@ -23,9 +23,6 @@ class WhyMeController extends Controller
         $whyMe->value = $request->get('description');
         $whyMe->save();
 
-        $success_output = $message->getInsert();
-        $output = array('success' => $success_output);
-
-        return response()->json($output);
+        return response()->json(['success' => $message->getInsert()]);
     }
 }

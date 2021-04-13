@@ -54,7 +54,7 @@ class ConsultationController extends Controller
             }
 
             DB::commit();
-            return response()->json('درخواست مشاوره با موفقیت ثبت شد', JSON_UNESCAPED_UNICODE);
+            return response()->json(['success' => 'درخواست مشاوره با موفقیت ثبت شد'], 200) ; // JSON_UNESCAPED_UNICODE)
 
         } catch(Exception $e) {
             throw $e;

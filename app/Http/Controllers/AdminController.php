@@ -49,8 +49,7 @@ class AdminController extends Controller
             $success_output = $message->getUpdate();
         }
 
-        $output = array('success' => $success_output);
-        return response()->json($output);
+        return response()->json(['success' => $success_output]);
     }
 
     

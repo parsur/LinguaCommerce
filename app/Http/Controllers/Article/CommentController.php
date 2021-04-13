@@ -43,7 +43,7 @@ class CommentController extends Controller
 
             DB::commit();
             
-            return response()->json('دیدگاه درباره مقاله با موفقیت ثبت شد', JSON_UNESCAPED_UNICODE);
+            return response()->json(['success' => 'دیدگاه درباره مقاله با موفقیت ثبت شد'], 200);
 
         } catch(Exception $e) {
             throw $e;
@@ -65,7 +65,7 @@ class CommentController extends Controller
 
             DB::commit();
 
-            return response()->json('دیدگاه درباره مقاله با موفقیت ویرایش شد', JSON_UNESCAPED_UNICODE);
+            return response()->json(['success' => 'دیدگاه درباره مقاله با موفقیت ویرایش شد'], 200);
 
         } catch(Exception $e) {
             throw $e;

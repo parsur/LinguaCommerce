@@ -22,8 +22,8 @@ use Illuminate\Support\Facades\Route;
 // User
 Route::group(['prefix' => 'v1', 'as' => 'v1.', 'middleware' => 'apiKey'], function() {  // verified
     // Cart
-    Route::group(['prefix' => 'cart', 'as' => 'cart.'], function() {
-        Route::post('store/{course_id}','CartController@store');
+    Route::group(['prefix' => 'cart', 'as' => 'cart.', 'middleware' => 'auth:sanctum'], function() {
+        Route::post('store','CartController@store');
         Route::get('show','CartController@show');
         Route::get('delete/{id}','CartController@delete');
     });
@@ -71,7 +71,7 @@ Route::group(['prefix' => 'v1', 'as' => 'v1.', 'middleware' => 'apiKey'], functi
     });
 
     // Profile
-    Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth:sanctum'], function() { 
+    Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['auth:sanctum']], function() { 
         Route::post('store', 'UserController@store');
         Route::get('show', 'UserController@show');
         Route::get('edit', 'UserController@edit');
@@ -79,18 +79,22 @@ Route::group(['prefix' => 'v1', 'as' => 'v1.', 'middleware' => 'apiKey'], functi
     });
 
     // Sub categories based on categories   
-    Route::get('/subCategory', 'CategoryController@ajax_subCategory');
+    Route::get('/sub_category', 'CategoryController@ajax_subCategory');
 
     // Store Consultation 
     Route::post('consultation/store', 'ConsultationController@store')->middleware('storeConsultation');
-    // App
-    Route::get('/', 'HomeController@app'); 
     // Home
-    Route::get('home', 'HomeController@index');
-    // Login
-    Route::post('login', 'Auth\LoginController@user');
+    Route::get('/home', 'HomeController@index');
+    // Register
     Route::post('register', 'Auth\RegisterController@register');
-    Route::get('logout', 'Auth\LoginController@logout'); 
+    // Login
+    Route::post('login', 'Auth\LoginController@storeUser');
+
+    Route::get('email/verify/{id}', 'VerificationController@verify')->name('verification.verify');
+    Route::get('email/resend', 'VerificationController@resend')->name('verification.resend');
+
+    // Logout
+    Route::post('logout', 'Auth\LoginController@logout')->middleware('auth:sanctum');
 });
 
 

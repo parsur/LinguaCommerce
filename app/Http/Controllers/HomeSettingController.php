@@ -101,8 +101,7 @@ class HomeSettingController extends Controller
         $home_setting13->save();
 
         $success_output = $message->getInsert();
-        $output = array('success' => $success_output);
 
-        return response()->json($output);
+        return response()->json(['success' => $success_output]);
     }
 }

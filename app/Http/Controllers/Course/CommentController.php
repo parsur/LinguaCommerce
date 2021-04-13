@@ -44,7 +44,7 @@ class CommentController extends Controller
             $comment->statuses()->create(['status' => Status::INVISIBLE]);
 
             DB::commit();
-            return response()->json('دیدگاه مرتبط به دوره با موفقیت ثبت شد', JSON_UNESCAPED_UNICODE);
+            return response()->json(['success' => 'دیدگاه مرتبط به دوره با موفقیت ثبت شد'], 200);
 
         } catch(Exception $e) {
             throw $e;
@@ -65,7 +65,7 @@ class CommentController extends Controller
                 ->update(['comment' => $request->get('comment')]);
 
             DB::commit();
-            return response()->json('دیدگاه مرتبط به دوره با موفقیت ویرایش شد', JSON_UNESCAPED_UNICODE);
+            return response()->json(['success' => 'دیدگاه مرتبط به دوره با موفقیت ویرایش شد'], 200); //JSON_UNESCAPED_UNICODE)
 
         } catch(Exception $e) {
             throw $e;

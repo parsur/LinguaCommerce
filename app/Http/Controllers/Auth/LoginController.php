@@ -44,30 +44,17 @@ class LoginController extends Controller
         return view('auth.login');
     }
 
-
-    /**
-     * Store admin.
-     *
-     * @var string
-     */
-    public function admin(StoreLoginRequest $request) {
+    // Store admin
+    public function storeAdmin(StoreLoginRequest $request) {
         return $this->store($request, 'admin');
     }   
 
-    /**
-     * Store user.
-     *
-     * @var string
-     */
+    // Store user
     public function storeUser(StoreLoginRequest $request) {
         return $this->store($request);
     }  
 
-    /**
-     * Store data.
-     *
-     * @var string
-     */
+    // Store data
     public function store($request, $role = 'user') {
         // Remember Token
         $remember_me = false;
@@ -84,7 +71,7 @@ class LoginController extends Controller
             }
 
             // ٍErrors
-            return response()->json(['رمز عبور یا ایمیل شما نادرست است'], 401);
+            return response()->json(['error' => 'رمز عبور یا ایمیل شما نادرست است'], 401);
         } 
 
         if($role == 'admin') {
@@ -100,11 +87,7 @@ class LoginController extends Controller
 
     }   
 
-    /**
-     * logout.
-     *
-     * @var string
-     */
+    // logout
     public function logout() {
 
         // Revoke a specific user token

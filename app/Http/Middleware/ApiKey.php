@@ -20,7 +20,7 @@ class ApiKey
             return $next($request);
         }
 
-        // 403 Forbidden
+        // 401 Forbidden
         return response()->view('errors/401');
     }
 }

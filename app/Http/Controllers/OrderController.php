@@ -164,11 +164,11 @@ class OrderController extends Controller
             $receipt = Payment::amount(1000)->transactionId($transaction_id)->verify();
 
             // you can show payment's referenceId to user
-            echo $receipt->getReferenceId();
+            return $receipt->getReferenceId();
 
         } catch (InvalidPaymentException $exception) {
             // when payment is not verified , it throw an exception.
-            echo $exception->getMessage();
+            return $exception->getMessage();
         }
     }
 }

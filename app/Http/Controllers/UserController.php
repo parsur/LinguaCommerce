@@ -17,12 +17,15 @@ class UserController extends Controller
 {
     // User Dashboard(profile)
     public function show() {
+
         $vars['user'] = User::where('id', Auth::user()->id)->first();
+        
         return response()->json($vars);
     }
 
     // DataTable to blade
     public function list() {
+
         // dataTable
         $dataTable = new UserDataTable();
 
@@ -51,8 +54,7 @@ class UserController extends Controller
             $success_output = $message->getUpdate();
         }
 
-        $output = array('success' => $success_output);
-        return response()->json($output);
+        return response()->json(['success' => $success_output]);
     }
 
     // Add or update user

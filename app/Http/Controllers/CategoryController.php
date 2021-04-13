@@ -88,8 +88,8 @@ class CategoryController extends Controller
     // Sub Categories based on categories
     public function ajax_subCategory(Request $request) {
 
-        $c_id = $request->get('category_id');
-        $subCategory = SubCategory::where('category_id', $c_id)->get();
+        $category_id = $request->get('category_id');
+        $subCategory = SubCategory::where('category_id', $category_id)->get();
 
         return response()->json($subCategory);
     }

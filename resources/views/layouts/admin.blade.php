@@ -30,7 +30,10 @@
                         <i class="fa fa-user"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                        <a class="dropdown-item text-danger" href="/logout">خروج</a>
+                        <form method="POST" action="{{ url('logout') }}">
+                            @csrf
+                            <button class="dropdown-item text-danger" type="submit">خروج</button>
+                        </form>
                     </div>
                 </li>
             </ul>

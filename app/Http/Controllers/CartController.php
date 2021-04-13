@@ -19,14 +19,14 @@ class CartController extends Controller
     }
 
     // Store
-    public function store($course_id,Request $request) {
+    public function store(Request $request) {
         // Insert into cart
         Cart::create([
-            'course_id' => $course_id,
+            'course_id' => $request->get('course_id'),
             'user_id' => auth()->user()->id  
         ]);
         
-        return response()->json('اطلاعات با موفقیت به سبد خرید اضافه شد', JSON_UNESCAPED_UNICODE);
+        return response()->json(['success' => 'اطلاعات با موفقیت به سبد خرید اضافه شد'], 200);
     }
 
     // delete

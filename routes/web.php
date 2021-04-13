@@ -87,7 +87,7 @@ Route::group(['middleware' => ['auth', 'isAdmin']], function () {
         Route::get('delete/{id}', 'Article\VideoController@delete');
     });
     // Sub categories based on categories   
-    Route::get('/subCategory', 'CategoryController@ajax_subCategory');
+    Route::get('/sub_category', 'CategoryController@ajax_subCategory');
     // Categories
     Route::group(['prefix' => 'category', 'as' => 'category.'], function () {
         Route::get('list', 'CategoryController@list');
@@ -160,20 +160,28 @@ Route::group(['middleware' => ['auth', 'isAdmin']], function () {
         Route::get('new', 'WhyMeController@new');
         Route::post('store','WhyMeController@store');
     });
+    // logout
+    Route::post('/logout','Auth\LoginController@logout');
 });
+
+
+// App
+Route::get('/', 'HomeController@app');
 
 // Authentication 
 Auth::routes(['verify' => true]);
+// Login
+Route::post('admin/login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('admin/login', 'Auth\LoginController@storeAdmin');
 // Forgotten password
 Route::get('/forgot-password', 'Auth\ForgotPasswordController@index');
-// Warning verification
-Route::get('/email/verify', 'Auth\VerificationController@noticeVerification')->middleware('auth')->name('verification.notice');
-// Email vertification 
-Route::get('/email/verify/{id}/{hash}', 'Auth\VerificationController@finalVerification')->middleware(['auth', 'signed'])->name('verification.verify');
-// logout
-Route::get('/logout','Auth\LoginController@logout')->name('logout');
-Route::get('/', 'HomeController@app');
 
 // React app
-Route::view('/{path?}', 'app');
-Route::view('/{path?}/{id}', 'app');
+Route::view('/courselist', 'app');
+Route::view('/aboutus', 'app');
+Route::view('/whyme', 'app');
+Route::view('/coonsultante', 'app');
+Route::view('/article/{id}', 'app');
+Route::view('/course/{id}', 'app');
+Route::view('/articlelists', 'app');
+Route::view('/login', 'app');

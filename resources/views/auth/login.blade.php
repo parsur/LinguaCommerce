@@ -10,7 +10,7 @@
     <body>
         <div class="wrapper">
             {{-- Form --}}
-            <form action="{{ url('login')}} " method="POST" class="login">
+            <form action="{{ url('admin/login')}} " method="POST" class="login">
                 @csrf
                 <!-- Title -->
                 <p class="title">ورود</p>

@@ -7,7 +7,6 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Providers\RedirectAuthentication;
 use App\Http\Requests\StoreRegisterRequest;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -26,7 +25,7 @@ class RegisterController extends Controller
     |
     */
 
-    use RegistersUsers;
+    // use RegistersUsers;
 
     /**
      * Create a new user instance after a valid registration.
@@ -35,18 +34,14 @@ class RegisterController extends Controller
      * @return \App\Models\User
      */
     public function register(StoreRegisterRequest $request) {
-        $user = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'phone_number' => $data['phone_number'],
-            'password' => Hash::make($data['password']),
-            'role' => User::USER
-        ]);
+        
+        $user = User::create($request->all());
 
+        $user->sendEmailVerificationNotification();
         $authToken = $user->createToken('auth-token')->plainTextToken;
 
         return response()->json([
-            'access_token' => $authToken,
+            'access_token' => $authToken
         ]);
     }
 }

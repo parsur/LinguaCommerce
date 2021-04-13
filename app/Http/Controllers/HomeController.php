@@ -22,29 +22,29 @@ class HomeController extends Controller
      */
     public function index() {
         // Home settings
-        // $names = [
-        //     'header',
-        //     'subHeader',
-        //     'description',
-        //     'firstEvent',
-        //     'firstEventUrl',
-        //     'secondEvent',
-        //     'secondEventUrl',
-        //     'thirdEvent',
-        //     'thirdEventUrl',
-        //     'fourthEvent',
-        //     'fourthEventUrl',
-        //     'footer'
-        // ];
+        $names = [
+            'header',
+            'subHeader',
+            'description',
+            'firstEvent',
+            'firstEventUrl',
+            'secondEvent',
+            'secondEventUrl',
+            'thirdEvent',
+            'thirdEventUrl',
+            'fourthEvent',
+            'fourthEventUrl',
+            'footer'
+        ];
 
-        // $home_settings = Setting::whereIn('name', $names)->select('name', 'value')->get();
+        $home_settings = Setting::whereIn('name', $names)->select('name', 'value')->get();
 
-        // $vars = [];
-        // foreach($home_settings as $setting) {
-        //     $vars[$setting->name] = $setting->value;
-        // }
+        $vars = [];
+        foreach($home_settings as $setting) {
+            $vars[$setting->name] = $setting->value;
+        }
 
-        return response()->json('sdsadsa');
+        return response()->json($vars);
     }
 
 }

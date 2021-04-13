@@ -8,51 +8,49 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\VerifiesEmails;
 use App\Providers\RedirectAuthentication;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use App\Models\User;
 
 
-class VerificationController extends Controller
-{
-    /*
-    |--------------------------------------------------------------------------
-    | Email Verification Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller is responsible for handling email verification for any
-    | user that recently registered with the application. Emails may also
-    | be re-sent if the user didn't receive the original email message.
-    |
-    */
+class VerificationController extends Controller {
 
-    use VerifiesEmails;
-
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = RouteServiceProvider::HOME;
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-        $this->middleware('signed')->only('verify');
-        $this->middleware('throttle:6,1')->only('verify', 'resend');
+    // Facing any error, fix here
+    public function __construct() {
+        $this->middleware('auth:api')->except(['verify']);
     }
 
-    //  Verification warning 
-    public function noticeVerification() {
-        return view('auth.verify');
+    /**
+     * Verify email
+     *
+     * @param $user_id
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function verify($user_id, Request $request) {
+        if (! $request->hasValidSignature()) {
+            return response()->json(["error" => "لینک ارائه شده منقضی یا فاقد اعتبار شده است"], 401);
+        }
+
+        $user = User::findOrFail($user_id);
+
+        if (!$user->hasVerifiedEmail()) {
+            $user->markEmailAsVerified();
+        }
+
+        return redirect()->to('/');
     }
 
-    // Final vertification
-    public function finalVerification(EmailVerificationRequest $request) {
-        $request->fulfill();
-        // Verification redirection
-        return redirect('/');
+    /**
+     * Resend email verification link
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function resend() {
+        if (auth()->user()->hasVerifiedEmail()) {
+            return $this->respondBadRequest(ApiCode::EMAIL_ALREADY_VERIFIED);
+        }
+
+        auth()->user()->sendEmailVerificationNotification();
+
+        return response()->json(["error" => "تاییدیه ایمیل به ایمیل شما فرستاده شد"], 401);
     }
 }

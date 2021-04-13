@@ -24,7 +24,7 @@ class StoreConsultationRequest extends FormRequest
     public function rules()
     {
         return [
-            'description' => 'max:200',
+            'description' => 'max:250',
             'phone_number' => 'required_without:description|numeric|digits:11',
         ];
     }
