@@ -14,7 +14,7 @@ class StoreSubCategoryRequest extends FormRequest
      */
     public function authorize()
     {
-        return  true;
+        return true;
     }
 
     /**

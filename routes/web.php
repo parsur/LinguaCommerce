@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -87,7 +88,7 @@ Route::group(['middleware' => ['auth', 'isAdmin']], function () {
         Route::get('delete/{id}', 'Article\VideoController@delete');
     });
     // Sub categories based on categories   
-    Route::get('/sub_category', 'CategoryController@ajax_subCategory');
+    Route::get('/sub_category', 'CategoryController@ajax_sub_category');
     // Categories
     Route::group(['prefix' => 'category', 'as' => 'category.'], function () {
         Route::get('list', 'CategoryController@list');
@@ -164,18 +165,15 @@ Route::group(['middleware' => ['auth', 'isAdmin']], function () {
     Route::post('/logout','Auth\LoginController@logout');
 });
 
-
 // App
 Route::get('/', 'HomeController@app');
-
 // Authentication 
 Auth::routes(['verify' => true]);
 // Login
-Route::post('admin/login', 'Auth\LoginController@showLoginForm')->name('login');
-Route::post('admin/login', 'Auth\LoginController@storeAdmin');
+Route::get('admin/login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('admin/login', 'Auth\LoginController@store');
 // Forgotten password
 Route::get('/forgot-password', 'Auth\ForgotPasswordController@index');
-
 // React app
 Route::view('/courselist', 'app');
 Route::view('/aboutus', 'app');
@@ -185,3 +183,10 @@ Route::view('/article/{id}', 'app');
 Route::view('/course/{id}', 'app');
 Route::view('/articlelists', 'app');
 Route::view('/login', 'app');
+
+
+Route::get('test', function() {
+    $auth = auth('sanctum')->user();
+    // $auth = $request->user('api');
+    return response()->json($auth);
+});

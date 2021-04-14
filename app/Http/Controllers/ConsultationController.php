@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Consultation;
+use App\Models\Description;
 use App\Providers\Action;
 use App\Providers\SuccessMessages;
-use App\Providers\StoreConsultationRequest;
+use App\Http\Requests\StoreConsultationRequest;
 use App\DataTables\ConsultationDataTable;
 use Illuminate\Http\Request;
 use DB;
@@ -44,17 +45,17 @@ class ConsultationController extends Controller
 
         DB::beginTransaction();
         try {
-            if($request->get('description')) {
+            if($request->has('description')) {
                 
-                $consultation = Consultation::create(['user_id' => auth()->user()->id]);
-                $consultation->descriptions->create(['description' => $request->get('description')]);
+                $consultation = Consultation::create(['user_id' => auth('sanctum')->user()->id]);
+                $consultation->description()->create(['description' => $request->get('description')]);
 
-            } else if($request->get('phone_number')) {
+            } else if($request->has('phone_number')) {
                 Consultation::create(['phone_number' => $request->get('phone_number')]);
             }
 
             DB::commit();
-            return response()->json(['success' => 'درخواست مشاوره با موفقیت ثبت شد'], 200) ; // JSON_UNESCAPED_UNICODE)
+            return response()->json(['success' => 'درخواست مشاوره با موفقیت ثبت شد'], 200) ; // JSON_UNESCAPED_UNICODE
 
         } catch(Exception $e) {
             throw $e;

@@ -19,15 +19,29 @@ use Illuminate\Support\Facades\Route;
 // });
 
 
-// User
-Route::group(['prefix' => 'v1', 'as' => 'v1.', 'middleware' => 'apiKey'], function() {  // verified
-    // Cart
-    Route::group(['prefix' => 'cart', 'as' => 'cart.', 'middleware' => 'auth:sanctum'], function() {
-        Route::post('store','CartController@store');
-        Route::get('show','CartController@show');
-        Route::get('delete/{id}','CartController@delete');
+Route::group(['prefix' => 'v1', 'as' => 'v1.', 'middleware' => 'apiKey'], function() {  
+    // Auth sanctum middleware
+    Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+        // Cart
+        Route::group(['prefix' => 'cart', 'as' => 'cart.'], function() {
+            Route::post('store','CartController@store');
+            Route::get('show','CartController@show');
+            Route::get('delete/{id}','CartController@delete');
+        });
+
+        // Profile
+        Route::group(['prefix' => 'user', 'as' => 'user.'], function() { 
+            Route::post('store', 'UserController@store');
+            Route::get('show', 'UserController@show');
+            Route::get('edit', 'UserController@edit');
+            Route::get('delete/{id}', 'UserController@delete');
+        });
+        // Store the description of consultation
+        Route::post('consultation/description/store', 'ConsultationController@storeDescription');
+        // Logout
+        Route::post('logout', 'Auth\LoginController@logout');
     });
-    Route::group(['prefix' => 'order', 'as' => 'order.'], function() {
+    Route::group(['prefix' => 'order', 'as' => 'order.'], function() { 
         // Order
         Route::post('store','OrderController@store');
         // Verify order
@@ -70,31 +84,19 @@ Route::group(['prefix' => 'v1', 'as' => 'v1.', 'middleware' => 'apiKey'], functi
         Route::get('delete/{id}','Article\CommentController@delete');
     });
 
-    // Profile
-    Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['auth:sanctum']], function() { 
-        Route::post('store', 'UserController@store');
-        Route::get('show', 'UserController@show');
-        Route::get('edit', 'UserController@edit');
-        Route::get('delete/{id}', 'UserController@delete');
-    });
-
     // Sub categories based on categories   
-    Route::get('/sub_category', 'CategoryController@ajax_subCategory');
-
+    Route::get('/sub_category', 'CategoryController@ajax_sub_category');
     // Store Consultation 
-    Route::post('consultation/store', 'ConsultationController@store')->middleware('storeConsultation');
+    Route::post('consultation/store', 'ConsultationController@store');
     // Home
     Route::get('/home', 'HomeController@index');
     // Register
     Route::post('register', 'Auth\RegisterController@register');
     // Login
-    Route::post('login', 'Auth\LoginController@storeUser');
-
+    Route::post('login', 'Auth\LoginController@store');
+    // Email verification
     Route::get('email/verify/{id}', 'VerificationController@verify')->name('verification.verify');
     Route::get('email/resend', 'VerificationController@resend')->name('verification.resend');
-
-    // Logout
-    Route::post('logout', 'Auth\LoginController@logout')->middleware('auth:sanctum');
 });
 
 

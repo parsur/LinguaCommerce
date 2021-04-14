@@ -24,7 +24,7 @@ class SearchRequest extends FormRequest
     public function rules()
     {
         return [
-            'search' => 'required_without:category_id,sub_category_id'
+            'search' => 'required_without_all:category_id,sub_category_id'
         ];
     }
 }

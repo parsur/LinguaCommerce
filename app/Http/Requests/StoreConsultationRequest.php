@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
+use Auth;
 
 class StoreConsultationRequest extends FormRequest
 {
@@ -11,9 +13,11 @@ class StoreConsultationRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(Request $request)
     {
-        return false;
+        if(auth('sanctum')->check()) {
+            return true;
+        }
     }
 
     /**
@@ -25,7 +29,7 @@ class StoreConsultationRequest extends FormRequest
     {
         return [
             'description' => 'max:250',
-            'phone_number' => 'required_without:description|numeric|digits:11',
+            'phone_number' => 'numeric|digits:11',
         ];
     }
 }

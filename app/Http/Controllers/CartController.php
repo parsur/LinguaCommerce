@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Providers\Action;
+use App\Providers\CartAction;
 use App\Models\Cart;
 use DB;
 
@@ -11,11 +12,8 @@ use DB;
 class CartController extends Controller
 {
     // Show Cart
-    public function show() {
-        $vars['carts'] = Cart::where('user_id', auth()->user()->id)
-            ->whereNull('factor')->get();
-
-        return response()->json($varts);
+    public function show(CartAction $cart) {
+        return $cart->show('=');
     }
 
     // Store

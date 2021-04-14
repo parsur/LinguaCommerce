@@ -23,12 +23,12 @@ class Consultation extends Model
      * Cascade On Delete.
      */
     use CascadesDeletes;
-    protected $cascadeDeletes = ['descriptions'];
+    protected $cascadeDeletes = ['description'];
 
     /*
      * Get all of the course's descriptions.
     */
-    public function descriptions() {
+    public function description() {
         return $this->morphOne('App\Models\Description','description');
     }
 
@@ -37,6 +37,6 @@ class Consultation extends Model
      */
     public function user()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo('App\Models\User', 'user_id');
     }
 }

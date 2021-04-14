@@ -140,15 +140,15 @@ class CourseArticleAction {
     public function search($request, $model) {
 
         // If search is requested
-        if($request->has('search') and $request->has('column')) {
+        if(!empty($request->get('search')) and !empty($request->get('column'))) {
             
             $values = $model::where($request->column, 'LIKE', "%{$request->search}%")->get();
         }
-        if($request->has('category_id')) {
+        if($request->get('category_id') != null) {
 
             $values = $model::where('category_id', $request->category_id)->whereNotNull('category_id')->get();
         }
-        if($request->has('sub_category_id')) {
+        if($request->has('sub_category_id') != null) {
             
             $values = $model::where('subCategory_id', $request->sub_category_id)->whereNotNull('subCategory_id')->get();
         }

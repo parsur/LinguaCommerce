@@ -44,18 +44,9 @@ class LoginController extends Controller
         return view('auth.login');
     }
 
-    // Store admin
-    public function storeAdmin(StoreLoginRequest $request) {
-        return $this->store($request, 'admin');
-    }   
-
-    // Store user
-    public function storeUser(StoreLoginRequest $request) {
-        return $this->store($request);
-    }  
-
     // Store data
-    public function store($request, $role = 'user') {
+    public function store(StoreLoginRequest $request) {
+
         // Remember Token
         $remember_me = false;
         if($request->has('remember_me')) {
@@ -66,7 +57,7 @@ class LoginController extends Controller
         $credentials = $request->only('email', 'password');
         if (!Auth::attempt(($credentials), $remember_me)) {
 
-            if($role == 'admin') {
+            if($request->has('role')) {
                 return Redirect::back()->withErrors('رمز عبور یا ایمیل شما نادرست است');
             }
 
@@ -74,7 +65,7 @@ class LoginController extends Controller
             return response()->json(['error' => 'رمز عبور یا ایمیل شما نادرست است'], 401);
         } 
 
-        if($role == 'admin') {
+        if($request->has('role')) {
             return redirect()->intended('/admin/home');
         }
 
@@ -88,7 +79,7 @@ class LoginController extends Controller
     }   
 
     // logout
-    public function logout() {
+    public function logout(Request $request) {
 
         // Revoke a specific user token
         Auth::user()->tokens->each(function($token, $key) {
@@ -97,6 +88,10 @@ class LoginController extends Controller
 
         Auth::logout();
 
-        return redirect('/');
+        if($request->has('role')) {
+            return redirect('/');
+        }
+
+        return response()->json(['success' => 'کاربر با موفقیت از حساب کاربری خود خارج شد'], 200);
     }
 }

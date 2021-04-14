@@ -30,6 +30,9 @@
                         مرا به خاطر بسپارید     
                     </span>
                 </label>
+                {{-- Role --}}
+                <input type="hidden" name="role" value="admin" />
+                {{-- Submit button --}}
                 <button>
                     <span class="state">ورود</span>
                 </button>

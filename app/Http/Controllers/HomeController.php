@@ -44,6 +44,9 @@ class HomeController extends Controller
             $vars[$setting->name] = $setting->value;
         }
 
+        // Authentication
+        $vars['authentication'] = auth('sanctum')->check();
+
         return response()->json($vars);
     }
 

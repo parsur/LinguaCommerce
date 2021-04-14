@@ -3,15 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Order;
+use App\Models\Cart;
+use App\Models\Status;
+use App\Models\User;
 use App\Providers\Action;
+use App\Providers\CartAction;
 use App\Http\Controllers\CartController;
 use App\Mail\SubmittedOrder;
 use App\DataTables\OrderDataTable;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Mail;
-use App\Models\Order;
-use App\Models\Cart;
-use App\Models\Status;
 use Shetabit\Multipay\Invoice;
 use Shetabit\Payment\Facade\Payment;
 use Shetabit\Payment\Exceptions\InvalidPaymentException;
@@ -20,6 +22,11 @@ use DB;
 
 class OrderController extends Controller
 {   
+
+    // Facing any error, fix here
+    public function __construct() {
+        $this->middleware('auth:sanctum')->except(['verify']);
+    }
 
     // Datatable To blade
     public function list() {
@@ -43,17 +50,13 @@ class OrderController extends Controller
     }
 
     // Show user's carts
-    public function showCart(CartController $cart) {
-        return $cart->show();
+    public function showCart(CartAction $cart) {
+        return $cart->show('=');
     }
 
-    // Show users's order
-    public function showOrder() {
-        $vars['orders'] = Cart::where('user_id', auth()->user()->id)
-            ->with('course:id,name,price')
-            ->whereNotNull('factor')->get();
-
-        return response()->json($vars);
+    // Show users's orders
+    public function showOrder(CartAction $cart) {
+        return $cart->show('!=');
     }
 
     // Details

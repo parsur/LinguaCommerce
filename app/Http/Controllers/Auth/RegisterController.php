@@ -38,6 +38,7 @@ class RegisterController extends Controller
         $user = User::create($request->all());
 
         $user->sendEmailVerificationNotification();
+        
         $authToken = $user->createToken('auth-token')->plainTextToken;
 
         return response()->json([
