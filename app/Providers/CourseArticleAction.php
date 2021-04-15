@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Symfony\Component\HttpFoundation\Response;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\Media;
@@ -139,23 +140,25 @@ class CourseArticleAction {
      */
     public function search($request, $model) {
 
+        $query = $model::query();
+
         // If search is requested
         if(!empty($request->get('search')) and !empty($request->get('column'))) {
             
-            $values = $model::where($request->column, 'LIKE', "%{$request->search}%")->get();
+            $query->where($request->column, 'LIKE', "%{$request->search}%");
         }
-        if($request->get('category_id') != null) {
+        if($request->get('category_id') != 0) {
 
-            $values = $model::where('category_id', $request->category_id)->whereNotNull('category_id')->get();
+            $query->where('category_id', $request->category_id)->whereNotNull('category_id');
         }
-        if($request->has('sub_category_id') != null) {
+        if($request->get('sub_category_id') != 0) {
             
-            $values = $model::where('subCategory_id', $request->sub_category_id)->whereNotNull('subCategory_id')->get();
+            $query->where('subCategory_id', $request->sub_category_id)->whereNotNull('subCategory_id');
         }
 
-        if(count($values) > 0)
-            return response()->json($values); // 200
+        if(count($query->get()) > 0)
+            return response()->json($query->get()); // Ok.
         else 
-            return response()->json(''); // 404
+            return response()->json(''); // No result.
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Symfony\Component\HttpFoundation\Response;
 use App\Models\Consultation;
 use App\Models\Description;
 use App\Providers\Action;
@@ -45,17 +46,16 @@ class ConsultationController extends Controller
 
         DB::beginTransaction();
         try {
-            if($request->has('description')) {
-                
+            if($request->get('description') != '' and auth('sanctum')->check()) {
                 $consultation = Consultation::create(['user_id' => auth('sanctum')->user()->id]);
                 $consultation->description()->create(['description' => $request->get('description')]);
-
-            } else if($request->has('phone_number')) {
+            } 
+            else if($request->has('phone_number')) {
                 Consultation::create(['phone_number' => $request->get('phone_number')]);
             }
 
             DB::commit();
-            return response()->json(['success' => 'درخواست مشاوره با موفقیت ثبت شد'], 200) ; // JSON_UNESCAPED_UNICODE
+            return response()->json(['success' => 'درخواست مشاوره با موفقیت ثبت شد'], Response::HTTP_CREATED) ; // JSON_UNESCAPED_UNICODE
 
         } catch(Exception $e) {
             throw $e;

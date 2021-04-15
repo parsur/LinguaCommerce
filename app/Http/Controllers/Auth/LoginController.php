@@ -35,17 +35,15 @@ class LoginController extends Controller
      */
     protected $redirectTo = RouteServiceProvider::HOME;
 
-    /**
-     * Login.
-     *
-     * @var string
-     */
+    // Login
     public function showLoginForm() {
         return view('auth.login');
     }
 
     // Store data
     public function store(StoreLoginRequest $request) {
+
+        $role = $request->has('role');
 
         // Remember Token
         $remember_me = false;
@@ -57,15 +55,14 @@ class LoginController extends Controller
         $credentials = $request->only('email', 'password');
         if (!Auth::attempt(($credentials), $remember_me)) {
 
-            if($request->has('role')) {
+            if($role) {
                 return Redirect::back()->withErrors('رمز عبور یا ایمیل شما نادرست است');
             }
-
             // ٍErrors
             return response()->json(['error' => 'رمز عبور یا ایمیل شما نادرست است'], 401);
         } 
-
-        if($request->has('role')) {
+        
+        if($role) {
             return redirect()->intended('/admin/home');
         }
 
@@ -88,6 +85,7 @@ class LoginController extends Controller
 
         Auth::logout();
 
+        // admin
         if($request->has('role')) {
             return redirect('/');
         }

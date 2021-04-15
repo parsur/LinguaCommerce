@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\UserController;
 use App\DataTables\UserDataTable;
 use App\DataTables\AdminDataTable;
-use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\StoreUserRequest;
 use App\Providers\SuccessMessages;
 use App\Providers\Action;
@@ -49,7 +50,7 @@ class AdminController extends Controller
             $success_output = $message->getUpdate();
         }
 
-        return response()->json(['success' => $success_output]);
+        return response()->json(['success' => $success_output], Response::HTTP_CREATED);
     }
 
     

@@ -183,10 +183,3 @@ Route::view('/article/{id}', 'app');
 Route::view('/course/{id}', 'app');
 Route::view('/articlelists', 'app');
 Route::view('/login', 'app');
-
-
-Route::get('test', function() {
-    $auth = auth('sanctum')->user();
-    // $auth = $request->user('api');
-    return response()->json($auth);
-});

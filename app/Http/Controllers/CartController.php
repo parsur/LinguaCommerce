@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
 use App\Providers\Action;
 use App\Providers\CartAction;
@@ -13,7 +14,15 @@ class CartController extends Controller
 {
     // Show Cart
     public function show(CartAction $cart) {
-        return $cart->show('=');
+        $user_id = auth()->user()->id;
+
+        $vars['carts'] = Cart::where('user_id', $user_id)
+            ->whereNull('factor')->with('course:id,name,price')->get();
+        
+        $vars['count'] = Cart::where('user_id', $user_id)
+            ->whereNull('factor')->count();
+
+        return response()->json($vars);
     }
 
     // Store
@@ -24,7 +33,7 @@ class CartController extends Controller
             'user_id' => auth()->user()->id  
         ]);
         
-        return response()->json(['success' => 'اطلاعات با موفقیت به سبد خرید اضافه شد'], 200);
+        return response()->json(['success' => 'اطلاعات با موفقیت به سبد خرید اضافه شد'], Response::HTTP_CREATED);
     }
 
     // delete

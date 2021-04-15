@@ -8,10 +8,9 @@ use App\Models\Cart;
 use App\Models\Status;
 use App\Models\User;
 use App\Providers\Action;
-use App\Providers\CartAction;
-use App\Http\Controllers\CartController;
 use App\Mail\SubmittedOrder;
 use App\DataTables\OrderDataTable;
+use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Mail;
 use Shetabit\Multipay\Invoice;
@@ -50,13 +49,16 @@ class OrderController extends Controller
     }
 
     // Show user's carts
-    public function showCart(CartAction $cart) {
-        return $cart->show('=');
+    public function showCart(CartController $cart) {
+        return $cart->show();
     }
 
     // Show users's orders
     public function showOrder(CartAction $cart) {
-        return $cart->show('!=');
+
+        $vars['orders'] = Order::where('user_id', auth()->user()->id)->get();
+        
+        return response()->json($vars);
     }
 
     // Details

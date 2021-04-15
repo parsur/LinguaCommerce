@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
 use App\Models\Course;
 use App\Models\Category;
@@ -73,7 +74,7 @@ class CourseController extends Controller
             $success_output = $message->getUpdate();
         }
 
-        return response()->json(['success' => $success_output]);
+        return response()->json(['success' => $success_output], Response::HTTP_CREATED);
     }
 
     // Insert

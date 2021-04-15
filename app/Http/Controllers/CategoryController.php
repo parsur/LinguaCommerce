@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Symfony\Component\HttpFoundation\Response;
 use App\DataTables\CategoryDataTable;
 use App\Models\Category;
 use App\Models\SubCategory;
@@ -44,8 +45,7 @@ class CategoryController extends Controller
             $success_output = $message->getUpdate();
         }
 
-        $output = array('success' => $success_output);
-        return response()->json($output);
+        return response()->json(['success' => $success_output], Response::HTTP_CREATED);
     }
 
     // Store
@@ -93,6 +93,6 @@ class CategoryController extends Controller
 
         return response()->json($subCategory);
     }
-
+ 
 
 }

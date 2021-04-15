@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 use App\Models\Article;
 use App\Models\Category;
 use App\Models\SubCategory;
@@ -69,8 +70,7 @@ class ArticleController extends Controller
             $success_output = $message->getUpdate();
         }
 
-        $output = array('success' => $success_output);
-        return response()->json($output);
+        return response()->json(['success' => $success_output], Response::HTTP_CREATED);
     }
 
 

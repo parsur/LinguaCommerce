@@ -13,11 +13,9 @@ class StoreConsultationRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize(Request $request)
+    public function authorize()
     {
-        if(auth('sanctum')->check()) {
-            return true;
-        }
+        return true;
     }
 
     /**

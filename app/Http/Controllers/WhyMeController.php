@@ -25,4 +25,10 @@ class WhyMeController extends Controller
 
         return response()->json(['success' => $message->getInsert()]);
     }
+
+    // Show whyMe
+    public function show() {
+        $vars = Setting::where('name', 'whyMe')->select('value')->first();
+        return response()->json($vars);
+    }
 }

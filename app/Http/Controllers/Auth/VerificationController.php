@@ -13,7 +13,7 @@ use App\Models\User;
 
 class VerificationController extends Controller {
 
-    // Facing any error, fix here
+    // Facing any error, comment this.
     public function __construct() {
         $this->middleware('auth:api')->except(['verify']);
     }
@@ -27,6 +27,7 @@ class VerificationController extends Controller {
      */
     public function verify($user_id, Request $request) {
         if (! $request->hasValidSignature()) {
+
             return response()->json(["error" => "لینک ارائه شده منقضی یا فاقد اعتبار شده است"], 401);
         }
 
@@ -36,7 +37,7 @@ class VerificationController extends Controller {
             $user->markEmailAsVerified();
         }
 
-        return redirect()->to('/');
+        return redirect()->to('/login');
     }
 
     /**

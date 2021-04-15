@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Symfony\Component\HttpFoundation\Response;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -39,10 +40,7 @@ class RegisterController extends Controller
 
         $user->sendEmailVerificationNotification();
         
-        $authToken = $user->createToken('auth-token')->plainTextToken;
-
-        return response()->json([
-            'access_token' => $authToken
-        ]);
+        // $authToken = $user->createToken('auth-token')->plainTextToken;
+        return response()->json(['success' => 'کاربر با موفقیت ثبت نام کرد'], Response::HTTP_CREATED);
     }
 }
