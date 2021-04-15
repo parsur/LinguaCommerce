@@ -61,17 +61,21 @@ class LoginController extends Controller
             // ٍErrors
             return response()->json(['error' => 'رمز عبور یا ایمیل شما نادرست است'], 401);
         } 
-        
+
         if($role) {
             return redirect()->intended('/admin/home');
         }
 
         $user = User::where('email', Auth::user()->email)->first();
-        $authToken = $user->createToken('auth-token')->plainTextToken;
+        if ($user->hasVerifiedEmail()) {
 
-        return response()->json([
-            'access_token' => $authToken,
-        ]);
+            $authToken = $user->createToken('auth-token')->plainTextToken;
+            return response()->json(['access_token' => $authToken]);
+
+        } else {
+            return response()->json(['error' => 'ایمیل شما به درستی تایید نشده است']);
+        }
+
 
     }   
 

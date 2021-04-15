@@ -54,7 +54,7 @@ class UserController extends Controller
             $success_output = $message->getUpdate();
         }
 
-        return response()->json(['success' => $success_output]);
+        return $this->responseWithSuccess($success_output);
     }
 
     // Add or update user

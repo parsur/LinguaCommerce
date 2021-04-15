@@ -33,7 +33,7 @@ class CartController extends Controller
             'user_id' => auth()->user()->id  
         ]);
         
-        return response()->json(['success' => 'اطلاعات با موفقیت به سبد خرید اضافه شد'], Response::HTTP_CREATED);
+        return $this->responseWithSuccess('اطلاعات با موفقیت به سبد خرید اضافه شد');
     }
 
     // delete

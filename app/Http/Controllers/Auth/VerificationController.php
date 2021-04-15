@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
+use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Foundation\Auth\VerifiesEmails;
-use App\Providers\RedirectAuthentication;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use App\Http\Controllers\Controller;
+use App\Providers\RedirectAuthentication;
+use App\Providers\RouteServiceProvider;
 use App\Models\User;
 
 
@@ -15,7 +16,7 @@ class VerificationController extends Controller {
 
     // Facing any error, comment this.
     public function __construct() {
-        $this->middleware('auth:api')->except(['verify']);
+       $this->middleware('auth:api')->except(['verify']);
     }
 
     /**
@@ -28,7 +29,7 @@ class VerificationController extends Controller {
     public function verify($user_id, Request $request) {
         if (! $request->hasValidSignature()) {
 
-            return response()->json(["error" => "لینک ارائه شده منقضی یا فاقد اعتبار شده است"], 401);
+            $this->responseWithError('لینک ارائه شده منقضی یا فاقد اعتبار شده است', Response::HTTP_UNAUTHORIZED);
         }
 
         $user = User::findOrFail($user_id);
@@ -47,11 +48,11 @@ class VerificationController extends Controller {
      */
     public function resend() {
         if (auth()->user()->hasVerifiedEmail()) {
-            return $this->respondBadRequest(ApiCode::EMAIL_ALREADY_VERIFIED);
+            return $this->responseWithError('ایمیل شما در گذشته تایید شده است');
         }
 
         auth()->user()->sendEmailVerificationNotification();
 
-        return response()->json(["error" => "تاییدیه ایمیل به ایمیل شما فرستاده شد"], 401);
+        return $this->responseWithSuccess('تاییدیه ایمیل به ایمیل شما فرستاده شد');
     }
 }

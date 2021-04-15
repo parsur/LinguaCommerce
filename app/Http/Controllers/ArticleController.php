@@ -70,7 +70,7 @@ class ArticleController extends Controller
             $success_output = $message->getUpdate();
         }
 
-        return response()->json(['success' => $success_output], Response::HTTP_CREATED);
+        return $this->responseWithSuccess($success_output);
     }
 
 

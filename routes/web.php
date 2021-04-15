@@ -183,3 +183,6 @@ Route::view('/article/{id}', 'app');
 Route::view('/course/{id}', 'app');
 Route::view('/articlelists', 'app');
 Route::view('/login', 'app');
+
+
+Route::get('test', 'Auth\VerificationController@test');
