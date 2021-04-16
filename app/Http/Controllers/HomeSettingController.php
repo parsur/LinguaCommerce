@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreHomeSettingRequest;
-use App\Providers\SuccessMessages;
 use App\Models\Setting;
 use DB;
 
@@ -100,7 +99,7 @@ class HomeSettingController extends Controller
         $home_setting13->value = $request->get('footer');
         $home_setting13->save();
 
-        $success_output = $message->getInsert();
+        $success_output = $this->getInsertionMessage();
 
         return $this->responseWithSuccess($success_output);
     }

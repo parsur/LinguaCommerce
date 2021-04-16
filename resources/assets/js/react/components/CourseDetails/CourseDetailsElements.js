@@ -15,6 +15,7 @@ export const Top = styled.div`
   height: 180px;
   background: url(${detailstop});
   background-size: cover;
+  z-index: 10;
 `
 
 export const Middle = styled.div`
@@ -41,6 +42,7 @@ export const Center = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  z-index: 10;
 `
 
 export const Right = styled.div`
@@ -60,6 +62,7 @@ export const Sidebar = styled.div`
   align-items: center;
   justify-content: center;
   border-radius: 10px;
+  z-index: 10;
 `
 
 export const Figure = styled.div`

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Providers\RedirectAuthentication;
@@ -59,7 +60,7 @@ class LoginController extends Controller
                 return Redirect::back()->withErrors('رمز عبور یا ایمیل شما نادرست است');
             }
             // ٍErrors
-            return response()->json(['error' => 'رمز عبور یا ایمیل شما نادرست است'], 401);
+            return $this->responseWithError('رمز عبور یا ایمیل شما نادرست است');
         } 
 
         if($role) {
@@ -73,7 +74,7 @@ class LoginController extends Controller
             return response()->json(['access_token' => $authToken]);
 
         } else {
-            return response()->json(['error' => 'ایمیل شما به درستی تایید نشده است']);
+            return $this->responseWithError('ایمیل شما در گذشته تایید شده است', Response::HTTP_UNAUTHORIZED);
         }
 
 
@@ -87,13 +88,12 @@ class LoginController extends Controller
             $token->delete();
         });
 
-        Auth::logout();
-
         // admin
         if($request->has('role')) {
+            Auth::logout();
             return redirect('/');
         }
 
-        return response()->json(['success' => 'کاربر با موفقیت از حساب کاربری خود خارج شد'], 200);
+        return $this->responseWithSuccess('کاربر با موفقیت از حساب کاربری خود خارج شد');
     }
 }

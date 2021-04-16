@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Symfony\Component\HttpFoundation\Response;
 use App\Models\Consultation;
 use App\Models\Description;
 use App\Providers\Action;
 use App\Providers\SuccessMessages;
 use App\Http\Requests\StoreConsultationRequest;
 use App\DataTables\ConsultationDataTable;
+use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
 use DB;
 
@@ -46,7 +46,7 @@ class ConsultationController extends Controller
 
         DB::beginTransaction();
         try {
-            if($request->get('description') != '' and auth('sanctum')->check()) {
+            if(!empty($request->get('description'))) {
                 $consultation = Consultation::create(['user_id' => auth('sanctum')->user()->id]);
                 $consultation->description()->create(['description' => $request->get('description')]);
             } 

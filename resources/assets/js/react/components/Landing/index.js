@@ -45,6 +45,7 @@ import { Link } from 'react-router-dom';
 import Loader from 'react-loader-spinner';
 import api from '../../api';
 import axios from 'axios';
+import { useHistory } from 'react-router';
 
 const token = 'parsur';
 
@@ -52,19 +53,48 @@ const Hero = () => {
 
    const [home, setHome] = useState(null);
    const [isLogin, setIslogin] = useState(false);
-   const [name, setName] = useState("")
+   const [name, setName] = useState("");
+
+   const history = useHistory();
+
+   function logout(){
+    localStorage.removeItem('token');
+    history.push('/');
+    window.location.reload(false);
+    axios.post('http://sararajabi.com/api/v1/logout', {}, {
+          headers: {
+              'api_key': `${token}`,
+              'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          }
+        }
+      ).then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+}
+
 
   useEffect(() => {
-        api("api/v1/home")
-            .then((data) => {
-                setHome(data);
-                setIslogin(data.authentication);
-                console.log(data);
-            })
+    axios.get('http://sararajabi.com/api/v1/home', {
+      headers: {
+          'api_key': `${token}`,
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+      }
+    }
+  ).then(function (response) {
+      console.log(response);
+      setHome(response.data);
+      setIslogin(response.data.authentication);
+  })
+  .catch(function (error) {
+      console.log(error);
+  });
     }, []);
 
     useEffect(() => {
-      axios.get('http://sararajabi.com/api/user/show', {
+      axios.get('http://sararajabi.com/api/v1/user/show', {
           headers: {
               'api_key': `${token}`,
               'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -73,11 +103,6 @@ const Hero = () => {
       ).then(function (response) {
           console.log(response);
           setName(response.data.user);
-          if(response.data.user == null){
-            setIslogin(false);
-          } else {
-            setIslogin(true);
-          }
       })
       .catch(function (error) {
           console.log(error);
@@ -95,19 +120,29 @@ const Hero = () => {
                     <Particles params={backStyle} style={gifStyle}/>
                     <HeroLeftSide>
                       <HeroLoginContainer>
-                        <LogIn>
+                        
                           <div style={isLogin ? {display:"none"} : {display:"unset"}}>
+                          <LogIn>
                           <LoginCol to="/login">
                             <LoginButton>ورود</LoginButton>
                             <LoginIcon></LoginIcon>
                           </LoginCol>
+                          </LogIn>
                           </div>
-                          <div style={isLogin ? {display:"unset"} : {display:"none"}}>
-                          <Welcome to="/userpage#/">
+
+                          <div style={isLogin ? {display:"unset", width:"100%", display:"flex"} : {display:"none"}}>
+                          <LogIn>
+                          <Welcome style={{borderRadius:"0 20px 5px 0"}} to="/userpage#/">
                             <WelcomeUser>{name.name}</WelcomeUser>
                           </Welcome>
+                          </LogIn>
+                          <LogIn onClick={logout} style={{background:"red", marginRight:"0", borderRadius:"20px 0 0 5px", width:"10vw"}}>
+                          <Welcome to="/userpage#/">
+                            <WelcomeUser>خروج</WelcomeUser>
+                          </Welcome>
+                          </LogIn>
                           </div>
-                        </LogIn>
+                        
                       </HeroLoginContainer>
                       <HeroTextContainer>
                         <HeroP>{home.subHeader}</HeroP>

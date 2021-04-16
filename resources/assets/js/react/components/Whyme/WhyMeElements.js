@@ -115,7 +115,6 @@ export const MB = styled.div`
     width: 90%;
     height: 90%;
     margin: 20px auto;
-     
     display: flex;
     flex-direction: column;
     padding: 10px;
@@ -151,4 +150,9 @@ export const P = styled.p`
     @media screen and (max-width: 700px){
         font-size: clamp(0.2rem, 2.8vw, 1rem);
     }
+`
+
+export const CKEditors = styled.div`
+    width: 100%;
+    height: 100%;
 `

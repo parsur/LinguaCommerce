@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -88,7 +87,7 @@ Route::group(['middleware' => ['auth', 'isAdmin']], function () {
         Route::get('delete/{id}', 'Article\VideoController@delete');
     });
     // Sub categories based on categories   
-    Route::get('/sub_category', 'CategoryController@ajax_sub_category');
+    Route::get('sub_category', 'CategoryController@ajax_sub_category');
     // Categories
     Route::group(['prefix' => 'category', 'as' => 'category.'], function () {
         Route::get('list', 'CategoryController@list');

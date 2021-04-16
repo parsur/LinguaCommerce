@@ -85,7 +85,7 @@ const ArticleDetails = () => {
   const [category, setCategory] = useState("");
 
 useEffect(() => {
-  api(`api/article/details?id=${id}`)
+  api(`api/v1/article/details?id=${id}`)
       .then((data) => {
           console.log(data);
           setArticle(data.article);
@@ -110,7 +110,7 @@ const token = 'parsur';
 
 function submit(){
   console.log(id);
-  axios.post('http://www.sararajabi.com/api/articleComment/store', {
+  axios.post('http://www.sararajabi.com/api/v1/articleComment/store', {
       comment: NewComment,
       name: name,
       article_id: id,

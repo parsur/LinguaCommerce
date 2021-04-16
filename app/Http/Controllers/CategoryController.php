@@ -7,7 +7,6 @@ use App\DataTables\CategoryDataTable;
 use App\Models\Category;
 use App\Models\SubCategory;
 use App\Providers\Action;
-use App\Providers\SuccessMessages;
 use App\Http\Requests\StoreCategoryRequest; 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -32,17 +31,17 @@ class CategoryController extends Controller
     }
 
     // Store
-    public function store(StoreCategoryRequest $request,SuccessMessages $message) {
+    public function store(StoreCategoryRequest $request) {
         // Add
         $this->add($request);
 
         // Insert
         if($request->get('button_action') == "insert") {
-            $success_output = $message->getInsert();
+            $success_output = $this->getInsertionMessage();
         }
         // Update
-        else if($request->get('button_action') == "update") {
-            $success_output = $message->getUpdate();
+        else if($request->get('button_action') == 'update') {
+            $success_output = $this->getUpdateMessage();
         }
 
         return $this->responseWithSuccess($success_output);

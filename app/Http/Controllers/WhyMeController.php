@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreWhyMeRequest;
-use App\Providers\SuccessMessages;
 use App\Models\Setting;
 
 class WhyMeController extends Controller
@@ -17,13 +16,13 @@ class WhyMeController extends Controller
     }
 
     // Store data
-    public function store(Request $request,SuccessMessages $message) {
+    public function store(Request $request) {
         // Header
         $whyMe = Setting::where('name', 'whyMe')->first();
         $whyMe->value = $request->get('description');
         $whyMe->save();
 
-        return $this->responseWithSuccess($message->getInsert());
+        return $this->responseWithSuccess($this->getInsertionMessage());
     }
 
     // Show whyMe

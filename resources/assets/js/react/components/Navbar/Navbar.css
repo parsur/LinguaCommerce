@@ -40,7 +40,7 @@
     z-index: 20;
 }
 
-@media only screen and (min-width: 900px) {
+@media only screen and (min-width: 1060px) {
     .nav-menu.active {display: none;}
     .nav-menu {display: none;}
     .nav-menu-filler {display: none;}

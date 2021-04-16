@@ -10,7 +10,6 @@ use App\Models\SubCategory;
 use App\Models\Status;
 use App\Providers\Action;
 use App\Providers\CourseArticleAction;
-use App\Providers\SuccessMessages;
 use App\DataTables\ArticleDataTable;
 use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\SearchRequest;
@@ -57,17 +56,17 @@ class ArticleController extends Controller
     }
 
     // Store Course
-    public function store(StoreArticleRequest $request,SuccessMessages $message) {
+    public function store(StoreArticleRequest $request) {
         // Insert or update
         $this->add($request);
 
         // Insert
         if($request->get('button_action') == "insert") {
-            $success_output = $message->getInsert();
+            $success_output = $this->getInsertionMessage();
         }
         // Update
-        else if($request->get('button_action') == "update") {
-            $success_output = $message->getUpdate();
+        else if($request->get('button_action') == 'update') {
+            $success_output = $this->getUpdateMessage();
         }
 
         return $this->responseWithSuccess($success_output);

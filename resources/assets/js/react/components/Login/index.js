@@ -8,7 +8,8 @@ import {
   InputContainer,
   Input,
   Submit,
-  H2
+  H2,
+  Links
 } from './LoginElements';
 import LoginLogo from '../../images/LoginLogo.svg';
 import axios from 'axios';
@@ -31,7 +32,7 @@ const Login = () => {
       xsrfCookieName: "XSRF-TOKEN",
       xsrfHeaderName: "X-XSRF-TOKEN"
     }).then(response => {
-      axios.post('http://sararajabi.com/api/login', {
+      axios.post('http://sararajabi.com/api/v1/login', {
         email: email,
         password: pass,
     }, {
@@ -54,6 +55,7 @@ const Login = () => {
     })
     .catch(function (error) {
         console.log(error);
+        alert("ایمیل یا پسورد اشتباه است");
     });
     });
 }
@@ -67,10 +69,13 @@ const Login = () => {
         <Bottom>
           <H2>ورود</H2>
           <InputContainer>
-            <Input onChange={event => setEmail(event.target.value)} top="true" type="email" placeholder="نام شما"/>
+            <Input onChange={event => setEmail(event.target.value)} top="true" type="email" placeholder="ایمیل شما"/>
           </InputContainer>
           <InputContainer>
-            <Input onChange={event => setPass(event.target.value)} type="password" placeholder="ایمیل شما"/>
+            <Input onChange={event => setPass(event.target.value)} type="password" placeholder="رمز"/>
+          </InputContainer>
+          <InputContainer style={{height:"auto", alignItems:"flex-end", padding:"0 70px 0 0"}}>
+            <Links to="/register">ثبت نام نکرده اید؟</Links>
           </InputContainer>
           <InputContainer>
             <Submit onClick={()=>submit()}>ورود</Submit>

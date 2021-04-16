@@ -50,9 +50,11 @@ const Course = ({ data }) => {
     const [noRes, setNoRes] = useState(null);
     const [categories, setCategories] = useState([]);
     const [subCategories, setSubCategories] = useState([]);
+    const [selectedOption, setSelectedOption] = useState(0);
+    const [selectedOptionTwo, setSelectedOptionTwo] = useState(0);
 
     useEffect(() => {
-        api("course/show")
+        api("api/v1/course/show")
             .then((data) => {
                 setCourse([])
                 setCourse(data.courses);
@@ -61,17 +63,19 @@ const Course = ({ data }) => {
                 if(data.subCategories === []){
                     setCategories([{"name" : "mamad", "id" : "20"}])
                 }
-                console.log(data);
+                console.log(data)
             })
     }, []);
 
-    const options = categories.map(({name, id}, i) => ({ value: id, label: name }))
-    const optionsTwo = subCategories.map(({name, id}, i) => ({ value: id, label: name }))
+    const options = categories.map(({name, id}) => ({ value: id, label: name }))
+    const optionsTwo = subCategories.map(({name, id}) => ({ value: id, label: name }))
     
     function submit(){
         console.log(search);
-        axios.post('http://sararajabi.com/api/course/search', {
+        axios.post('http://sararajabi.com/api/v1/course/search', {
             search: search,
+            category_id: selectedOption,
+            sub_category_id: selectedOptionTwo,
         }, {
             headers: {
               'api_key': `${token}` 
@@ -86,7 +90,6 @@ const Course = ({ data }) => {
             } else {
                 setNoRes(null);
             }
-            console.log(response);
         })
         .catch(function (error) {
             console.log(error);
@@ -95,7 +98,7 @@ const Course = ({ data }) => {
 
     function handleSearchChaneg(event){
         if (event.target.value === "") {
-            api("api/course/show")
+            api("api/v1/course/show")
             .then((data) => {
                 setCourse(data.courses);
             })
@@ -111,6 +114,36 @@ const Course = ({ data }) => {
         );
     }
 
+    function handleChange(selectedOption){
+        setSelectedOption(selectedOption.value);
+        axios.get('http://sararajabi.com/api/sub_category1', {
+            category_id: 44,
+        }, {
+            headers: {
+              'api_key': `${token}` 
+            }
+          }
+        )
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+      };
+
+    function handleChangeTwo(selectedOptionTwo){
+        setSelectedOptionTwo(selectedOptionTwo.value)
+    };
+    
+    function handlePrice(price){
+        if(price === null){
+            return <Pn>رایگان</Pn>
+        } else {
+            return <Pn>{price} تومان</Pn>
+        }
+    }
+
     return course ? (
         <Container>
             <Left>
@@ -119,15 +152,15 @@ const Course = ({ data }) => {
                         <TContainer>
                             <SearchContainer onSubmit={event => event.preventDefault()}>
                                 <Searchs>
-                                    <Search onChange={handleSearchChaneg} type="search" id="search" required="required" placeholder="سرچ کنید..." />
+                                    <Search onChange={handleSearchChaneg} type="search" id="search" placeholder="سرچ کنید..." />
                                     <Submit onClick={()=>submit()} type="submit" value="جستجو"><AiOutlineSearch/></Submit>
                                 </Searchs>
                                 <FilterContainer>
                                     <Filter>
-                                        <SelectS options={options/* "value :" `${categories.map(({name}, i) =>{ return({name})})}`*/} placeholder="دسته بندی اول" />
+                                        <SelectS options={options} onChange={handleChange} placeholder="دسته بندی اول" />
                                     </Filter>
                                     <Filter>
-                                        <SelectS options={optionsTwo} placeholder="دسته بندی دوم" />
+                                        <SelectS options={optionsTwo} onChange={handleChangeTwo} placeholder="دسته بندی دوم" />
                                     </Filter>
                                 </FilterContainer>
                             </SearchContainer>
@@ -158,7 +191,7 @@ const Course = ({ data }) => {
 
                     <Green>
 
-                        <Pn>{price} تومان</Pn>
+                        {handlePrice(price)}
 
                     </Green>
 

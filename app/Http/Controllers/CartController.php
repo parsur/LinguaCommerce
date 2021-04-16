@@ -13,14 +13,13 @@ use DB;
 class CartController extends Controller
 {
     // Show Cart
-    public function show(CartAction $cart) {
+    public function show() {
         $user_id = auth()->user()->id;
 
         $vars['carts'] = Cart::where('user_id', $user_id)
             ->whereNull('factor')->with('course:id,name,price')->get();
         
-        $vars['count'] = Cart::where('user_id', $user_id)
-            ->whereNull('factor')->count();
+        $vars['count'] = $vars['carts']->count();
 
         return response()->json($vars);
     }

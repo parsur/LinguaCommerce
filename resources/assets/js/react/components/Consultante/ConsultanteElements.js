@@ -144,7 +144,7 @@ export const Area = styled.textarea`
     border-radius: 10px;
     outline: none;
     border: 1px solid black;
-    padding: 0 5px;
+    padding: 5px 8px;
     margin: ${props => props.active ? '50px 0' : '0 0 50px 0'};
 
     @media screen and (max-width: 555px){
@@ -175,4 +175,5 @@ export const Block = styled.blockquote`
     border-radius: 1em;
     margin: 50px 1em 0 1em;
     width: auto;
+    direction: rtl;
 `

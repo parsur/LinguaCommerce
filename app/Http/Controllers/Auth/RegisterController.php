@@ -39,8 +39,8 @@ class RegisterController extends Controller
         $user = User::create($request->all());
 
         $user->sendEmailVerificationNotification();
+
+        return $this->responseWithSuccess('کاربر با موفقیت ثبت نام کرد');
         
-        // $authToken = $user->createToken('auth-token')->plainTextToken;
-        return response()->json(['success' => 'کاربر با موفقیت ثبت نام کرد'], Response::HTTP_CREATED);
     }
 }

@@ -75,6 +75,10 @@ export const Container = styled.div`
           }
         `
 
+        export const Links = styled(Link)`
+          direction: rtl;
+        `
+
         export const Submit = styled.button`
           width: 50%;
           height: 40px;

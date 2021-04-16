@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'v1', 'as' => 'v1.', 'middleware' => 'apiKey'], function() {  
     // Auth sanctum middleware
-    Route::middleware(['auth:sanctum'])->group(function () { // verified
+    Route::middleware(['auth:sanctum', 'verified'])->group(function () { // verified
         // Cart
         Route::group(['prefix' => 'cart', 'as' => 'cart.'], function() {
             Route::post('store','CartController@store');
@@ -81,13 +81,13 @@ Route::group(['prefix' => 'v1', 'as' => 'v1.', 'middleware' => 'apiKey'], functi
         Route::get('delete/{id}','Article\CommentController@delete');
     });
     // Why me
-    Route::get('/why_me', 'WhyMeController@show');
+    Route::get('why_me', 'WhyMeController@show');
     // Sub categories based on categories   
-    Route::get('/sub_category', 'CategoryController@ajax_sub_category');
+    Route::get('sub_category', 'CategoryController@ajax_sub_category');
     // Store Consultation 
     Route::post('consultation/store', 'ConsultationController@store')->middleware('storeConsultation');
     // Home
-    Route::get('/home', 'HomeController@index');
+    Route::get('home', 'HomeController@index');
     // Register
     Route::post('register', 'Auth\RegisterController@register');
     // Login

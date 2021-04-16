@@ -11,6 +11,7 @@ import {
     Profile,
     ProfileImg,
     ProfileTxt,
+    LogOutContainer
 } from './UserElements';
 import Navbar from '../Navbar';
 import Footer from '../Footer';
@@ -21,6 +22,7 @@ import { dash } from '../../Data';
 import api from '../../api';
 import Orders from './orders';
 import axios from 'axios';
+import { useHistory } from 'react-router';
 
 // these down here are just test
 const DisplayOne = () => {
@@ -45,7 +47,7 @@ const User = ({
     const [user, setUser] = useState();
 
     useEffect(() => {
-        axios.get('http://sararajabi.com/api/user/show', {
+        axios.get('http://sararajabi.com/api/v1/user/show', {
             headers: {
                 'api_key': `${token}`,
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -63,7 +65,6 @@ const User = ({
         //         setUser(user);
         //     })
     }, []);
-
 
     return user ? (
         <Container>

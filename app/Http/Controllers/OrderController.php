@@ -56,7 +56,7 @@ class OrderController extends Controller
     // Show users's orders
     public function showOrder(CartAction $cart) {
 
-        $vars['orders'] = Order::where('user_id', auth()->user()->id)->get();
+        $vars['orders'] = Order::where('user_id', auth()->user()->id)->with('user:name,phone_number,email')->get();
         
         return response()->json($vars);
     }

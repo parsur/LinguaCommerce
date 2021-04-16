@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\StoreLoginRequest;
-use App\Providers\SuccessMessages;
 use App\Providers\EnglishConvertion;
 use App\DataTables\UserDataTable;
 use App\Providers\Action;
@@ -41,17 +40,17 @@ class UserController extends Controller
     }
 
     // Store user
-    public function store(StoreUserRequest $request,SuccessMessages $message) {
+    public function store(StoreUserRequest $request) {
 
         $this->add($request, User::USER);
 
         // Insert
-        if($request->get('button_action') == 'insert') {
-            $success_output = $message->getInsert();
+        if($request->get('button_action') == "insert") {
+            $success_output = $this->getInsertionMessage();
         }
         // Update
         else if($request->get('button_action') == 'update') {
-            $success_output = $message->getUpdate();
+            $success_output = $this->getUpdateMessage();
         }
 
         return $this->responseWithSuccess($success_output);

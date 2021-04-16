@@ -55,4 +55,5 @@ class VerificationController extends Controller {
 
         return $this->responseWithSuccess('تاییدیه ایمیل به ایمیل شما فرستاده شد');
     }
+
 }

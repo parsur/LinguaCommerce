@@ -21,4 +21,14 @@ class Controller extends BaseController
     public function responseWithError($data, $status = Response::HTTP_BAD_REQUEST) {
         return response()->json(['error' => $data], $status);
     }
+
+    // Get success message
+    public function getInsertionMessage() {
+        return '<div class="alert alert-success">اطلاعات با موفقیت ثبت شد</div>';
+    }
+
+    // Get error message
+    public function getUpdateMessage() {
+        return '<div class="alert alert-success">اطلاعات با موفقیت ویرایش شد</div>';
+    }
 }

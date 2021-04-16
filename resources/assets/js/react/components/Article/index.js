@@ -48,7 +48,7 @@ const Article = ({ data }) => {
     const [noRes, setNoRes] = useState(null);
 
     useEffect(() => {
-        api("api/article/show")
+        api("api/v1/article/show")
             .then((data) => {
                 setArticle([])
                 setArticle(data.artciles);
@@ -57,7 +57,7 @@ const Article = ({ data }) => {
 
     function submit(){
         console.log(search);
-        axios.post('http://sararajabi.com/api/article/search', {
+        axios.post('http://sararajabi.com/api/v1/article/search', {
             search: search,
         }, {
             headers: {
@@ -84,7 +84,7 @@ const Article = ({ data }) => {
 
     function handleSearchChaneg(event){
         if (event.target.value === "") {
-            api("api/article/show")
+            api("api/v1/article/show")
             .then((data) => {
                 setArticle(data.artciles);
             })

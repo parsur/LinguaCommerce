@@ -58,6 +58,8 @@ import Carousel, { Dots, slidesToShowPlugin} from '@brainhubeu/react-carousel';
 import '@brainhubeu/react-carousel/lib/style.css';
 import axios from 'axios';
 import Loader from 'react-loader-spinner';
+import Particles from 'react-particles-js';
+import { backStyleTwo, gifStyleTwo } from '../../Data';
 
 const images = [
   {
@@ -84,9 +86,11 @@ const CourseDetails = () => {
   const [NewComment, setNewComment] = useState("");
   const [subCategoryName, setSubCategoryName] = useState("");
   const [category, setCategory] = useState({});
+  const [isError, setIsError] = useState(false);
+  const [succes, setSucces] = useState(false);
 
 useEffect(() => {
-  api(`api/course/details?id=${id}`)
+  api(`api/v1/course/details?id=${id}`)
       .then((data) => {
           console.log(data);
           setCourse(data.course);
@@ -109,9 +113,40 @@ function noComments(){
 
 const token = 'parsur';
 
+function addCart(){
+  axios.post('http://sararajabi.com/api/v1/cart/store', {
+      course_id: id
+  }, {
+      headers: {
+        'api_key': `${token}`,
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+      }
+    }
+  )
+  .then(function (response) {
+      console.log(response);
+      setSucces(true);
+      window.location.reload(false);
+  })
+  .catch(function (error) {
+      console.log(error);
+      if(error){
+        setIsError(true)
+      }
+  });
+}
+
+function cartError(){
+  if(isError){
+    return <p style={{direction:"rtl", color:"red", background:"white", borderRadius:"5px", padding:"5px 0"}}>لطفا برای اضافه کردن در سبد وارد شوید.</p>
+  } else if(succes) {
+    return <p style={{direction:"rtl", color:"white", background:"green", borderRadius:"5px", padding:"5px 2px"}}>با موفقیت به سبد خرید اضافه شد.</p>
+  }
+}
+
 function submit(){
   console.log(id);
-  axios.post('http://www.sararajabi.com/api/courseComment/store', {
+  axios.post('http://www.sararajabi.com/api/v1/courseComment/store', {
       comment: NewComment,
       name: name,
       course_id: id,
@@ -129,9 +164,17 @@ function submit(){
   });
 }
 
+function handlePrice(course){
+  if(course.price === null){
+    return <SMLeft>رایگان!</SMLeft>
+  } else {
+    return <SMLeft>{course.price} تومان</SMLeft>
+  }
+}
+
   return course && desc && comments ? (
     <Container>
-
+      <Particles params={backStyleTwo} style={gifStyleTwo}/>
       <Top></Top>
 
       <Middle>
@@ -154,13 +197,15 @@ function submit(){
 
               </STUL>
 
+              {cartError()}
+
               <STHR/>
 
             </STop>
 
             <SMiddle>
 
-              <SMLeft>{course.price} تومان</SMLeft>
+              {handlePrice(course)}
 
               <SMRight>قیمت دوره</SMRight>
 
@@ -168,7 +213,7 @@ function submit(){
 
             <SBottom>
 
-              <Price>افزودن به سبد خرید</Price>
+              <Price onClick={addCart}>افزودن به سبد خرید</Price>
               
             </SBottom>
 
@@ -186,31 +231,11 @@ function submit(){
 
           <Description>
 
-            <Room dangerouslySetInnerHTML={{ __html: desc.description }}></Room>
-
-            <H3>کسب های این دوره</H3>
-
-            <Ul>
-              
-              <Li>جالب میشوید</Li>
-
-              <Li>جالب تر میشوید</Li>
-
-            </Ul>
+            <Room><h2>توضیحات دوره پایینتر داده شده!</h2></Room>
 
           </Description>
 
         </Center>
-
-        <Right>
-
-          <Figure>
-
-            <ImageGallery showNav={false} showPlayButton={false} autoPlay={true} items={images} />
-
-          </Figure>
-
-        </Right>
         
       </Middle>
 
@@ -218,8 +243,8 @@ function submit(){
 
         <Videos>
 
-<div style={{width:"80%", background:"#00000050"}}>
-        <Carousel
+<div style={{width:"80%", height:"100%", background:"#00000050", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center"}}>
+        {/* <Carousel
     plugins={[
     'centered',
     'infinite',
@@ -235,7 +260,12 @@ function submit(){
   <img src="https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
   <img src="https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
   <img src="https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
-</Carousel>
+</Carousel> */}
+<Figure>
+
+            <ImageGallery showNav={false} showPlayButton={false} autoPlay={true} items={images} />
+
+          </Figure>
 </div>
           {/* {harchi.map(({ harchi }) => {
             return (
@@ -268,13 +298,15 @@ function submit(){
 
               </STUL>
 
+              {cartError()}
+
               <STHR/>
 
             </STop>
 
             <SMiddle>
 
-              <SMLeft>{course.price} تومان</SMLeft>
+              {handlePrice(course)}
 
               <SMRight>قیمت دوره</SMRight>
 
@@ -282,7 +314,7 @@ function submit(){
 
             <SBottom>
 
-              <Price>افزودن به سبد خرید</Price>
+              <Price onClick={addCart}>افزودن به سبد خرید</Price>
               
             </SBottom>
 

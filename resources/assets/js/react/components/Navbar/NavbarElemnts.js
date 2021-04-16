@@ -19,7 +19,7 @@ export const NavLink = styled(Link)`
     background: none;
     color: #4e4e4e;
 
-    @media screen and (min-width: 900px) {
+    @media screen and (min-width: 1060px) {
         display: none;
     }
 `
@@ -27,7 +27,7 @@ export const NavLink = styled(Link)`
 export const FaBarsIcon = styled(FaBars)`
     display: unset;
 
-    @media screen and (min-width: 900px) {
+    @media screen and (min-width: 1060px) {
         display: none;
     }
 `
@@ -58,7 +58,7 @@ export const MenuLiTop = styled.li`
     height: 60px;
     width: auto;
 
-    @media screen and (max-width: 900px) {
+    @media screen and (max-width: 1060px) {
         display: none;
     }
 `
@@ -75,9 +75,35 @@ export const MenuLinkTop = styled(Link)`
     border-radius: ${props => props.active ? '0 20px 20px 0' : 'none'};
     border-radius: ${props => props.last ? '20px 0 0 20px' : 'none'};
     transition: 0.3s;
-    background: ${props => props.active ? '#F4DD4F' : 'transparent'};
+    background: ${props => props.active ? '#F4DD4F' : 'transparent' && props.user ? '#eeeeee90' : 'transparent'};
 
-    @media screen and (max-width: 900px) {
+    @media screen and (max-width: 1060px) {
+        display: none;
+    }
+
+    &:hover {
+        padding: ${props => props.active ? '0 30px' : '0 24px'};
+        background: ${props => props.active ? '#F4DD4F' : 'rgb(233, 233, 233)'};
+        transition: 0.3s;
+    }
+`
+
+export const MenuLinkTops = styled.div`
+    text-decoration: none;
+    color: #4e4e4e;
+    font-size: 18px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    border-radius: ${props => props.active ? '0 20px 20px 0' : 'none'};
+    border-radius: ${props => props.last ? '20px 0 0 20px' : 'none'};
+    transition: 0.3s;
+    background: ${props => props.active ? '#F4DD4F' : 'transparent' && props.user ? '#eeeeee90' : 'transparent'};
+    cursor: pointer;
+
+    @media screen and (max-width: 1060px) {
         display: none;
     }
 
@@ -105,4 +131,72 @@ export const MenuLink = styled(Link)`
     border-radius: 10px;
     padding: 3px 30px 0 30px;
     background: ${props => props.active ? '#e6d14b' : 'transparent'};
+`
+
+export const MenuLinks = styled.div`
+    text-decoration: none;
+    margin: auto auto;
+    font-size: 25px;
+    color: #4e4e4e;
+    border-radius: 10px;
+    padding: 3px 30px 0 30px;
+    cursor: pointer;
+    background: ${props => props.active ? '#e6d14b' : 'transparent'};
+`
+
+export const ModalBlock = styled.div`
+    width: 100%;
+    padding: 20px 5px;
+    background: #fff;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+`
+
+export const ModalLeft = styled.div`
+    padding: 0 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`
+
+export const ModalRight = styled.div`
+    width: 100%;
+`
+
+export const ModalHeader = styled.div`
+    width: 100%;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+`
+
+export const NoOrder = styled.h1`
+    width: 50%;
+    margin: 0 auto;
+    font-size: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    color: red;
+    border-radius: 10px;
+`
+
+export const Verify = styled.button`
+    padding: 5px;
+    background: green;
+    color: white;
+    margin: 10px auto;
+    border-radius: 10px;
+    border: none;
+    padding: 10px 50px;
+    cursor: pointer;
 `

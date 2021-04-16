@@ -13,7 +13,7 @@ const Orders = ({}) => {
     const [order, setOrder] = useState(null);
 
     useEffect(() => {
-        api("api/order/showOrder")
+        api("api/v1/order/showOrder")
             .then(({ orders }) => {
                 setOrder(orders);
             })

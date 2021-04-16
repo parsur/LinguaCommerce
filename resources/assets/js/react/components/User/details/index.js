@@ -14,6 +14,8 @@ import Edit from './edit detail';
 import api from '../../../api';
 import Loader from "react-loader-spinner";
 import axios from 'axios';
+import { LogOutContainer } from '../UserElements';
+import { useHistory } from 'react-router';
 
 const Details = ({
     dashboardName,
@@ -32,7 +34,7 @@ const Details = ({
     const token = 'parsur';
 
     useEffect(() => {
-        axios.get('http://sararajabi.com/api/user/show', {
+        axios.get('http://sararajabi.com/api/v1/user/show', {
             headers: {
                 'api_key': `${token}`,
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -71,6 +73,8 @@ const Details = ({
                 </D1>
 
     }); */
+
+    let history = useHistory();
 
     return user ? (
         <>
