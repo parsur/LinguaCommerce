@@ -32,6 +32,9 @@
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                         <form method="POST" action="{{ url('logout') }}">
                             @csrf
+                            {{-- Admin --}}
+                            <input type="hidden" name="admin" />
+                            {{-- Exit --}}
                             <button class="dropdown-item text-danger" type="submit">خروج</button>
                         </form>
                     </div>
@@ -143,6 +146,8 @@
     @section('scripts')
         {{-- App --}}
         <script src="{{ mix('js/app.js') }}"></script>
+        <script src="{{ mix('js/vendor.js') }}"></script>
+        <script src="{{ mix('js/manifest.js') }}"></script>
         {{-- Ajax Requests --}}
         <script src="{{ asset('js/RequestHandler.js') }}"></script>
         {{-- ckeditor --}}

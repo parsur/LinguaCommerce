@@ -6,11 +6,11 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\DataTables\Article\CommentDataTable;
 use App\Http\Requests\StoreCommentRequest;
-use App\Providers\SuccessMessages;
 use App\Providers\CourseArticleAction;
 use App\Providers\Action;
 use App\Models\Comment;
 use App\Models\Status;
+use App\Models\Article;
 use DB;
 
 class CommentController extends Controller
@@ -43,7 +43,7 @@ class CommentController extends Controller
 
             DB::commit();
             
-            return response()->json(['success' => 'دیدگاه درباره مقاله با موفقیت ثبت شد'], 200);
+            $this->responseWithSuccess('دیدگاه درباره مقاله با موفقیت ثبت شد');
 
         } catch(Exception $e) {
             throw $e;
@@ -58,6 +58,7 @@ class CommentController extends Controller
 
     // Update
     public function update(Request $request) {
+
         DB::beginTransaction();
         try {
             $comment = Comment::where('commentable_id', $article_id)->where('commentable_type', Article::class)

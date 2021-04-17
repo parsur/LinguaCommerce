@@ -21,18 +21,17 @@ const About = () => {
             <AboutBoxContainer>
                 <AboutRowOne>
                     <BoxTopOne>
-                        {/* Here is going to be box things */}
-                    </BoxTopOne>
-                </AboutRowOne>
-                <AboutRowTwo>
-                    <BoxBottomOne>
-                        <SmallerBox>
-                            <H3>برای ارتباط بیشتر با مدرس از راه های ارتباطی زیر اقدام کنید :</H3>
+                    <H3>برای ارتباط بیشتر با مدرس از راه های ارتباطی زیر اقدام کنید :</H3>
                             <P>شماره تماس : 09140734880 <br/>
 آیدی اینستاگرام سارا رجبی : <a href="https://www.instagram.com/sararajabi.ir/">sararajabi.ir@</a> <br/>
 گروه آموزشی تلگرام : <a href="https://t.me/joinchat/UzdcLu101RM6DgAp">sararajabi</a> <br/>
 کانال تلگرام : <a href="https://t.me/sara_rajabi">@sara_rajabi</a> <br/>
 ایمیل : <a href="mailto:sararajabiart3@gmail.com">sararajabiart3@gmail.com</a></P>
+                    </BoxTopOne>
+                </AboutRowOne>
+                <AboutRowTwo>
+                    <BoxBottomOne>
+                        <SmallerBox>
                             {/* Here is going to be the petit box things */}
                         </SmallerBox>
                     </BoxBottomOne>

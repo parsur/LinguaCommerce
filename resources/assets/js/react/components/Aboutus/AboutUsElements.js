@@ -40,6 +40,7 @@ export const BoxTopOne = styled.div`
     width: 700px;
     background: #f7e172;
     margin: 10px 0 10px 18vw;
+    padding: 13px;
 
     @media screen and (max-width: 924px) {
         margin: 0 auto;
@@ -73,11 +74,15 @@ export const BoxBottomTwo = styled.div`
 export const SmallerBox = styled.div`
     width: 600px;
     height: 250px;
-    background: #f7e172;
+    background: transparent;
     padding: 15px;
 
     @media screen and (max-width: 677px) {
         width: 90vw;
+    }
+
+    @media screen and (max-width: 900px) {
+        display: none;
     }
 `
 

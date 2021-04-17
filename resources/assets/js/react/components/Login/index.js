@@ -27,12 +27,12 @@ const Login = () => {
   let history = useHistory();
 
   function submit(){
-    axios.get('http://sararajabi.com/sanctum/csrf-cookie', {
+    axios.get('/sanctum/csrf-cookie', {
       withCredentials: true,
       xsrfCookieName: "XSRF-TOKEN",
       xsrfHeaderName: "X-XSRF-TOKEN"
     }).then(response => {
-      axios.post('http://sararajabi.com/api/v1/login', {
+      axios.post('/api/v1/login', {
         email: email,
         password: pass,
     }, {
@@ -50,7 +50,7 @@ const Login = () => {
         if(response.data.access_token !== undefined) {
           localStorage.setItem("token", (response.data.access_token));
           console.log(response.data.access_token);
-          history.goBack();
+          history.push('/');
         }
     })
     .catch(function (error) {

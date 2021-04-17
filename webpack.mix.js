@@ -28,7 +28,7 @@ mix.js('resources/assets/js/app.js', 'public/js')
     .js('resources/assets/js/commentSubmission.js', 'public/js/commentSubmission.js')
     // Image preview
     .js('resources/assets/js/imagePreview.js', 'public/js/imagePreview.js')
-    // Subcategories based on categories
+    // Sub categories based on categories
     .js('resources/assets/js/subCategoryWithCategory.js', 'public/js/subCategoryWithCategory.js')
     // Ajax Request Handler
     .copy('resources/assets/js/ImageHandler.js', 'public/js/ImageHandler.js')
@@ -49,7 +49,9 @@ mix.js('resources/assets/js/app.js', 'public/js')
     // App Sass
     .sass('resources/assets/sass/app.scss','public/css');
 
-mix.sourceMaps();
+    mix.sourceMaps();
+    mix.version();
+    mix.extract();
 
 
 

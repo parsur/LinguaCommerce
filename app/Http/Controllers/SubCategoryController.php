@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Providers\SuccessMessages;
 use Illuminate\Database\Eloquent\Model;
 use App\DataTables\SubCategoryDataTable;
 use App\Http\Requests\StoreSubCategoryRequest;
@@ -33,16 +32,16 @@ class SubCategoryController extends Controller
     }
 
     // Store or Update Category
-    public function store(StoreSubCategoryRequest $request,SuccessMessages $message) {
+    public function store(StoreSubCategoryRequest $request,) {
         // Add
         $this->add($request);
         // Insert
         if($request->get('button_action') == "insert") {
-            $success_output = $message->getInsert();
+            $success_output = $this->getInsertionMessage();
         }
         // Update
         else if($request->get('button_action') == 'update') {
-            $success_output = $message->getUpdate();
+            $success_output = $this->getUpdateMessage();
         }
 
         return $this->responseWithSuccess($success_output);

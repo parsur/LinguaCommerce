@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Consultation;
 use App\Models\Description;
 use App\Providers\Action;
-use App\Providers\SuccessMessages;
 use App\Http\Requests\StoreConsultationRequest;
 use App\DataTables\ConsultationDataTable;
 use Symfony\Component\HttpFoundation\Response;

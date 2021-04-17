@@ -133,14 +133,14 @@ Route::group(['middleware' => ['auth', 'isAdmin']], function () {
         Route::get('list','Course\CommentController@list');
         Route::get('table/list','Course\CommentController@courseCommentTable')->name('list.table');
         Route::get('details', 'Course\CommentController@details')->name('details')->middleware('signed');
-        Route::post('submit', 'Course\CommentController@submit');
+        Route::post('submission', 'Course\CommentController@submit');
     });
     // Article comment
     Route::group(['prefix' => 'articleComment', 'as' => 'articleComment.'], function() {
         Route::get('list','Article\CommentController@list');
         Route::get('table/list','Article\CommentController@articleCommentTable')->name('list.table');
         Route::get('details', 'Article\CommentController@details')->name('details')->middleware('signed');
-        Route::post('submit', 'Article\CommentController@submit');
+        Route::post('submission', 'Article\CommentController@submit');
     });
     // Consultation
     Route::group(['prefix' => 'consultation', 'as' => 'consultation.'], function() {
@@ -163,7 +163,6 @@ Route::group(['middleware' => ['auth', 'isAdmin']], function () {
     // logout
     Route::post('/logout','Auth\LoginController@logout');
 });
-
 // App
 Route::get('/', 'HomeController@app');
 // Authentication 
@@ -182,6 +181,3 @@ Route::view('/article/{id}', 'app');
 Route::view('/course/{id}', 'app');
 Route::view('/articlelists', 'app');
 Route::view('/login', 'app');
-
-
-Route::get('test', 'Auth\VerificationController@test');

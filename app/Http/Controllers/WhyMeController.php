@@ -16,7 +16,7 @@ class WhyMeController extends Controller
     }
 
     // Store data
-    public function store(Request $request) {
+    public function store(StoreWhyMeRequest $request) {
         // Header
         $whyMe = Setting::where('name', 'whyMe')->first();
         $whyMe->value = $request->get('description');

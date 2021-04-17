@@ -80,7 +80,7 @@ const ArticleDetails = () => {
   const [desc, setDesc] = useState();
   const [comments, setComments] = useState();
   const [name, setName] = useState("");
-  const [NewComment, setNewComment] = useState("");
+  const [newComment, setNewComment] = useState("");
   const [subCategoryName, setSubCategoryName] = useState("");
   const [category, setCategory] = useState("");
 
@@ -110,8 +110,8 @@ const token = 'parsur';
 
 function submit(){
   console.log(id);
-  axios.post('http://www.sararajabi.com/api/v1/articleComment/store', {
-      comment: NewComment,
+  axios.post('/api/v1/articleComment/store', {
+      comment: newComment,
       name: name,
       article_id: id,
   }, {
@@ -122,6 +122,9 @@ function submit(){
   )
   .then(function (response) {
       console.log(response);
+      alert('کامنت شما با موفقیت ثبت شد')
+      setNewComment('');
+      setName('');
   })
   .catch(function (error) {
       console.log(error);
@@ -149,8 +152,10 @@ function submit(){
 
         <Videos>
 
-<div style={{width:"80%", background:"#00000050"}}>
-        <Carousel
+<div style={{width:"80%", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center"}}>
+
+  <h2 style={{direction:"rtl"}}>عکس یا فیلمی موجود نیست.</h2>
+        {/* <Carousel
     plugins={[
     'centered',
     'infinite',
@@ -166,7 +171,7 @@ function submit(){
   <img src="https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
   <img src="https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
   <img src="https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
-</Carousel>
+</Carousel> */}
 </div>
           {/* {harchi.map(({ harchi }) => {
             return (
@@ -184,29 +189,7 @@ function submit(){
         {/* <div className="course-details-description" dangerouslySetInnerHTML={ {__html: desc.description} }/> */}
         <BRight>
         
-        <CKEditor
-                    editor={ ClassicEditor }
-                    data={desc.description}
-                    config={ {
-                      // Use the German language for this editor.
-                      language: 'fa',
-                      // ...
-                  } }
-              
-                    onReady={ editor => {
-                      editor.isReadOnly="true"
-                    } }
-                    onChange={ ( event, editor ) => {
-                        const data = editor.getData();
-                        console.log( { event, editor, data } );
-                    } }
-                    onBlur={ ( event, editor ) => {
-                        console.log( 'Blur.', editor );
-                    } }
-                    onFocus={ ( event, editor ) => {
-                        console.log( 'Focus.', editor );
-                    } }
-                />
+        <div className="course-details-description" dangerouslySetInnerHTML={ {__html: desc.description} }/>
 
         </BRight>
       </Bottom>
@@ -223,7 +206,7 @@ function submit(){
 
             <MNLeft>
 
-              <NameInput onChange={(item)=>{setName(item.target.value)}} required type="text" placeholder="نام شما"></NameInput>
+              <NameInput value={name} onChange={(item)=>{setName(item.target.value)}} required type="text" placeholder="نام شما"></NameInput>
 
             </MNLeft>
 
@@ -237,7 +220,7 @@ function submit(){
 
           <MNBottom>
 
-            <TextArea onChange={(item)=>{setNewComment(item.target.value)}} placeholder="کامنت شما" >
+            <TextArea value={newComment} onChange={(item)=>{setNewComment(item.target.value)}} placeholder="کامنت شما" >
 
             </TextArea>
 
@@ -260,7 +243,7 @@ function submit(){
           
           <UserTop>
 
-            <Commenter><HiOutlineUserCircles/>جوزف دو</Commenter>
+            <Commenter><HiOutlineUserCircles/>کاربر</Commenter>
 
           </UserTop>
 

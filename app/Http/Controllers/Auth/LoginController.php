@@ -89,7 +89,7 @@ class LoginController extends Controller
         });
 
         // admin
-        if($request->has('role')) {
+        if($request->has('admin')) {
             Auth::logout();
             return redirect('/');
         }

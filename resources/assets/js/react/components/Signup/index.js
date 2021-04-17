@@ -30,12 +30,12 @@ const Signup = () => {
   let history = useHistory();
 
   function submit(){
-    axios.get('http://sararajabi.com/sanctum/csrf-cookie', {
+    axios.get('/sanctum/csrf-cookie', {
       withCredentials: true,
       xsrfCookieName: "XSRF-TOKEN",
       xsrfHeaderName: "X-XSRF-TOKEN"
     }).then(response => {
-      axios.post('http://sararajabi.com/api/v1/register', {
+      axios.post('/api/v1/register', {
         email: email,
         password: pass,
         password_confirmation: confPass,
@@ -88,7 +88,7 @@ const Signup = () => {
             <Input onChange={event => setPhone(event.target.value)} type="number" placeholder="شماره موبایل شما"/>
           </InputContainer>
           <InputContainer>
-            <Input onChange={event => setPass(event.target.value)} type="password" placeholder="رمز شما"/>
+            <Input onChange={event => setPass(event.target.value)} type="password" placeholder="رمز شما (حداقل ۸ حرف)"/>
           </InputContainer>
           <InputContainer>
             <Input onChange={event => setConfPass(event.target.value)} type="password" placeholder="تایید رمز"/>

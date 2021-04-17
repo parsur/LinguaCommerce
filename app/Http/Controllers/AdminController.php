@@ -8,7 +8,6 @@ use App\Http\Controllers\UserController;
 use App\DataTables\UserDataTable;
 use App\DataTables\AdminDataTable;
 use App\Http\Requests\StoreUserRequest;
-use App\Providers\SuccessMessages;
 use App\Providers\Action;
 use App\Models\User;
 

@@ -17,6 +17,10 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     border-radius: 0 0 10px 10px;
+    
+    @media screen and (max-width: 700px){
+      width: 100vw;
+    }
   `
 
     export const Top = styled(Link)`
@@ -33,6 +37,10 @@ export const Container = styled.div`
       export const Logo = styled.img`
         width: auto;
         height: 90%;
+
+        @media screen and (max-width: 375px){
+          height: 70%;
+        }
       `
 
     export const Bottom = styled.div`

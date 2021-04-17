@@ -67,10 +67,14 @@ export const Sidebar = styled.div`
 
 export const Figure = styled.div`
   width: 380px;
-  height: 500px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 50px 0;
+
+  @media screen and (max-width:500px){
+    width: 100%;
+  }
 `
 
 export const Img = styled.img`
@@ -168,6 +172,10 @@ export const Room = styled.div`
   margin: 10px 10px;
   border-radius: 15px;
   padding: 10px;
+
+  @media screen and (max-width:500px){
+    width: 100%;
+  }
 `
 
 export const SMLeft = styled.div`
@@ -218,13 +226,18 @@ export const STHR = styled.hr`
 `
 
 export const Bottom = styled.div`
-  width: 90%;
+  width: 95%;
   height: auto;
   direction: ltr;
   padding: 0 35px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+
+  @media screen and (max-width: 500px){
+    width: 100%;
+    padding: 0 0;
+  }
 `
 
 export const BLeft = styled.div`
@@ -238,11 +251,17 @@ export const BLeft = styled.div`
 export const BRight = styled.div`
   width: 70%;
   direction: rtl;
-  background: #eee;
   padding: 5px 20px;
   border-radius: 10px;
   min-height: 450px;
-  min-width: 350px;
+  min-width: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media screen and (max-width:700px){
+    width: 100%;
+  }
 `
 
 export const SBC = styled.div`
@@ -264,13 +283,21 @@ export const Comments = styled.div`
 `
 
 export const MakeNew = styled.div`
-  width: 780px;
+  width: 60%;
   background: #eee;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 10px 0;
+
+  @media screen and (max-width:800px){
+    width: 100%;
+  }
+
+  @media screen and (max-width:500px){
+    width: 100%;
+  }
 `
 
 export const MNTop = styled.div`
@@ -320,6 +347,10 @@ export const MNText = styled.div`
   direction: rtl;
   font-size: 30px;
   margin-right: 30%;
+
+  @media screen and (max-width:500px){
+    font-size: 20px;
+  }
 `
 
 export const NameInput = styled.input`
@@ -358,14 +389,22 @@ export const CommentsH2 = styled.h2`
 `
 
 export const Comment = styled.div`
-  width: 800px;
+  width: 700px;
   display: flex;
   flex-direction: column;
   align-items: center;
   background: #eee;
   border-radius: 10px;
-  margin: 20px;
+  margin: 20px 0;
   padding: 10px 0;
+
+  @media screen and (max-width:800px){
+    width: 500px;
+  }
+
+  @media screen and (max-width:500px){
+    width: 90vw;
+  }
 `
 
 export const UserTop = styled.div`
@@ -407,7 +446,7 @@ export const HiOutlineUserCircles = styled(HiOutlineUserCircle)`
 
 export const Videos = styled.div`
   width: 100%;
-  height: 500px;
+  height: 400px;
   background-image: radial-gradient(circle, #eeeeee50 , #00000050);
   display: flex;
   justify-content: center;

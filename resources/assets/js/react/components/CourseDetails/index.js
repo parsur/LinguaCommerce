@@ -83,7 +83,7 @@ const CourseDetails = () => {
   const [desc, setDesc] = useState();
   const [comments, setComments] = useState();
   const [name, setName] = useState("");
-  const [NewComment, setNewComment] = useState("");
+  const [newComment, setNewComment] = useState("");
   const [subCategoryName, setSubCategoryName] = useState("");
   const [category, setCategory] = useState({});
   const [isError, setIsError] = useState(false);
@@ -114,7 +114,7 @@ function noComments(){
 const token = 'parsur';
 
 function addCart(){
-  axios.post('http://sararajabi.com/api/v1/cart/store', {
+  axios.post('/api/v1/cart/store', {
       course_id: id
   }, {
       headers: {
@@ -145,9 +145,8 @@ function cartError(){
 }
 
 function submit(){
-  console.log(id);
-  axios.post('http://www.sararajabi.com/api/v1/courseComment/store', {
-      comment: NewComment,
+  axios.post('/api/v1/courseComment/store', {
+      comment: newComment,
       name: name,
       course_id: id,
   }, {
@@ -158,9 +157,17 @@ function submit(){
   )
   .then(function (response) {
       console.log(response);
+      if(response.data.success === "دیدگاه مرتبط به دوره با موفقیت ثبت شد"){
+        alert('کامنت شما با موفقیت ثبت شد.');
+
+
+  setName('');
+  setNewComment('');
+      }
   })
   .catch(function (error) {
       console.log(error);
+      alert('لطفا درگاه هارا درست وارد کنید');
   });
 }
 
@@ -243,7 +250,7 @@ function handlePrice(course){
 
         <Videos>
 
-<div style={{width:"80%", height:"100%", background:"#00000050", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center"}}>
+<div style={{width:"80%", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center"}}>
         {/* <Carousel
     plugins={[
     'centered',
@@ -263,7 +270,8 @@ function handlePrice(course){
 </Carousel> */}
 <Figure>
 
-            <ImageGallery showNav={false} showPlayButton={false} autoPlay={true} items={images} />
+            {/* <ImageGallery showNav={false} showPlayButton={false} autoPlay={true} items={images} /> */}
+            <h2 style={{direction:"rtl"}}>عکس یا فیلمی موجود نیست.</h2>
 
           </Figure>
 </div>
@@ -322,8 +330,10 @@ function handlePrice(course){
           </SBC>
 
         </BLeft>
-        <div className="course-details-description" dangerouslySetInnerHTML={ {__html: desc.description} }/>
+        <BRight>
         
+        <div className="course-details-description-main" dangerouslySetInnerHTML={ {__html: desc.description} }/>
+        </BRight>
         {/* <CKEditor
                     editor={ ClassicEditor }
                     data={description.value}
@@ -363,7 +373,7 @@ function handlePrice(course){
 
             <MNLeft>
 
-              <NameInput onChange={(item)=>{setName(item.target.value)}} required type="text" placeholder="نام شما"></NameInput>
+              <NameInput value={name} onChange={(item)=>{setName(item.target.value)}} required type="text" placeholder="نام شما"></NameInput>
 
             </MNLeft>
 
@@ -377,7 +387,7 @@ function handlePrice(course){
 
           <MNBottom>
 
-            <TextArea onChange={(item)=>{setNewComment(item.target.value)}} placeholder="کامنت شما" >
+            <TextArea value={newComment} onChange={(item)=>{setNewComment(item.target.value)}} placeholder="کامنت شما" >
 
             </TextArea>
 
@@ -385,7 +395,7 @@ function handlePrice(course){
 
           <MNSubBottom>
 
-            <SubmitComments onClick={()=>submit()}>ثبت کامنت</SubmitComments>
+            <SubmitComments onFocus="this.value=''" onClick={()=>submit()}>ثبت کامنت</SubmitComments>
 
           </MNSubBottom>
 
@@ -400,7 +410,7 @@ function handlePrice(course){
           
           <UserTop>
 
-            <Commenter><HiOutlineUserCircles/>جوزف دو</Commenter>
+            <Commenter><HiOutlineUserCircles/>کاربر</Commenter>
 
           </UserTop>
 

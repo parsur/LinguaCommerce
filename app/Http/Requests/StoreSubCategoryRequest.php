@@ -8,16 +8,6 @@ use Illuminate\Foundation\Http\FormRequest;
 class StoreSubCategoryRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
-    /**
      * Get the validation rules that apply to the request.
      *
      * @return array
@@ -25,7 +15,7 @@ class StoreSubCategoryRequest extends FormRequest
     public function rules(Request $request)
     {
         return [
-            'name' => 'required|max:70|unique:subCategories,name,' . $request->get('id'),
+            'name' => 'required|max:70|unique:sub_categories,name,' . $request->get('id'),
             'categories' => 'required',
             'status' => 'required'
         ];

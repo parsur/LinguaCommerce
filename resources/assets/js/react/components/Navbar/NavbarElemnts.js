@@ -188,6 +188,10 @@ export const NoOrder = styled.h1`
     background: white;
     color: red;
     border-radius: 10px;
+    
+    @media screen and (max-width:500px){
+        font-size: 2rem;
+    }
 `
 
 export const Verify = styled.button`

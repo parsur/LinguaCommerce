@@ -108,8 +108,13 @@ export const HeroLoginContainer = styled.div`
     align-items: right;
 
     @media screen and (max-width: 500px) {
-        margin-right: -68vw;
-        width: 100px;
+        margin-right: -78vw;
+        width: 250px;
+    }
+
+    @media screen and (max-width: 350px) {
+        margin-right: -78vw;
+        width: 200px;
     }
 `
 
@@ -334,12 +339,6 @@ export const Col = styled.div`
     width: auto;
     height: auto;
     transition: 0.3s;
-
-    &:hover {
-        background: #eeeeee;
-        border-radius: 10px;
-        transition: 0.3s;
-    }
 `
 
 export const IconTextContainer = styled.div`

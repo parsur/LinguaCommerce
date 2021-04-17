@@ -2,6 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { FaCartPlus, FaRemoveFormat, FaShoppingBasket, FaUserCircle } from 'react-icons/fa';
 import { AiFillHome } from 'react-icons/ai';
 import { IoIosPaper, IoMdClose, IoMdCloseCircle, IoMdCloseCircleOutline, IoMdRemoveCircleOutline } from 'react-icons/io';
+import { ImQuestion } from 'react-icons/im';
+import { FcAbout, FcConferenceCall } from 'react-icons/fc';
+import { FiMessageSquare, FiPhoneCall } from 'react-icons/fi';
+import { CgTranscript } from 'react-icons/cg';
+import { SiMinds } from 'react-icons/si';
 import './Navbar.css'
 import {
     Navbar,
@@ -37,7 +42,7 @@ function NavbarTwo(props) {
     const showNav = () => setCondition(!condition);
 
     useEffect(() => {
-        axios.get('http://sararajabi.com/api/v1/cart/show', {
+        axios.get('/api/v1/cart/show', {
             headers: {
                 'api_key': `${token}`,
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -53,7 +58,7 @@ function NavbarTwo(props) {
     }, []);
 
     function submit(){
-        axios.post('http://sararajabi.com/api/v1/order/store', {}, {
+        axios.post('/api/v1/order/store', {}, {
             headers: {
               'api_key': `${token}`,
               'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -100,7 +105,7 @@ function NavbarTwo(props) {
                                     {course.name}
                                 </ModalRight>
                                 <ModalLeft onClick={() => {
-                                    axios.get(`http://sararajabi.com/api/v1/cart/delete/${id}`, {
+                                    axios.get(`/api/v1/cart/delete/${id}`, {
                                         headers: {
                                             'api_key': `${token}`,
                                             'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -145,31 +150,31 @@ function NavbarTwo(props) {
                         </MenuLiTop>
                         <MenuLiTop>
                             <MenuLinkTop to='/aboutus'>
-                                <AiFillHome />
+                                <FiMessageSquare />
                                 <span style={{marginLeft: '16px'}}>درباره</span>
                             </MenuLinkTop>
                         </MenuLiTop>
                         <MenuLiTop>
                             <MenuLinkTop to='/consultante'>
-                                <AiFillHome />
+                                <FiPhoneCall />
                                 <span style={{marginLeft: '16px'}}>مشاوره</span>
                             </MenuLinkTop>
                         </MenuLiTop>
                         <MenuLiTop>
                             <MenuLinkTop to='/whyme'>
-                                <AiFillHome />
+                                <ImQuestion />
                                 <span style={{marginLeft: '16px'}}>چرا من؟</span>
                             </MenuLinkTop>
                         </MenuLiTop>
                         <MenuLiTop>
                             <MenuLinkTop to='/articlelists'>
-                                <IoIosPaper />
+                                <CgTranscript />
                                 <span style={{marginLeft: '16px'}}>مقاله ها</span>
                             </MenuLinkTop>
                         </MenuLiTop>
                         <MenuLiTop>
                             <MenuLinkTop to='/courselist'>
-                                <FaCartPlus />
+                                <SiMinds />
                                 <span style={{marginLeft: '16px'}}>دوره ها</span>
                             </MenuLinkTop>
                         </MenuLiTop>
@@ -195,31 +200,31 @@ function NavbarTwo(props) {
                         </MenuLi>
                         <MenuLi>
                             <MenuLink to='/courselist'>
-                                <FaCartPlus />
+                                <SiMinds />
                                 <span style={{marginLeft: '16px'}}>دوره ها</span>
                             </MenuLink>
                         </MenuLi>
                         <MenuLi>
                             <MenuLink to='/articlelists'>
-                                <IoIosPaper />
+                                <CgTranscript />
                                 <span style={{marginLeft: '16px'}}>مقاله ها</span>
                             </MenuLink>
                         </MenuLi>
                         <MenuLi>
                             <MenuLink to='/whyme'>
-                                <AiFillHome />
+                                <ImQuestion />
                                 <span style={{marginLeft: '16px'}}>چرا من</span>
                             </MenuLink>
                         </MenuLi>
                         <MenuLi>
                             <MenuLink to='/consultante'>
-                                <AiFillHome />
+                                <FiPhoneCall />
                                 <span style={{marginLeft: '16px'}}>مشاوره</span>
                             </MenuLink>
                         </MenuLi>
                         <MenuLi>
                             <MenuLink to='/aboutus'>
-                                <AiFillHome />
+                                <FiMessageSquare />
                                 <span style={{marginLeft: '16px'}}>درباره</span>
                             </MenuLink>
                         </MenuLi>

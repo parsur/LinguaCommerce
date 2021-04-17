@@ -4,11 +4,13 @@ namespace App\DataTables\Article;
 
 use App\Models\Article;
 use App\Models\Comment;
+use Morilog\Jalali\Jalalian;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
+use \Illuminate\Support\Str;
 use URL;
 
 class CommentDataTable extends DataTable
@@ -31,7 +33,7 @@ class CommentDataTable extends DataTable
                 return Str::limit(optional($comment)->comment, 30, '(جزئیات)');
             })
             ->addColumn('commentable_id', function (Comment $comment) {
-                return $comment->commentable->name;
+                return $comment->commentable->title;
             })
             ->filterColumn('commentable_id', function ($query, $keyword) {
                 $sql = 'id in (select commentable_id from comments where comment like ?)';

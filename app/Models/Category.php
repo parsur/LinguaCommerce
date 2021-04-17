@@ -9,7 +9,7 @@ use ShiftOneLabs\LaravelCascadeDeletes\CascadesDeletes;
  * @property int $id
  * @property string $name
  * @property int $status
- * @property SubCategory[] $subCategories
+ * @property SubCategory[] $sub_categories
  */
 
 class Category extends Model

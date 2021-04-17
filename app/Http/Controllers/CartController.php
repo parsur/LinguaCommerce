@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreCartRequest;
 use App\Providers\Action;
 use App\Providers\CartAction;
 use App\Models\Cart;
@@ -25,7 +26,7 @@ class CartController extends Controller
     }
 
     // Store
-    public function store(Request $request) {
+    public function store(StoreCartRequest $request) {
         // Insert into cart
         Cart::create([
             'course_id' => $request->get('course_id'),

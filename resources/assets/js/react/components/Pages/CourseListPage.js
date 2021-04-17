@@ -9,7 +9,7 @@ const CourseListPage = () => {
         <>
         <Navbar />
         <Course data={courseData} />
-        <Footer style={{background:"#fff"}} />
+        <Footer style={{background:"#eee"}} />
         </>
     )
 }

@@ -112,6 +112,14 @@ export const H = styled.h1`
   width: 75%;
   direction: rtl;
   font-size: 45px;
+
+  @media screen and (max-width:500px){
+    font-size: 35px;
+  }
+
+  @media screen and (max-width:400px){
+    font-size: 30px;
+  }
 `
 
 export const H3 = styled.h3`
@@ -228,6 +236,12 @@ export const BRight = styled.div`
   border-radius: 10px;
   min-height: 450px;
   min-width: 350px;
+
+  @media screen and (max-width:400px){
+    padding: 0;
+    min-width: 95vw;
+    width: 100%;
+  }
 `
 
 export const SBC = styled.div`
@@ -305,6 +319,10 @@ export const MNText = styled.div`
   direction: rtl;
   font-size: 30px;
   margin-right: 30%;
+
+  @media screen and (max-width:500px){
+    font-size: 20px;
+  }
 `
 
 export const NameInput = styled.input`
@@ -351,6 +369,14 @@ export const Comment = styled.div`
   border-radius: 10px;
   margin: 20px;
   padding: 10px 0;
+
+  @media screen and (max-width:800px){
+    width: 500px;
+  }
+
+  @media screen and (max-width:500px){
+    width: 90vw;
+  }
 `
 
 export const UserTop = styled.div`

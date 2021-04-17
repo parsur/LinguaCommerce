@@ -35,7 +35,7 @@ class CourseArticleAction {
         $vars["$name"] = $model::where('id', $id)->with(['statuses:status_id,status',
             'description:description_id,description','category:id,name','subCategory:id,name', 
                 'comments' => function($query) {
-                $query->select('id', 'commentable_id', 'comment')->whereHas('statuses', function ($query) {
+                $query->all()->whereHas('statuses', function ($query) {
                     $query->active();
                 });
             }])->first();
@@ -50,7 +50,7 @@ class CourseArticleAction {
             foreach($media_urls as $media_url) {
                 switch($media_url->type) {
                     case Media::IMAGE:
-                        $images[] = ['url' => 'http://sararajabi.com/images/' . $media_url->url];
+                        $images[] = ['url' => '/images/' . $media_url->url];
                         break;
                     case MEDIA::VIDEO:
                         $videos[] = ['url' => $media_url->url];
@@ -88,33 +88,6 @@ class CourseArticleAction {
         }
     }
 
-    // Add Image
-    public function image($request, $id, $type) {
-        // Update
-        $imageUpload = Media::find($request->get('id'));
-        if(!$imageUpload) {
-            // Insert
-            $imageUpload = new Media();
-        }
-        $imageUpload->media_id = $id;
-        $imageUpload->media_type = $type;
-        // 0 = image
-        $imageUpload->type = Media::IMAGE;
-
-        if($request->hasFile('images')) {
-            foreach($request->file('images') as $image) {
-                // File
-                $file = $image->getClientOriginalName();
-
-                if(isset($file)) {
-                    File::delete(public_path("images/$imageUpload->url")); 
-                    $imageUpload->url = $file;
-                    $image->move(public_path('images'), $file);
-                }
-            }
-        }
-        $imageUpload->save();
-    }
 
     // Add Video
     public function video($request, $id, $type) {

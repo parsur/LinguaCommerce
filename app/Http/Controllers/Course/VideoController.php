@@ -8,7 +8,6 @@ use App\Http\Requests\Course\StoreVideoRequest;
 use App\DataTables\Course\VideoDataTable;
 use App\Models\Media;
 use App\Models\Course;
-use App\Providers\SuccessMessages;
 use App\Providers\Action;
 use App\Providers\CourseArticleAction;
 use DB;
@@ -30,21 +29,20 @@ class VideoController extends Controller
         return $dataTable->render('course.videoList');
     }
 
-    public function store(StoreVideoRequest $request, SuccessMessages $message, CourseArticleAction $action) {
+    public function store(StoreVideoRequest $request, CourseArticleAction $action) {
         // Insert or update
         $action->video($request, $request->get('course'), Course::class);
         
         // Insert
         if($request->get('button_action') == 'insert') {
-            $success_output = $message->getInsert();
+            $success_output = $this->getInsertionMessage();
         }
         // Update
         else if($request->get('button_action') == 'update') {
-            $success_output = $message->getUpdate();
+            $success_output = $this->getUpdateMessage();
         }
 
-        $output = array('success' => $success_output);
-        return response()->json($output);
+        return response()->json(['success' => $success_output]);
     }
     
     // Edit

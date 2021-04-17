@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\StoreLoginRequest;
 use App\Providers\EnglishConvertion;
 use App\DataTables\UserDataTable;
 use App\Providers\Action;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+use File;
 use Hash;
 
 class UserController extends Controller
@@ -57,20 +58,28 @@ class UserController extends Controller
     }
 
     // Add or update user
-    public function add($request,$role) {
+    public function add($request, $role) {
 
-        User::updateOrCreate(
-            ['id' => $request->get('id')],
+        // Id
+        $id = $request->get('id');
+
+        $user = User::updateOrCreate(
+            ['id' => $id],
             ['name' => $request->get('name'),'email' => $request->get('email'),
             'role' => $role,'password' => Hash::make($request->get('password')),
             'phone_number' => $request->get('phone_number')]
         );
+
+        // Image
+        $imageUploader = Media::where('media_id', $id)->first();
+        $action->image($imageUploader, $request, $id, Course::class);
+
     }
 
     
     // Edit Data
     public function edit(Action $action,Request $request) {
-        return $action->edit(User::class,$request->get('id'));
+        return $action->edit(User::class, $request->get('id'));
     }
     
     // Delete

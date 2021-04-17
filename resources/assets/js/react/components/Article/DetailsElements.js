@@ -58,7 +58,8 @@ export const Top = styled.div`
 export const TContainer = styled.div`
     width: 90%;
     padding: 20px 10px;
-    height: 95%;
+    height: 50%; // it was 95%
+    margin-bottom: 40%; // remove this after categories
     background: #F4DD4F;
     border-radius: 0 0 25px 25px;
 `
@@ -341,6 +342,10 @@ export const MBLBottom = styled.div`
 export const MBLH1 = styled.h1`
     direction: rtl;
     font-size: 25px;
+
+    @media screen and (max-width:500px){
+        font-size: 20px;
+    }
 `
 
 export const MBLGoTo = styled.div`

@@ -8,7 +8,6 @@ use App\DataTables\Course\ImageDataTable;
 use App\Http\Requests\Course\StoreImageRequest;
 use App\Models\Media;
 use App\Models\Course;
-use App\Providers\SuccessMessages;
 use App\Providers\Action;
 use App\Providers\CourseArticleAction;
 use File;
@@ -33,21 +32,22 @@ class ImageController extends Controller
     }
 
     // Store
-    public function store(StoreImageRequest $request, SuccessMessages $message, CourseArticleAction $action) {
+    public function store(StoreImageRequest $request, Action $action) {
+
         // insert or update
-        $action->image($request, $request->get('course'), Course::class);
+        $imageUploader = Media::find($request->get('id'));
+        $action->image($imageUploader, $request, $request->get('course'), Course::class);
 
         // Insert
         if($request->get('button_action') == 'insert') {
-            $success_output = $message->getInsert();
+            $success_output = $this->getInsertionMessage();
         }
         // Update
         else if($request->get('button_action') == 'update') {
-            $success_output = $message->getUpdate();
+            $success_output = $this->getUpdateMessage();
         }
         
-        $output = array('success' => $success_output);
-        return response()->json($output);
+        return response()->json(['success' => $success_output]);
     }
 
     // Edit

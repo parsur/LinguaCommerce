@@ -18,11 +18,6 @@ import {
     HeroTopButton,
     HeroMainLogo,
     Filler,
-    HeroSearchContainer,
-    Swrap,
-    Smove,
-    Slide,
-    SlideH3,
     HeroWhiteBg,
     HeroLogo,
     HeroIconContainer,
@@ -43,7 +38,6 @@ import mainlogo from '../../images/mainlogo.png';
 import { backStyle, gifStyle } from '../../Data';
 import { Link } from 'react-router-dom';
 import Loader from 'react-loader-spinner';
-import api from '../../api';
 import axios from 'axios';
 import { useHistory } from 'react-router';
 
@@ -58,10 +52,7 @@ const Hero = () => {
    const history = useHistory();
 
    function logout(){
-    localStorage.removeItem('token');
-    history.push('/');
-    window.location.reload(false);
-    axios.post('http://sararajabi.com/api/v1/logout', {}, {
+    axios.post('/api/v1/logout', {}, {
           headers: {
               'api_key': `${token}`,
               'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -69,6 +60,11 @@ const Hero = () => {
         }
       ).then(function (response) {
         console.log(response);
+        if(response.data.success === "کاربر با موفقیت از حساب کاربری خود خارج شد"){
+          localStorage.removeItem('token');
+          history.push('/');
+          window.location.reload(false);
+        }
       })
       .catch(function (error) {
         console.log(error);
@@ -77,7 +73,7 @@ const Hero = () => {
 
 
   useEffect(() => {
-    axios.get('http://sararajabi.com/api/v1/home', {
+    axios.get('/api/v1/home', {
       headers: {
           'api_key': `${token}`,
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -94,7 +90,7 @@ const Hero = () => {
     }, []);
 
     useEffect(() => {
-      axios.get('http://sararajabi.com/api/v1/user/show', {
+      axios.get('/api/v1/user/show', {
           headers: {
               'api_key': `${token}`,
               'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -130,14 +126,14 @@ const Hero = () => {
                           </LogIn>
                           </div>
 
-                          <div style={isLogin ? {display:"unset", width:"100%", display:"flex"} : {display:"none"}}>
+                          <div style={isLogin ? {width:"100%", display:"flex"} : {display:"none"}}>
                           <LogIn>
                           <Welcome style={{borderRadius:"0 20px 5px 0"}} to="/userpage#/">
                             <WelcomeUser>{name.name}</WelcomeUser>
                           </Welcome>
                           </LogIn>
                           <LogIn onClick={logout} style={{background:"red", marginRight:"0", borderRadius:"20px 0 0 5px", width:"10vw"}}>
-                          <Welcome to="/userpage#/">
+                          <Welcome>
                             <WelcomeUser>خروج</WelcomeUser>
                           </Welcome>
                           </LogIn>
@@ -152,27 +148,6 @@ const Hero = () => {
                     </HeroLeftSide>
                     <HeroRightSide>
                         <HeroTopButton>
-                            <HeroSearchContainer>
-                                <Swrap>
-                                    <Smove>
-                                        <Slide>
-                                          <SlideH3>{home.firstEvent}</SlideH3>
-                                        </Slide>
-
-                                        <Slide>
-                                          <SlideH3>{home.secondEvent}</SlideH3>
-                                        </Slide>
-
-                                        <Slide>
-                                          <SlideH3>{home.thirdEvent}</SlideH3>
-                                        </Slide>
-
-                                        <Slide>
-                                          <SlideH3>{home.fourthEvent}</SlideH3>
-                                        </Slide>
-                                    </Smove>
-                                </Swrap>
-                            </HeroSearchContainer>
                         </HeroTopButton>
                         <HeroMainLogo>
                             <HeroLogo src={mainlogo} alt="image logo" />
@@ -185,31 +160,31 @@ const Hero = () => {
                     <HeroIconContainer>
                       <Col>
                         <Link to='/courselist' style={{textDecoration:"none"}}>
-                          <HeroIcon><img src={shop} width='100%' height='100%'/></HeroIcon>
+                          <HeroIcon><img src={shop} width='100%' height='100%' alt="courses"/></HeroIcon>
                           <IconTextContainer><IconText>دوره ها</IconText></IconTextContainer>
                         </Link>
                       </Col>
                       <Col>
                         <Link to='/articlelists' style={{textDecoration:"none"}}>
-                          <HeroIcon><img src={article} width='100%' height='100%'/></HeroIcon>
+                          <HeroIcon><img src={article} width='100%' height='100%' alt="articles"/></HeroIcon>
                           <IconTextContainer><IconText>مقاله ها</IconText></IconTextContainer>
                         </Link>
                       </Col>
                       <Col>
                         <Link to='/whyme' style={{textDecoration:"none"}}>
-                          <HeroIcon><img src={course} width='100%' height='100%'/></HeroIcon>
+                          <HeroIcon><img src={course} width='100%' height='100%' alt="whyme"/></HeroIcon>
                           <IconTextContainer><IconText>چرا من؟</IconText></IconTextContainer>
                         </Link>
                       </Col>
                       <Col>
                         <Link to='/consultante' style={{textDecoration:"none"}}>
-                          <HeroIcon><img src={callus} width='100%' height='100%'/></HeroIcon>
+                          <HeroIcon><img src={callus} width='100%' height='100%' alt="consultante"/></HeroIcon>
                           <IconTextContainer><IconText>مشاوره</IconText></IconTextContainer>
                         </Link>
                       </Col>
                       <Col>
                         <Link to='/aboutus' style={{textDecoration:"none"}}>
-                          <HeroIcon><img src={about} width='100%' height='100%'/></HeroIcon>
+                          <HeroIcon><img src={about} width='100%' height='100%' alt="aboutus"/></HeroIcon>
                           <IconTextContainer><IconText>درباره ما</IconText></IconTextContainer>
                         </Link>
                       </Col>

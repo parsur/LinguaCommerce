@@ -40,7 +40,6 @@ import { AiOutlineSearch } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import Loader from 'react-loader-spinner';
 import axios from 'axios';
-import CourseDetails from '../CourseDetails';
 
 const token = 'parsur';
 
@@ -72,7 +71,7 @@ const Course = ({ data }) => {
     
     function submit(){
         console.log(search);
-        axios.post('http://sararajabi.com/api/v1/course/search', {
+        axios.post('/api/v1/course/search', {
             search: search,
             category_id: selectedOption,
             sub_category_id: selectedOptionTwo,
@@ -116,8 +115,11 @@ const Course = ({ data }) => {
 
     function handleChange(selectedOption){
         setSelectedOption(selectedOption.value);
-        axios.get('http://sararajabi.com/api/sub_category1', {
-            category_id: 44,
+        sendDetails();
+    }
+    function sendDetails(){
+        axios.get('/api/v1/sub_category', {
+            category_id: selectedOption,
         }, {
             headers: {
               'api_key': `${token}` 

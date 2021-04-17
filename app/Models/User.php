@@ -93,4 +93,11 @@ class User extends Authenticatable implements MustVerifyEmail
     {   
         return $this->hasMany('App\Models\Cart');
     }
+
+    /*
+     * Get the user's media.
+     */
+    public function media() {
+        return $this->morphOne('App\Models\Media', 'media');
+    }
 }

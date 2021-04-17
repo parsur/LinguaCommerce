@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\DataTables\Course\FileDataTable;
 use App\Http\Requests\Course\StoreFileRequest;
 use App\Providers\Action;
-use App\Providers\SuccessMessages;
 use Illuminate\Support\Str;
 use Storage;
 use ZipArchive;
@@ -35,21 +34,20 @@ class FileController extends Controller
     }
 
     // Store
-    public function store(StoreFileRequest $request,SuccessMessages $message) {
+    public function store(StoreFileRequest $request) {
         // Insert or update
         $this->add($request);
 
         // Insert
         if($request->get('button_action') == 'insert') {
-            $success_output = $message->getInsert();
+            $success_output = $this->getInsertionMessage();
         }
         // Update
         else if($request->get('button_action') == 'update') {
-            $success_output = $message->getUpdate();
+            $success_output = $this->getUpdateMessage();
         }
 
-        $output = array('success' => $success_output);
-        return response()->json($output);
+        return response()->json(['success' => $success_output]);
     }
 
     // Add Video

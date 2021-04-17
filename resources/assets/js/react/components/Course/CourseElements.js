@@ -7,7 +7,7 @@ import { VscSearchStop } from 'react-icons/vsc';
 export const Container = styled.div`
     display: flex;
     width: 100%;
-    background: #fff;
+    background: #eee;
     z-index: 1;
     direction: rtl;
 
@@ -147,6 +147,7 @@ export const Block = styled.div`
     align-items: center;
     border-radius: 10px;
     transition: 0.2s;
+    border: 1px solid grey;
 
     &:hover{
         box-shadow: 1px 1px 5px grey;

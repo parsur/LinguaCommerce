@@ -38,7 +38,7 @@ class HomeSettingController extends Controller
     }
 
     // Store data
-    public function store(StoreHomeSettingRequest $request,SuccessMessages $message) {
+    public function store(StoreHomeSettingRequest $request) {
         // Header
         $home_setting = Setting::where('name', 'header')->first();
         $home_setting->value = $request->get('header');

@@ -8,7 +8,6 @@ use App\DataTables\Course\CommentDataTable;
 use App\Http\Requests\StoreCommentRequest;
 use App\Providers\Action;
 use App\Providers\CourseArticleAction;
-use App\Providers\SuccessMessages;
 use App\Models\Comment;
 use App\Models\Course;
 use App\Models\Status;
@@ -44,7 +43,8 @@ class CommentController extends Controller
             $comment->statuses()->create(['status' => Status::INVISIBLE]);
 
             DB::commit();
-            return response()->json(['success' => 'دیدگاه مرتبط به دوره با موفقیت ثبت شد'], 200);
+
+            return $this->responseWithSuccess('دیدگاه مرتبط با دوره با موفقیت ثبت شد');
 
         } catch(Exception $e) {
             throw $e;
@@ -58,14 +58,15 @@ class CommentController extends Controller
     }
 
     // Update
-    public function update(StoreCommentRequest $request,SuccessMessages $message) {
+    public function update(StoreCommentRequest $request) {
         DB::beginTransaction();
         try {
             $comment = Comment::where('id', $request->get('id'))->where('commentable_type', Course::class)
                 ->update(['comment' => $request->get('comment')]);
 
             DB::commit();
-            return response()->json(['success' => 'دیدگاه مرتبط به دوره با موفقیت ویرایش شد'], 200); //JSON_UNESCAPED_UNICODE)
+
+            return $this->responseWithSuccess('دیدگاه مرتبط با دوره با موفقیت ویرایش شد');
 
         } catch(Exception $e) {
             throw $e;
