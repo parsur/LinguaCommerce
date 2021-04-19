@@ -15,7 +15,7 @@
     <x-slot name="content">
       <div class="row">
         {{-- Article --}}
-        <div class="col-md-6 mt-3">
+        <div class="col-md-6 mb-3">
           @include('includes.form.article')
         </div>
         {{-- Image --}}

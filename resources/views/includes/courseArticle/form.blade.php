@@ -14,7 +14,6 @@
     <div class="col-md-6 mb-3">
         <label for="categories">دسته بندی اول:</label>
         <select name="categories" id="categories" class="custom-select">
-            <option value="">دسته بندی اول</option>
             @foreach($categories as $category)
                 <option value="{{ $category->id }}" {{ $category->id == optional($table)->category_id ? 'selected' : '' }}>{{ $category->name }}</option>
             @endforeach

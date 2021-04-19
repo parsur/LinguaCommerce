@@ -27,6 +27,7 @@ class StoreArticleRequest extends FormRequest
             'title' => 'required|max:120|unique:articles,id,' . $request->get('id'),
             'status' => 'required',
             'description' => 'required',
+            'subCategories' => 'required'
         ];
     }
 }

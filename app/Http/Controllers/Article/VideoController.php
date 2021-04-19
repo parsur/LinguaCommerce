@@ -43,8 +43,7 @@ class VideoController extends Controller
             $success_output = $this->getUpdateMessage();
         }
 
-        $output = array('success' => $success_output);
-        return response()->json($output);
+        return $this->responseWithSuccess($success_output);
 
     }
 

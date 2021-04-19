@@ -50,8 +50,8 @@ class CourseDataTable extends DataTable
                 $query->whereRaw($sql, ["%{$keyword}%"]);
             })
             ->addColumn('status', function(Course $course) { 
-                if($course->statuses->status === Status::VISIBLE) return 'موجود';
-                else if($course->statuses->status === Status::INVISIBLE) return 'ناموجود';
+                if($course->statuses->status == Status::VISIBLE) return 'موجود';
+                else if($course->statuses->status == Status::INVISIBLE) return 'ناموجود';
             })  
             ->filterColumn('status', function ($query, $keyword) {
                 switch($keyword) {

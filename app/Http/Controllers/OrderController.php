@@ -24,7 +24,7 @@ class OrderController extends Controller
 
     // Facing any error, fix here
     public function __construct() {
-        $this->middleware('auth:sanctum')->except(['verify']);
+        $this->middleware(['auth:sanctum', 'verified'])->except(['verify']);
     }
 
     // Datatable To blade
@@ -144,7 +144,9 @@ class OrderController extends Controller
 
                     $payment = Payment::purchase($invoice, function($driver, $transactionId) {
                         // Store transactionId in database, to verify payment in future.
-                        $this->order->test = $transactionId;
+                        $this->order->test = $transactionId; 
+                        // Order status
+                        $this->order->statuses()->create(['status' => Status::INVISIBLE]);
                         
                         // Save order
                         $this->order->save();

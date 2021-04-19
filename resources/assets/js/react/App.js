@@ -12,6 +12,7 @@ import ArticleDetails from './components/Pages/ArticleDetails';
 import ArticleLists from './components/Pages/ArticleListPage';
 import Login from './components/Login';
 import Signup from './components/Signup';
+import Home from './components/Home';
 
 function App() {
 
@@ -108,7 +109,7 @@ function App() {
  <GlobalStyle />
       <Router>
         <Switch>
-          <Route path='/' exact component={FirstPage}/>
+          <Route path='/' exact component={Home}/>
           <Route path='/courselist' exact component={CourseListPage}/>
           <Route path='/aboutus' exact component={AboutUsPage}/>
           <Route path='/userpage' exact component={UserPage}/>

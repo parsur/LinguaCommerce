@@ -47,7 +47,7 @@ class SubCategoryController extends Controller
         return $this->responseWithSuccess($success_output);
     }
 
-    // Add SUb Category
+    // Add Subcategory
     public function add($request) {
 
         $id = $request->get('id');

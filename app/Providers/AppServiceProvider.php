@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Models\Course;
+use App\Models\Article;
 use View;
 
 
@@ -25,6 +27,9 @@ class AppServiceProvider extends ServiceProvider
         //     \Log::warning('Class Swift_Preferences does not exists');
         // }
 
+        /**
+         * Set the public path in host.
+         */
         // $this->app->bind('path.public', function() {
         //     return '/home/h151778/public_html';
         // });
@@ -38,9 +43,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         // Courses
-        $vars['courses'] = \App\Models\Course::select('id','name')->get();
+        $vars['courses'] = Course::select('id','name')->get();
         // Articles
-        $vars['articles'] = \App\Models\Article::select('id','title')->get();
+        $vars['articles'] = Article::select('id','title')->get();
         
         View::share($vars); 
         

@@ -34,7 +34,7 @@ const Details = ({
     const token = 'parsur';
 
     useEffect(() => {
-        axios.get('/api/v1/user/show', {
+        axios.get('http://sararajabi.com/api/v1/user/show', {
             headers: {
                 'api_key': `${token}`,
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,

@@ -19,7 +19,8 @@ class StoreCourseRequest extends FormRequest
             'name' => 'required|max:120|unique:courses,id,' . $request->get('id'),
             'price' => 'nullable|numeric',
             'description' => 'required',
-            'status' => 'required'
+            'status' => 'required',
+            'categories' => 'required'
         ];
     }
 

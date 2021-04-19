@@ -8,6 +8,7 @@ use App\Models\Course;
 use App\Models\Category;
 use App\Models\SubCategory;
 use App\Models\Status;
+use App\Models\Media;
 use App\Providers\Action;
 use App\Providers\CourseArticleAction;
 use App\Providers\EnglishConvertion;
@@ -128,9 +129,11 @@ class CourseController extends Controller
     // Show course list page
     public function show() {
         // Courses
-        $vars['courses'] = Course::select('id', 'name', 'price', 'category_id', 'subCategory_id')->with('statuses:status_id,status',
+        $vars['courses'] = Course::select('id', 'name', 'price', 'category_id', 'subCategory_id')->with(['statuses:status_id,status',
             'description:description_id,description','category:id,name','subCategory:id,name',
-            'media:media_id,url')->get();
+            'media' => function($query) {
+                $query->image()->first();
+            }])->get();
     
         // Categories
         $vars['categories'] = Category::select('id', 'name')->whereHas('statuses', function($query) {
@@ -141,7 +144,7 @@ class CourseController extends Controller
         $vars['subCategories'] = SubCategory::select('id', 'name')->whereHas('statuses', function($query) {
             $query->active();
         })->get();
-        
+ 
         return response()->json($vars);
     } 
 
@@ -151,7 +154,7 @@ class CourseController extends Controller
     }
 
     // Details
-    public function details(CourseArticleAction $action, Request $request) {
+    public function details(Request $request, CourseArticleAction $action) {
         return $action->details($request, 'App\Models\Course');
     }
 

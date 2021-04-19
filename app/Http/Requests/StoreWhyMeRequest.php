@@ -14,7 +14,7 @@ class StoreWhyMeRequest extends FormRequest
     public function rules()
     {
         return [
-            'description' => 'required|max:450',
+            'description' => 'required|max:3000',
         ];
     }
 

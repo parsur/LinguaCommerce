@@ -66,7 +66,7 @@ class CommentController extends Controller
 
             DB::commit();
 
-            return response()->json(['success' => 'دیدگاه درباره مقاله با موفقیت ویرایش شد'], 200);
+            return $this->responseWithSuccess('دیدگاه درباره مقاله با موفقیت ویرایش شد');
 
         } catch(Exception $e) {
             throw $e;

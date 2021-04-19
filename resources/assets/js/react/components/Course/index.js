@@ -71,7 +71,7 @@ const Course = ({ data }) => {
     
     function submit(){
         console.log(search);
-        axios.post('/api/v1/course/search', {
+        axios.post('http://sararajabi.com/api/v1/course/search', {
             search: search,
             category_id: selectedOption,
             sub_category_id: selectedOptionTwo,
@@ -118,7 +118,7 @@ const Course = ({ data }) => {
         sendDetails();
     }
     function sendDetails(){
-        axios.get('/api/v1/sub_category', {
+        axios.get('http://sararajabi.com/api/v1/sub_category', {
             category_id: selectedOption,
         }, {
             headers: {

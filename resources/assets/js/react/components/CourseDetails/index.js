@@ -114,7 +114,7 @@ function noComments(){
 const token = 'parsur';
 
 function addCart(){
-  axios.post('/api/v1/cart/store', {
+  axios.post('http://sararajabi.com/api/v1/cart/store', {
       course_id: id
   }, {
       headers: {
@@ -145,7 +145,7 @@ function cartError(){
 }
 
 function submit(){
-  axios.post('/api/v1/courseComment/store', {
+  axios.post('http://www.sararajabi.com/api/v1/courseComment/store', {
       comment: newComment,
       name: name,
       course_id: id,

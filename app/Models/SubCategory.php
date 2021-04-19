@@ -42,14 +42,14 @@ class SubCategory extends Model
     }
 
     /**
-     * Get all of the sub category courses.
+     * Get all of the subcategory courses.
      */
     public function courses() {
         return $this->hasMany('App\Models\Course', 'subCategory_id');
     }
 
     /**
-     * Get all of the sub category courses.
+     * Get all of the subcategory courses.
      */
     public function articles() {
         return $this->hasMany('App\Models\Article', 'subCategory_id');

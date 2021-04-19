@@ -22,6 +22,7 @@ class CourseArticleAction {
     public function details($request, $model) {
 
         $id = $request->get('id');
+        // Role
         $role = $request->get('role');
 
         switch($model) {
@@ -35,7 +36,7 @@ class CourseArticleAction {
         $vars["$name"] = $model::where('id', $id)->with(['statuses:status_id,status',
             'description:description_id,description','category:id,name','subCategory:id,name', 
                 'comments' => function($query) {
-                $query->all()->whereHas('statuses', function ($query) {
+                $query->whereHas('statuses', function ($query) {
                     $query->active();
                 });
             }])->first();
@@ -78,7 +79,7 @@ class CourseArticleAction {
 
     // Category and subCategory SubSet
     public function subSet($request) {
-        // Category or Sub Category
+        // Category or Subcategory
         switch($request) {
             case '':
                 return null;
@@ -115,22 +116,27 @@ class CourseArticleAction {
 
         $query = $model::query();
 
-        // If search is requested
+        // If name is requested
         if(!empty($request->get('search')) and !empty($request->get('column'))) {
             
             $query->where($request->column, 'LIKE', "%{$request->search}%");
         }
+        // If category is requested
         if($request->get('category_id') != 0) {
 
             $query->where('category_id', $request->category_id)->whereNotNull('category_id');
         }
+        // If subcategory is requested
         if($request->get('sub_category_id') != 0) {
             
             $query->where('subCategory_id', $request->sub_category_id)->whereNotNull('subCategory_id');
         }
 
-        if(count($query->get()) > 0)
-            return response()->json($query->get()); // Ok.
+        // Results
+        $results = $query->get();
+
+        if(count($results) > 0)
+            return response()->json($results); // Ok.
         else 
             return response()->json(''); // No result.
     }

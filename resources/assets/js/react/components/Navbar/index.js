@@ -42,7 +42,7 @@ function NavbarTwo(props) {
     const showNav = () => setCondition(!condition);
 
     useEffect(() => {
-        axios.get('/api/v1/cart/show', {
+        axios.get('http://sararajabi.com/api/v1/cart/show', {
             headers: {
                 'api_key': `${token}`,
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -58,7 +58,7 @@ function NavbarTwo(props) {
     }, []);
 
     function submit(){
-        axios.post('/api/v1/order/store', {}, {
+        axios.post('http://sararajabi.com/api/v1/order/store', {}, {
             headers: {
               'api_key': `${token}`,
               'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -105,7 +105,7 @@ function NavbarTwo(props) {
                                     {course.name}
                                 </ModalRight>
                                 <ModalLeft onClick={() => {
-                                    axios.get(`/api/v1/cart/delete/${id}`, {
+                                    axios.get(`http://sararajabi.com/api/v1/cart/delete/${id}`, {
                                         headers: {
                                             'api_key': `${token}`,
                                             'Authorization': `Bearer ${localStorage.getItem('token')}`

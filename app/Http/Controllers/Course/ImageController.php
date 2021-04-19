@@ -47,7 +47,7 @@ class ImageController extends Controller
             $success_output = $this->getUpdateMessage();
         }
         
-        return response()->json(['success' => $success_output]);
+        return $this->responseWithSuccess($success_output);
     }
 
     // Edit

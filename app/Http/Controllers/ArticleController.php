@@ -120,9 +120,11 @@ class ArticleController extends Controller
     // Show
     public function show() {
         // Articles
-        $vars['artciles'] = Article::select('id', 'title', 'created_at', 'updated_at', 'category_id', 'subCategory_id')->with('statuses:status_id,status',
+        $vars['artciles'] = Article::select('id', 'title', 'created_at', 'updated_at', 'category_id', 'subCategory_id')->with(['statuses:status_id,status',
             'description:description_id,description','category:id,name','subCategory:id,name',
-            'media:media_id,url')->get();
+            'media' => function($query) {
+                $query->image()->first();
+            }])->get();
         
         // Categories
         $vars['categories'] = Category::select('id', 'name')->whereHas('statuses', function($query) {

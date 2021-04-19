@@ -30,12 +30,12 @@ const Signup = () => {
   let history = useHistory();
 
   function submit(){
-    axios.get('/sanctum/csrf-cookie', {
+    axios.get('http://sararajabi.com/sanctum/csrf-cookie', {
       withCredentials: true,
       xsrfCookieName: "XSRF-TOKEN",
       xsrfHeaderName: "X-XSRF-TOKEN"
     }).then(response => {
-      axios.post('/api/v1/register', {
+      axios.post('http://sararajabi.com/api/v1/register', {
         email: email,
         password: pass,
         password_confirmation: confPass,

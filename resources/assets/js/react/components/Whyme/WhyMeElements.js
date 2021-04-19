@@ -100,15 +100,20 @@ export const ImgContainer = styled.div`
 export const TopContainer = styled.div`
     width: 80%;
     height: 30vh;
-    
+    overflow: scroll;
     display: flex;
     flex-direction: column;
     padding: 10px;
+    text-align: justify;
+    background: linear-gradient(0deg, rgba(244,221,79,0.3) 1%, rgba(14,0,255,0) 40%);
 `
 
 export const BottomContainer = styled.div`
     width: 80%;
     height: 30vh;
+    overflow: scroll;
+    text-align: justify;
+    background: linear-gradient(0deg, rgba(244,221,79,0.3) 1%, rgba(14,0,255,0) 40%);
 `
 
 export const MB = styled.div`

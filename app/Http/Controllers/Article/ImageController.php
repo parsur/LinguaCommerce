@@ -34,7 +34,7 @@ class ImageController extends Controller
     }
 
     // Store
-    public function store(StoreImageRequest $request,CourseArticleAction $action) {
+    public function store(StoreImageRequest $request,Action $action) {
 
         // insert or update
         $imageUploader = Media::find($request->get('id'));
@@ -49,7 +49,7 @@ class ImageController extends Controller
             $success_output = $this->getUpdateMessage();
         }
         
-        return response()->json($success_output);
+        return $this->responseWithSuccess($success_output);
     }
 
     // Delete

@@ -16,6 +16,16 @@ class Media extends Model
     const IMAGE = 0;
     const VIDEO = 1;
 
+    /**
+     * Scope a query to only include visible categories.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeImage($query) {
+        return $query->where('type', Media::IMAGE)->select('media_id', 'url');
+    }
+
     public $timestamps = false;
     /**
      * @var array

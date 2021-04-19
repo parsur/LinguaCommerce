@@ -110,7 +110,7 @@ const token = 'parsur';
 
 function submit(){
   console.log(id);
-  axios.post('/api/v1/articleComment/store', {
+  axios.post('http://www.sararajabi.com/api/v1/articleComment/store', {
       comment: newComment,
       name: name,
       article_id: id,

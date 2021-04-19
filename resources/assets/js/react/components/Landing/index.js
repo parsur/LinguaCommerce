@@ -73,7 +73,7 @@ const Hero = () => {
 
 
   useEffect(() => {
-    axios.get('/api/v1/home', {
+    axios.get('http://sararajabi.com/api/v1/home', {
       headers: {
           'api_key': `${token}`,
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -90,7 +90,7 @@ const Hero = () => {
     }, []);
 
     useEffect(() => {
-      axios.get('/api/v1/user/show', {
+      axios.get('http://sararajabi.com/api/v1/user/show', {
           headers: {
               'api_key': `${token}`,
               'Authorization': `Bearer ${localStorage.getItem('token')}`,

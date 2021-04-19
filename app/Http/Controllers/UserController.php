@@ -19,7 +19,6 @@ class UserController extends Controller
     public function show() {
 
         $vars['user'] = User::where('id', Auth::user()->id)->first();
-        
         return response()->json($vars);
     }
 
@@ -63,7 +62,7 @@ class UserController extends Controller
         // Id
         $id = $request->get('id');
 
-        $user = User::updateOrCreate(
+        User::updateOrCreate(
             ['id' => $id],
             ['name' => $request->get('name'),'email' => $request->get('email'),
             'role' => $role,'password' => Hash::make($request->get('password')),
@@ -71,8 +70,9 @@ class UserController extends Controller
         );
 
         // Image
-        $imageUploader = Media::where('media_id', $id)->first();
-        $action->image($imageUploader, $request, $id, Course::class);
+        $imageUploader = Media::where('media_id', $id)->where('media_type', User::class)->first();
+        // Upload the profile picture
+        $action->image($imageUploader, $request, $id, User::class);
 
     }
 

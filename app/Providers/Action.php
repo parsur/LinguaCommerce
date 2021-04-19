@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Providers;
+use Symfony\Component\HttpFoundation\Response;
 use App\Models\Media;
 use File;
 
@@ -44,9 +45,9 @@ class Action {
         if ($values) {
             $values->delete();
         } else {
-            return response()->json('Deleted Unsuccessfuly', 404);
+            return response()->json(['error' => 'ٔNo data was found'], Response::HTTP_NOT_FOUND);
         }
-        return response()->json('Deleted Successfuly', 200);
+        return response()->json(['success' => 'Deleted successfuly'], Response::HTTP_OK);
 
     }
 
@@ -60,9 +61,9 @@ class Action {
             File::delete(public_path("images/" . $modelImage->$column)); 
             $modelImage->delete();
         } else {
-            return response()->json('Deleted Unsuccessfuly', 404);
+            return response()->json(['error' => 'ٔNo data was found'], Response::HTTP_NOT_FOUND);
         }
-        return response()->json('Deleted Successfuly', 200);
+        return response()->json(['success' => 'Deleted successfuly'], Response::HTTP_OK);
     }
     
     // Add Image
