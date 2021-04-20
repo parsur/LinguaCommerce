@@ -52,8 +52,6 @@ import test2bg from '../../images/test2bg.jpeg';
 import ImageGallery from 'react-image-gallery';
 import './coursedetails.css';
 import api from '../../api';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import Carousel, { Dots, slidesToShowPlugin} from '@brainhubeu/react-carousel';
 import '@brainhubeu/react-carousel/lib/style.css';
 import axios from 'axios';
@@ -334,31 +332,6 @@ function handlePrice(course){
         
         <div className="course-details-description-main" dangerouslySetInnerHTML={ {__html: desc.description} }/>
         </BRight>
-        {/* <CKEditor
-                    editor={ ClassicEditor }
-                    data={description.value}
-                    config={ {
-                      // Use the German language for this editor.
-                      language: 'fa',
-                      // ...
-                  } }
-              
-                    onReady={ editor => {
-                      editor.isReadOnly="true"
-                    } }
-                    onChange={ ( event, editor ) => {
-                        const data = editor.getData();
-                        console.log( { event, editor, data } );
-                    } }
-                    onBlur={ ( event, editor ) => {
-                        console.log( 'Blur.', editor );
-                    } }
-                    onFocus={ ( event, editor ) => {
-                        console.log( 'Focus.', editor );
-                    } }
-                />
-
-        </BRight> */}
       </Bottom>
 
       <STHR style={{border:"1px solid grey", width:"90%", margin:"50px auto"}} />

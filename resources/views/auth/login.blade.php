@@ -13,7 +13,7 @@
             <form action="{{ url('admin/login')}} " method="POST" class="login">
                 @csrf
                 <!-- Title -->
-                <p class="title">ورود</p>
+                <p class="title">ورود ادمین</p>
                 <!-- Form -->
                 <div class="form-group">
                     <input class="text-right" type="email" name="email" placeholder="آدرس ایمیل">
@@ -23,7 +23,7 @@
                     <input class="text-right" type="password" name="password" placeholder="رمز عبور" />
                     <i class="fa fa-key"></i>
                 </div>
-                <!-- remember token  -->
+                <!-- Remember token  -->
                 <label class="form-remember">
                     <input type="checkbox" name="remember_me"/>
                     <span>

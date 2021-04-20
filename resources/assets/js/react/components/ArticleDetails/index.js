@@ -51,8 +51,6 @@ import test2bg from '../../images/test2bg.jpeg';
 import ImageGallery from 'react-image-gallery';
 import './articledetails.css';
 import api from '../../api';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import Carousel, { Dots, slidesToShowPlugin} from '@brainhubeu/react-carousel';
 import '@brainhubeu/react-carousel/lib/style.css';
 import axios from 'axios';

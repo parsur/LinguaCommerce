@@ -172,7 +172,7 @@ Route::get('admin/login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('admin/login', 'Auth\LoginController@store');
 // Forgotten password
 Route::get('/forgot-password', 'Auth\ForgotPasswordController@index');
-// React app
+// React app    
 Route::view('/courselist', 'app');
 Route::view('/aboutus', 'app');
 Route::view('/whyme', 'app');
@@ -181,3 +181,9 @@ Route::view('/article/{id}', 'app');
 Route::view('/course/{id}', 'app');
 Route::view('/articlelists', 'app');
 Route::view('/login', 'app');
+// Clear cache in laravel
+// Route::get('/clear-cache', function() {
+//     Artisan::call('cache:clear');
+//     // return what you want
+//     return "Cache is cleared";
+// });
