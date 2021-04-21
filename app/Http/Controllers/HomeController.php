@@ -15,11 +15,7 @@ class HomeController extends Controller
         return view('app');
     }
 
-    /**
-     * Show the home api.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
+    // Show the home api.
     public function index() {
         // Home settings
         $names = [
@@ -48,6 +44,13 @@ class HomeController extends Controller
         $vars['authentication'] = auth('sanctum')->check();
 
         return response()->json($vars);
+    }
+
+    // Cache
+    public function cache() {
+        Artisan::call('cache:clear');
+        // return what you want
+        return "Cache is cleared";
     }
 
 }

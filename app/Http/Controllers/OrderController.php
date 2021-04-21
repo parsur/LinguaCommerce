@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\Cart;
@@ -57,7 +58,6 @@ class OrderController extends Controller
     public function showOrder(CartAction $cart) {
 
         $vars['orders'] = Order::where('user_id', auth()->user()->id)->with('user:name,phone_number,email')->get();
-        
         return response()->json($vars);
     }
 
@@ -88,7 +88,7 @@ class OrderController extends Controller
 
         // Number of unpaid order
         if($unpaidOrder > 4) {
-            return response()->json('شما اجازه داشتن بیش از ۴ سفارش پرداخت نشده ندارید', JSON_UNESCAPED_UNICODE);
+            return $this->responseWithError('ما اجازه داشتن بیش از ۴ سفارش پرداخت نشده ندارید', Response::HTTP_FORBIDDEN);
         } 
         else {
             DB::beginTransaction();

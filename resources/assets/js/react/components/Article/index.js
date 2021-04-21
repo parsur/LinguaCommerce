@@ -57,7 +57,7 @@ const Article = ({ data }) => {
 
     function submit(){
         console.log(search);
-        axios.post('/api/v1/article/search', {
+        axios.post('http://sararajabi.com/api/v1/article/search', {
             search: search,
         }, {
             headers: {

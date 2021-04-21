@@ -40,6 +40,7 @@ import { AiOutlineSearch } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import Loader from 'react-loader-spinner';
 import axios from 'axios';
+import whymebg from '../../images/test2bg.jpeg';
 
 const token = 'parsur';
 
@@ -146,6 +147,14 @@ const Course = ({ data }) => {
         }
     }
 
+    function mediaCaller(media){
+        if(media == 0){
+            return whymebg
+        } else {
+            return "http://sararajabi.com/images/" + media[0].url
+        }
+    }
+
     return course ? (
         <Container>
             <Left>
@@ -176,12 +185,12 @@ const Course = ({ data }) => {
             </Left>
             <Right>
                 {noRes}
-            {course.map(({ name, price, id }, i) => {
+            {course.map(({ name, price, id, media }, i) => {
         return( <Block key={i}>
 
             <MainB to={`course/${id}`}>
 
-                <Photo></Photo>
+                <Photo><img style={{height:"100%",maxWidth:"100%"}} src={mediaCaller(media)} alt="course"/></Photo>
 
                 <Name>
 

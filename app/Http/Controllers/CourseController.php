@@ -7,17 +7,12 @@ use Illuminate\Http\Request;
 use App\Models\Course;
 use App\Models\Category;
 use App\Models\SubCategory;
-use App\Models\Status;
-use App\Models\Media;
 use App\Providers\Action;
 use App\Providers\CourseArticleAction;
-use App\Providers\EnglishConvertion;
 use App\DataTables\CourseDataTable;
 use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\SearchRequest;
-use Auth;
 use DB;
-use File;
 
 class CourseController extends Controller
 {
@@ -84,8 +79,6 @@ class CourseController extends Controller
 
         // Course article
         $courseArticle = new CourseArticleAction;
-        // English convertion
-        $englishConvertion = new EnglishConvertion();
 
         DB::beginTransaction();
 
@@ -157,20 +150,4 @@ class CourseController extends Controller
     public function details(Request $request, CourseArticleAction $action) {
         return $action->details($request, 'App\Models\Course');
     }
-
-    // User details
-    // public function userDetails($id, CourseArticleAction $action) {
-    //     return $this->detailsHandler($request->get('id'), 'user');
-    // }   
-
-    // // Detials handler
-    // public function detailsHandler($id, $role = 'admin') {
-    //     $vars['course'] = Course::find($id);
-
-    //     if($role != 'admin')
-    //         return response()->json($vars);
-
-    //     return view('course.details', $vars);
-    // }
-
 }

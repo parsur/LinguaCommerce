@@ -9,9 +9,7 @@ class Action {
 
     /**
      * All reusable actions (GET,POST).
-     * 
-     * @return json
-     * 
+     * @return Json
      */
 
     /**
@@ -45,9 +43,9 @@ class Action {
         if ($values) {
             $values->delete();
         } else {
-            return response()->json(['error' => 'ٔNo data was found'], Response::HTTP_NOT_FOUND);
+            return $this->responseWithError();
         }
-        return response()->json(['success' => 'Deleted successfuly'], Response::HTTP_OK);
+        return $this->responseWithSuccess();
 
     }
 
@@ -61,9 +59,9 @@ class Action {
             File::delete(public_path("images/" . $modelImage->$column)); 
             $modelImage->delete();
         } else {
-            return response()->json(['error' => 'ٔNo data was found'], Response::HTTP_NOT_FOUND);
+            return $this->responseWithError();
         }
-        return response()->json(['success' => 'Deleted successfuly'], Response::HTTP_OK);
+        return $this->responseWithSuccess();
     }
     
     // Add Image
@@ -92,5 +90,15 @@ class Action {
         }
 
         $imageUploader->save();
+    }
+
+    // Response with error
+    public function responseWithError() {
+        return response()->json(['error' => 'ٔداده ای یافت نشد'], Response::HTTP_NOT_FOUND);
+    }
+
+    // Response with success
+    public function responseWithSuccess() {
+        return response()->json(['success' => 'با موفقیت حذف شد'], Response::HTTP_OK);
     }
 }

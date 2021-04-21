@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import whymebg from '../../images/test2bg.jpeg';
 import { Link } from 'react-router-dom';
 import Select from 'react-select';
 import { VscSearchStop } from 'react-icons/vsc';
@@ -172,9 +171,11 @@ export const MainB = styled(Link)`
 
 export const Photo = styled.div`
     width: 100%;
-    height: 45%;
-    background: url(${whymebg});
-    background-size: cover;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #eee;
 `
 
 export const Name = styled.div`

@@ -21,7 +21,7 @@ class StoreConsultation
     {
         // Check authentication and description
         if (!empty($request->get('description')) && !auth('sanctum')->check()) {
-            return response()->json(['error' => 'برای نوشتن توضیحات، نخست وارد سایت بشوید'], 400);
+            return response()->json(['error' => 'برای نوشتن توضیحات، نخست وارد سایت بشوید'], Response::HTTP_BAD_REQUEST);
         }
 
         // if not, authenticate.

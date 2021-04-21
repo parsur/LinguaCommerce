@@ -165,6 +165,8 @@ Route::group(['middleware' => ['auth', 'isAdmin']], function () {
 });
 // App
 Route::get('/', 'HomeController@app');
+// Cache
+Route::get('clear-cache', 'HomeController@cache');
 // Authentication 
 Auth::routes(['verify' => true]);
 // Login
@@ -181,9 +183,3 @@ Route::view('/article/{id}', 'app');
 Route::view('/course/{id}', 'app');
 Route::view('/articlelists', 'app');
 Route::view('/login', 'app');
-// Clear cache in laravel
-// Route::get('/clear-cache', function() {
-//     Artisan::call('cache:clear');
-//     // return what you want
-//     return "Cache is cleared";
-// });

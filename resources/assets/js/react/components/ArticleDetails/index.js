@@ -55,6 +55,8 @@ import Carousel, { Dots, slidesToShowPlugin} from '@brainhubeu/react-carousel';
 import '@brainhubeu/react-carousel/lib/style.css';
 import axios from 'axios';
 import Loader from 'react-loader-spinner';
+import { Box, BoxB, BP, OBttom, OthersContainer, OTop } from '../CourseDetails/CourseDetailsElements';
+import { Link } from 'react-router-dom';
 
 const images = [
   {
@@ -81,6 +83,8 @@ const ArticleDetails = () => {
   const [newComment, setNewComment] = useState("");
   const [subCategoryName, setSubCategoryName] = useState("");
   const [category, setCategory] = useState("");
+  const [videos, setVideos] = useState([]);
+  const [images, setImages] = useState([]);
 
 useEffect(() => {
   api(`api/v1/article/details?id=${id}`)
@@ -90,6 +94,8 @@ useEffect(() => {
           setDesc(data.article.description);
           setComments(data.article.comments);
           setCategory(data.article.category);
+          setVideos(data.videos);
+          setImages(data.images);
           if(data.article.sub_category === null){
             setSubCategoryName("");
           } else {
@@ -129,6 +135,42 @@ function submit(){
   });
 }
 
+function handleVideo(videos){
+  if(videos != 0){
+    return (
+      <Videos>
+
+      <div style={{width:"90%", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", flexWrap:"wrap"}}>
+          {videos.map(({url}, i) => {
+            return (
+              <iframe className="media-vid" key={i} src={url} title="desc"></iframe>
+            )
+        })}
+      </div>
+
+        </Videos>
+    )
+  }
+}
+function handleImage(images){
+  if(images != 0){
+    return (
+      <Videos>
+
+      <div style={{width:"90%", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", flexWrap:"wrap"}}>
+        {images.map(({url}, i) => {
+          return (
+            <div key={i}>
+              <img className="media-img" src={'http://sararajabi.com/' + url} alt="course"/>
+            </div>
+          )
+        })}
+      </div>
+
+        </Videos>)
+  }
+}
+
   return article && desc && comments ? (
     <Container>
 
@@ -148,37 +190,9 @@ function submit(){
         
       </Middle>
 
-        <Videos>
+            {handleVideo(videos)}
 
-<div style={{width:"80%", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center"}}>
-
-  <h2 style={{direction:"rtl"}}>عکس یا فیلمی موجود نیست.</h2>
-        {/* <Carousel
-    plugins={[
-    'centered',
-    'infinite',
-    'arrows',
-    {
-      resolve: slidesToShowPlugin,
-      options: {
-       numberOfSlides: 2,
-      },
-    },
-  ]}   
->
-  <img src="https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
-  <img src="https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
-  <img src="https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
-</Carousel> */}
-</div>
-          {/* {harchi.map(({ harchi }) => {
-            return (
-              <>
-              </>
-            );
-          })} */}
-
-        </Videos>
+            {handleImage(images)}
       
       <STHR style={{border:"1px solid grey", width:"90%", margin:"50px auto"}} />
       
@@ -191,6 +205,20 @@ function submit(){
 
         </BRight>
       </Bottom>
+
+      <STHR style={{border:"1px solid grey", width:"90%", margin:"50px auto"}} />
+
+        <Videos active="true">
+          <OthersContainer>
+            <OTop>دیگر نوشته ها</OTop>
+            <OBttom>
+              <Link to="/courselist"><Box><BP>دوره ها</BP><BoxB course="true"></BoxB></Box></Link>
+              <Link to="/articlelists"><Box><BP>مقاله ها</BP><BoxB article="true"></BoxB></Box></Link>
+              <Link to="/consultante"><Box><BP>مشاوره</BP><BoxB></BoxB></Box></Link>
+              <Link to="/whyme"><Box><BP>چرامن؟</BP><BoxB whyme="true"></BoxB></Box></Link>
+            </OBttom>
+          </OthersContainer>
+        </Videos>
 
       <STHR style={{border:"1px solid grey", width:"90%", margin:"50px auto"}} />
 

@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\StoreLoginRequest;
-use App\Providers\EnglishConvertion;
 use App\DataTables\UserDataTable;
 use App\Providers\Action;
 use App\Models\User;
@@ -17,7 +16,6 @@ class UserController extends Controller
 {
     // User Dashboard(profile)
     public function show() {
-
         $vars['user'] = User::where('id', Auth::user()->id)->first();
         return response()->json($vars);
     }
@@ -58,7 +56,6 @@ class UserController extends Controller
 
     // Add or update user
     public function add($request, $role) {
-
         // Id
         $id = $request->get('id');
 

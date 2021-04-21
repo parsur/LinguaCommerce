@@ -418,8 +418,8 @@ export const HiOutlineUserCircles = styled(HiOutlineUserCircle)`
 
 export const Videos = styled.div`
   width: 100%;
-  height: 500px;
-  background-image: radial-gradient(circle, #eeeeee50 , #00000050);
+  height: ${props => props.active ? 'auto' : '400px'};
+  background-image: radial-gradient(circle, #fff , #F4DD4F90);
   display: flex;
   justify-content: center;
   align-items: center;

@@ -46,7 +46,10 @@ import {
   Commenter,
   HiOutlineUserCircles,
   Videos, Iframe,
-  NoComments
+  NoComments,
+  OthersContainer,
+  OTop, OBttom,
+  Box, BP, BoxB
 } from './CourseDetailsElements';
 import test2bg from '../../images/test2bg.jpeg';
 import ImageGallery from 'react-image-gallery';
@@ -58,6 +61,7 @@ import axios from 'axios';
 import Loader from 'react-loader-spinner';
 import Particles from 'react-particles-js';
 import { backStyleTwo, gifStyleTwo } from '../../Data';
+import { Link } from 'react-router-dom';
 
 const images = [
   {
@@ -86,6 +90,8 @@ const CourseDetails = () => {
   const [category, setCategory] = useState({});
   const [isError, setIsError] = useState(false);
   const [succes, setSucces] = useState(false);
+  const [videos, setVideos] = useState([]);
+  const [images, setImages] = useState([]);
 
 useEffect(() => {
   api(`api/v1/course/details?id=${id}`)
@@ -95,6 +101,8 @@ useEffect(() => {
           setDesc(data.course.description);
           setComments(data.course.comments);
           setCategory(data.course.category);
+          setVideos(data.videos);
+          setImages(data.images);
           if(data.course.sub_category === null){
             setSubCategoryName("");
           } else {
@@ -102,6 +110,22 @@ useEffect(() => {
           }
       })
 }, []);
+
+function handleStatus(course){
+  if(course.statuses.status == 0){
+    return "افزودن به سبد خرید"
+  } else {
+    return "ناموجود"
+  }
+}
+
+function handleAddCart(course){
+  if(course.statuses.status == 0){
+    return addCart
+  } else {
+    return null
+  }
+}
 
 function noComments(){
   if(comments == 0){
@@ -177,7 +201,64 @@ function handlePrice(course){
   }
 }
 
-  return course && desc && comments ? (
+function handleVideo(videos){
+  if(videos != 0){
+    return (
+      <Videos>
+
+      <div style={{width:"90%", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", flexWrap:"wrap"}}>
+          {videos.map(({url}, i) => {
+            return (
+              <iframe className="media-vid" key={i} src={url} title="desc"></iframe>
+            )
+        })}
+      </div>
+
+        </Videos>
+    )
+  }
+}
+function handleImage(images){
+  if(images != 0){
+    return (
+      <Videos>
+
+      <div style={{width:"90%", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", flexWrap:"wrap"}}>
+        {images.map(({url}, i) => {
+          return (
+            <img className="media-img" key={i} src={'http://sararajabi.com/' + url} alt="course"/>
+          )
+        })}
+      </div>
+
+        </Videos>)
+  }
+}
+// else if(videos == 0 && images != 0){
+//   return (
+//     images.map(({url}, i) => {
+//       return (
+//         <img key={i} src={'http://sararajabi.com/' + url} style={{background:"#000",maxHeight:"380px"}} alt="course"/>
+//       )
+//     })
+//   )
+// } else if(videos != 0 && images != 0){
+//   return ( <div style={{padding:"40px", display:"flex", justifyContent:"space-evenly", flexWrap:"wrap"}}>
+//     <div style={{padding:"20px"}}>{images.map(({url}, i) => {
+//       return (
+//         <img key={i} src={'http://sararajabi.com/' + url} style={{background:"#000",maxHeight:"380px"}} alt="course"/>
+//       )
+//     })}</div>
+//     <div style={{padding:"20px"}}>{videos.map(({url}, i) => {
+//       return (
+//         <iframe key={i} src={url} style={{width:"500px",height:"380px",background:"#000"}} title="desc"></iframe>
+//       )
+//     })}</div>
+//     </div>
+//   )
+// }
+
+return course && desc && comments ? (
     <Container>
       <Particles params={backStyleTwo} style={gifStyleTwo}/>
       <Top></Top>
@@ -218,7 +299,7 @@ function handlePrice(course){
 
             <SBottom>
 
-              <Price onClick={addCart}>افزودن به سبد خرید</Price>
+              <Price onClick={handleAddCart(course)}>{handleStatus(course)}</Price>
               
             </SBottom>
 
@@ -234,53 +315,14 @@ function handlePrice(course){
 
           <Category>{category.name} / {subCategoryName}</Category>
 
-          <Description>
-
-            <Room><h2>توضیحات دوره پایینتر داده شده!</h2></Room>
-
-          </Description>
-
         </Center>
         
       </Middle>
 
       <STHR style={{border:"1px solid grey", width:"90%", margin:"50px auto"}} />
 
-        <Videos>
-
-<div style={{width:"80%", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center"}}>
-        {/* <Carousel
-    plugins={[
-    'centered',
-    'infinite',
-    'arrows',
-    {
-      resolve: slidesToShowPlugin,
-      options: {
-       numberOfSlides: 2,
-      },
-    },
-  ]}   
->
-  <img src="https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
-  <img src="https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
-  <img src="https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
-</Carousel> */}
-<Figure>
-
-            {/* <ImageGallery showNav={false} showPlayButton={false} autoPlay={true} items={images} /> */}
-            <h2 style={{direction:"rtl"}}>عکس یا فیلمی موجود نیست.</h2>
-
-          </Figure>
-</div>
-          {/* {harchi.map(({ harchi }) => {
-            return (
-              <>
-              </>
-            );
-          })} */}
-
-        </Videos>
+        {handleVideo(videos)}
+        {handleImage(images)}
       
       <STHR style={{border:"1px solid grey", width:"90%", margin:"50px auto"}} />
       
@@ -320,7 +362,7 @@ function handlePrice(course){
 
             <SBottom>
 
-              <Price onClick={addCart}>افزودن به سبد خرید</Price>
+              <Price onClick={handleAddCart(course)}>{handleStatus(course)}</Price>
               
             </SBottom>
 
@@ -332,7 +374,46 @@ function handlePrice(course){
         
         <div className="course-details-description-main" dangerouslySetInnerHTML={ {__html: desc.description} }/>
         </BRight>
+        {/* <CKEditor
+                    editor={ ClassicEditor }
+                    data={description.value}
+                    config={ {
+                      // Use the German language for this editor.
+                      language: 'fa',
+                      // ...
+                  } }
+              
+                    onReady={ editor => {
+                      editor.isReadOnly="true"
+                    } }
+                    onChange={ ( event, editor ) => {
+                        const data = editor.getData();
+                        console.log( { event, editor, data } );
+                    } }
+                    onBlur={ ( event, editor ) => {
+                        console.log( 'Blur.', editor );
+                    } }
+                    onFocus={ ( event, editor ) => {
+                        console.log( 'Focus.', editor );
+                    } }
+                />
+
+        </BRight> */}
       </Bottom>
+
+      <STHR style={{border:"1px solid grey", width:"90%", margin:"50px auto"}} />
+
+        <Videos active="true">
+          <OthersContainer>
+            <OTop>دیگر نوشته ها</OTop>
+            <OBttom>
+              <Link to="/courselist"><Box><BP>دوره ها</BP><BoxB course="true"></BoxB></Box></Link>
+              <Link to="/articlelists"><Box><BP>مقاله ها</BP><BoxB article="true"></BoxB></Box></Link>
+              <Link to="/consultante"><Box><BP>مشاوره</BP><BoxB></BoxB></Box></Link>
+              <Link to="/whyme"><Box><BP>چرامن؟</BP><BoxB whyme="true"></BoxB></Box></Link>
+            </OBttom>
+          </OthersContainer>
+        </Videos>
 
       <STHR style={{border:"1px solid grey", width:"90%", margin:"50px auto"}} />
 
@@ -377,13 +458,13 @@ function handlePrice(course){
         {noComments()}
 
         <div style={comments ? {display:"unset"} : {display:"none"}}>
-        {comments.map(({ comment }) => {
+        {comments.map(({ comment, name }, i) => {
           return(
-        <Comment>
+        <Comment key={i}>
           
           <UserTop>
 
-            <Commenter><HiOutlineUserCircles/>کاربر</Commenter>
+            <Commenter><HiOutlineUserCircles/>{name}</Commenter>
 
           </UserTop>
 

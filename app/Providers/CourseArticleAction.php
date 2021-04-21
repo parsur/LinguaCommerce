@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use Symfony\Component\HttpFoundation\Response;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\Media;
@@ -14,8 +13,7 @@ class CourseArticleAction {
 
     /**
      * Action of course and article. (GET,POST)
-     * 
-     * @return json 
+     * @return Json 
      */
     
     // Details
@@ -44,8 +42,8 @@ class CourseArticleAction {
 
         if($role != 'admin') {
 
-            $images = [];
-            $videos = [];
+            $images = []; // Image
+            $videos = []; // Video
 
             $media_urls = Media::where('media_id', $id)->where('media_type', $model)->get();
             foreach($media_urls as $media_url) {
@@ -105,8 +103,7 @@ class CourseArticleAction {
         $comment = Comment::find($request);
         $comment->statuses()->update(['status' => Status::VISIBLE]);
         
-        $output = array('success' => '<div class="alert alert-success">دیدگاه کاربر با موفقیت تایید شد</div>');
-        return response()->json($output);
+        return response()->json(['success' => '<div class="alert alert-success">دیدگاه کاربر با موفقیت تایید شد</div>']);
     }
 
     /**
@@ -121,12 +118,12 @@ class CourseArticleAction {
             
             $query->where($request->column, 'LIKE', "%{$request->search}%");
         }
-        // If category is requested
+        // If category is requested | 0 = null
         if($request->get('category_id') != 0) {
 
             $query->where('category_id', $request->category_id)->whereNotNull('category_id');
         }
-        // If subcategory is requested
+        // If subcategory is requested | 0 = null
         if($request->get('sub_category_id') != 0) {
             
             $query->where('subCategory_id', $request->sub_category_id)->whereNotNull('subCategory_id');
@@ -138,6 +135,6 @@ class CourseArticleAction {
         if(count($results) > 0)
             return response()->json($results); // Ok.
         else 
-            return response()->json(''); // No result.
+            return response()->json(null); // No result.
     }
 }
