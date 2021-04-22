@@ -39,10 +39,12 @@ function NavbarTwo(props) {
     const [condition, setCondition] = useState(false)
     const [modalOpen, setModalOpen] = useState(false)
     const [orders, setOrders] = useState([])
+    const [id, setId] = useState()
+    
     const showNav = () => setCondition(!condition);
 
     useEffect(() => {
-        axios.get('http://sararajabi.com/api/v1/cart/show', {
+        axios.get('/api/v1/cart/show', {
             headers: {
                 'api_key': `${token}`,
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -57,8 +59,24 @@ function NavbarTwo(props) {
         });
     }, []);
 
+    useEffect(() => {
+        axios.get('/api/v1/user/show', {
+            headers: {
+                'api_key': `${token}`,
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            }
+          }
+        ).then(function (response) {
+            console.log(response);
+            setId(response.data.user.id);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    }, []);
+
     function submit(){
-        axios.post('http://sararajabi.com/api/v1/order/store', {}, {
+        axios.post('/api/v1/order/store', {}, {
             headers: {
               'api_key': `${token}`,
               'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -105,7 +123,7 @@ function NavbarTwo(props) {
                                     {course.name}
                                 </ModalRight>
                                 <ModalLeft onClick={() => {
-                                    axios.get(`http://sararajabi.com/api/v1/cart/delete/${id}`, {
+                                    axios.get(`/api/v1/cart/delete/${id}`, {
                                         headers: {
                                             'api_key': `${token}`,
                                             'Authorization': `Bearer ${localStorage.getItem('token')}`

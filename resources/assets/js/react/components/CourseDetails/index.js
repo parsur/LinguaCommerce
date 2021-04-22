@@ -136,7 +136,7 @@ function noComments(){
 const token = 'parsur';
 
 function addCart(){
-  axios.post('http://sararajabi.com/api/v1/cart/store', {
+  axios.post('/api/v1/cart/store', {
       course_id: id
   }, {
       headers: {
@@ -167,7 +167,7 @@ function cartError(){
 }
 
 function submit(){
-  axios.post('http://www.sararajabi.com/api/v1/courseComment/store', {
+  axios.post('/api/v1/courseComment/store', {
       comment: newComment,
       name: name,
       course_id: id,
@@ -226,7 +226,7 @@ function handleImage(images){
       <div style={{width:"90%", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", flexWrap:"wrap"}}>
         {images.map(({url}, i) => {
           return (
-            <img className="media-img" key={i} src={'http://sararajabi.com/' + url} alt="course"/>
+            <img className="media-img" key={i} src={'/' + url} alt="course"/>
           )
         })}
       </div>
@@ -234,29 +234,6 @@ function handleImage(images){
         </Videos>)
   }
 }
-// else if(videos == 0 && images != 0){
-//   return (
-//     images.map(({url}, i) => {
-//       return (
-//         <img key={i} src={'http://sararajabi.com/' + url} style={{background:"#000",maxHeight:"380px"}} alt="course"/>
-//       )
-//     })
-//   )
-// } else if(videos != 0 && images != 0){
-//   return ( <div style={{padding:"40px", display:"flex", justifyContent:"space-evenly", flexWrap:"wrap"}}>
-//     <div style={{padding:"20px"}}>{images.map(({url}, i) => {
-//       return (
-//         <img key={i} src={'http://sararajabi.com/' + url} style={{background:"#000",maxHeight:"380px"}} alt="course"/>
-//       )
-//     })}</div>
-//     <div style={{padding:"20px"}}>{videos.map(({url}, i) => {
-//       return (
-//         <iframe key={i} src={url} style={{width:"500px",height:"380px",background:"#000"}} title="desc"></iframe>
-//       )
-//     })}</div>
-//     </div>
-//   )
-// }
 
 return course && desc && comments ? (
     <Container>

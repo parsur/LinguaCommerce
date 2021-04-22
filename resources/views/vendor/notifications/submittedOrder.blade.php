@@ -12,9 +12,10 @@ Course names:
     <br>
     @foreach($cart->course->files as $file)
         @once Course files: @endonce
-        {{ $file->title }}
+        <a href="{{ $file->url }}">{{ $file->title }}</a>
     @endforeach
 @endforeach
+
 
 @component('mail::button', ['url' => ''])
 Button Text

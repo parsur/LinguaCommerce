@@ -33,12 +33,7 @@ import api from '../../api';
 import { AiOutlineSearch } from 'react-icons/ai';
 import Loader from 'react-loader-spinner';
 import axios from 'axios';
-
-const options = [
-    { value: 'دسته بندی اول', label: 'دسته بندی اول' },
-    { value: 'دسته بندی دوم', label: 'دسته بندی دوم' },
-    { value: 'دسته بندی سوم', label: 'دسته بندی سوم' }
-  ]
+import whymebg from '../../images/test2bg.jpeg';
 
 const token = 'parsur';
 
@@ -57,8 +52,9 @@ const Article = ({ data }) => {
 
     function submit(){
         console.log(search);
-        axios.post('http://sararajabi.com/api/v1/article/search', {
+        axios.post('/api/v1/article/search', {
             search: search,
+            column: 'title',
         }, {
             headers: {
               'api_key': `${token}` 
@@ -100,6 +96,14 @@ const Article = ({ data }) => {
         );
     }
 
+    function mediaCaller(media){
+        if(media == 0){
+            return whymebg
+        } else {
+            return "/images/" + media[0].url
+        }
+    }
+
     return article ? (
         <Container>
             <Left>
@@ -130,12 +134,12 @@ const Article = ({ data }) => {
             </Left>
             <Right>
                 {noRes}
-            {article.map(({ title, id }, i) => {
+            {article.map(({ title, id, media }, i) => {
         return( <Block key={i}>
 
             <MainB to={`article/${id}`}>
 
-                <MBRight><MBImage/></MBRight>
+                <MBRight><MBImage><img style={{width:"100%"}} src={mediaCaller(media)} alt="course"/></MBImage></MBRight>
 
                 <MBLeft>
 

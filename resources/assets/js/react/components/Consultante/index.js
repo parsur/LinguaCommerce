@@ -28,7 +28,7 @@ const Consultante = () => {
     const token = 'parsur';
 
     useEffect(() => {
-        axios.get('http://sararajabi.com/api/v1/user/show', {
+        axios.get('/api/v1/user/show', {
             headers: {
                 'api_key': `${token}`,
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -53,7 +53,7 @@ const Consultante = () => {
     }, []);
 
     function submit(){
-        axios.post('http://sararajabi.com/api/v1/consultation/store', {
+        axios.post('/api/v1/consultation/store', {
             description: desc,
             phone_number: phone
         }, {

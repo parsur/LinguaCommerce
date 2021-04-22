@@ -111,7 +111,7 @@ class CourseArticleAction {
      */
     public function search($request, $model) {
 
-        $query = $model::query();
+        $query = $model::query()->with('media');
 
         // If name is requested
         if(!empty($request->get('search')) and !empty($request->get('column'))) {

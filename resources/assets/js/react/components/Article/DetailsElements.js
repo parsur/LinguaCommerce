@@ -281,6 +281,10 @@ export const Block = styled.div`
         transition: 0.2s;
     }
 
+    @media screen and (max-width:500px){
+        height: auto;
+    }
+
     @media screen and (max-width: 250px) {
         width: 95%;
     }
@@ -295,6 +299,10 @@ export const MainB = styled(Link)`
     justify-content: center;
     text-decoration: none;
     color: unset;
+    
+    @media screen and (max-width:500px){
+        flex-direction: column;
+    }
 `
 
 export const MBLeft = styled.div`
@@ -302,6 +310,11 @@ export const MBLeft = styled.div`
     height: 100%;
     display: flex;
     flex-direction: column;
+
+    @media screen and (max-width:500px){
+        margin-top: 20px;
+        width: 100%;
+    }
 `
 
 export const MBRight = styled.div`
@@ -311,13 +324,19 @@ export const MBRight = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    @media screen and (max-width:500px){
+        width: 80%;
+    }
 `
 
-export const MBImage = styled.image`
-    background: url(${whymebg});
+export const MBImage = styled.div`
     width: 100%;
     height: 100%;
-    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 `
 
 export const MBLTop = styled.div`
@@ -337,6 +356,10 @@ export const MBLBottom = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    @media screen and (max-width:500px){
+        margin-top: 20px;
+    }
 `
 
 export const MBLH1 = styled.h1`
@@ -359,9 +382,4 @@ export const MBLGoTo = styled.div`
     justify-content: center;
     font-size: 20px;
     transition: 0.2s;
-
-    &:hover{
-        box-shadow: 3px 3px 5px grey;
-        transition: 0.2s;
-    }
 `

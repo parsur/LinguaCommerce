@@ -34,6 +34,7 @@ class CourseDataTable extends DataTable
             })
             ->editColumn('price', function(Course $course) {
                 if($course->price != null) return $course->price . ' تومان';
+                else return 'رایگان';
             })
             ->editColumn('category_id', function(Course $course) {
                 return optional($course->category)->name;

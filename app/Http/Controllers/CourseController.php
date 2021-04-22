@@ -12,6 +12,8 @@ use App\Providers\CourseArticleAction;
 use App\DataTables\CourseDataTable;
 use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\SearchRequest;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\FreeCourse;
 use DB;
 
 class CourseController extends Controller
@@ -140,6 +142,16 @@ class CourseController extends Controller
  
         return response()->json($vars);
     } 
+
+    // Free courses
+    public function downloadFreeCourses(Request $request) {
+        // Course
+        $course = Course::where('id', $request->get('id'))->where('price', null)->first();
+        // Email
+        Mail::to(auth()->user()->email)->send(new FreeCourse($course));
+
+        return $this->responseWithSuccess('دوره با موفقیت به ایمیل شما ارسال شد');
+    }
 
     // Search
     public function search(CourseArticleAction $action, SearchRequest $request) {

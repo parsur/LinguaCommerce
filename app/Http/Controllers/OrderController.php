@@ -118,44 +118,33 @@ class OrderController extends Controller
                 $carts = Cart::where('factor', $factor)->get();
                 foreach($carts as $cart) {
                     $sum += $cart->course->price;
-                }
+                }   
+                $this->order->total_price = $sum;
 
-                if($sum == 0) {
+                // Create new invoice.
+                $invoice = new Invoice;
+
+                // // Set invoice amount.
+                $invoice->amount(12000);
+                $invoice->Uuid($this->order->factor);
+                // $invoice->transactionId('test');
+                $invoice->detail(['name', $user->name]);
+                $invoice->detail(['phone', $user->phone_number]);
+                $invoice->detail(['email', $user->email]);
+                $invoice->detail(['description','Order payment']);
+
+                $payment = Payment::purchase($invoice, function($driver, $transactionId) {
+                    // Store transactionId in database, to verify payment in future.
+                    $this->order->test = $transactionId; 
+                    // Order status (Not paid yet)
+                    // $this->order->statuses()->create(['status' => Status::INVISIBLE]);
+                    // Save order
                     $this->order->save();
                     DB::commit();
 
-                    // Email
-                    Mail::to(auth()->user()->email)->send(new SubmittedOrder($this->order, $carts));
-                    
-                    return Redirect::to('/'); // Paid
+                })->pay();
 
-                } else {
-                    // Create new invoice.
-                    $invoice = new Invoice;
-
-                    // // Set invoice amount.
-                    $invoice->amount($sum);
-                    $invoice->Uuid($this->order->factor);
-                    $invoice->transactionId('test');
-                    $invoice->detail(['name', $user->name]);
-                    $invoice->detail(['phone', $user->phone_number]);
-                    $invoice->detail(['email', $user->email]);
-                    $invoice->detail(['description','Order payment']);
-
-                    $payment = Payment::purchase($invoice, function($driver, $transactionId) {
-                        // Store transactionId in database, to verify payment in future.
-                        $this->order->test = $transactionId; 
-                        // Order status
-                        $this->order->statuses()->create(['status' => Status::INVISIBLE]);
-                        
-                        // Save order
-                        $this->order->save();
-                        DB::commit();
-
-                    })->pay()->render();
-
-                    return $payment;
-                }
+                return response()->json($payment);
 
             } catch(Exception $e) {
                 throw $e;
@@ -178,4 +167,5 @@ class OrderController extends Controller
             return $exception->getMessage();
         }
     }
+
 }

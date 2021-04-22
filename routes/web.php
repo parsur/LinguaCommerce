@@ -166,7 +166,7 @@ Route::group(['middleware' => ['auth', 'isAdmin']], function () {
 // App
 Route::get('/', 'HomeController@app');
 // Cache
-Route::get('clear-cache', 'HomeController@cache');
+Route::get('/clear-cache', 'HomeController@cache');
 // Authentication 
 Auth::routes(['verify' => true]);
 // Login
