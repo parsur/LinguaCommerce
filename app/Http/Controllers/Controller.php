@@ -13,8 +13,8 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     // Json response with success
-    public function responseWithSuccess($data) {
-        return response()->json(['success' => $data], Response::HTTP_CREATED);
+    public function responseWithSuccess($data, $status = Response::HTTP_CREATED) {
+        return response()->json(['success' => $data], $status);
     }
 
     // Json response with error

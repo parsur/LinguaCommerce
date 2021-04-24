@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Mail;
 use Shetabit\Multipay\Invoice;
 use Shetabit\Payment\Facade\Payment;
-use Shetabit\Payment\Exceptions\InvalidPaymentException;
+use Shetabit\Multipay\Exceptions\InvalidPaymentException;
 use Auth;
 use DB;
 
@@ -25,7 +25,7 @@ class OrderController extends Controller
 
     // Facing any error, fix here
     public function __construct() {
-        $this->middleware(['auth:sanctum', 'verified'])->except(['verify']);
+        $this->middleware(['auth:sanctum', 'verified'])->except(['verify', 'list', 'orderTable']);
     }
 
     // Datatable To blade
@@ -44,19 +44,18 @@ class OrderController extends Controller
         return $dataTable->render('order.list');
     }
 
-    // delete
+    // Delete
     public function delete(Action $action,$id) {
         return $action->delete(Order::class, $id);
     }
 
-    // Show user's carts
+    // Show the user's carts
     public function showCart(CartController $cart) {
         return $cart->show();
     }
 
-    // Show users's orders
+    // Show the users's orders
     public function showOrder(CartAction $cart) {
-
         $vars['orders'] = Order::where('user_id', auth()->user()->id)->with('user:name,phone_number,email')->get();
         return response()->json($vars);
     }
@@ -68,102 +67,118 @@ class OrderController extends Controller
         // Cart
         $vars['carts'] = Cart::where('factor', $request->get('factor'))->get();
 
-        if($request->get('role') != 'admin')
-            return response()->json($vars);
+        if($request->has('admin'))
+            return view('order.details', $vars);
 
-        return view('order.details', $vars);
+        return response()->json($vars);
     }
-
-    // Order
-    public $order;
 
     // Submit final order
     public function store() {
-        $user = User::find(Auth::user()->id);
+        // User
+        $user = User::find(Auth::user()->id); 
 
-        // Count unpaid order
-        $unpaidOrder = Order::where('user_id',  $user->id)->whereHas('statuses', function($query) {
-            $query->active();
-        })->count();
+        DB::beginTransaction();
+        try {
 
-        // Number of unpaid order
-        if($unpaidOrder > 4) {
-            return $this->responseWithError('ما اجازه داشتن بیش از ۴ سفارش پرداخت نشده ندارید', Response::HTTP_FORBIDDEN);
-        } 
-        else {
-            DB::beginTransaction();
-
-            try {
-                // New order
-                $this->order = new Order();
-                // Username
-                $this->order->user_id = $user->id;
-                // Count orders where user_id is
-                $orderCount = Cart::where('user_id',  $user->id)->count() . 1001;
-                // Order factor
-                $factor = 'saraRajabi' . $orderCount .  $user->id;
-                $this->order->factor = $factor;
-
-                // Set order factor for all carts
-                $cartFactors = Cart::where('user_id',  $user->id)
-                    ->whereNull('factor')->get();
-
-                foreach($cartFactors as $cartFactor) {
-                    $cartFactor->factor = $factor;
-                    $cartFactor->save();
-                }
-
-                // Order total price
-                $sum = 0;
-                $carts = Cart::where('factor', $factor)->get();
-                foreach($carts as $cart) {
-                    $sum += $cart->course->price;
-                }   
-                $this->order->total_price = $sum;
-
-                // Create new invoice.
-                $invoice = new Invoice;
-
-                // // Set invoice amount.
-                $invoice->amount(12000);
-                $invoice->Uuid($this->order->factor);
-                // $invoice->transactionId('test');
-                $invoice->detail(['name', $user->name]);
-                $invoice->detail(['phone', $user->phone_number]);
-                $invoice->detail(['email', $user->email]);
-                $invoice->detail(['description','Order payment']);
-
-                $payment = Payment::purchase($invoice, function($driver, $transactionId) {
-                    // Store transactionId in database, to verify payment in future.
-                    $this->order->test = $transactionId; 
-                    // Order status (Not paid yet)
-                    // $this->order->statuses()->create(['status' => Status::INVISIBLE]);
-                    // Save order
-                    $this->order->save();
-                    DB::commit();
-
-                })->pay();
-
-                return response()->json($payment);
-
-            } catch(Exception $e) {
-                throw $e;
-                DB::rollBack();
+            $order = new Order();
+            // Number of unpaid orders
+            if($order->hasExceededOrder()) {
+                return $this->responseWithError('شما اجازه داشتن بیش از چهار سفارش پرداخت نشده ندارید', Response::HTTP_FORBIDDEN);
             }
+            // Factor
+            $factor = 'Rajabi-' . uniqid();
+
+            // Set order factor for all carts
+            $carts = Cart::where('user_id',  $user->id)
+            ->whereNull('factor')->get();
+
+            foreach($carts as $cart) {
+                $cart->factor = $factor;
+                $cart->save();
+            }
+
+            $sum = 0;
+            foreach($order->getCart($factor) as $cart) {
+                $sum += $cart->course->price;
+            }   
+            $order->total_price = $sum;
+            // User id
+            $order->user_id = $user->id;
+            // Factor
+            $order->factor = $factor;
+
+            DB::commit();
+
+            return $this->pay($order);
+
+        } catch(Exception $e) {
+            throw $e;
+            DB::rollBack();
+        }
+    }
+
+    /**
+     * Pay order
+     *
+     * @param Order $order
+     * @return mixed
+     */
+    public function pay(Order $order)
+    {
+        try {
+            // User
+            $user = User::find(Auth::user()->id); 
+            // Create a new invoice.
+            $invoice = new Invoice;
+            // Set the invoice amount.
+            $invoice->amount(intval($order->total_price . 0));
+            $invoice->Uuid($order->factor);
+            // $invoice->transactionId('test');
+            $invoice->detail(['name', $user->name]);
+            $invoice->detail(['phone', $user->phone_number]);
+            $invoice->detail(['email', $user->email]);
+
+            $payment = Payment::purchase($invoice, function(
+                $driver, $transactionId) use ($order) {
+                    // Store transactionId in database, to verify payment in future.
+                    $order->transaction_id = $transactionId;
+                    // Save order
+                    $order->save();
+                    // Order status (Not paid yet)
+                    $order->statuses()->create(['status' => Status::NOT_PAID]);
+                }
+            )->pay();
+
+            return response()->json($payment);
+
+        } catch (PurchaseFailedException $exception) {
+            return $exception->getMessage();
         }
     }
 
     // Verify payment
-    public function verify(Request $request) {
-        # you need to verify the payment to insure the invoice has been paid successfully
+    public function verify(Request $request)
+    {
+        $order = Order::where('factor', $request->get('order_id'))->first();
         try {
-            $receipt = Payment::amount(1000)->transactionId($transaction_id)->verify();
+            // Ensure that the invoice has been paid successfully.
+            Payment::amount(intval($order->total_price . 0))->transactionId($order->transaction_id)->verify();
+            
+            // Email
+            $user = User::find($order->user_id); // auth('sanctum')->user()->email
+            Mail::to($user->email)->send(new SubmittedOrder($order, $order->getCart($order->factor)));
 
-            // you can show payment's referenceId to user
-            return $receipt->getReferenceId();
+            // You can show payment referenceId to the user.
+            // $order->setReciept($receipt->getReferenceId());
+
+            // Order status (Paid)
+            $order->statuses()->update(['status' => Status::PAID]);
+
+            return 'پرداخت شما با موفقیت انجام شد';
 
         } catch (InvalidPaymentException $exception) {
-            // when payment is not verified , it throw an exception.
+            // When payment is not verified, it will throw an exception.
             return $exception->getMessage();
         }
     }

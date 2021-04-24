@@ -144,7 +144,7 @@ class CourseController extends Controller
     } 
 
     // Free courses
-    public function downloadFreeCourses(Request $request) {
+    public function download(Request $request) {
         // Course
         $course = Course::where('id', $request->get('id'))->where('price', null)->first();
         // Email

@@ -14,8 +14,12 @@ class Status extends Model
 {
     public $timestamps = false;
 
-    const VISIBLE = 0;
-    const INVISIBLE = 1;
+    // Active | Inactive (Order)
+    const ACTIVE = 0;
+    const INACTIVE = 1;
+    // Paid | Not paid
+    const NOT_PAID = 2;
+    const PAID = 3;
 
     /**
      * Scope a query to only include active statuse.
@@ -24,7 +28,7 @@ class Status extends Model
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeActive($query) {
-        return $query->where('status', Status::VISIBLE);
+        return $query->where('status', Status::ACTIVE);
     }
 
     /**
@@ -46,6 +50,5 @@ class Status extends Model
         return $this->morphTo();
     }
 
-    
 
 }

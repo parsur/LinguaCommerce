@@ -17,7 +17,7 @@ class Media extends Model
     const VIDEO = 1;
 
     /**
-     * Scope a query to only include visible categories.
+     * Scope a query to only include active categories.
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @return \Illuminate\Database\Eloquent\Builder

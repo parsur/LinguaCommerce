@@ -30,6 +30,7 @@ import {
 } from './NavbarElemnts';
 import Modal from 'react-modal';
 import axios from 'axios';
+import { useHistory } from 'react-router';
 
 Modal.setAppElement("#app");
 
@@ -39,7 +40,8 @@ function NavbarTwo(props) {
     const [condition, setCondition] = useState(false)
     const [modalOpen, setModalOpen] = useState(false)
     const [orders, setOrders] = useState([])
-    const [id, setId] = useState()
+
+    let history = useHistory();
     
     const showNav = () => setCondition(!condition);
 
@@ -68,7 +70,6 @@ function NavbarTwo(props) {
           }
         ).then(function (response) {
             console.log(response);
-            setId(response.data.user.id);
         })
         .catch(function (error) {
             console.log(error);
@@ -84,6 +85,7 @@ function NavbarTwo(props) {
           }
         ).then(function (response) {
             console.log(response);
+            window.location.replace(`${response.data.action}`);
         })
         .catch(function (error) {
             console.log(error);

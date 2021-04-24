@@ -2,7 +2,7 @@
 # Introduction
 
 The body of your message.
-Price: {{ $order->price }}
+Price: {{ $order->total_price }}
 <br>
 Factor: {{ $order->factor }}
 <br>

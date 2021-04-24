@@ -25,8 +25,8 @@ class CategoryDataTable extends DataTable
             ->addIndexColumn()
             ->rawColumns(['action'])
             ->addColumn('status', function (Category $category) {
-                if($category->statuses->status == Status::VISIBLE) return "موجود";
-                else if($category->statuses->status == Status::INVISIBLE) return 'ناموجود';
+                if($category->statuses->status == Status::ACTIVE) return "موجود";
+                else if($category->statuses->status == Status::INACTIVE) return 'ناموجود';
             })
             ->filterColumn('status', function ($query, $keyword) {
                 switch($keyword) {

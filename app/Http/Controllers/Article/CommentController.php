@@ -38,8 +38,8 @@ class CommentController extends Controller
             $comment = Comment::create(['name' => $request->get('name'), 'comment' => $request->get('comment'), 
                 'commentable_id' => $request->get('article_id'), 'commentable_type' => Article::class]);
 
-            // Set the course's comment invisible
-            $comment->statuses()->create(['status' => Status::INVISIBLE]);
+            // Set the course's comment inactive    
+            $comment->statuses()->create(['status' => Status::INACTIVE]);
 
             DB::commit();
             
@@ -81,7 +81,7 @@ class CommentController extends Controller
 
     // Comment submitted by admin to be shown for user.
     public function submit(Request $request, CourseArticleAction $action) {
-        // Set the course's comment visible
+        // Set the course's comment active
         return $action->comment($request->get('submission'));
     }
 }

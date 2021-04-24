@@ -55,8 +55,8 @@ class ArticleDataTable extends DataTable
                 return Jalalian::forge($article->updated_at);
             })
             ->addColumn('status', function(Article $article) {
-                if($article->statuses->status == Status::VISIBLE) return "موجود";
-                else if($article->statuses->status == Status::INVISIBLE) return 'ناموجود';
+                if($article->statuses->status == Status::ACTIVE) return "موجود";
+                else if($article->statuses->status == Status::INACTIVE) return 'ناموجود';
             })
             ->filterColumn('status', function ($query, $keyword) {
                 switch($keyword) {

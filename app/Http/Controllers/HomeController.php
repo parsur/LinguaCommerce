@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Http;
 use App\Models\Setting;
 use App\Models\User;
 use Auth;
+use Artisan;
 
 class HomeController extends Controller
 {

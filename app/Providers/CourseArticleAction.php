@@ -101,7 +101,7 @@ class CourseArticleAction {
     public function comment($request) {
         // Set the course's comment visible
         $comment = Comment::find($request);
-        $comment->statuses()->update(['status' => Status::VISIBLE]);
+        $comment->statuses()->update(['status' => Status::ACTIVE]);
         
         return response()->json(['success' => '<div class="alert alert-success">دیدگاه کاربر با موفقیت تایید شد</div>']);
     }

@@ -51,8 +51,8 @@ class CourseDataTable extends DataTable
                 $query->whereRaw($sql, ["%{$keyword}%"]);
             })
             ->addColumn('status', function(Course $course) { 
-                if($course->statuses->status == Status::VISIBLE) return 'موجود';
-                else if($course->statuses->status == Status::INVISIBLE) return 'ناموجود';
+                if($course->statuses->status == Status::ACTIVE) return 'موجود';
+                else if($course->statuses->status == Status::INACTIVE) return 'ناموجود';
             })  
             ->filterColumn('status', function ($query, $keyword) {
                 switch($keyword) {
@@ -114,8 +114,8 @@ class CourseDataTable extends DataTable
             ->dom('PBCfrtip') // length menu without this, works fine.
             // ->lengthMenu([10,25,40])
             ->buttons(
-                Button::make('print'),
-                Button::make('copy')
+                Button::make(['print', 'text' => 'چاپ', 'className' => 'btn btn-warning']),
+                Button::make(['copy', 'text' => 'کپی', 'className' => 'btn btn-warning'])
             )
             ->lengthMenu([10,25,40])
             ->orderBy(1)

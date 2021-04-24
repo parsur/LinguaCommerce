@@ -16,7 +16,7 @@ class CreateStatusTable extends Migration {
 		Schema::create('status', function(Blueprint $table)
 		{
 			$table->integer('id', true);
-			$table->integer('status')->comment('0 = VISIBLE | 1 = INVISIBLE');
+			$table->integer('status')->comment('0 = VISIBLE | 1 = INACTIVE');
 			$table->integer('status_id');
 			$table->string('status_type', 100);
 		});

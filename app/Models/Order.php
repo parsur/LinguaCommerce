@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Cart;
+use App\Models\Status;
 use Illuminate\Database\Eloquent\Model;
 use ShiftOneLabs\LaravelCascadeDeletes\CascadesDeletes;
 
@@ -12,9 +14,9 @@ use ShiftOneLabs\LaravelCascadeDeletes\CascadesDeletes;
  * @property string $total_price
  * @property string $transportation
  * @property string $payment
- * @property int $status
  * @property User $user
  */
+
 class Order extends Model
 {
     public $timestamps = false;
@@ -28,7 +30,7 @@ class Order extends Model
     /**
      * @var array
      */
-    protected $fillable = ['factor', 'user_id', 'total_price', 'test'];
+    protected $fillable = ['factor', 'total_price', 'transaction_id', 'user_id'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -43,5 +45,23 @@ class Order extends Model
      */
     public function statuses() {
         return $this->morphOne('App\Models\Status', 'status');
+    }
+
+    /**
+     * Determine if current user has more than 4 unpaied orders.
+     *
+     * @return bool
+     */
+    public function hasExceededOrder()  {
+        return $this->statuses()->where('status', Status::ACTIVE)->where('user_id', auth()->user()->id)->count() > 4;
+    }
+
+    /**
+     * Get the carts with factors.
+     * 
+     * @return string
+     */
+    public function getCart($factor) {
+        return Cart::where('factor', $factor)->get();
     }
 }

@@ -53,7 +53,7 @@ const Consultante = () => {
     }, []);
 
     function submit(){
-        axios.post('/api/v1/consultation/store', {
+        axios.post('http://sararajabi.co/api/v1/consultation/store', {
             description: desc,
             phone_number: phone
         }, {

@@ -26,8 +26,8 @@ class SubCategoryDataTable extends DataTable
             ->addIndexColumn()
             ->rawColumns(['action','status'])
             ->addColumn('status', function (SubCategory $subCategory) {
-                if($subCategory->statuses->status == Status::VISIBLE) return "موجود";
-                else if($subCategory->statuses->status == Status::INVISIBLE) return 'ناموجود';
+                if($subCategory->statuses->status == Status::ACTIVE) return "موجود";
+                else if($subCategory->statuses->status == Status::INACTIVE) return 'ناموجود';
             })
             ->filterColumn('status', function ($query, $keyword) {
                 switch($keyword) {

@@ -19,8 +19,16 @@ class CartController extends Controller
 
         $vars['carts'] = Cart::where('user_id', $user_id)
             ->whereNull('factor')->with('course:id,name,price')->get();
-        
+
+        // Count
         $vars['count'] = $vars['carts']->count();
+
+        // Total price
+        $vars['total_price'] = 0;
+        
+        foreach($vars['carts'] as $cart) {
+            $vars['total_price'] += $cart->course->price;
+        }
 
         return response()->json($vars);
     }

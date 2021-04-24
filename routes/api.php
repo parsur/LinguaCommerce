@@ -66,7 +66,7 @@ Route::group(['prefix' => 'v1', 'as' => 'v1.', 'middleware' => 'apiKey'], functi
         // Search
         Route::post('search', 'CourseController@search');
         // Course
-        Route::post('downloadFreeCourses', 'CourseController@downloadFreeCourses')->middleware('auth:sanctum');
+        Route::get('download', 'CourseController@download')->middleware('auth:sanctum');
     });
     // Course comment
     Route::group(['prefix' => 'courseComment', 'as' => 'courseComment.'], function() {

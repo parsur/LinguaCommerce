@@ -44,7 +44,7 @@ class OrderDataTable extends DataTable
                 $query->whereRaw($sql, ["%{$keyword}%"]);
             })
             ->addColumn('action',function(Order $order) {
-                $details = URL::signedRoute('order.details', ['factor' => $order->factor, 'role' => 'admin']);
+                $details = URL::signedRoute('order.details', ['factor' => $order->factor, 'admin' => 'role']);
 
                 return '<a onclick="showConfirmationModal('.$order->id.')">
                             <i class="fa fa-trash text-danger" aria-hidden="true"></i>

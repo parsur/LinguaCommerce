@@ -39,8 +39,8 @@ class CommentController extends Controller
             $comment = Comment::create(['name' => $request->get('name'), 'comment' => $request->get('comment'), 
                 'commentable_id' => $request->get('course_id'), 'commentable_type' => Course::class]);
 
-            // Set the course's comment invisible
-            $comment->statuses()->create(['status' => Status::INVISIBLE]);
+            // Set the course's comment inactive
+            $comment->statuses()->create(['status' => Status::INACTIVE]);
 
             DB::commit();
 

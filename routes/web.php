@@ -174,6 +174,8 @@ Route::get('admin/login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('admin/login', 'Auth\LoginController@store');
 // Forgotten password
 Route::get('/forgot-password', 'Auth\ForgotPasswordController@index');
+// Verify
+Route::post('order/verify','OrderController@verify');
 // React app    
 Route::view('/courselist', 'app');
 Route::view('/aboutus', 'app');
@@ -183,3 +185,4 @@ Route::view('/article/{id}', 'app');
 Route::view('/course/{id}', 'app');
 Route::view('/articlelists', 'app');
 Route::view('/login', 'app');
+

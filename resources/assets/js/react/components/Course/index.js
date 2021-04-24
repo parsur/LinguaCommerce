@@ -68,7 +68,7 @@ const Course = ({ data }) => {
     }, []);
 
     const options = categories.map(({name, id}) => ({ value: id, label: name }))
-    const optionsTwo = (subCategories.map(({name, id}) => ({ value: id, label: name })))
+    const optionsTwo = subCategories.map(({name, id}) => ({ value: id, label: name }))
     
     function submit(){
         console.log(search);
@@ -119,26 +119,28 @@ const Course = ({ data }) => {
         setSelectedOption(selectedOption.value);
         sendDetails();
     }
+
+    function handleChangeTwo(selectedOptionTwo){
+        setSelectedOptionTwo(selectedOptionTwo.value)
+    };
+
     function sendDetails(){
-        axios.get('/api/v1/sub_category', {
-            category_id: selectedOption,
-        }, {
+        console.log(selectedOption);
+        setSubCategories([])
+        axios.get(`/api/v1/sub_category?category_id=${selectedOption}`,{
             headers: {
               'api_key': `${token}` 
             }
           }
         )
-        .then(function (response) {
-            console.log(response);
+        .then(function ({ data }) {
+            setSubCategories(data);
+            console.log(data);
         })
         .catch(function (error) {
             console.log(error);
         });
       };
-
-    function handleChangeTwo(selectedOptionTwo){
-        setSelectedOptionTwo(selectedOptionTwo.value)
-    };
     
     function handlePrice(price){
         if(price === null){
