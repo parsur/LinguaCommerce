@@ -1,0 +1,76 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* font */
+  @font-face {
+    font-family: 'Shabnam';
+    src: url("/fonts/Shabnam.ttf") format('truetype');
+  }
+  
+  main {
+    width: 100vw;
+    height: 100vh;
+    background: #eee;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'shabnam', sans-serif;
+  }
+  
+  section {
+    width: 800px;
+    height: 500px;
+    background: #f4dd4f;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenlys;
+  }
+  
+  /* <a> underline */
+  a {
+    text-decoration: none;
+  }
+  
+  .sub-section {
+    width: 80%;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .text {
+    font-size: 1.8rem;
+    direction: rtl;
+  }
+  
+  .redirect {
+    background: #eee;
+    border-radius: 10px;
+    font-size: 1.3rem;
+  }
+  
+  /* if fail, */
+  .fail {
+    background-color: rgba(255, 12, 12, 0.575);
+  }
+  
+  /* responsive */
+  @media only screen and (max-width:820px){
+    section {
+      width: 95%;
+    }
+    .text {
+      font-size: clamp(0.8rem, 4vw, 1.6rem);
+    }
+    .redirect {
+      font-size: clamp(0.7rem, 4vw, 1.5rem);
+    }
+  }

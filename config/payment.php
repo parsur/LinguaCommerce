@@ -54,7 +54,7 @@ return [
             'callbackUrl' => 'http://sararajabi.com/order/verify',
             'merchantId' => 'b35bb13a-5f1d-422a-b0b0-4c2af284c9ab',
             'description' => 'Order gateway payment',
-            'sandbox' => false, // set it to true for test environments
+            'sandbox' => true, // set it to true for test environments
         ],
         'irankish' => [
             'apiPurchaseUrl' => 'https://ikc.shaparak.ir/XToken/Tokens.xml',

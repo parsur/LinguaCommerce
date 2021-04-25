@@ -55,7 +55,7 @@ class OrderController extends Controller
     }
 
     // Show the users's orders
-    public function showOrder(CartAction $cart) {
+    public function showOrder() {
         $vars['orders'] = Order::where('user_id', auth()->user()->id)->with('user:name,phone_number,email')->get();
         return response()->json($vars);
     }
@@ -166,11 +166,11 @@ class OrderController extends Controller
             // Order status (Paid)
             $order->statuses()->update(['status' => Status::PAID]);
 
-            return 'پرداخت شما با موفقیت انجام شد';
+            return view('order.verification')->with('success', 'پرداخت شما با موفقیت انجام شد');
 
         } catch (InvalidPaymentException $exception) {
             // When payment is not verified, it will throw an exception.
-            return $exception->getMessage();
+            return redirect('/order/verification')->with('error', $exception->getMessage());
         }
     }
 

@@ -114,8 +114,8 @@ class CourseDataTable extends DataTable
             ->dom('PBCfrtip') // length menu without this, works fine.
             // ->lengthMenu([10,25,40])
             ->buttons(
-                Button::make(['print', 'text' => 'چاپ', 'className' => 'btn btn-warning']),
-                Button::make(['copy', 'text' => 'کپی', 'className' => 'btn btn-warning'])
+                Button::make(['print', 'text' => 'چاپ', 'className' => 'btn btn-secondary']),
+                Button::make(['copy', 'text' => 'کپی', 'className' => 'btn btn-secondary'])
             )
             ->lengthMenu([10,25,40])
             ->orderBy(1)

@@ -307,12 +307,12 @@ div.dataTables_wrapper div.dataTables_paginate {
 }
 
 table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before, table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control:before {
-    background-color: #FFC107 !important;
+    background-color: #6C757D !important;
 }
 
 .page-item.active .page-link {
-    background-color:#FFC107 !important;
-    border-color: #FFC107  !important;
+    background-color:#6C757D !important;
+    border-color: #6C757D !important;
 }
 
 .dataTables_wrapper .dt-buttons.btn-group.flex-wrap {
@@ -328,11 +328,4 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before, table.dataT
     border-radius: 0.5em;
     border-bottom-right-radius: 0;
     margin-right: 0.3em;
-}
-
-/* Datatable buttons */
-.datatable-btn {
-    background-color: #FFC107;
-    border-color: #FFC107;
-    color: #FFF;
 }

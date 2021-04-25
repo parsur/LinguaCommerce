@@ -1,4 +1,4 @@
-    {{-- Url Address --}}
+{{-- Url address without sub menu --}}
 <li class="nav-item">
     <a href="{{ $route }}" class="nav-link">
         <i class="{{ $fontAwesome }}"></i>

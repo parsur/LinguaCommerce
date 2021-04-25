@@ -180,10 +180,10 @@ Route::post('order/verify','OrderController@verify');
 Route::view('/courselist', 'app');
 Route::view('/aboutus', 'app');
 Route::view('/whyme', 'app');
-Route::view('/register', 'app');
+Route::view('/userpage', 'app');
 Route::view('/coonsultante', 'app');
 Route::view('/article/{id}', 'app');
 Route::view('/course/{id}', 'app');
 Route::view('/articlelists', 'app');
 Route::view('/login', 'app');
-
+Route::view('/register', 'app');

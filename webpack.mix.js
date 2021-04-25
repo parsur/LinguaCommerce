@@ -44,6 +44,8 @@ mix.js('resources/assets/js/app.js', 'public/js')
     .css('resources/assets/css/app.css', 'public/css')
     // App Css
     .css('resources/assets/css/auth.css', 'public/css/auth.css')
+    // Order verification
+    .css('resources/assets/css/orderVerification.css', 'public/css/orderVerification.css')
     // App Css
     .css('resources/assets/css/ckeditor.css', 'public/css/ckeditor.css')
     // App Sass
