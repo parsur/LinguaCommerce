@@ -53,7 +53,9 @@ class Order extends Model
      * @return bool
      */
     public function hasExceededOrder()  {
-        return $this->statuses()->where('status', Status::ACTIVE)->where('user_id', auth()->user()->id)->count() > 4;
+        return $this->where('user_id', auth()->user()->id)->whereHas('statuses', function($query) {
+            $query->active();
+        })->count() > 4;
     }
 
     /**

@@ -25,7 +25,7 @@ class OrderController extends Controller
 
     // Facing any error, fix here
     public function __construct() {
-        $this->middleware(['auth:sanctum', 'verified'])->except(['verify', 'list', 'orderTable']);
+        $this->middleware(['auth:sanctum', 'verified'])->except(['list', 'orderTable', 'verify']);
     }
 
     // Datatable To blade
@@ -127,18 +127,12 @@ class OrderController extends Controller
     public function pay(Order $order)
     {
         try {
-            // User
-            $user = User::find(Auth::user()->id); 
-            // Create a new invoice.
+            // Set the invoice.
             $invoice = new Invoice;
-            // Set the invoice amount.
             $invoice->amount(intval($order->total_price . 0));
             $invoice->Uuid($order->factor);
-            // $invoice->transactionId('test');
-            $invoice->detail(['name', $user->name]);
-            $invoice->detail(['phone', $user->phone_number]);
-            $invoice->detail(['email', $user->email]);
 
+            // Payment
             $payment = Payment::purchase($invoice, function(
                 $driver, $transactionId) use ($order) {
                     // Store transactionId in database, to verify payment in future.
@@ -162,15 +156,12 @@ class OrderController extends Controller
     {
         $order = Order::where('factor', $request->get('order_id'))->first();
         try {
-            // Ensure that the invoice has been paid successfully.
+            // Ensure that the invoice has be en paid successfully.
             Payment::amount(intval($order->total_price . 0))->transactionId($order->transaction_id)->verify();
             
             // Email
-            $user = User::find($order->user_id); // auth('sanctum')->user()->email
+            $user = User::find($order->user_id); 
             Mail::to($user->email)->send(new SubmittedOrder($order, $order->getCart($order->factor)));
-
-            // You can show payment referenceId to the user.
-            // $order->setReciept($receipt->getReferenceId());
 
             // Order status (Paid)
             $order->statuses()->update(['status' => Status::PAID]);
