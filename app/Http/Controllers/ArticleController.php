@@ -57,27 +57,8 @@ class ArticleController extends Controller
 
     // Store Course
     public function store(StoreArticleRequest $request) {
-        // Insert or update
-        $this->add($request);
-
-        // Insert
-        if($request->get('button_action') == "insert") {
-            $success_output = $this->getInsertionMessage();
-        }
-        // Update
-        else if($request->get('button_action') == 'update') {
-            $success_output = $this->getUpdateMessage();
-        }
-
-        return $this->responseWithSuccess($success_output);
-    }
-
-
-    // Insert
-    public function add($request) {
 
         $id = $request->get('id');
-
         // Course article
         $courseArticle = new CourseArticleAction;
 
@@ -85,7 +66,8 @@ class ArticleController extends Controller
         try {
             $article = Article::updateOrCreate(
                 ['id' => $id],
-                ['title' => $request->get('title'), 'category_id' => $courseArticle->subSet($request->get('categories')), 'subCategory_id' => $courseArticle->subSet($request->get('subCategories'))]
+                ['title' => $request->get('title'), 'category_id' => $courseArticle->subSet($request->get('categories')), 
+                'subCategory_id' => $courseArticle->subSet($request->get('subCategories'))]
             );
             // Status
             $article->statuses()->updateOrCreate(
@@ -104,7 +86,10 @@ class ArticleController extends Controller
             throw $e;
             DB::rollBack();
         }
+
+        return $this->getAction($request->get('button_action'));
     }
+
 
     // Edit Course
     public function edit(CourseArticleAction $action, Request $request) {

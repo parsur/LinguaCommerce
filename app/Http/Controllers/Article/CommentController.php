@@ -43,7 +43,7 @@ class CommentController extends Controller
 
             DB::commit();
             
-            $this->responseWithSuccess('دیدگاه درباره مقاله با موفقیت ثبت شد');
+            $this->successfulResponse('دیدگاه درباره مقاله با موفقیت ثبت شد');
 
         } catch(Exception $e) {
             throw $e;
@@ -66,7 +66,7 @@ class CommentController extends Controller
 
             DB::commit();
 
-            return $this->responseWithSuccess('دیدگاه درباره مقاله با موفقیت ویرایش شد');
+            return $this->successfulResponse('دیدگاه درباره مقاله با موفقیت ویرایش شد');
 
         } catch(Exception $e) {
             throw $e;

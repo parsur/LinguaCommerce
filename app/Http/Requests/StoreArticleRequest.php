@@ -7,16 +7,6 @@ use Illuminate\Foundation\Http\FormRequest;
 class StoreArticleRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
-    /**
      * Get the validation rules that apply to the request.
      *
      * @return array
@@ -24,7 +14,7 @@ class StoreArticleRequest extends FormRequest
     public function rules(Request $request)
     {
         return [
-            'title' => 'required|max:120|unique:articles,id,' . $request->get('id'),
+            'title' => 'required|max:120|unique:articles,title,' . $request->get('id'),
             'status' => 'required',
             'description' => 'required',
             'subCategories' => 'required'

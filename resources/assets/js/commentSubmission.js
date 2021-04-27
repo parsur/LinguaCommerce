@@ -15,7 +15,7 @@ $("#submission").click(function(e) {
       submission: $(this).val(),
     },
     success: function(data) {
-      $('#form_output').html(data.success);
+      $('#form_output').html(data.message);
     }
   });
 });

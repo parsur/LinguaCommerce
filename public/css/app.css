@@ -18117,7 +18117,7 @@ select {
 .tableBackground{
     background-color: #e9ecef;
     border-radius:5px;
-    padding: 17px;
+    padding: 17px 17px 0px 17px;
 }
 
 /* course and article image */

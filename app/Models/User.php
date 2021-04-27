@@ -24,11 +24,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public static function boot() 
     {
         parent::boot();
-
+        
         static::creating(function ($model) {
-            
-            if($model->role == User::ADMIN)
+            if($model->role == User::ADMIN) {
                 $model->email_verified_at = $model->freshTimestamp();
+            }
         });
     }
 

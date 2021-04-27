@@ -36,19 +36,10 @@ class AdminController extends Controller
 
     // Store Admin
     public function store(StoreUserRequest $request,UserController $userController) {
+
+        $userController->store($request, User::ADMIN);
         
-        $userController->add($request, User::ADMIN);
-
-        // Insert
-        if($request->get('button_action') == "insert") {
-            $success_output = $this->getInsertionMessage();
-        }
-        // Update
-        else if($request->get('button_action') == 'update') {
-            $success_output = $this->getUpdateMessage();
-        }
-
-        return $this->responseWithSuccess($success_output);
+        return $this->getAction($request->get('button_action'));
     }
 
     

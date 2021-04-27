@@ -28,9 +28,10 @@ class orderVerification extends Component
     public function render()
     {
         return <<<'blade'
-            <div class="alert alert-danger">
-                {{ $slot }}
-            </div>
+            <section class="{{ $class ?? null }}">
+                <div class="sub-section message"><h2>{{ $message }}</h2></div>
+                <div class="sub-section redirection"><h3>برای بازگشت به سایت <a href="/">کلیک</a> کنید</h3></div>
+            </section>
         blade;
     }
 }

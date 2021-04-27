@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Symfony\Component\HttpFoundation\Response;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\Media;
@@ -13,6 +14,7 @@ class CourseArticleAction {
 
     /**
      * Action of course and article. (GET,POST)
+     * 
      * @return Json 
      */
     
@@ -75,8 +77,8 @@ class CourseArticleAction {
         return response()->json($values);
     }
 
-    // Category and subCategory SubSet
-    public function subSet($request) {
+    // Category and subcategory subset
+    public function subSet($model) {
         // Category or Subcategory
         switch($request) {
             case '':
@@ -86,8 +88,7 @@ class CourseArticleAction {
                 return $request;
         }
     }
-
-
+    
     // Add Video
     public function video($request, $id, $type) {
         // Insert course videos
@@ -103,29 +104,24 @@ class CourseArticleAction {
         $comment = Comment::find($request);
         $comment->statuses()->update(['status' => Status::ACTIVE]);
         
-        return response()->json(['success' => '<div class="alert alert-success">دیدگاه کاربر با موفقیت تایید شد</div>']);
+        return response()->json(['message' => '<div class="alert alert-success">دیدگاه کاربر با موفقیت تایید شد</div>'], Response::HTTP_CREATED);
     }
 
-    /**
-     * Search.
-     */
+    // Search
     public function search($request, $model) {
 
         $query = $model::query()->with('media');
 
         // If name is requested
         if(!empty($request->get('search')) and !empty($request->get('column'))) {
-            
             $query->where($request->column, 'LIKE', "%{$request->search}%");
         }
         // If category is requested | 0 = null
         if($request->get('category_id') != 0) {
-
             $query->where('category_id', $request->category_id)->whereNotNull('category_id');
         }
         // If subcategory is requested | 0 = null
         if($request->get('sub_category_id') != 0) {
-            
             $query->where('subCategory_id', $request->sub_category_id)->whereNotNull('subCategory_id');
         }
 

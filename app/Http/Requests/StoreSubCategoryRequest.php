@@ -15,7 +15,7 @@ class StoreSubCategoryRequest extends FormRequest
     public function rules(Request $request)
     {
         return [
-            'name' => 'required|max:70|unique:sub_categories,name,' . $request->get('id'),
+            'name' => 'required|max:70|unique:subCategories,name,' . $request->get('id'),
             'categories' => 'required',
             'status' => 'required'
         ];

@@ -40,21 +40,12 @@ class ImageController extends Controller
         $imageUploader = Media::find($request->get('id'));
         $action->image($imageUploader, $request, $request->get('article'), Article::class);
 
-        // Insert
-        if($request->get('button_action') == 'insert') {
-            $success_output = $this->getInsertionMessage();
-        }
-        // Update
-        else if($request->get('button_action') == 'update') {
-            $success_output = $this->getUpdateMessage();
-        }
-        
-        return $this->responseWithSuccess($success_output);
+        return $this->getAction($request->get('button_action'));
     }
 
     // Delete
     public function delete(Action $action, $id) {
-        return $action->deleteWithImage(Media::class,$id,'url');
+        return $action->deleteWithImage($id);
     }
 
     // Edit

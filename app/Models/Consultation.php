@@ -29,7 +29,7 @@ class Consultation extends Model
      * Get all of the course's descriptions.
     */
     public function description() {
-        return $this->morphOne('App\Models\Description','description');
+        return $this->morphOne('App\Models\Description', 'description');
     }
 
     /**

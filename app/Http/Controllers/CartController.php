@@ -25,7 +25,6 @@ class CartController extends Controller
 
         // Total price
         $vars['total_price'] = 0;
-        
         foreach($vars['carts'] as $cart) {
             $vars['total_price'] += $cart->course->price;
         }
@@ -41,7 +40,7 @@ class CartController extends Controller
             'user_id' => auth()->user()->id  
         ]);
         
-        return $this->responseWithSuccess('اطلاعات با موفقیت به سبد خرید اضافه شد');
+        return $this->successfulResponse('اطلاعات با موفقیت به سبد خرید اضافه شد');
     }
 
     // delete

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
 use App\Models\Course;
 use App\Models\Category;
@@ -59,24 +58,7 @@ class CourseController extends Controller
 
     // Store Course
     public function store(StoreCourseRequest $request) {
-        // Insert or update
-        $this->add($request);
 
-        // Insert
-        if($request->get('button_action') == "insert") {
-            $success_output = $this->getInsertionMessage();
-        }
-        // Update
-        else if($request->get('button_action') == 'update') {
-            $success_output = $this->getUpdateMessage();
-        }
-
-        return $this->responseWithSuccess($success_output);
-    }
-
-    // Insert
-    public function add($request) {
- 
         $id = $request->get('id');
 
         // Course article
@@ -109,6 +91,8 @@ class CourseController extends Controller
             throw $e;
             DB::rollBack();
         }
+
+        return $this->getAction($request->get('button_action'));
     }
 
     // Edit
@@ -150,7 +134,7 @@ class CourseController extends Controller
         // Email
         Mail::to(auth()->user()->email)->send(new FreeCourse($course));
 
-        return $this->responseWithSuccess('دوره با موفقیت به ایمیل شما ارسال شد');
+        return $this->successfulResponse('دوره با موفقیت به ایمیل شما ارسال شد', Response::HTTP_OK);
     }
 
     // Search

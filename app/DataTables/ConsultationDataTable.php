@@ -33,7 +33,7 @@ class ConsultationDataTable extends DataTable
                 $query->whereRaw($sql, ["%{$keyword}%"]);
             })
             ->addColumn('description', function(Consultation $consultation) {
-                return Str::limit(optional($consultation->descriptions)->description, 30, '(جزئیات)');
+                return Str::limit(optional($consultation->description)->description, 30, '(جزئیات)');
             })
             ->filterColumn('description', function($query, $keyword) {
                 $sql = 'id in (select description_id from descriptions where description like ?)';

@@ -60,7 +60,7 @@ class LoginController extends Controller
                 return Redirect::back()->withErrors('رمز عبور یا ایمیل شما نادرست است');
             }
             // ٍErrors
-            return $this->responseWithError('رمز عبور یا ایمیل شما نادرست است');
+            return $this->failedResponse('رمز عبور یا ایمیل شما نادرست است', Respose::HTTP_NON_AUTHORITATIVE_INFORMATION);
         } 
 
         if($role) {
@@ -69,31 +69,34 @@ class LoginController extends Controller
 
         $user = User::where('email', Auth::user()->email)->first();
         if ($user->hasVerifiedEmail()) {
+            
+            // Revoke all tokens...
+            $user->tokens()->delete();
 
-            $authToken = $user->createToken('auth-token')->plainTextToken;
-            return response()->json(['access_token' => $authToken]);
+            $accessToken = $user->createToken('auth-token')->plainTextToken;
+
+            return response()->json([
+                'access_token' => $accessToken,
+                'message' => 'ورود شما با موفقیت انجام شد'
+            ], Response::HTTP_OK);  
 
         } else {
-            return $this->responseWithError('ایمیل شما در گذشته تایید شده است', Response::HTTP_UNAUTHORIZED);
+            return $this->failedResponse('ایمیل شما تایید نشده است', Response::HTTP_UNAUTHORIZED);
         }
-
-
     }   
 
-    // logout
+    // Logout
     public function logout(Request $request) {
 
-        // Revoke a specific user token
-        Auth::user()->tokens->each(function($token, $key) {
-            $token->delete();
-        });
+       // Revoke all tokens...
+       $user->tokens()->delete();
 
-        // admin
+        // Admin
         if($request->has('admin')) {
             Auth::logout();
             return redirect('/');
         }
 
-        return $this->responseWithSuccess('کاربر با موفقیت از حساب کاربری خود خارج شد');
+        return $this->successfulResponse('کاربر با موفقیت از حساب کاربری خود خارج شد');
     }
 }

@@ -25,7 +25,7 @@ class OrderController extends Controller
 
     // Facing any error, fix here
     public function __construct() {
-        $this->middleware(['auth:sanctum', 'verified'])->except(['list', 'orderTable', 'verify']);
+        $this->middleware(['auth:sanctum', 'verified'])->except(['list', 'orderTable', 'details', 'verify']);
     }
 
     // Datatable To blade
@@ -56,16 +56,22 @@ class OrderController extends Controller
 
     // Show the users's orders
     public function showOrder() {
-        $vars['orders'] = Order::where('user_id', auth()->user()->id)->with('user:name,phone_number,email')->get();
+        $vars['orders'] = Order::where('user_id', auth()->user()->id)->select('id','factor', 'total_price')
+                            ->with('user:name,phone_number,email', 'statuses:status_id,status')->get();
         return response()->json($vars);
     }
 
     // Details
     public function details(Request $request) {
         // Each order 
-        $vars['order'] = Order::where('factor', $request->get('factor'))->first();
+        $vars['order'] = Order::where('factor', $request->get('factor'))
+                            ->with('statuses:status_id,status')->first();
         // Cart
-        $vars['carts'] = Cart::where('factor', $request->get('factor'))->get();
+        if($vars['order']->statuses->status == Status::PAID) {
+            $vars['orderCourses'] = Cart::where('factor', $request->get('factor'))->select('course_id')->with(['course' => function($query) {
+                $query->select('id', 'name', 'price')->with('files:course_id,title,url');
+            }])->get();
+        }
 
         if($request->has('admin'))
             return view('order.details', $vars);
@@ -84,14 +90,14 @@ class OrderController extends Controller
             $order = new Order();
             // Number of unpaid orders
             if($order->hasExceededOrder()) {
-                return $this->responseWithError('شما اجازه داشتن بیش از چهار سفارش پرداخت نشده ندارید', Response::HTTP_FORBIDDEN);
+                return $this->failedResponse('شما اجازه داشتن بیش از چهار سفارش پرداخت نشده ندارید', Response::HTTP_FORBIDDEN);
             }
             // Factor
             $factor = 'Rajabi-' . uniqid();
 
             // Set order factor for all carts
             $carts = Cart::where('user_id',  $user->id)
-            ->whereNull('factor')->get();
+                    ->whereNull('factor')->get();
 
             foreach($carts as $cart) {
                 $cart->factor = $factor;
@@ -118,6 +124,14 @@ class OrderController extends Controller
         }
     }
 
+    // Complete the unpaid order
+    public function completeUnpaidOrder(Request $request) {
+
+        $order = Order::find($request->get('id'));
+        
+        return $this->pay($order);
+    }
+
     /**
      * Pay order
      *
@@ -133,7 +147,7 @@ class OrderController extends Controller
             $invoice->Uuid($order->factor);
 
             // Payment
-            $payment = Payment::purchase($invoice, function(
+            $payment = Payment::purchase($invoice, function (
                 $driver, $transactionId) use ($order) {
                     // Store transactionId in database, to verify payment in future.
                     $order->transaction_id = $transactionId;
@@ -166,11 +180,11 @@ class OrderController extends Controller
             // Order status (Paid)
             $order->statuses()->update(['status' => Status::PAID]);
 
-            return view('order.verification')->with('success', 'پرداخت شما با موفقیت انجام شد');
+            return view('order.verification', ['success' => 'پرداخت شما با موفقیت انجام شد']);
 
         } catch (InvalidPaymentException $exception) {
             // When payment is not verified, it will throw an exception.
-            return redirect('/order/verification')->with('error', $exception->getMessage());
+            return view('order.verification', ['error' =>  $exception->getMessage()]);
         }
     }
 

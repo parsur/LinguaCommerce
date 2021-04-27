@@ -18,8 +18,8 @@ class Status extends Model
     const ACTIVE = 0;
     const INACTIVE = 1;
     // Paid | Not paid
-    const NOT_PAID = 2;
-    const PAID = 3;
+    const NOT_PAID = 0;
+    const PAID = 1;
 
     /**
      * Scope a query to only include active statuse.

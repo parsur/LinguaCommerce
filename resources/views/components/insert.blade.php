@@ -9,10 +9,12 @@
         {{-- Form --}}
         <form id="{{ $formId ?? null }}" class="form-horizontal" enctype="multipart/form-data">
           <span id="form_output"></span>
+
           @if(isset($content))
-          {{ $content }}
+            {{ $content }}
           @endif
           <br />
+          
           {{-- Buttons --}}
           <div class="form-group text-center">
             <input type="hidden" name="id" id="id" value="" />

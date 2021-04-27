@@ -22,7 +22,7 @@ class WhyMeController extends Controller
         $whyMe->value = $request->get('description');
         $whyMe->save();
 
-        return $this->responseWithSuccess($this->getInsertionMessage());
+        return $this->successfulResponse($this->getInsertionMessage());
     }
 
     // Show whyMe

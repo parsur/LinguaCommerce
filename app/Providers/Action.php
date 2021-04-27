@@ -12,9 +12,7 @@ class Action {
      * @return Json
      */
 
-    /**
-     * Edit
-     */
+    // Edit
     public function edit($model,$id) {
         try{
             $values = $model::find($id);
@@ -25,43 +23,38 @@ class Action {
         }
     }
 
-    /**
-     * Edit with status.
-     */
+    // Edit with status
     public function editWithStatus($model,$id) {
 
         $values = $model::where('id', $id)->with('statuses:status_id,status')->first();
         return response()->json($values);
     }
     
-    /**
-     * Delete
-     */
+    // Delete
     public function delete($model, $id) {
         // Why did not try catch work?
         $values = $model::find($id);
         if ($values) {
             $values->delete();
         } else {
-            return $this->responseWithError();
+            return $this->failedResponse();
         }
-        return $this->responseWithSuccess();
+        return $this->successfulResponse();
 
     }
 
-    /**
-     * Delete With Image.
-     */
-    public function deleteWithImage($model, $id ,$column) {
+    // Delete with image
+    public function deleteWithImage($id) {
 
-        $modelImage = $model::find($id);
+        $modelImage = Media::find($id);
         if($modelImage) {
-            File::delete(public_path("images/" . $modelImage->$column)); 
+            File::delete(public_path("images/" . $modelImage->url)); 
+
             $modelImage->delete();
         } else {
-            return $this->responseWithError();
+            return $this->failedResponse();
         }
-        return $this->responseWithSuccess();
+        return $this->successfulResponse();
     }
     
     // Add Image
@@ -82,23 +75,24 @@ class Action {
                 $file = $image->getClientOriginalName();
 
                 if(isset($file)) {
+                    // Delete the old picture
                     File::delete(public_path("images/$imageUploader->url")); 
+
                     $image->move(public_path('images'), $file);
                     $imageUploader->url = $file;
                 }
             }
         }
-
         $imageUploader->save();
     }
 
     // Response with error
-    public function responseWithError() {
+    public function failedResponse() {
         return response()->json(['error' => 'ٔداده ای یافت نشد'], Response::HTTP_NOT_FOUND);
     }
 
     // Response with success
-    public function responseWithSuccess() {
+    public function successfulResponse() {
         return response()->json(['success' => 'با موفقیت حذف شد'], Response::HTTP_OK);
     }
 }

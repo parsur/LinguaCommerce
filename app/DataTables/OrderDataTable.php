@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\Order;
+use App\Models\Status;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
@@ -31,6 +32,8 @@ class OrderDataTable extends DataTable
             ->editColumn('total_price', function (Order $order) {
                 if($order->total_price == 0) 
                     return 'رایگان';
+                else 
+                    return $order->total_price . ' تومان';
             })
             ->filterColumn('user_name', function($query, $keyword) {
                 $sql = 'user_id in (select id from users where name like ?)';
@@ -42,6 +45,10 @@ class OrderDataTable extends DataTable
             ->filterColumn('phone_number', function($query, $keyword) {
                 $sql = 'user_id in (select id from users where phone_number like ?)';
                 $query->whereRaw($sql, ["%{$keyword}%"]);
+            })
+            ->addColumn('status', function (Order $order) {
+                if ($order->statuses->status == Status::PAID) return 'پرداخت شده';
+                else if ($order->statuses->status == Status::NOT_PAID) return 'پرداخت نشده';
             })
             ->addColumn('action',function(Order $order) {
                 $details = URL::signedRoute('order.details', ['factor' => $order->factor, 'admin' => 'role']);
@@ -110,18 +117,22 @@ class OrderDataTable extends DataTable
                 ->orderable(false),
             Column::make('user_name')
             ->title('نام کاربر')
-                ->addCLass("column-title")
+                ->addClass("column-title")
                 ->orderable(false),
             Column::make('phone_number')
             ->title('تلفن همراه')
-                ->addCLass("column-title")
+                ->addClass("column-title")
                 ->orderable(false),
             Column::make('factor')    
             ->title('فاکتور خرید')
                 ->addClass("column-title"),
             Column::make('total_price')    
             ->title('هزینه کل')
-                ->addCLass("column-title"),
+                ->addClass("column-title"),
+            Column::make('status')    
+            ->title('وضعیت تراکنش')
+                ->orderable(false)
+                ->addClass("column-title"),
             Column::computed('action') // This Column is not in database
                 ->exportable(false)
                 ->searchable(false)

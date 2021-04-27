@@ -9,6 +9,9 @@ use App\Http\Requests\StoreLoginRequest;
 use App\DataTables\UserDataTable;
 use App\Providers\Action;
 use App\Models\User;
+use App\Models\Media;
+use Carbon\Carbon;
+use Morilog\Jalali\Jalalian;
 use File;
 use Hash;
 
@@ -38,24 +41,7 @@ class UserController extends Controller
     }
 
     // Store user
-    public function store(StoreUserRequest $request) {
-
-        $this->add($request, User::USER);
-
-        // Insert
-        if($request->get('button_action') == "insert") {
-            $success_output = $this->getInsertionMessage();
-        }
-        // Update
-        else if($request->get('button_action') == 'update') {
-            $success_output = $this->getUpdateMessage();
-        }
-
-        return $this->responseWithSuccess($success_output);
-    }
-
-    // Add or update user
-    public function add($request, $role) {
+    public function store(StoreUserRequest $request, $role = User::USER) {
         // Id
         $id = $request->get('id');
 
@@ -67,12 +53,16 @@ class UserController extends Controller
         );
 
         // Image
-        $imageUploader = Media::where('media_id', $id)->where('media_type', User::class)->first();
-        // Upload the profile picture
-        $action->image($imageUploader, $request, $id, User::class);
+        if($request->has('images')) {
 
+            $action = new Action();
+
+            $imageUploader = Media::where('media_id', $id)->where('media_type', User::class)->first();
+            $action->image($imageUploader, $request, $id, User::class);
+        }
+
+        return $this->getAction($request->get('button_action'));
     }
-
     
     // Edit Data
     public function edit(Action $action,Request $request) {

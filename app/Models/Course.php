@@ -43,7 +43,6 @@ class Course extends Model
         return $this->hasMany('App\Models\File');
     }
 
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

@@ -33,7 +33,7 @@ Route::group(['prefix' => 'v1', 'as' => 'v1.', 'middleware' => 'apiKey'], functi
             Route::post('store', 'UserController@store');
             Route::get('show', 'UserController@show');
             Route::get('edit', 'UserController@edit');
-            Route::get('delete/{id}', 'UserController@delete');
+            Route::get('delete/{id}', 'UserController@del679ete');
         });
         // Logout
         Route::post('logout', 'Auth\LoginController@logout');
@@ -49,6 +49,8 @@ Route::group(['prefix' => 'v1', 'as' => 'v1.', 'middleware' => 'apiKey'], functi
         Route::get('showOrder', 'OrderController@showOrder');
         Route::get('details','OrderController@details');
         Route::get('delete/{id}','OrderController@delete');
+        // Complete the unpaied order
+        Route::post('completeUnpaiedOrder', 'OrderController@completeUnpaiedOrder');
     });
     // Article
     Route::group(['prefix' => 'article', 'as' => 'article.'], function () {
@@ -95,8 +97,8 @@ Route::group(['prefix' => 'v1', 'as' => 'v1.', 'middleware' => 'apiKey'], functi
     // Login
     Route::post('login', 'Auth\LoginController@store');
     // Email verification
-    Route::get('email/verify/{id}', 'VerificationController@verify')->name('verification.verify');
-    Route::get('email/resend', 'VerificationController@resend')->name('verification.resend');
+    Route::get('email/verify/{id}', 'Auth\VerificationController@verify')->name('verification.verify');
+    Route::get('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
 });
 
 

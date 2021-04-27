@@ -35,29 +35,14 @@ class FileController extends Controller
 
     // Store
     public function store(StoreFileRequest $request) {
-        // Insert or update
-        $this->add($request);
-
-        // Insert
-        if($request->get('button_action') == 'insert') {
-            $success_output = $this->getInsertionMessage();
-        }
-        // Update
-        else if($request->get('button_action') == 'update') {
-            $success_output = $this->getUpdateMessage();
-        }
-
-        return $this->responseWithSuccess($success_output);
-    }
-
-    // Add Video
-    public function add($request) {
-        // Insert Course videos
+        // Insert course files
         $this->file::updateOrCreate(
             ['id' => $request->get('id')],
             ['url' => $request->get('url'), 'title' => $request->get('title'), 'course_id' => $request->get('course')]
         );
-    }   
+
+        return $this->getAction($request->get('button_action'));
+    }
 
     // Edit
     public function edit(Action $action,Request $request) {

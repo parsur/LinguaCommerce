@@ -7,7 +7,7 @@
     <x-page title="جزئیات سفارش" description="جزئیات سفارش کاربر به همراه دوره های مربوط">
         <x-slot name="content">
             {{-- User information --}}
-            <div class="table-responsive mb-2">
+            <div class="table-responsive">
                 <table class="table table-light table-bordered text-center text-nowrap">
                     <thead>
                         <tr>
@@ -24,7 +24,7 @@
                             <td>{{ $order->user->phone_number }}</td>
                             <td>{{ $order->user->email }}</td>
                             <td>{{ $order->factor }}</td>
-                            <td>{{ $order->total_price }} تومان</td>
+                            <td>{{ $order->total_price }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -32,37 +32,32 @@
         </x-slot>
     </x-page>
 
+
     {{-- If it were not empty --}}
-    @if(count($carts))
+    @if(count($orderCourses))
         {{-- Cart --}}
-        @foreach($carts as $cart)
-            <div class="col-md-3 mt-3">
-                {{-- Course List --}}
-                <h4>لیست دوره ها:</h4>
-                
-                <div class="card">
-                    <div class="card-body">
-                        {{-- Image --}}
-                        @foreach($cart->course->media->where('type', 0) as $media)
-                            @once
+        <div class="row mr-0 ml-0">
+            @foreach($orderCourses as $order)
+                <div class="col-md-3 mt-3"> 
+                    <div class="card">
+                        <div class="card-body">
+                            {{-- Image --}}
+                            @foreach($order->course->media->where('type', 0) as $media)
                                 <img class="card-img-top mb-3" src="/images/{{ $media->url }}"> 
-                            @endonce
-                        @endforeach 
-                        {{-- Name --}}
-                        <h5 class="card-title">{{ $cart->course->name }}</h5>
-                        {{-- Price --}}
-                        <p class="card-text">{{ $cart->course->price }} تومان</p>
-                        {{-- Status --}}
-                        @if($cart->course->status == 0) <p class="card-text">موجود</p> @else <p class="card-text">ناموجود</p> @endif
-                        {{-- Files --}}
-                        @foreach($cart->course->files as $file) 
-                            <a href="{{ $file->url }}">{{ $file->title }}</a>
-                        @endforeach
+                            @endforeach 
+                            {{-- Name --}}
+                            <h5 class="card-title">{{ $order->course->name }}</h5>
+                            {{-- Price --}}
+                            <p class="card-text">{{ $order->course->price }} تومان</p>
+                            {{-- Files --}}
+                            @foreach($order->course->files as $file) 
+                                <a href="{{ $file->url }}">{{ $file->title }}</a> <br>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
-            </div>
-        @endforeach
-
+            @endforeach
+        </div>
     @endif
 @endsection
 

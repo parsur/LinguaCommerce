@@ -24,7 +24,7 @@
   section {
     width: 800px;
     height: 500px;
-    background: #f4dd4f;
+    background: #4BB543;
     border-radius: 15px;
     display: flex;
     flex-direction: column;
@@ -37,6 +37,7 @@
     text-decoration: none;
   }
   
+  /* Text and redirection message */
   .sub-section {
     width: 80%;
     height: 200px;
@@ -46,20 +47,22 @@
     justify-content: center;
   }
   
-  .text {
+  /* The success or error message */
+  .message {
     font-size: 1.8rem;
     direction: rtl;
   }
   
-  .redirect {
+  /* Message to redirect user  */
+  .redirection {
     background: #eee;
     border-radius: 10px;
     font-size: 1.3rem;
   }
   
-  /* if fail, */
-  .fail {
-    background-color: rgba(255, 12, 12, 0.575);
+  /* Failiure */
+  .failiure {
+    background-color: #FC100D;
   }
   
   /* responsive */

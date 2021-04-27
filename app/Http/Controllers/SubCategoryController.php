@@ -32,35 +32,19 @@ class SubCategoryController extends Controller
     }
 
     // Store or Update Category
-    public function store(StoreSubCategoryRequest $request,) {
-        // Add
-        $this->add($request);
-        // Insert
-        if($request->get('button_action') == "insert") {
-            $success_output = $this->getInsertionMessage();
-        }
-        // Update
-        else if($request->get('button_action') == 'update') {
-            $success_output = $this->getUpdateMessage();
-        }
-
-        return $this->responseWithSuccess($success_output);
-    }
-
-    // Add Subcategory
-    public function add($request) {
+    public function store(StoreSubCategoryRequest $request) {
 
         $id = $request->get('id');
 
         DB::beginTransaction();
         try {
-            $subCategory = SubCategory::updateOrCreate(
+            $subcategory = SubCategory::updateOrCreate(
                 ['id' => $id],
                 ['name' => $request->get('name'), 'category_id' => $request->get('categories')]
             );
 
             // Status
-            $subCategory->statuses()->updateOrCreate(
+            $subcategory->statuses()->updateOrCreate(
                 ['status_id' => $id],
                 ['status' => $request->get('status'), 'status_type' => SubCategory::class]
             );
@@ -71,10 +55,12 @@ class SubCategoryController extends Controller
             throw $e;
             DB::rollback();
         }
+
+        return $this->getAction($request->get('button_action'));
     }
 
     // Edit Sub Catgory Data
-    public function edit(Action $action,Request $request) {
+    public function edit(Action $action, Request $request) {
         return $action->editWithStatus(SubCategory::class, $request->get('id'));
     }
 
@@ -82,6 +68,4 @@ class SubCategoryController extends Controller
     public function delete(Action $action,$id) {
         return $action->delete(SubCategory::class,$id);
     }
-
-
 }

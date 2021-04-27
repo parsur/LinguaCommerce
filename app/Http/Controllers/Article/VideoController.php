@@ -34,16 +34,7 @@ class VideoController extends Controller
         // Insert or update
         $action->video($request, $request->get('article'), Article::class);
         
-        // Insert
-        if($request->get('button_action') == 'insert') {
-            $success_output = $this->getInsertionMessage();
-        }
-        // Update
-        else if($request->get('button_action') == 'update') {
-            $success_output = $this->getUpdateMessage();
-        }
-
-        return $this->responseWithSuccess($success_output);
+        return $this->getAction($request->get('button_action'));
 
     }
 

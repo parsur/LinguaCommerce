@@ -32,24 +32,6 @@ class CategoryController extends Controller
 
     // Store
     public function store(StoreCategoryRequest $request) {
-        // Add
-        $this->add($request);
-
-        // Insert
-        if($request->get('button_action') == "insert") {
-            $success_output = $this->getInsertionMessage();
-        }
-        // Update
-        else if($request->get('button_action') == 'update') {
-            $success_output = $this->getUpdateMessage();
-        }
-
-        return $this->responseWithSuccess($success_output);
-    }
-
-    // Store
-    public function add($request) {
-
         $id = $request->get('id');
 
         \DB::beginTransaction();
@@ -71,11 +53,12 @@ class CategoryController extends Controller
             throw $e;
             \DB::rollBack();
         }
-        
+
+        return $this->getAction($request->get('button_action'));
     }
 
     // Edit
-    public function edit(Action $action,Request $request) {
+    public function edit(Action $action, Request $request) {
         return $action->editWithStatus(Category::class, $request->get('id'));
     }
 

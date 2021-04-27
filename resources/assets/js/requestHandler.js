@@ -1,8 +1,8 @@
 class RequestHandler {
     // Constructor
     constructor(dt,formId,url) {
-        window.dt = dt; // DataTable 
-        window.formId = formId; // Form Id
+        window.dt = dt; // Datatable 
+        window.formId = formId; // Form id
         window.url = url; // Url
     }
 
@@ -22,7 +22,7 @@ class RequestHandler {
             event.preventDefault();
             // Form Data
             var form_data = new FormData(this);
-            form_data.append('file',form_data);
+            form_data.append('file', form_data);
 
             $.ajax({
                 url: "/" + window.url + "/store",
@@ -35,8 +35,7 @@ class RequestHandler {
                     success(data);
                 },
                 error: function (data) {
-                    if(data) 
-                        error(data);
+                    error(data);
                 }
             })
         });
@@ -44,13 +43,13 @@ class RequestHandler {
 
     // Delete
     delete(id) {
-        $('#confirmModal').modal('show');
+        $('#confirmationModal').modal('show'); // Confirm
         $('#deleteSubmission').click(function () {
             $.ajax({
                 url: "/" + window.url + "/delete/" + id,
                 method: "get",
                 success: function(data) {
-                    $('#confirmModal').modal('hide');
+                    $('#confirmationModal').modal('hide');
                     window.dt.draw(false);
                 }
             })
@@ -66,10 +65,11 @@ class RequestHandler {
 
 // Success
 function success(data) {
-    $('#form_output').html(data.success);
+    $('#form_output').html(data.message);
     $(window.formId)[0].reset();
-    if(window.dt != null)
+    if(window.dt != null) {
         window.dt.draw(false);
+    }
 }
 
 // Error

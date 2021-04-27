@@ -55,7 +55,7 @@ class ConsultationController extends Controller
 
             DB::commit();
             
-            return $this->responseWithSuccess('درخواست مشاوره با موفقیت ثبت شد');
+            return $this->successfulResponse('درخواست مشاوره با موفقیت ثبت شد');
 
         } catch(Exception $e) {
             throw $e;
