@@ -29,7 +29,7 @@ mix.js('resources/assets/js/app.js', 'public/js')
     // Image preview
     .js('resources/assets/js/imagePreview.js', 'public/js/imagePreview.js')
     // Sub categories based on categories
-    .js('resources/assets/js/subCategoryWithCategory.js', 'public/js/subCategoryWithCategory.js')
+    .js('resources/assets/js/subcategoryWithCategory.js', 'public/js/subcategoryWithCategory.js')
     // Ajax Request Handler
     .copy('resources/assets/js/ImageHandler.js', 'public/js/ImageHandler.js')
     // Ajax Request Handler
@@ -46,8 +46,6 @@ mix.js('resources/assets/js/app.js', 'public/js')
     .css('resources/assets/css/auth.css', 'public/css/auth.css')
     // Order verification
     .css('resources/assets/css/orderVerification.css', 'public/css/orderVerification.css')
-    // App Css
-    .css('resources/assets/css/ckeditor.css', 'public/css/ckeditor.css')
     // App Sass
     .sass('resources/assets/sass/app.scss','public/css');
 

@@ -6,19 +6,14 @@ import {
   Middle,
   Left,
   Center,
-  Right,
   Sidebar,
-  Figure,
   STop,
   SMiddle,
   SBottom,
   Price,
   HR,
-  H, H3,
+  H,
   Category,
-  Description,
-  Ul, Li,
-  Room,
   SMLeft,
   SMRight,
   STH,
@@ -45,38 +40,21 @@ import {
   UserComment,
   Commenter,
   HiOutlineUserCircles,
-  Videos, Iframe,
+  Videos,
   NoComments,
   OthersContainer,
   OTop, OBttom,
   Box, BP, BoxB
 } from './CourseDetailsElements';
-import test2bg from '../../images/test2bg.jpeg';
-import ImageGallery from 'react-image-gallery';
 import './coursedetails.css';
 import api from '../../api';
-import Carousel, { Dots, slidesToShowPlugin} from '@brainhubeu/react-carousel';
 import '@brainhubeu/react-carousel/lib/style.css';
 import axios from 'axios';
 import Loader from 'react-loader-spinner';
 import Particles from 'react-particles-js';
 import { backStyleTwo, gifStyleTwo } from '../../Data';
 import { Link } from 'react-router-dom';
-
-const images = [
-  {
-    original: 'https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-    thumbnail: 'https://picsum.photos/id/1018/250/150/',
-  },
-  {
-    original: 'https://picsum.photos/id/1015/1000/600/',
-    thumbnail: 'https://picsum.photos/id/1015/250/150/',
-  },
-  {
-    original: 'https://picsum.photos/id/1019/1000/600/',
-    thumbnail: 'https://picsum.photos/id/1019/250/150/',
-  },
-];
+import axiosApi from '../../axios';
 
 const CourseDetails = () => {
   let { id } = useParams();
@@ -96,7 +74,6 @@ const CourseDetails = () => {
 useEffect(() => {
   api(`api/v1/course/details?id=${id}`)
       .then((data) => {
-          console.log(data);
           setCourse(data.course);
           setDesc(data.course.description);
           setComments(data.course.comments);
@@ -129,7 +106,7 @@ function handleAddCart(course){
 
 function noComments(){
   if(comments == 0){
-    return <NoComments>اولین کسی باشید که کامنت میگذارید!</NoComments>
+    return <NoComments>اولین کسی باشید که کامنت میگذارید</NoComments>
   }
 }
 
@@ -137,15 +114,8 @@ const token = 'parsur';
 
 function addCart(){
   if(course.price === null){
-    axios.get(`/api/v1/course/downloadFreeCourses?id=${id}`,{
-      headers: {
-        'api_key': `${token}`,
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-      }
-    }
-  )
+  axiosApi(`/course/download?id=${id}`)
   .then(function (response) {
-      console.log(response);
       setSucces(true);
   })
   .catch(function (error) {
@@ -155,7 +125,7 @@ function addCart(){
       }
   });
   } else {
-  axios.post('/api/v1/cart/store', {
+  axios.post('http://sararajabi.com/api/v1/cart/store', {
       course_id: id
   }, {
       headers: {
@@ -165,9 +135,7 @@ function addCart(){
     }
   )
   .then(function (response) {
-      console.log(response);
       setSucces(true);
-      window.location.reload(false);
   })
   .catch(function (error) {
       console.log(error);
@@ -189,7 +157,7 @@ function cartError(){
 }
 
 function submit(){
-  axios.post('/api/v1/courseComment/store', {
+  axios.post('http://www.sararajabi.com/api/v1/courseComment/store', {
       comment: newComment,
       name: name,
       course_id: id,
@@ -200,13 +168,10 @@ function submit(){
     }
   )
   .then(function (response) {
-      console.log(response);
-      if(response.data.success === "دیدگاه مرتبط به دوره با موفقیت ثبت شد"){
-        alert('کامنت شما با موفقیت ثبت شد.');
-
-
-  setName('');
-  setNewComment('');
+      if(response.statusText === "Created"){
+          alert('کامنت شما با موفقیت ثبت شد.');
+          setName('');
+          setNewComment('');
       }
   })
   .catch(function (error) {
@@ -248,7 +213,7 @@ function handleImage(images){
       <div style={{width:"90%", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", flexWrap:"wrap"}}>
         {images.map(({url}, i) => {
           return (
-            <img className="media-img" key={i} src={'/' + url} alt="course"/>
+            <img className="media-img" key={i} src={'http://sararajabi.com/' + url} alt="course"/>
           )
         })}
       </div>
@@ -373,31 +338,6 @@ return course && desc && comments ? (
         
         <div className="course-details-description-main" dangerouslySetInnerHTML={ {__html: desc.description} }/>
         </BRight>
-        {/* <CKEditor
-                    editor={ ClassicEditor }
-                    data={description.value}
-                    config={ {
-                      // Use the German language for this editor.
-                      language: 'fa',
-                      // ...
-                  } }
-              
-                    onReady={ editor => {
-                      editor.isReadOnly="true"
-                    } }
-                    onChange={ ( event, editor ) => {
-                        const data = editor.getData();
-                        console.log( { event, editor, data } );
-                    } }
-                    onBlur={ ( event, editor ) => {
-                        console.log( 'Blur.', editor );
-                    } }
-                    onFocus={ ( event, editor ) => {
-                        console.log( 'Focus.', editor );
-                    } }
-                />
-
-        </BRight> */}
       </Bottom>
 
       <STHR style={{border:"1px solid grey", width:"90%", margin:"50px auto"}} />
@@ -416,7 +356,7 @@ return course && desc && comments ? (
 
       <STHR style={{border:"1px solid grey", width:"90%", margin:"50px auto"}} />
 
-      <CommentsH2>نظر ها</CommentsH2>
+      <CommentsH2>دیدگاه ها</CommentsH2>
 
       <Comments>
 
@@ -432,7 +372,7 @@ return course && desc && comments ? (
 
             <MNRight>
 
-              <MNText>کامنت نو</MNText>
+              <MNText>دیدگاه جدید</MNText>
 
             </MNRight>
 
@@ -440,7 +380,7 @@ return course && desc && comments ? (
 
           <MNBottom>
 
-            <TextArea value={newComment} onChange={(item)=>{setNewComment(item.target.value)}} placeholder="کامنت شما" >
+            <TextArea value={newComment} onChange={(item)=>{setNewComment(item.target.value)}} placeholder="دیدگاه شما" >
 
             </TextArea>
 
@@ -448,7 +388,7 @@ return course && desc && comments ? (
 
           <MNSubBottom>
 
-            <SubmitComments onFocus="this.value=''" onClick={()=>submit()}>ثبت کامنت</SubmitComments>
+            <SubmitComments onFocus="this.value=''" onClick={()=>submit()}>ثبت دیدگاه</SubmitComments>
 
           </MNSubBottom>
 
@@ -491,4 +431,3 @@ return course && desc && comments ? (
 }
 
 export default CourseDetails;
-// dangerouslySetInnerHTML={ {__html: description.value} }

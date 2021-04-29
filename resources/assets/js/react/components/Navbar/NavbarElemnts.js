@@ -34,6 +34,7 @@ export const FaBarsIcon = styled(FaBars)`
 
 export const NavUl = styled.ul`
     width: 100%;
+    overflow: scroll;
 `
 
 export const NavLi = styled.li`
@@ -88,7 +89,7 @@ export const MenuLinkTop = styled(Link)`
     }
 `
 
-export const MenuLinkTops = styled.div`
+export const MenuLinkTops = styled(Link)`
     text-decoration: none;
     color: #4e4e4e;
     font-size: 18px;
@@ -133,7 +134,7 @@ export const MenuLink = styled(Link)`
     background: ${props => props.active ? '#e6d14b' : 'transparent'};
 `
 
-export const MenuLinks = styled.div`
+export const MenuLinks = styled(Link)`
     text-decoration: none;
     margin: auto auto;
     font-size: 25px;

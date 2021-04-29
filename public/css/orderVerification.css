@@ -1,79 +1,77 @@
 * {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-  }
-  
-  /* font */
-  @font-face {
-    font-family: 'Shabnam';
-    src: url("/fonts/Shabnam.ttf") format('truetype');
-  }
-  
-  main {
-    width: 100vw;
-    height: 100vh;
-    background: #eee;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-family: 'shabnam', sans-serif;
-  }
-  
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+/* Font */
+@font-face {
+  font-family: 'Shabnam';
+  src: url("/fonts/Shabnam.ttf") format('truetype');
+}
+
+main {
+  direction: rtl;
+  width: 100vw;
+  height: 100vh;
+  background: #eee;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'shabnam', sans-serif;
+}
+
+section {
+  width: 800px;
+  height: 500px;
+  background: #89EA77;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenlys;
+}
+
+/* <a> Underline */
+a {
+  text-decoration: none;
+}
+
+.sub-section {
+  width: 80%;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.text {
+  font-size: 1.8rem;
+  text-align: center;
+}
+
+.redirect {
+  background: #eee;
+  border-radius: 10px;
+  font-size: 1.3rem;
+}
+
+/* Failiure */
+.fail {
+  background-color: rgba(255, 12, 12, 0.575);
+}
+
+/* responsive */
+@media only screen and (max-width:820px){
   section {
-    width: 800px;
-    height: 500px;
-    background: #4BB543;
-    border-radius: 15px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenlys;
+    width: 95%;
   }
-  
-  /* <a> underline */
-  a {
-    text-decoration: none;
+  .text {
+    font-size: clamp(0.8rem, 4vw, 1.6rem);
   }
-  
-  /* Text and redirection message */
-  .sub-section {
-    width: 80%;
-    height: 200px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  .redirect {
+    font-size: clamp(0.7rem, 4vw, 1.5rem);
   }
-  
-  /* The success or error message */
-  .message {
-    font-size: 1.8rem;
-    direction: rtl;
-  }
-  
-  /* Message to redirect user  */
-  .redirection {
-    background: #eee;
-    border-radius: 10px;
-    font-size: 1.3rem;
-  }
-  
-  /* Failiure */
-  .failiure {
-    background-color: #FC100D;
-  }
-  
-  /* responsive */
-  @media only screen and (max-width:820px){
-    section {
-      width: 95%;
-    }
-    .text {
-      font-size: clamp(0.8rem, 4vw, 1.6rem);
-    }
-    .redirect {
-      font-size: clamp(0.7rem, 4vw, 1.5rem);
-    }
-  }
+}

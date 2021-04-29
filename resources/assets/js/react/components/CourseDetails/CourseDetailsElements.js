@@ -43,7 +43,7 @@ export const Left = styled.div`
 
 export const Center = styled.div`
   width: 650px;
-  height: 500px;
+  height: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;

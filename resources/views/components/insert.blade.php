@@ -19,7 +19,7 @@
           <div class="form-group text-center">
             <input type="hidden" name="id" id="id" value="" />
             <input type="hidden" name="button_action" id="button_action" value="insert" />
-            <input type="submit" name="action" id="action" value="تایید" class="btn btn-success" />
+            <input type="submit" name="action" id="action" class="btn btn-success" value="تایید" />
             <button type="button" class="btn btn-danger" data-dismiss="modal">خروج</button>
           </div>
         </form>

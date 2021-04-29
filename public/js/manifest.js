@@ -163,7 +163,6 @@
 /******/ 		var installedChunks = {
 /******/ 			"/js/manifest": 0,
 /******/ 			"css/app": 0,
-/******/ 			"css/ckeditor": 0,
 /******/ 			"css/orderVerification": 0,
 /******/ 			"css/auth": 0
 /******/ 		};

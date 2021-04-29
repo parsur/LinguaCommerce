@@ -13,7 +13,6 @@ import {
 } from './LoginElements';
 import LoginLogo from '../../images/LoginLogo.svg';
 import axios from 'axios';
-import { Redirect } from 'react-router';
 import { useHistory } from "react-router-dom";
 
 axios.defaults.withCredentials = true;
@@ -27,12 +26,12 @@ const Login = () => {
   let history = useHistory();
 
   function submit(){
-    axios.get('/sanctum/csrf-cookie', {
+    axios.get('http://sararajabi.com/sanctum/csrf-cookie', {
       withCredentials: true,
       xsrfCookieName: "XSRF-TOKEN",
       xsrfHeaderName: "X-XSRF-TOKEN"
     }).then(response => {
-      axios.post('/api/v1/login', {
+      axios.post('http://sararajabi.com/api/v1/login', {
         email: email,
         password: pass,
     }, {
@@ -45,17 +44,21 @@ const Login = () => {
       }
     )
     .then(function (response) {
-        // setCourse(response.data);
-        console.log(response);
         if(response.data.access_token !== undefined) {
           localStorage.setItem("token", (response.data.access_token));
-          console.log(response.data.access_token);
           history.push('/');
+        } else if(response.data.success === false){
+          alert(response.data.message);
         }
     })
     .catch(function (error) {
-        console.log(error);
-        alert("ایمیل یا پسورد اشتباه است");
+        if(error.response.data.errors != undefined){
+          alert(error.response.data.errors.email);
+        } else if(error.response.data.errors != undefined){
+          alert(error.response.data.errors.password);
+        } else if(error.response.data.success === false){
+          alert(error.response.data.message);
+        }
     });
     });
 }

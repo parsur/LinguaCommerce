@@ -1,5 +1,4 @@
-import { AiFillAlert, AiFillAlipayCircle, AiFillCarryOut, AiFillDropboxCircle } from 'react-icons/ai';
-import { Block } from './components/Course/CourseElements';
+import { AiFillAlert, AiFillAlipayCircle, } from 'react-icons/ai';
 
 export const mainPageData =
     {
@@ -13,6 +12,11 @@ export const userDash = [
     to: '/',
     text: 'حساب کاربری',
     icon: <AiFillAlert />
+  },
+  {
+    to: '/orders',
+    text: 'سفارشات',
+    icon: <AiFillAlipayCircle />
   }
 ]
 

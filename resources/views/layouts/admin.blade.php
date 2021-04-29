@@ -102,7 +102,7 @@
                                     {{-- Categories --}}
                                     <x-urlAddress text="دسته بندی اول" fontAwesome="null" route="{{ url('category/list') }}" />
                                     {{-- Sub Categories --}}
-                                    <x-urlAddress text="دسته بندی دوم" fontAwesome="null" route="{{ url('subCategory/list') }}" />
+                                    <x-urlAddress text="دسته بندی دوم" fontAwesome="null" route="{{ url('subcategory/list') }}" />
                                 </x-slot>
                             </x-admin.urlAddressParent>
 

@@ -30,7 +30,7 @@
     <script src="{{ asset('js/ckeditor/ckeditorInit.js') }}"></script>
 
     {{-- Sub categories based on categories --}}
-    <script src="{{ asset('js/subCategoryWithCategory.js') }}"></script>
+    <script src="{{ asset('js/subcategoryWithCategory.js') }}"></script>
 
     <script>
         // Action object

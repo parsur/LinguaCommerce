@@ -24,18 +24,17 @@ const Signup = () => {
   const [confPass, setConfPass] = useState("");
   const [phone, setPhone] = useState("");
   const [verify, setVerify] = useState(false);
+  const [registerToken, setRegisterToken] = useState("");
 
   const token = 'parsur';
 
-  let history = useHistory();
-
   function submit(){
-    axios.get('/sanctum/csrf-cookie', {
+    axios.get('http://sararajabi.com/sanctum/csrf-cookie', {
       withCredentials: true,
       xsrfCookieName: "XSRF-TOKEN",
       xsrfHeaderName: "X-XSRF-TOKEN"
     }).then(response => {
-      axios.post('/api/v1/register', {
+      axios.post('http://sararajabi.com/api/v1/register', {
         email: email,
         password: pass,
         password_confirmation: confPass,
@@ -51,22 +50,46 @@ const Signup = () => {
       }
     )
     .then(function (response) {
-        // setCourse(response.data);
-        console.log(response);
-        if(response.data.success === "کاربر با موفقیت ثبت نام کرد") {
+        setRegisterToken(response.data.register_token);
+        if(response.data.message === "ثبت نام شما با موفقیت انجام شد") {
           setVerify(true);
         }
     })
     .catch(function (error) {
-        console.log(error);
-        alert("لطفا درگاه ها را درست وارد کنید");
+        if(error.response.data.errors.email != undefined){
+          alert(error.response.data.errors.email);
+        }
+        if(error.response.data.errors.name != undefined){
+          alert(error.response.data.errors.name);
+        }
+        if(error.response.data.errors.password != undefined){
+          alert(error.response.data.errors.password);
+        }
+        if(error.response.data.errors.phone_number != undefined){
+          alert(error.response.data.errors.phone_number);
+        }
     });
     });
 }
 
+  function resendMail(){
+    axios.get('http://www.sararajabi.com/api/v1/email/resend', {
+      headers: {
+        'api_key': 'parsur',
+        'Authorization': `Bearer ${registerToken}`,
+      }
+    })
+    .then(function (response) {
+      alert('ایمیل تاییدیه فرستاده شد')
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+  }
+
   function verifyEmail(){
     if(verify === true){
-      return <InputContainer><p>ایمیل تایید برای شما ارسال شده، لطفا پس از تایید در سایت وارد شوید.</p></InputContainer>
+      return <InputContainer><p>ایمیل تایید برای شما ارسال شد. <span style={{color:"blue"}} onClick={()=>resendMail()}>ارسال مجدد</span></p></InputContainer>
     }
   }
 

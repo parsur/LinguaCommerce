@@ -97,12 +97,12 @@ Route::group(['middleware' => ['auth', 'isAdmin']], function () {
         Route::get('delete/{id}','CategoryController@delete');
     });
     // Sub Categories
-    Route::group(['prefix' => 'subCategory', 'as' => 'subCategory.'], function() {
-        Route::get('list','SubCategoryController@list');
-        Route::get('table/list','SubCategoryController@subCategoryTable')->name('list.table');
-        Route::post('store','SubCategoryController@store');
-        Route::get('edit','SubCategoryController@edit');
-        Route::get('delete/{id}','SubCategoryController@delete');
+    Route::group(['prefix' => 'subcategory', 'as' => 'subcategory.'], function() {
+        Route::get('list','SubcategoryController@list');
+        Route::get('table/list','SubcategoryController@subcategoryTable')->name('list.table');
+        Route::post('store','SubcategoryController@store');
+        Route::get('edit','SubcategoryController@edit');
+        Route::get('delete/{id}','SubcategoryController@delete');
     });
     // User
     Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
@@ -181,11 +181,14 @@ Route::view('/courselist', 'app');
 Route::view('/aboutus', 'app');
 Route::view('/whyme', 'app');
 Route::view('/userpage', 'app');
-Route::view('/coonsultante', 'app');
+Route::view('/consultante', 'app');
 Route::view('/article/{id}', 'app');
 Route::view('/course/{id}', 'app');
 Route::view('/articlelists', 'app');
 Route::view('/cart', 'app');
+Route::view('/userpage', 'app');
+Route::view('/userpage/orders', 'app');
 Route::view('/login', 'app');
 Route::view('/register', 'app');
+
 

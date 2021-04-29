@@ -50,7 +50,7 @@ Route::group(['prefix' => 'v1', 'as' => 'v1.', 'middleware' => 'apiKey'], functi
         Route::get('details','OrderController@details');
         Route::get('delete/{id}','OrderController@delete');
         // Complete the unpaied order
-        Route::post('completeUnpaiedOrder', 'OrderController@completeUnpaiedOrder');
+        Route::post('completeUnpaiedOrder', 'OrderController@completeUnpaidOrder');
     });
     // Article
     Route::group(['prefix' => 'article', 'as' => 'article.'], function () {

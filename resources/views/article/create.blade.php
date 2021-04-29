@@ -26,7 +26,7 @@
     <script src="{{ asset('js/ckeditor/ckeditorInit.js') }}"></script>
 
     {{-- Sub categories based on categories --}}
-    <script src="{{ asset('js/subCategoryWithCategory.js') }}"></script>
+    <script src="{{ asset('js/subcategoryWithCategory.js') }}"></script>
 
     <script>
         let action = new RequestHandler(null, '#articleForm', 'article');
@@ -58,7 +58,7 @@
             $('#price').val(data.price);
             editor.setData(data.description.description);
             $('#status').val(data.statuses.status).trigger('change');
-            $('#subCategories').val(data.subCategory_id).trigger('change');
+            $('#subcategories').val(data.subcategory_id).trigger('change');
             $('#categories').val(data.category_id).trigger('change');
         }
     </script>

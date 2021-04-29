@@ -14,10 +14,7 @@ import {
     Sticky,
     Submit,
     MainB,
-    FilterContainer,
     Searchs,
-    Filter,
-    SelectS,
     NoResult,
     VscSearchStops,
     MBLeft,
@@ -37,7 +34,7 @@ import whymebg from '../../images/test2bg.jpeg';
 
 const token = 'parsur';
 
-const Article = ({ data }) => {
+const Article = () => {
     const [article, setArticle] = useState(null);
     const [search, setSearch] = useState("");
     const [noRes, setNoRes] = useState(null);
@@ -51,8 +48,7 @@ const Article = ({ data }) => {
     }, []);
 
     function submit(){
-        console.log(search);
-        axios.post('/api/v1/article/search', {
+        axios.post('http://sararajabi.com/api/v1/article/search', {
             search: search,
             column: 'title',
         }, {
@@ -69,7 +65,6 @@ const Article = ({ data }) => {
             } else {
                 setNoRes(null);
             }
-            console.log(response);
         })
         .catch(function (error) {
             console.log(error);
@@ -100,7 +95,7 @@ const Article = ({ data }) => {
         if(media == 0){
             return whymebg
         } else {
-            return "/images/" + media[0].url
+            return "http://sararajabi.com/images/" + media[0].url
         }
     }
 
@@ -115,14 +110,6 @@ const Article = ({ data }) => {
                                     <Search onChange={handleSearchChaneg} type="search" id="search" required="required" placeholder="سرچ کنید..." />
                                     <Submit onClick={()=>submit()} type="submit" value="جستجو"><AiOutlineSearch/></Submit>
                                 </Searchs>
-                                {/* <FilterContainer>
-                                    <Filter>
-                                        <SelectS options={options} placeholder="دسته بندی اول" />
-                                    </Filter>
-                                    <Filter>
-                                        <SelectS options={options} placeholder="دسته بندی دوم" />
-                                    </Filter>
-                                </FilterContainer> */}
                             </SearchContainer>
                             <H1>مقاله ها</H1>
                         </TContainer>
@@ -153,26 +140,6 @@ const Article = ({ data }) => {
             
             </Block> );
     })}
-
-                {/* <OtherCourses>
-
-                    <OCTop><H3>دوره های منتخب</H3></OCTop>
-
-                    <OCHR/>
-
-                    <OCBottom>
-
-                        <Suggested>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام </Suggested>
-                        <Suggested>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام </Suggested>
-                        <Suggested>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام </Suggested>
-                        <Suggested>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام </Suggested>
-                        <Suggested>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام </Suggested>
-                        <Suggested>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام </Suggested>
-
-                    </OCBottom>
-
-                </OtherCourses> */}
-
             </Right>
         </Container>
     ) : (
@@ -186,14 +153,6 @@ const Article = ({ data }) => {
                                     <Search onChange={handleSearchChaneg} type="search" id="search" required="required" placeholder="سرچ کنید..." />
                                     <Submit onClick={()=>submit()} type="submit" value="جستجو"><AiOutlineSearch/></Submit>
                                 </Searchs>
-                                {/* <FilterContainer>
-                                    <Filter>
-                                        <SelectS options={options} placeholder="دسته بندی اول" />
-                                    </Filter>
-                                    <Filter>
-                                        <SelectS options={options} placeholder="دسته بندی دوم" />
-                                    </Filter>
-                                </FilterContainer> */}
                             </SearchContainer>
                             <H1>مقاله ها</H1>
                         </TContainer>

@@ -18,6 +18,7 @@ import {
  } from './ConsultanteElements';
 import conlogo from '../../images/conlogo.png';
 import axios from 'axios';
+import axiosApi from '../../axios';
 
 const Consultante = () => {
 
@@ -28,15 +29,8 @@ const Consultante = () => {
     const token = 'parsur';
 
     useEffect(() => {
-        axios.get('/api/v1/user/show', {
-            headers: {
-                'api_key': `${token}`,
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
-            }
-          }
-        ).then(function (response) {
-            console.log(response);
-            // setName(response.data.user); YOU WILL NEED THIS
+        axiosApi('/user/show')
+        .then(function (response) {
             if(response.data.user == null){
                 setIsSignedIn(false);
             } else {
@@ -46,14 +40,10 @@ const Consultante = () => {
         .catch(function (error) {
             console.log(error);
         });
-        // api("api/user/show")
-        //     .then(({ user }) => {
-        //         setUser(user);
-        //     })
     }, []);
 
     function submit(){
-        axios.post('http://sararajabi.co/api/v1/consultation/store', {
+        axios.post('http://sararajabi.com/api/v1/consultation/store', {
             description: desc,
             phone_number: phone
         }, {
@@ -63,7 +53,6 @@ const Consultante = () => {
             }
           }
         ).then(function (response) {
-            console.log(response);
         })
         .catch(function (error) {
             console.log(error);
@@ -78,13 +67,13 @@ const Consultante = () => {
                     <Left>
                         <TextContainer>
                             <Text>
-                                <H1>برای درخاست مشاوره درگاه هارا وارد کنید!</H1>
+                                <H1>برای درخواست مشاوره درگاه هارا وارد کنید</H1>
                                 <Form onSubmit={event => event.preventDefault()}>
-                                    <Area maxLength="250" onChange={event => setDesc(event.target.value)} active placeholder='درخاست خود را وارد کنید.' />
+                                    <Area maxLength="250" onChange={event => setDesc(event.target.value)} active placeholder='درخواست خود را وارد کنید.' />
                                     <Submit onClick={()=>submit()} value="ثبت کنید" type='submit' />
                                 </Form>
                                 <Block>
-                                    پس از درخاست با شما در ارتباط خواهیم بود.
+                                    پس از درخواست با شما در ارتباط خواهیم بود.
                                 </Block>
                             </Text>
                         </TextContainer>
@@ -104,14 +93,14 @@ const Consultante = () => {
                     <Left>
                         <TextContainer>
                             <Text>
-                                <H1>برای درخاست مشاوره درگاه هارا وارد کنید!</H1>
+                                <H1>برای درخواست مشاوره درگاه هارا وارد کنید</H1>
                                 <Form onSubmit={event => event.preventDefault()}>
-                                    <Area disabled active placeholder='درخاست خود را وارد کنید.' />
+                                    <Area disabled active placeholder='درخواست خود را وارد کنید.' />
                                     <Name onChange={event => setPhone(event.target.value)} type='text' name='fname' placeholder='شماره تلفن' />
                                     <Submit onClick={()=>submit()} value="ثبت کنید" type='submit' />
                                 </Form>
                                 <Block>
-                                    برای نوشتن درخاست کامل تر، وارد شوید.
+                                    برای نوشتن درخواست کامل تر، وارد شوید.
                                 </Block>
                             </Text>
                         </TextContainer>

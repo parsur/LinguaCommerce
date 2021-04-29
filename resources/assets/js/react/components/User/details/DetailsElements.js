@@ -43,42 +43,27 @@ export const H1 = styled.h1`
 export const Detail = styled.div`
     width: 90%;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
 `
 
 export const D1 = styled.div`
     width: 100%;
-    height: 33.33%;
+    height: 80%;
     display: flex;
+    flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    flex-wrap: wrap;
+    background: #fff;
+    border-radius: 30px 30px 0 0;
 `
 
-export const D2 = styled.div`
-    width: 100%;
-    height: 33.33%;
-    background: #ffffff;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    flex-wrap: wrap;
-    border-radius: 30px;
-`
-
-export const D3 = styled.div`
-    width: 100%;
-    height: 33.33%;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    flex-wrap: wrap;
-`
-
-export const Email = styled.h3`
+export const Email = styled.h2`
     direction: rtl;
 `
 
-export const Number = styled.h3`
+export const Number = styled.h2`
     direction: rtl;
 `
 

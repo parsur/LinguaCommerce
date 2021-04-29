@@ -12,49 +12,87 @@ export const Container = styled.div`
   border-left: 3px solid #F4DD4F;
   border-right: 3px solid #F4DD4F;
   padding: 20px;
+  overflow: scroll;
+
+  @media screen and (max-width: 500px){
+    height: 69%
+  }
 `
 
 export const Block = styled.div`
   width: 100%;
-  height: 100px;
   display: flex;
-  justify-content: flex-start;
-  padding: 10px;
-  direction: rtl;
-
-  @media screen and (max-width: 500px){
-    /* flex-wrap: wrap; */
-    justify-content: center;
-    height: auto;
-  }
-`
-
-export const Hr = styled.hr`
-  width: 80%;
-  margin-top: 20px;
-  border: 2px solid #eee;
-
-  @media screen and (max-width: 500px){
-    display: none;
-  }
+  flex-direction: column;
+  padding: 10px 10px;
+  border-bottom: 2px solid #F4DD4F;
+  align-items: flex-start;
 `
 
 export const BBlock = styled.div`
-  height: 90%;
+  height: 50px;
+  width: 100%;
   direction: rtl;
   display: flex;
   align-items: flex-start;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   margin-left: 8px;
   padding: 0 8px;
-  border: 1px solid grey;
   border-radius: 5px;
   background: #fff;
+  overflow: scroll;
+`
 
-  @media screen and (max-width: 500px){
-    width: 40%;
-    height: 80px;
-    margin: 5px;
-  }
+export const Bbutton = styled.button`
+  width: 100px;
+  height: 30px;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  background: gray;
+  color: #fff;
+`
+
+export const ODBlock = styled.div`
+  min-width: 100px;
+  max-width: 800px;
+  background: #F4DD4F;
+  margin: 0 auto;
+  border-radius: 15px;
+  direction: rtl;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
+`
+
+export const NotPaied = styled.div`
+  direction: rtl;
+  background-color: red;
+  min-width: 200px;
+  max-width: 500px;
+  height: 80px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  font-size: 1.5rem;
+  padding: 0 10px;
+`
+
+export const Wrap = styled.div`
+  width: 90%;
+  height: 95%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+`
+
+export const WrapText = styled.div`
+  margin: 5px 10px;
 `

@@ -80,17 +80,6 @@ eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extr
 "use strict";
 eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly9TYXJhUmFqYWJpLy4vcmVzb3VyY2VzL2Fzc2V0cy9jc3Mvb3JkZXJWZXJpZmljYXRpb24uY3NzP2RmYTkiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IjtBQUFBIiwiZmlsZSI6Ii4vcmVzb3VyY2VzL2Fzc2V0cy9jc3Mvb3JkZXJWZXJpZmljYXRpb24uY3NzLmpzIiwic291cmNlc0NvbnRlbnQiOlsiLy8gZXh0cmFjdGVkIGJ5IG1pbmktY3NzLWV4dHJhY3QtcGx1Z2luXG5leHBvcnQge307Il0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./resources/assets/css/orderVerification.css\n");
 
-/***/ }),
-
-/***/ "./resources/assets/css/ckeditor.css":
-/*!*******************************************!*\
-  !*** ./resources/assets/css/ckeditor.css ***!
-  \*******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly9TYXJhUmFqYWJpLy4vcmVzb3VyY2VzL2Fzc2V0cy9jc3MvY2tlZGl0b3IuY3NzPzA1MjAiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IjtBQUFBIiwiZmlsZSI6Ii4vcmVzb3VyY2VzL2Fzc2V0cy9jc3MvY2tlZGl0b3IuY3NzLmpzIiwic291cmNlc0NvbnRlbnQiOlsiLy8gZXh0cmFjdGVkIGJ5IG1pbmktY3NzLWV4dHJhY3QtcGx1Z2luXG5leHBvcnQge307Il0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./resources/assets/css/ckeditor.css\n");
-
 /***/ })
 
 },
@@ -98,7 +87,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extr
 /******/ "use strict";
 /******/ 
 /******/ var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-/******/ __webpack_require__.O(0, ["css/app","css/ckeditor","css/orderVerification","css/auth","/js/vendor"], () => (__webpack_exec__("./resources/assets/js/app.js"), __webpack_exec__("./resources/assets/sass/app.scss"), __webpack_exec__("./resources/assets/css/app.css"), __webpack_exec__("./resources/assets/css/auth.css"), __webpack_exec__("./resources/assets/css/orderVerification.css"), __webpack_exec__("./resources/assets/css/ckeditor.css")));
+/******/ __webpack_require__.O(0, ["css/app","css/orderVerification","css/auth","/js/vendor"], () => (__webpack_exec__("./resources/assets/js/app.js"), __webpack_exec__("./resources/assets/sass/app.scss"), __webpack_exec__("./resources/assets/css/app.css"), __webpack_exec__("./resources/assets/css/auth.css"), __webpack_exec__("./resources/assets/css/orderVerification.css")));
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);

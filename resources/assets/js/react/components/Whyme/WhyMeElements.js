@@ -146,7 +146,7 @@ export const H1 = styled.h1`
 
 export const P = styled.p`
     direction: rtl;
-    font-size: ${props => props.active ? "clamp(0.4rem, 2.9vw, 1.2rem)" : "clamp(0.2rem, 2.8vw, 1rem)"};
+    font-size: ${props => props.active ? "clamp(0.4rem, 2.9vw, 1.2rem)" : "clamp(0.4rem, 2.9vw, 1.2rem)"};
     font-weight: bold;
 
     @media screen and (max-width: 880px){

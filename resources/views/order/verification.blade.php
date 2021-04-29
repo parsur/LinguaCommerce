@@ -15,7 +15,7 @@
                 <x-orderVerification :message="$success" />
             {{-- Error --}}
             @elseif (isset($error))
-                <x-orderVerification :message="$error" class="failiure" />
+                <x-orderVerification :message="$error" class="fail" />
             @endif
         </main>
     </body>

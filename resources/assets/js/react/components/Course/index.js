@@ -7,7 +7,6 @@ import {
     Bottom,
     Img,
     H1,
-    P,
     TContainer,
     Block,
     SearchContainer,
@@ -27,20 +26,14 @@ import {
     SelectS,
     NoResult,
     VscSearchStops,
-    OtherCourses,
-    OCTop,
-    OCBottom,
-    OCHR,
-    H3,
-    Suggested
 } from './CourseElements';
 import courselogo from '../../images/courselogo.png';
 import api from '../../api';
 import { AiOutlineSearch } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
 import Loader from 'react-loader-spinner';
 import axios from 'axios';
 import whymebg from '../../images/test2bg.jpeg';
+import apiAxios from '../../axios';
 
 const token = 'parsur';
 
@@ -58,12 +51,12 @@ const Course = ({ data }) => {
             .then((data) => {
                 setCourse([])
                 setCourse(data.courses);
+                console.log(data);
                 setCategories(data.categories);
-                setSubCategories(data.subCategories);
-                if(data.subCategories === []){
+                setSubCategories(data.subcategories);
+                if(data.subcategories === []){
                     setCategories([{"name" : "mamad", "id" : "20"}])
                 }
-                console.log(data)
             })
     }, []);
 
@@ -71,8 +64,7 @@ const Course = ({ data }) => {
     const optionsTwo = subCategories.map(({name, id}) => ({ value: id, label: name }))
     
     function submit(){
-        console.log(search);
-        axios.post('/api/v1/course/search', {
+        axios.post('http://sararajabi.com/api/v1/course/search', {
             search: search,
             category_id: selectedOption,
             sub_category_id: selectedOptionTwo,
@@ -125,17 +117,10 @@ const Course = ({ data }) => {
     };
 
     function sendDetails(){
-        console.log(selectedOption);
         setSubCategories([])
-        axios.get(`/api/v1/sub_category?category_id=${selectedOption}`,{
-            headers: {
-              'api_key': `${token}` 
-            }
-          }
-        )
+        apiAxios(`/sub_category?category_id=${selectedOption}`)
         .then(function ({ data }) {
             setSubCategories(data);
-            console.log(data);
         })
         .catch(function (error) {
             console.log(error);
@@ -154,7 +139,7 @@ const Course = ({ data }) => {
         if(media == 0){
             return whymebg
         } else {
-            return "/images/" + media[0].url
+            return "http://sararajabi.com/images/" + media[0].url
         }
     }
 
@@ -215,25 +200,6 @@ const Course = ({ data }) => {
             
             </Block> );
     })}
-
-                {/* <OtherCourses>
-
-                    <OCTop><H3>دوره های منتخب</H3></OCTop>
-
-                    <OCHR/>
-
-                    <OCBottom>
-
-                        <Suggested>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام </Suggested>
-                        <Suggested>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام </Suggested>
-                        <Suggested>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام </Suggested>
-                        <Suggested>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام </Suggested>
-                        <Suggested>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام </Suggested>
-                        <Suggested>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام </Suggested>
-
-                    </OCBottom>
-
-                </OtherCourses> */}
 
             </Right>
         </Container>

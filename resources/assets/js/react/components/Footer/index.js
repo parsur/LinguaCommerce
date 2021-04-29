@@ -1,9 +1,8 @@
 import React from 'react';
 import { SvgBg, FooterContainer, FooterWrap, SocialMedia, SocialMediaWrap, SocialLogo, SocialIcons, SocialIconLink} from './FooterElements';
-import { FaInstagram, FaTwitter, FaTelegramPlane } from 'react-icons/fa';
+import { FaInstagram, FaTelegramPlane } from 'react-icons/fa';
 import { SiGmail } from 'react-icons/si';
 import { GiHand } from 'react-icons/gi';
-import { IoCall } from 'react-icons/io5';
 import aparat from '../../images/aparat.png';
 
 const Footer = (props) => {
@@ -25,9 +24,6 @@ const Footer = (props) => {
                             </SocialIconLink>
                             <SocialIconLink href='https://www.joinclubhouse.com/@sararajabi' target='_blank' aria-label='FaTwitter' rel='noopener noreferrer'>
                                 <GiHand />
-                            </SocialIconLink>
-                            <SocialIconLink href='09140734880' target='_blank' aria-label='FaTwitter' rel='noopener noreferrer'>
-                                <IoCall />
                             </SocialIconLink>
                             <SocialIconLink href='https://m.aparat.com/v/VfvJ2' target='_blank' aria-label='FaTwitter' rel='noopener noreferrer'>
                                 <img src={aparat} alt="aparat" width="35px" />
