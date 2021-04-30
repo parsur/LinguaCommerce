@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 
-Route::group(['prefix' => 'v1', 'as' => 'v1.', 'middleware' => 'apiKey'], function() {  
+Route::group(['prefix' => 'v1', 'as' => 'v1.', 'middleware' => 'apiKey', 'Http2ServerPush'], function() {  
     // Auth sanctum middleware
     Route::middleware(['auth:sanctum', 'verified'])->group(function () { // verified
         // Cart

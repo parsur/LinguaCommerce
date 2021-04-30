@@ -14,13 +14,14 @@
                 @csrf
                 <!-- Title -->
                 <p class="title">ورود ادمین</p>
-                <!-- Form -->
+                {{-- Email --}}
                 <div class="form-group">
-                    <input class="text-right" type="email" name="email" placeholder="آدرس ایمیل">
+                    <input type="email" name="email" placeholder="آدرس ایمیل">
                     <i class="fa fa-user"></i>
                 </div>
+                {{-- Password --}}
                 <div class="form-group">
-                    <input class="text-right" type="password" name="password" placeholder="رمز عبور" />
+                    <input type="password" name="password" placeholder="رمز عبور" />
                     <i class="fa fa-key"></i>
                 </div>
                 <!-- Remember token  -->

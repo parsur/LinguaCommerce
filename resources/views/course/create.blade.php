@@ -7,8 +7,8 @@
             {{-- Hidden Input --}}
             <input type="hidden" name="id" id="id" value="{{ $course->id ?? "" }}" />
  
-            {{-- Name --}}
             <div class="row">
+                {{-- Name --}}
                 <div class="col-md-6 mb-3">
                     <x-input key="name" name="نام" />
                 </div>
