@@ -23,8 +23,9 @@ import axiosApi from '../../axios';
 const Consultante = () => {
 
     const [isSignedIn, setIsSignedIn] = useState(false);
-    const [phone, setPhone] = useState(null);
+    const [user, setUser] = useState(null);
     const [desc, setDesc] = useState(null);
+    const [phone, setPhone] = useState(null);
 
     const token = 'parsur';
 
@@ -35,6 +36,7 @@ const Consultante = () => {
                 setIsSignedIn(false);
             } else {
                 setIsSignedIn(true);
+                setUser(response.data.user);
             }
         })
         .catch(function (error) {
@@ -43,7 +45,28 @@ const Consultante = () => {
     }, []);
 
     function submit(){
-        axios.post('http://sararajabi.com/api/v1/consultation/store', {
+        if(isSignedIn){
+        axios.post('/api/v1/consultation/store', {
+            description: desc,
+            phone_number: user.phone_number
+        }, {
+            headers: {
+              'api_key': `${token}`,
+              'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+          }
+        ).then(function (response) {
+            alert(response.data.message);
+            setDesc('');
+            setPhone('');
+        })
+        .catch(function (error) {
+            console.log(error);
+            if(error.response.data.errors.phone_number){
+                alert(error.response.data.errors.phone_number)
+            }
+        })} else {
+            axios.post('/api/v1/consultation/store', {
             description: desc,
             phone_number: phone
         }, {
@@ -53,10 +76,25 @@ const Consultante = () => {
             }
           }
         ).then(function (response) {
+            alert(response.data.message);
+            setDesc('');
+            setPhone('');
         })
         .catch(function (error) {
             console.log(error);
+            if(error.response.data.errors.phone_number){
+                alert(error.response.data.errors.phone_number)
+            }
         })
+        }
+    }
+
+    function handlePlaceHolder(){
+        if(user){
+            return user.phone_number
+        } else {
+            return 'null'
+        }
     }
 
     return (
@@ -69,7 +107,8 @@ const Consultante = () => {
                             <Text>
                                 <H1>برای درخواست مشاوره درگاه هارا وارد کنید</H1>
                                 <Form onSubmit={event => event.preventDefault()}>
-                                    <Area maxLength="250" onChange={event => setDesc(event.target.value)} active placeholder='درخواست خود را وارد کنید.' />
+                                    <Area value={desc} maxLength="250" onChange={event => setDesc(event.target.value)} active placeholder='درخواست خود را وارد کنید.' />
+                                    <Name disabled type='text' name='fname' placeholder={handlePlaceHolder()} />
                                     <Submit onClick={()=>submit()} value="ثبت کنید" type='submit' />
                                 </Form>
                                 <Block>
@@ -96,7 +135,7 @@ const Consultante = () => {
                                 <H1>برای درخواست مشاوره درگاه هارا وارد کنید</H1>
                                 <Form onSubmit={event => event.preventDefault()}>
                                     <Area disabled active placeholder='درخواست خود را وارد کنید.' />
-                                    <Name onChange={event => setPhone(event.target.value)} type='text' name='fname' placeholder='شماره تلفن' />
+                                    <Name value={phone} onChange={event => setPhone(event.target.value)} type='text' name='fname' placeholder='شماره تلفن' />
                                     <Submit onClick={()=>submit()} value="ثبت کنید" type='submit' />
                                 </Form>
                                 <Block>

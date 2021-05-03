@@ -29,12 +29,12 @@ const Signup = () => {
   const token = 'parsur';
 
   function submit(){
-    axios.get('http://sararajabi.com/sanctum/csrf-cookie', {
+    axios.get('/sanctum/csrf-cookie', {
       withCredentials: true,
       xsrfCookieName: "XSRF-TOKEN",
       xsrfHeaderName: "X-XSRF-TOKEN"
     }).then(response => {
-      axios.post('http://sararajabi.com/api/v1/register', {
+      axios.post('/api/v1/register', {
         email: email,
         password: pass,
         password_confirmation: confPass,
@@ -73,7 +73,7 @@ const Signup = () => {
 }
 
   function resendMail(){
-    axios.get('http://www.sararajabi.com/api/v1/email/resend', {
+    axios.get('/api/v1/email/resend', {
       headers: {
         'api_key': 'parsur',
         'Authorization': `Bearer ${registerToken}`,

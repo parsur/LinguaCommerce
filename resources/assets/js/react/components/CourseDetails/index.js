@@ -66,7 +66,7 @@ const CourseDetails = () => {
   const [newComment, setNewComment] = useState("");
   const [subCategoryName, setSubCategoryName] = useState("");
   const [category, setCategory] = useState({});
-  const [isError, setIsError] = useState(false);
+  const [isError, setIsError] = useState("");
   const [succes, setSucces] = useState(false);
   const [videos, setVideos] = useState([]);
   const [images, setImages] = useState([]);
@@ -121,11 +121,11 @@ function addCart(){
   .catch(function (error) {
       console.log(error);
       if(error){
-        setIsError(true)
+        setIsError("error")
       }
   });
   } else {
-  axios.post('http://sararajabi.com/api/v1/cart/store', {
+  axios.post('/api/v1/cart/store', {
       course_id: id
   }, {
       headers: {
@@ -138,26 +138,30 @@ function addCart(){
       setSucces(true);
   })
   .catch(function (error) {
-      console.log(error);
-      if(error){
-        setIsError(true)
+      console.log(error.response);
+      if(error.response.data.message === "The given data was invalid."){
+        setIsError("added")
+      } else {
+        setIsError("error")
       }
   });
 }
 }
 
 function cartError(){
-  if(isError){
+  if(isError === "error"){
     return <p style={{direction:"rtl", color:"red", background:"white", borderRadius:"5px", padding:"5px 0"}}>لطفا برای اضافه کردن در سبد <Link to='/login'>وارد</Link> شوید.</p>
   } else if(succes && course.price !== null) {
     return <p style={{direction:"rtl", color:"white", background:"green", borderRadius:"5px", padding:"5px 2px"}}>با موفقیت به سبد خرید اضافه شد.</p>
   } else if(succes && course.price === null) {
     return <p style={{direction:"rtl", color:"white", background:"green", borderRadius:"5px", padding:"5px 2px"}}>با موفقیت به ایمیلتان فرستاده شد.</p>
+  } else if(isError === "added") {
+    return <p style={{direction:"rtl", color:"#f4dd4f", background:"white", borderRadius:"5px", padding:"5px 2px"}}>قبلا به سبد خرید اضافه شده است.</p>
   }
 }
 
 function submit(){
-  axios.post('http://www.sararajabi.com/api/v1/courseComment/store', {
+  axios.post('/api/v1/courseComment/store', {
       comment: newComment,
       name: name,
       course_id: id,
@@ -213,7 +217,7 @@ function handleImage(images){
       <div style={{width:"90%", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", flexWrap:"wrap"}}>
         {images.map(({url}, i) => {
           return (
-            <img className="media-img" key={i} src={'http://sararajabi.com/' + url} alt="course"/>
+            <img className="media-img" key={i} src={'/' + url} alt="course"/>
           )
         })}
       </div>
@@ -388,7 +392,7 @@ return course && desc && comments ? (
 
           <MNSubBottom>
 
-            <SubmitComments onFocus="this.value=''" onClick={()=>submit()}>ثبت دیدگاه</SubmitComments>
+            <SubmitComments onClick={()=>submit()}>ثبت دیدگاه</SubmitComments>
 
           </MNSubBottom>
 

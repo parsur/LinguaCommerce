@@ -31,15 +31,13 @@ mix.js('resources/assets/js/app.js', 'public/js')
     // Sub categories based on categories
     .js('resources/assets/js/subcategoryWithCategory.js', 'public/js/subcategoryWithCategory.js')
     // Ajax Request Handler
-    .copy('resources/assets/js/ImageHandler.js', 'public/js/ImageHandler.js')
+    .scripts('resources/assets/js/ImageHandler.js', 'public/js/ImageHandler.js')
     // Ajax Request Handler
-    .copy('resources/assets/js/RequestHandler.js', 'public/js/RequestHandler.js')
-    // Fonts
-    .copy('resources/assets/fonts', 'public/fonts')
+    .scripts('resources/assets/js/RequestHandler.js', 'public/js/RequestHandler.js')
     // DataTable Persian Language
-    .copy('resources/assets/js/persian.json', 'public/js/persian.json')
+    .scripts('resources/assets/js/persian.json', 'public/js/persian.json')
     // Particles json
-    .copy('resources/assets/js/particles.json', 'public/js/particles.json')
+    .scripts('resources/assets/js/particles.json', 'public/js/particles.json')
     // App And Authentication
     .css('resources/assets/css/app.css', 'public/css')
     // App Css
@@ -47,11 +45,13 @@ mix.js('resources/assets/js/app.js', 'public/js')
     // Order verification
     .css('resources/assets/css/orderVerification.css', 'public/css/orderVerification.css')
     // App Sass
-    .sass('resources/assets/sass/app.scss','public/css');
+    .sass('resources/assets/sass/app.scss','public/css')
+    // Fonts
+    .copy('resources/assets/fonts', 'public/fonts');
 
     mix.sourceMaps();
-    mix.version();
-    mix.extract();
+    // mix.version();
+    // mix.extract();
 
 
 

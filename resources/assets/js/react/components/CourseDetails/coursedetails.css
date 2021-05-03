@@ -36,6 +36,10 @@
   height: 350px;
 }
 
+.course-details-description-main .text-huge {
+  font-size: 2rem;
+}
+
 @media only screen and (max-width:600px){
   .course-details-description-main img {
     width: 75vw;

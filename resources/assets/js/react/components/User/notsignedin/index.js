@@ -16,7 +16,7 @@ const Nsi = () => {
             <Navbar />
                 <MainContainer>
                     <NotSignIn>
-                        <H1>شما وارد نشده اید!</H1>
+                        <H1>شما وارد نشده اید</H1>
                         <Hr />
                         <Button to="/login">وارد شوید</Button>
                     </NotSignIn>

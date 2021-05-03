@@ -146,8 +146,8 @@
     @section('scripts')
         {{-- App --}}
         <script src="{{ mix('js/app.js') }}"></script>
-        <script src="{{ mix('js/vendor.js') }}"></script>
-        <script src="{{ mix('js/manifest.js') }}"></script>
+        {{-- <script src="{{ mix('js/vendor.js') }}"></script>
+        <script src="{{ mix('js/manifest.js') }}"></script> --}}
         {{-- Ajax Requests --}}
         <script src="{{ asset('js/RequestHandler.js') }}"></script>
         {{-- ckeditor --}}

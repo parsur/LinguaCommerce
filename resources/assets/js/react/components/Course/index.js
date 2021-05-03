@@ -64,7 +64,7 @@ const Course = ({ data }) => {
     const optionsTwo = subCategories.map(({name, id}) => ({ value: id, label: name }))
     
     function submit(){
-        axios.post('http://sararajabi.com/api/v1/course/search', {
+        axios.post('/api/v1/course/search', {
             search: search,
             category_id: selectedOption,
             sub_category_id: selectedOptionTwo,
@@ -139,7 +139,7 @@ const Course = ({ data }) => {
         if(media == 0){
             return whymebg
         } else {
-            return "http://sararajabi.com/images/" + media[0].url
+            return "/images/" + media[0].url
         }
     }
 

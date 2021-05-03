@@ -6,7 +6,8 @@
  * or disable the default devtool with "devtool: false".
  * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
  */
-(self["webpackChunkSaraRajabi"] = self["webpackChunkSaraRajabi"] || []).push([["/js/ckeditor/ckeditorInitReadOnly"],{
+/******/ (() => { // webpackBootstrap
+/******/ 	var __webpack_modules__ = ({
 
 /***/ "./resources/assets/js/ckeditor/ckeditorInitReadOnly.js":
 /*!**************************************************************!*\
@@ -18,11 +19,14 @@ eval("// Ckeditor(read only) implementation\nClassicEditor.create(document.query
 
 /***/ })
 
-},
-/******/ __webpack_require__ => { // webpackRuntimeModules
-/******/ "use strict";
-/******/ 
-/******/ var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-/******/ var __webpack_exports__ = (__webpack_exec__("./resources/assets/js/ckeditor/ckeditorInitReadOnly.js"));
-/******/ }
-]);
+/******/ 	});
+/************************************************************************/
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module can't be inlined because the eval-source-map devtool is used.
+/******/ 	var __webpack_exports__ = {};
+/******/ 	__webpack_modules__["./resources/assets/js/ckeditor/ckeditorInitReadOnly.js"]();
+/******/ 	
+/******/ })()
+;

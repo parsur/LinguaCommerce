@@ -88,7 +88,7 @@ const Orders = () => {
     }
 
     function handlePay(id){
-      axios.post('http://sararajabi.com/api/v1/order/completeUnpaidOrder', {
+      axios.post('/api/v1/order/completeUnpaidOrder', {
           id: id
       }, {
           headers: {
@@ -130,7 +130,7 @@ const Orders = () => {
               {orderCourses.map(({course}, i) => {
                 return (
                   <ODBlock key={i}>
-                    <h3><span style={{color:"gray"}}>دوره :</span> <a style={{textDecoration:"none"}} href={`http://www.sararajabi.com/course/${course.id}`}>{course.name}</a></h3>
+                    <h3><span style={{color:"gray"}}>دوره :</span> <a style={{textDecoration:"none"}} href={`/course/${course.id}`}>{course.name}</a></h3>
                     {handleBought(course)}
                   </ODBlock>
                 )

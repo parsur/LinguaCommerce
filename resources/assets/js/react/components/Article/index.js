@@ -48,7 +48,7 @@ const Article = () => {
     }, []);
 
     function submit(){
-        axios.post('http://sararajabi.com/api/v1/article/search', {
+        axios.post('/api/v1/article/search', {
             search: search,
             column: 'title',
         }, {
@@ -95,7 +95,7 @@ const Article = () => {
         if(media == 0){
             return whymebg
         } else {
-            return "http://sararajabi.com/images/" + media[0].url
+            return "/images/" + media[0].url
         }
     }
 

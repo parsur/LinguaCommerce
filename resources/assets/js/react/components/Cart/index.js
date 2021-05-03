@@ -56,7 +56,7 @@ const Cart = () => {
   }
 
   function submit(){
-    axios.post('http://sararajabi.com/api/v1/order/store', {}, {
+    axios.post('/api/v1/order/store', {}, {
         headers: {
           'api_key': `${token}`,
           'Authorization': `Bearer ${localStorage.getItem('token')}`

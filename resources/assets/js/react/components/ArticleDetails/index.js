@@ -78,7 +78,7 @@ function noComments(){
 const token = 'parsur';
 
 function submit(){
-  axios.post('http://www.sararajabi.com/api/v1/articleComment/store', {
+  axios.post('/api/v1/articleComment/store', {
       comment: newComment,
       name: name,
       article_id: id,
@@ -126,7 +126,7 @@ function handleImage(images){
         {images.map(({url}, i) => {
           return (
             <div key={i}>
-              <img className="media-img" src={'http://sararajabi.com/' + url} alt="course"/>
+              <img className="media-img" src={'/' + url} alt="course"/>
             </div>
           )
         })}

@@ -128,13 +128,13 @@ body {
     border-bottom-width: 4px;
 }
 
-/* Font Family DiodrumArabicBold */
+/* Font family DiodrumArabicBold */
 @font-face {
     font-family: "DiodrumArabicBold";
     src: url("/fonts/dambeldor.ttf") format('truetype');
 }
 
-/* Font Family BYekan */
+/* Font family BYekan */
 @font-face {
     font-family: "BYekan";
     src: url("/fonts/BYekan.ttf") format('truetype');
