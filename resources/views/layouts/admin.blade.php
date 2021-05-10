@@ -115,6 +115,9 @@
                             {{-- Orders --}}
                             <x-urlAddress text="سفارشات" fontAwesome="fab fa-first-order" route="{{ url('order/list') }}"/>
 
+                            {{-- Discount --}}
+                            <x-urlAddress text="کد تخفیف" fontAwesome="fa fa-tag" route="{{ url('coupon/list') }}"/>
+
                             {{-- Settings --}}
                             <x-urlAddress text="تنظیمات صفحه اصلی" fontAwesome="fa fa-cog" route="{{ url('homeSetting/new') }}"/>
                         </ul>

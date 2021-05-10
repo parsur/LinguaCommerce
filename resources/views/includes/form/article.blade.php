@@ -1,4 +1,3 @@
-
 {{-- Article --}}
 <label for="article">انتخاب مقاله:</label>
 <select id="article" name="article" class="custom-select">

@@ -149,6 +149,13 @@ Route::group(['middleware' => ['auth', 'isAdmin']], function () {
         Route::get('details', 'ConsultationController@details')->name('details');
         Route::get('delete/{id}', 'ConsultationController@delete');
     });
+    // Coupon
+    Route::group(['prefix' => 'coupon', 'as' => 'coupon.'], function() {
+        Route::get('list', 'CouponController@list');
+        Route::get('table/list', 'CouponController@couponTable')->name('list.table');
+        Route::post('store', 'CouponController@store');
+        Route::get('delete/{id}', 'CouponController@delete');
+    });
     // Home Setting
     Route::group(['prefix' => 'homeSetting', 'as' => 'homeSetting.'], function() {
         // Home Setting
@@ -176,7 +183,7 @@ Route::post('admin/login', 'Auth\LoginController@store');
 Route::get('/forgot-password', 'Auth\ForgotPasswordController@index');
 // Verify
 Route::post('order/verify','OrderController@verify');
-// React app    
+// React pages   
 Route::view('/courselist', 'app');
 Route::view('/aboutus', 'app');
 Route::view('/whyme', 'app');

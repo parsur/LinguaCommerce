@@ -22,6 +22,5 @@ class ImageHandler {
         $('#picture').attr("src", "/images/" + data.url);
         $('#hidden_image').val(data.url);
         $('#' + window.model).val(data.media_id).trigger('change');
-
     }
 }

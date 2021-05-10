@@ -9,7 +9,7 @@
         </x-slot>
     </x-header>
 
-    {{-- Insert Modal --}}
+    {{-- Insert modal --}}
     <x-insert size="modal-l" formId="categoryForm">
         <x-slot name="content">
             {{-- Form --}}

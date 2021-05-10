@@ -1,6 +1,6 @@
 <div class="row">
   {{-- Name --}}
-  <div class="col-md-12 mb-3">
+  <div class="col-md-12 mb-2">
     <x-input key="name" name="نام" />
   </div>
   {{-- Email --}}

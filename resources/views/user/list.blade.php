@@ -25,12 +25,12 @@
 @section('scripts')
   @parent
 
-  {{-- User Table --}}
+  {{-- User table --}}
   {!! $userTable->scripts() !!}
 
   <script>
     $(document).ready(function () {
-      // User DataTable And Action Object
+      // User dataTable And action object
       let dt = window.LaravelDataTables['userTable'];
       let action = new RequestHandler(dt,'#userForm','user');
 
