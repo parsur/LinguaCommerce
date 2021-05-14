@@ -18103,21 +18103,21 @@ select {
     direction:rtl;
 }
 
-/* Table Image */
+/* Table image */
 .image_form {
-    width:105px;
-    height:110px;
+    width: 105px;
+    height: 110px;
 }
 
 .chertopert {
     flex-direction: column;
 }
 
-/* Background Style  */
+/* Background style  */
 .tableBackground {
-    background-color: #e9ecef;
-    border-radius:5px;
-    padding: 17px 17px 10px 17px;
+  background-color: #e9ecef;
+  border-radius:5px;
+  padding: 17px 17px 10px 17px;
 }
 
 /* course and article image */
@@ -18138,6 +18138,15 @@ select {
 .aparat_iframe {
     height:250px;
     width:55%;
+}
+
+/* Delete button */
+.btn-opaque {
+    background-color: #e9ecef;
+}
+
+.btn-opaque:hover {
+    background-color: #E2E6EA;
 }
 
 /*------------------------------------ contacts-list ------------------------------------*/

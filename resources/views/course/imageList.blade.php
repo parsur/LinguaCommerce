@@ -52,6 +52,7 @@
 
       // Record modal
       $('#create_record').click(function () {
+        $('#course').val('').trigger('change');
         imageHandler.picture();
         action.modal();
       });

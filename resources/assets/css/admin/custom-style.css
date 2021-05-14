@@ -93,6 +93,15 @@ select {
     width:55%;
 }
 
+/* Delete button */
+.btn-opaque {
+    background-color: #e9ecef;
+}
+
+.btn-opaque:hover {
+    background-color: #E2E6EA;
+}
+
 /*------------------------------------ contacts-list ------------------------------------*/
 
 .contacts-list-img {

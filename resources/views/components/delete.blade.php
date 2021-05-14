@@ -11,7 +11,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" id="deleteSubmission" class="btn btn-success">تایید</button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal">خروج</button>
+            <button type="button" class="btn btn-opaque" data-dismiss="modal">خروج</button>
             <input type="hidden" id="_token" name="_token" value="{{ csrf_token() }}" />
         </div>
         </div>
