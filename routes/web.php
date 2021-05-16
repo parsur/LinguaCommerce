@@ -154,6 +154,7 @@ Route::group(['middleware' => ['auth', 'isAdmin']], function () {
         Route::get('list', 'CouponController@list');
         Route::get('table/list', 'CouponController@couponTable')->name('list.table');
         Route::post('store', 'CouponController@store');
+        Route::get('edit', 'CouponController@edit');
         Route::get('delete/{id}', 'CouponController@delete');
     });
     // Home Setting

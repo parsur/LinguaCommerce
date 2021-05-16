@@ -23,12 +23,12 @@
 
 @section('scripts')
     @parent
-    {{-- Category Scripts --}}
+    {{-- Category scripts --}}
     {!! $couponTable->scripts() !!}
     
     <script>
         $(document).ready(function () {
-          // Category Table and Action Object
+          // Category table and action object
           let dt = window.LaravelDataTables["couponTable"];
           let action = new RequestHandler(dt,'#couponForm','coupon');
 
@@ -48,22 +48,24 @@
           
           // Edit
           window.showEditModal = function showEditModal(id) {
-              edit(id);
+            edit(id);
           }
           function edit($id) {
             action.edit();
 
             $.ajax({
-                url: "{{ url('coupon/edit') }}",
-                method: "get",
-                data: {id: $id},
-                success: function(data) {
-                    $('#id').val($id);
-                    $('#button_action').val('update');
-                    $('#action').val('ویرایش');
-                    $('#name').val(data.name);
-                    $('#status').val(data.statuses.status).trigger('change');
-                } 
+              url: "{{ url('coupon/edit') }}",
+              method: "get",
+              data: {id: $id},
+              success: function(data) {
+                $('#id').val($id);
+                $('#button_action').val('update');
+                $('#action').val('ویرایش');
+                $('#coupon_code').val(data.code);
+                $('#value').val(data.value);
+                $('#percentage_off').val(data.percentge_off);
+                $('select[name="courses[]"]').val(data.course_id).trigger('change');
+              } 
             })
           }
         });

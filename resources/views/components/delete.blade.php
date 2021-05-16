@@ -10,7 +10,7 @@
             <h5 class="mb-0">{{ $title }}</h5>
         </div>
         <div class="modal-footer">
-            <button type="button" id="deleteSubmission" class="btn btn-success">تایید</button>
+            <button type="button" id="deleteSubmission" class="btn btn-danger">تایید</button>
             <button type="button" class="btn btn-opaque" data-dismiss="modal">خروج</button>
             <input type="hidden" id="_token" name="_token" value="{{ csrf_token() }}" />
         </div>
