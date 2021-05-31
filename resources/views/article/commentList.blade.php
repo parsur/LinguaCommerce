@@ -5,14 +5,14 @@
   {{-- Header --}}
   <x-header pageName="دیدگاه مقاله">
     <x-slot name="table">
-      {!! $articleCommentTable->table(['class' => 'table table-striped table-bordered w-100 nowrap text-center']) !!}
+      <x-table :table="$articleCommentTable" />
     </x-slot>
   </x-header>
 
   {{-- Form --}}
   @include('includes.courseArticle.commentSubmission')
 
-  {{-- Delete Modal --}}
+  {{-- Delete --}}
   <x-delete title="آیا مایل به حذف دیدگاه درباره مقاله هستید؟"/>
 @endsection
 

@@ -5,19 +5,31 @@
   {{-- Header --}}
   <x-header pageName="دسته بندی دوم" buttonValue="دسته بندی دوم">
     <x-slot name="table">
-      {!! $subcategoryTable->table(['class' => 'table table-bordered table-striped w-100 nowrap text-center'], false) !!}
+      <x-table :table="$subcategoryTable" />
     </x-slot>
   </x-header>
 
-  {{-- Insert Modal --}}
+  {{-- Insert --}}
   <x-insert size="modal-lg" formId="subcategoryForm">
     <x-slot name="content">
       {{-- Form --}}
-      @include('includes.form.subcategory')
+      @include('includes.form.category')
+
+      {{-- Category --}}
+      <div class="row">
+        <div class="col-md-12 mt-3">
+          <label for="categories">در دسته بندی اول:</label>
+          <select class="custom-select" id="categories" name="categories">
+            @foreach($categories as $category)
+              <option value="{{ $category->id }}">{{ $category->name }}</option>
+            @endforeach
+          </select>
+        </div>
+      </div>
     </x-slot>
   </x-insert>
 
-  {{-- Delete Modal --}}
+  {{-- Delete --}}
   <x-delete title="آیا مایل به حذف دسته بندی دوم هستید؟" />
 
 @endsection
@@ -26,6 +38,7 @@
 @parent
 
   {!! $subcategoryTable->scripts() !!}
+  
   <script>
     $(document).ready(function () {
       // Actions(DataTable,Form,Url)

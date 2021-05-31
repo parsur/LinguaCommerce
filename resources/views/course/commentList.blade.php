@@ -5,27 +5,28 @@
   {{-- Header --}}
   <x-header pageName="دیدگاه دوره">
     <x-slot name="table">
-      {!! $courseCommentTable->table(['class' => 'table table-striped table-bordered w-100 nowrap text-center']) !!}
+      <x-table :table="$courseCommentTable" />
     </x-slot>
   </x-header>
 
   {{-- Form --}}
   @include('includes.courseArticle.commentSubmission')
 
-  {{-- Delete Modal --}}
+  {{-- Delete --}}
   <x-delete title="آیا مایل به حذف دیدگاه دوره هستید؟"/>
 @endsection
 
 @section('scripts')
   @parent
-  {{-- Course Table --}}
+  {{-- Course table --}}
   {!! $courseCommentTable->scripts() !!}
+
   {{-- Course comment submission --}}
   <script src="{{ asset('js/commentSubmission.js') }}"></script>
 
   <script>
     $(document).ready(function () {
-      // Actions(DataTable,Form,Url)
+      // Actions(dataTable,form,url)
       let dt = window.LaravelDataTables['courseCommentTable'];
       let action = new RequestHandler(dt,'','courseComment');
       // Delete 

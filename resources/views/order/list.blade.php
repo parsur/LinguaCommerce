@@ -5,7 +5,7 @@
   {{-- Header --}}
   <x-header pageName="سفارشات">
       <x-slot name="table">
-          {!! $orderTable->table(['class' => 'table table-bordered table-striped w-100 nowrap text-center'], false) !!}
+        <x-table :table="$orderTable" />
       </x-slot>
   </x-header>
 

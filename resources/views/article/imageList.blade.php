@@ -6,11 +6,11 @@
   {{-- Header --}}
   <x-header pageName="تصاویر مقاله" buttonValue="تصاویر مقاله">  
     <x-slot name="table">
-      {!! $articleImageTable->table(['class' => 'table table-bordered table-striped w-100 nowrap text-center']) !!}
+      <x-table :table="$articleImageTable" />
     </x-slot>
   </x-header>
 
-  {{-- Insert Modal --}}
+  {{-- Insert --}}
   <x-insert size="modal-lg" formId="articleImageForm">
     <x-slot name="content">
       <div class="row">
@@ -24,7 +24,7 @@
     </x-slot>
   </x-insert>
 
-  {{-- Delete Modal --}}
+  {{-- Delete --}}
   <x-delete title="آیا مایل به حذف تصویر مقاله هستید؟"/>
 
 @endsection

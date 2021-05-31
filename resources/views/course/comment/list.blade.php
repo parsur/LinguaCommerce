@@ -12,7 +12,7 @@
   {{-- Form --}}
   @include('includes.courseArticle.commentSubmission')
 
-  {{-- Delete Modal --}}
+  {{-- Delete --}}
   <x-delete title="آیا مایل به حذف دیدگاه دوره هستید؟"/>
 @endsection
 

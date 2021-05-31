@@ -2,10 +2,10 @@
 @section('title', 'جزئیات مشاوره')
 
 @section('content')
-    <x-page title="جزئیات درخواست مشاوره" description="توضیح و پیام کامل کاربر درباره مشکل" formId="">
+    <x-page title="جزئیات درخواست مشاوره" description="توضیح و پیام کامل کاربر درباره مشکل">
         <x-slot name="content">
             {{-- details --}}
-            <x-textarea key="description" name="توضیحات" value="{!! $consultation->descriptions->description !!}" />
+            <x-textarea key="description" placeholder="توضیحات" value="{!! $consultation->descriptions->description !!}" />
         </x-slot>
     </x-page>
 @endsection

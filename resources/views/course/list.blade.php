@@ -5,13 +5,13 @@
   {{-- Header --}}
   <x-header pageName="دوره">
     <x-slot name="table">
-      {{-- Optimized it must be --}}
-      {!! $courseTable->table(['class' => 'table table-striped table-bordered w-100 nowrap text-center']) !!}
+      <x-table :table="$courseTable" />
     </x-slot>
   </x-header>
 
-  {{-- Delete Modal --}}
+  {{-- Delete --}}
   <x-delete title="آیا مایل به حذف دوره هستید؟"/>
+
 @endsection
 
 @section('scripts')

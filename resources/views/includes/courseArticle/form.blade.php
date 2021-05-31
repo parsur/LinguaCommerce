@@ -1,15 +1,9 @@
 <div class="row">
     {{-- Status --}}
     <div class="col-md-12 mb-3">
-        <label for="status">وضعیت:</label>
-        <select id="status" name="status" class="custom-select">
-            <option value="0">موجود</option>
-            <option value="1">ناموجود</option>
-        </select>
+        @include('includes.form.status')
     </div>
-</div>
 
-<div class="row">
     {{-- Category --}}
     <div class="col-md-6 mb-3">
         <label for="categories">دسته بندی اول:</label>
@@ -19,7 +13,7 @@
             @endforeach
         </select>
     </div>
-    {{-- Sub Categories --}}
+    {{-- Subcategories --}}
     <div class="col-md-6 mb-3">
         <label for="subCategories">دسته بندی سطح-۲:</label>
         <select id="subCategories" name="subCategories" class="custom-select">
@@ -29,12 +23,10 @@
             @endforeach
         </select>
     </div>
-</div>
 
-{{-- Description --}}
-<div class="row">
+    {{-- Description --}}
     <div class="col-md-12 fr-view mb-3">
-        <x-textarea key="description" name="توضیحات" />
+        <x-textarea key="description" placeholder="توضیحات" />
     </div>
 </div>
 

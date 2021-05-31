@@ -1,4 +1,4 @@
-    {{-- Url Address --}}
+{{-- Url address --}}
 <li class="nav-item">
     <a href="{{ $route }}" class="nav-link">
         <i class="{{ $fontAwesome }}"></i>

@@ -61,6 +61,13 @@ class RequestHandler {
         $('#form_output').html('');
         $('#formModal').modal('show');
     }
+
+    // Update
+    update() {
+        $('#id').val($id);
+        $('#button_action').val('update');
+        $('#action').val('ویرایش');
+    }
 }
 
 // Success

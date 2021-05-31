@@ -10,8 +10,6 @@
 
     <ul class="nav nav-treeview">
         {{-- Content --}}
-        @if(isset($content))
-            {{ $content }}
-        @endif
+        {{ $content }}
     </ul>
 </li>

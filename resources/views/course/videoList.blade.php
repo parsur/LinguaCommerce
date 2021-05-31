@@ -5,11 +5,11 @@
     {{-- Header --}}
     <x-header pageName="ویدئو دوره" buttonValue="ویدئو دوره">
         <x-slot name="table">
-            {!! $courseVideoTable->table(['class' => 'table table-bordered table-striped w-100 nowrap text-center'], false) !!}
+            <x-table :table="$courseVideoTable" />
         </x-slot>
     </x-header>
 
-    {{-- Insert Modal --}}
+    {{-- Insert --}}
     <x-insert size="modal-lg" formId="courseVideoForm">
         <x-slot name="content">
             <div class="row">
@@ -24,7 +24,7 @@
         </x-slot>
     </x-insert>
 
-    {{-- Delete Modal --}}
+    {{-- Delete --}}
     <x-delete title="آیا مایل به حذف ویدئو دوره هستید؟" />
 
 @endsection

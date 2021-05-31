@@ -5,7 +5,7 @@
         <li class="breadcrumb-item">{{ $description }}</li>
     </ol>
 
-    {{-- Success Or Error Output --}}
+    {{-- Success or error output --}}
     <span id="form_output"></span>
     
     {{-- Form Submittion --}}
@@ -13,9 +13,7 @@
         @csrf
 
         {{-- Content --}}
-        @if(isset($content))
-            {{ $content }}
-        @endif
+        {{ $content ?? null }}
     </form>
 </div>
 

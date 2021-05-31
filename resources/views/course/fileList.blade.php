@@ -6,19 +6,29 @@
     {{-- Header --}}
     <x-header pageName="محتوای دوره" buttonValue="محتوای دوره">
       <x-slot name="table">
-        {!! $courseFileTable->table(['class' => 'table table-bordered table-striped w-100 nowrap text-center']) !!}
+        <x-table :table="$courseFileTable" />
       </x-slot>
     </x-header>
 
-    {{-- Insert Modal --}}
+    {{-- Insert --}}
     <x-insert size="modal-lg" formId="courseFileForm">
       <x-slot name="content">
         {{-- Form --}}
-        @include('includes.course.file')
+        <div class="row">
+            {{-- Title --}}
+            <x-input key="title" name="عنوان" class="col-md-12 mb-3"/>
+            {{-- Files --}}
+            <x-textarea key="url" placeholder="لینک محتوا" 
+                rows="5"  class="col-md-12 mb-3" />
+            {{-- Course select box --}}
+            <div class="col-md-12">
+                @include('includes.form.course')
+            </div>
+        </div>
       </x-slot>
     </x-insert>
 
-    {{-- Delete Modal --}}
+    {{-- Delete --}}
     <x-delete title="آیا مایل به حذف محتوای دوره هستید؟" />
 @endsection
 
@@ -69,7 +79,5 @@
                 })
             }
         });
-
     </script>
-
 @endsection

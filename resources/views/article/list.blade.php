@@ -5,11 +5,11 @@
   {{-- Header --}}
   <x-header pageName="مقالات">
     <x-slot name="table">
-      {!! $articleTable->table(['class' => 'table table-striped table-bordered w-100 nowrap text-center']) !!}
+      <x-table :table="$articleTable" />
     </x-slot>
   </x-header>
 
-  {{-- Delete Modal --}}
+  {{-- Delete --}}
   <x-delete title="آیا مایل به حذف مقاله هستید؟"/>
 @endsection
 

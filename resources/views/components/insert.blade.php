@@ -10,9 +10,7 @@
         <form id="{{ $formId ?? null }}" class="form-horizontal" enctype="multipart/form-data">
           <span id="form_output"></span>
 
-          @if(isset($content))
-            {{ $content }}
-          @endif
+          {{ $content ?? null }}
           <br />
           
           {{-- Buttons --}}

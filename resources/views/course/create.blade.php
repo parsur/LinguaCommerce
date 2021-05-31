@@ -5,17 +5,13 @@
     <x-page title="ذخیره دوره" description="دوره خود را اضافه یا ویرایش کنید" formId="courseForm">
         <x-slot name="content">
             {{-- Hidden Input --}}
-            <input type="hidden" name="id" id="id" value="{{ $course->id ?? "" }}" />
+            <input type="hidden" name="id" id="id" value="{{ $course->id ?? null }}" />
  
             <div class="row">
                 {{-- Name --}}
-                <div class="col-md-6 mb-3">
-                    <x-input key="name" name="نام" />
-                </div>
+                <x-input key="name" name="نام" class="col-md-6 mb-3" />
                 {{-- Price --}}
-                <div class="col-md-6 mb-3">
-                    <x-input key="price" name="هزینه" />
-                </div>
+                <x-input key="price" name="هزینه" class="col-md-6 mb-3" />
             </div>
  
             {{-- Include Form --}}

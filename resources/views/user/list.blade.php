@@ -5,19 +5,40 @@
   {{-- Header --}}
   <x-header pageName="کاربر" buttonValue="کاربر">
     <x-slot name="table">
-      {!! $userTable->table(['class' => 'table table-striped table-bordered w-100 nowrap text-center']) !!}
+      <x-table :table="$userTable" />
     </x-slot>
   </x-header>
 
-  {{-- Insert Modal --}}
+  {{-- Insert --}}
   <x-insert size="modal-l" formId="userForm">
     <x-slot name="content">
-        {{-- User form --}}
-        @include('includes.form.user')
+      {{-- User form --}}
+      <div class="row">
+        {{-- Name --}}
+        <x-input key="name" name="نام" 
+            class="col-md-12 mb-2" />
+        {{-- Email --}}
+        <x-input key="email" name="ایمیل" 
+            class="col-md-12 mb-3" />
+        {{-- Phone number --}}
+        <x-input key="phone_number" name="تلفن همراه" 
+          class="col-md-12 mb-3" />
+        {{-- Passwords --}}
+        <div class="col-md-12 mb-3">
+          <label for="password">رمز جدید:</label>
+          <input type="password" name="password" id="password" class="form-control" 
+                    placeholder="رمز جدید" autocomplete="new-password">
+        </div>
+        <div class="col-md-12">
+          <label for="password-confirm">تکرار رمز جدید:</label>
+          <input type="password" name="password-confirm" id="password-confirm" class="form-control" 
+                    placeholder="تکرار رمز جدید" autocomplete="new-password">
+        </div>
+      </div>
     </x-slot>
   </x-insert>
 
-  {{-- Delete Modal --}}
+  {{-- Delete --}}
   <x-delete title="آیا از حذف کاربر مطمئن هستید؟"/>
 @endsection
 

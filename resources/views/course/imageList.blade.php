@@ -6,16 +6,16 @@
   {{-- Header --}}
   <x-header pageName="تصاویر دوره" buttonValue="تصاویر دوره">  
     <x-slot name="table">
-      {!! $courseImageTable->table(['class' => 'table table-bordered table-striped w-100 nowrap text-center']) !!}
+      <x-table :table="$courseImageTable" />
     </x-slot>
   </x-header>
 
-  {{-- Insert Modal --}}
+  {{-- Insert --}}
   <x-insert size="modal-lg" formId="courseImageForm">
     <x-slot name="content">
       <div class="row">
         <div class="col-md-6 mb-3">
-          {{-- Course Select Box --}}
+          {{-- Course select box --}}
           @include('includes.form.course')
         </div>
         
@@ -25,7 +25,7 @@
     </x-slot>
   </x-insert>
 
-  {{-- Delete Modal --}}
+  {{-- Delete --}}
   <x-delete title="آیا مایل به حذف تصویر دوره هستید؟"/>
 
 @endsection

@@ -5,11 +5,11 @@
     {{-- Header --}}
     <x-header pageName="دسته بندی اول" buttonValue="دسته بندی اول">
         <x-slot name="table">
-            {!! $categoryTable->table(['class' => 'table table-bordered table-striped w-100 nowrap text-center'], false) !!} 
+            <x-table :table="$categoryTable" />
         </x-slot>
     </x-header>
 
-    {{-- Insert modal --}}
+    {{-- Insert --}}
     <x-insert size="modal-l" formId="categoryForm">
         <x-slot name="content">
             {{-- Form --}}
@@ -28,7 +28,7 @@
     
     <script>
         $(document).ready(function () {
-            // Category Table and Action Object
+            // Category table and action object
             let dt = window.LaravelDataTables["categoryTable"];
             let action = new RequestHandler(dt,'#categoryForm','category');
 
@@ -57,9 +57,7 @@
                     method: "get",
                     data: {id: $id},
                     success: function(data) {
-                        $('#id').val($id);
-                        $('#button_action').val('update');
-                        $('#action').val('ویرایش');
+                        action.update();
                         $('#name').val(data.name);
                         $('#status').val(data.statuses.status).trigger('change');
                     } 

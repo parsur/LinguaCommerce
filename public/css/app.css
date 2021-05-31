@@ -18113,11 +18113,11 @@ select {
     flex-direction: column;
 }
 
-/* Background style  */
+/* Background Style  */
 .tableBackground {
-  background-color: #e9ecef;
-  border-radius:5px;
-  padding: 17px 17px 10px 17px;
+    background-color: #e9ecef;
+    border-radius:5px;
+    padding: 17px 17px 10px 17px;
 }
 
 /* course and article image */

@@ -6,13 +6,13 @@
     </ol>
 
     {{-- Button --}}
-    @if(($buttonValue ?? null) != null)
+    @if($buttonValue != null)
         <button type="button" id="create_record"
             class="btn btn-warning btn-sm">افزودن {{ $buttonValue }}</button> 
         <hr>
     @endif
     
-    {{-- Responsive Table --}}
+    {{-- Responsive table --}}
     <div class="table-responsive">
         {{ $table }}
     </div>

@@ -5,7 +5,7 @@
   {{-- Header --}}
   <x-header pageName="مشاوره">
     <x-slot name="table">
-      {!! $consultationTable->table(['class' => 'table table-bordered table-striped w-100 nowrap text-center'], false) !!}
+      <x-table :table="$consultationTable" />
     </x-slot>
   </x-header>
 

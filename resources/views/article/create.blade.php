@@ -8,9 +8,7 @@
  
             {{-- Form --}}
             <div class="row">
-                <div class="col-md-12 mb-3">
-                    <x-input key="title" name="تیتر" />
-                </div>
+                <x-input key="title" name="تیتر" class="col-md-12 mb-3" />
             </div>
  
             {{-- Include Form --}}

@@ -5,20 +5,38 @@
   {{-- Header --}}
   <x-header pageName="ادمین" buttonValue="ادمین">
     <x-slot name="table">
-      {!! $adminTable->table(['class' => 'table table-striped table-bordered  w-100 nowrap text-center']) !!}
+      <x-table :table="$adminTable" />
     </x-slot>
   </x-header>
 
 
-  {{-- Insert Modal --}}
+  {{-- Insert --}}
   <x-insert size="modal-l" formId="adminForm">
     <x-slot name="content">
       {{-- Admin list --}}
-      @include('includes.form.user')
+      <div class="row">
+        {{-- Name --}}
+        <x-input size="12" key="name" name="نام" class="col-md-12 mb-3" />
+        {{-- Email --}}
+        <x-input size="12" key="email" name="ایمیل" class="col-md-12 mb-3" />
+        {{-- Phone number --}}
+        <x-input key="phone_number" name="تلفن همراه" class="col-md-12 mb-3" />
+        {{-- Passwords --}}
+        <div class="col-md-12 mb-3">
+          <label for="password">رمز جدید:</label>
+          <input type="password" name="password" id="password" class="form-control" placeholder="رمز جدید" 
+            autocomplete="new-password">
+        </div>
+        <div class="col-md-12">
+          <label for="password-confirm">تکرار رمز جدید:</label>
+          <input type="password" name="password-confirm" id="password-confirm" class="form-control" placeholder="تکرار رمز جدید" 
+            autocomplete="new-password">
+        </div>
+      </div>
     </x-slot>
   </x-insert>
 
-  {{-- Delete Modal --}}
+  {{-- Delete --}}
   <x-delete title="آیا از حذف ادمین مطمئن هستید؟"/>
 
 @endsection
