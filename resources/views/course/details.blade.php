@@ -5,7 +5,7 @@
     <x-page title="جزئیات دوره" description="جزئیات توضیحات و رسانه دوره">
         <x-slot name="content">
             {{-- Course detials --}}
-            @include('includes.courseArticle.details')
+            @include('includes.courseArticle.details', ['table' => $course])
 
             {{-- Check if there is any poster --}}
             @if(count($course->media))

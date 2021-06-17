@@ -62,8 +62,8 @@ class RequestHandler {
         $('#formModal').modal('show');
     }
 
-    // Update
-    update() {
+    // Edit data
+    editData() {
         $('#id').val($id);
         $('#button_action').val('update');
         $('#action').val('ویرایش');
