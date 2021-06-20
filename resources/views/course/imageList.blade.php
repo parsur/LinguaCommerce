@@ -76,7 +76,7 @@
           method: "get",
           data: {id: $id},
           success: function(data) {
-            $('#id').val($id);
+            action.editData($id);
             imageHandler.successfulEdit(data);
           }
         })

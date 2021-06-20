@@ -24,12 +24,12 @@ mix.js('resources/assets/js/app.js', 'public/js')
     .js('resources/assets/js/ckeditor/ckeditorInit.js', 'public/js/ckeditor/ckeditorInit.js')
     // ckeditor(read only) initialization
     .js('resources/assets/js/ckeditor/ckeditorInitReadOnly.js', 'public/js/ckeditor/ckeditorInitReadOnly.js')
-    // Comment Submission
-    .js('resources/assets/js/commentSubmission.js', 'public/js/commentSubmission.js')
     // Image preview
     .js('resources/assets/js/imagePreview.js', 'public/js/imagePreview.js')
     // Sub categories based on categories
     .js('resources/assets/js/subcategoryWithCategory.js', 'public/js/subcategoryWithCategory.js')
+    // Comment Submission
+    .scripts('resources/assets/js/commentSubmission.js', 'public/js/commentSubmission.js')
     // Ajax Request Handler
     .scripts('resources/assets/js/ImageHandler.js', 'public/js/ImageHandler.js')
     // Ajax Request Handler

@@ -69,9 +69,7 @@
                     method: "get",
                     data: {id: $id},
                     success: function(data) {
-                        $('#id').val($id);
-                        $('#action').val('ویرایش');
-                        $('#button_action').val('update');
+                        action.editData($id);   
                         $('#title').val(data.title);
                         $('#url').val(data.url);
                         $('#course').val(data.course_id).trigger('change');

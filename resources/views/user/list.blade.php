@@ -80,9 +80,7 @@
           method: "get",
           data: {id: $id},
           success: function(data) {
-            $('#id').val($id);
-            $('#action').val('ویرایش');
-            $('#button_action').val('update');
+            action.editData($id);
             $('#name').val(data.name);
             $('#email').val(data.email);
             $('#phone_number').val(data.phone_number);

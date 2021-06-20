@@ -13,7 +13,7 @@
   @include('includes.courseArticle.commentSubmission')
 
   {{-- Delete --}}
-  <x-delete title="آیا مایل به حذف دیدگاه درباره مقاله هستید؟"/>
+  <x-delete title="دیدگاه مقاله"/>
 @endsection
 
 @section('scripts')
@@ -24,7 +24,18 @@
   <script src="{{ asset('js/commentSubmission.js') }}"></script>
 
   <script>
+    
+    let comment = new commentSubmission();
+
     $(document).ready(function () {
+      // Submission
+      window.showSubmissionModal = function showSubmissionModal(id) {
+        // Opening modal
+        comment.modal(id);
+        // comment confirmation
+        comment.submit('article');
+      }
+
       // Actions(DataTable,Form,Url)
       let dt = window.LaravelDataTables['articleCommentTable'];
       let action = new RequestHandler(dt,'','articleComment');

@@ -25,7 +25,7 @@
     </x-insert>
 
     {{-- Delete --}}
-    <x-delete title="آیا مایل به حذف ویدئو دوره هستید؟" />
+    <x-delete title="ویدئو دوره" />
 
 @endsection
 
@@ -66,9 +66,7 @@
                     method: "get",
                     data: {id: $id},
                     success: function(data) {
-                        $('#id').val($id);
-                        $('#action').val('ویرایش');
-                        $('#button_action').val('update');
+                        action.editData($id);
                         $('#aparat_url').val(data.url);
                         $('#course').val(data.media_id).trigger('change');
                     }

@@ -7,7 +7,7 @@ class RequestHandler {
     }
 
     // modal
-    modal() {
+    openInsertionModal() {
         $('#formModal').modal('show');
         $('#button_action').val('insert');
         $('#action').val('تایید');
@@ -56,15 +56,15 @@ class RequestHandler {
         });
     }
 
-    // Edit
-    edit() {
+    // Default edit data
+    reloadModal() {
         $('#form_output').html('');
         $('#formModal').modal('show');
     }
 
-    // Update
-    update() {
-        $('#id').val($id);
+    // Edit on success
+    editOnSuccess(id) {
+        $('#id').val(id);
         $('#button_action').val('update');
         $('#action').val('ویرایش');
     }
