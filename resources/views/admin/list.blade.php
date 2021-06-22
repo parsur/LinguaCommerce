@@ -37,7 +37,7 @@
   </x-insert>
 
   {{-- Delete --}}
-  <x-delete title="آیا از حذف ادمین مطمئن هستید؟"/>
+  <x-delete title="ادمین"/>
 
 @endsection
 
@@ -57,7 +57,7 @@
 
       // Record modal
       $('#create_record').click(function () {
-        action.modal();
+        action.openmodal();
       });
 
       // Insert
@@ -72,16 +72,14 @@
         edit(id);
       }
       function edit($id) {
-        action.edit();
+        action.reloadModal();
 
         $.ajax({
           url: "{{ url('admin/edit') }}",
           method: "get",
           data: {id: $id},
           success: function(data) {
-            $('#id').val($id);
-            $('#action').val('ویرایش');
-            $('#button_action').val('update');
+            action.editOnSuccess($id);
             $('#name').val(data.name);
             $('#email').val(data.email);
             $('#phone_number').val(data.phone_number);

@@ -18149,6 +18149,12 @@ select {
     background-color: #E2E6EA;
 }
 
+/* dataTable image */
+.dataTableImage {
+    height: auto;
+    width: 100%;
+}
+
 /*------------------------------------ contacts-list ------------------------------------*/
 
 .contacts-list-img {

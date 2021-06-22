@@ -57,7 +57,7 @@
         // create modal
         $('#create_record').click(function () {
           $('#courses').val('').trigger('change');
-          action.modal();
+          action.openModal();
         });
 
         // Insert
@@ -73,16 +73,14 @@
           edit(id);
         }
         function edit($id) {
-          action.edit();
+          action.reloadModal();
 
           $.ajax({
             url: "{{ url('coupon/edit') }}",
             method: "get",
             data: {id: $id},
             success: function(data) {
-              $('#id').val($id);
-              $('#button_action').val('update');
-              $('#action').val('ویرایش');
+              action.editOnSuccess($id);
               $('#coupon_code').val(data.code);
               $('#value').val(data.value);
               $('#percentage_off').val(data.percentge_off);

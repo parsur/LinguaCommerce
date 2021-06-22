@@ -47,7 +47,7 @@
 
       // Record modal
       $('#create_record').click(function () {
-          action.modal();
+          action.openModal();
       });
 
       // Insert
@@ -63,16 +63,14 @@
           edit(id);
       }
       function edit($id) {
-        action.edit();
+        action.reloadModal();
 
         $.ajax({
           url: "{{ url('subcategory/edit') }}",
           method: "get",
           data: {id: $id},
           success: function(data) {
-            $('#id').val($id);
-            $('#action').val('ویرایش');
-            $('#button_action').val('update');
+            action.editOnSuccess($id);
             $('#name').val(data.name);
             $('#status').val(data.statuses.status).trigger('change');
             $('#categories').val(data.category_id).trigger('change');

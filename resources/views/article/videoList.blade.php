@@ -41,7 +41,7 @@
             // Record modal
             $('#create_record').click(function () {
                 $('#article').val('').trigger('change');
-                action.modal();
+                action.openModal();
             });
 
             // Insert
@@ -56,17 +56,14 @@
                 edit(id);
             }
             function edit($id) {
-                action.edit();
+                action.reloadModal();
 
                 $.ajax({
                     url: "{{ url('articleVideo/edit') }}",
                     method: "get",
                     data: {id: $id},
                     success: function(data) {
-                        console.log(data.media_id);
-                        $('#id').val($id);
-                        $('#action').val('ویرایش');
-                        $('#button_action').val('update');
+                        action.editOnSuccess($id);
                         $('#aparat_url').val(data.url);
                         $('#article').val(data.media_id).trigger('change');
                     }

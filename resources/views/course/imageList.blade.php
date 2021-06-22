@@ -54,7 +54,7 @@
       $('#create_record').click(function () {
         $('#course').val('').trigger('change');
         imageHandler.picture();
-        action.modal();
+        action.openModal();
       });
 
       // Insert
@@ -69,14 +69,14 @@
         edit(id);
       }
       function edit($id) {
-        action.edit();
+        action.reloadModal();
 
         $.ajax({
           url: "{{ url('courseImage/edit') }}",
           method: "get",
           data: {id: $id},
           success: function(data) {
-            action.editData($id);
+            action.editOnSuccess($id);
             imageHandler.successfulEdit(data);
           }
         })

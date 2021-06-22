@@ -7,7 +7,7 @@ class RequestHandler {
     }
 
     // modal
-    openInsertionModal() {
+    openModal() {
         $('#formModal').modal('show');
         $('#button_action').val('insert');
         $('#action').val('تایید');

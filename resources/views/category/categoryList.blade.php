@@ -34,7 +34,7 @@
 
             // create modal
             $('#create_record').click(function () {
-                action.modal();
+                action.openModal();
             });
 
             // Insert
@@ -50,14 +50,14 @@
                 edit(id);
             }
             function edit($id) {
-                action.edit();
+                action.reloadModal();
 
                 $.ajax({
                     url: "{{ url('category/edit') }}",
                     method: "get",
                     data: {id: $id},
                     success: function(data) {
-                        action.update();
+                        action.editOnSuccess($id);
                         $('#name').val(data.name);
                         $('#status').val(data.statuses.status).trigger('change');
                     } 

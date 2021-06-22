@@ -46,7 +46,7 @@
             // Record modal
             $('#create_record').click(function() {
                 $('#course').val('').trigger('change');
-                action.modal();
+                action.openModal();
             });
 
             // Insert
@@ -62,14 +62,14 @@
             }
 
             function edit($id) {
-                action.edit();
+                action.reloadModal();
 
                 $.ajax({
                     url: "{{ url('courseFile/edit') }}",
                     method: "get",
                     data: {id: $id},
                     success: function(data) {
-                        action.editData($id);   
+                        action.editOnSuccess($id);   
                         $('#title').val(data.title);
                         $('#url').val(data.url);
                         $('#course').val(data.course_id).trigger('change');
