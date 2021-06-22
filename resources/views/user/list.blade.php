@@ -57,7 +57,7 @@
 
       // Record modal
       $('#create_record').click(function () {
-        action.openModal();
+        action.modal();
       });
 
       // Insert
@@ -73,14 +73,14 @@
         edit(id);
       }
       function edit($id) {
-        action.reloadModal();
+        action.edit();
 
         $.ajax({
           url: "{{ url('user/edit') }}",
           method: "get",
           data: {id: $id},
           success: function(data) {
-            action.editOnSuccess($id);
+            action.editData($id);
             $('#name').val(data.name);
             $('#email').val(data.email);
             $('#phone_number').val(data.phone_number);
