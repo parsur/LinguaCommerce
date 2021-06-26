@@ -4,12 +4,9 @@ namespace App\DataTables;
 
 use App\Models\Subcategory;
 use App\Models\Status;
-use Yajra\DataTables\Html\Button;
-use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
-use Yajra\DataTables\Services\DataTable;
 use App\Datatables\GeneralDataTable;
+use Yajra\DataTables\Html\Column;
+use Yajra\DataTables\Services\DataTable;
 use DataTables;
 
 class SubcategoryDataTable extends DataTable
@@ -31,26 +28,18 @@ class SubcategoryDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addIndexColumn()
-            ->rawColumns(['action','status'])
+            ->rawColumns(['action'])
             ->addColumn('status', function (Subcategory $subcategory) {
-                if($subcategory->statuses->status == Status::ACTIVE) return "موجود";
-                else if($subcategory->statuses->status == Status::INACTIVE) return 'ناموجود';
+                return $this->dataTable->setStatusCol($subcategory->statuses->status);
             })
             ->filterColumn('status', function ($query, $keyword) {
-                switch($keyword) {
-                    case 'موجود': $keyword = 0; 
-                    break;
-                    case 'ناموجود': $keyword = 1;
-                }
-                $sql = 'id in (select status_id from status where status like ?)';
-                $query->whereRaw($sql, ["%{$keyword}%"]);
+                return $this->dataTable->filterStatusCol($query, $keyword);
             })
             ->editColumn('category_id', function (Subcategory $subcategory) {
                 return $subcategory->category->name;
             })
             ->filterColumn('category_id', function($query, $keyword) {
-                $sql = 'category_id in (select id from categories where name like ?)';
-                $query->whereRaw($sql, ["%{$keyword}%"]);
+                return $this->dataTable->filterCategoryCol($query, $keyword);
             })
             ->addColumn('action', function (Subcategory $subcategory) {
                 return $this->dataTable->setAction($subcategory->id); 
@@ -75,7 +64,7 @@ class SubcategoryDataTable extends DataTable
      */
     public function html()
     {
-        return $dataTable->tableSetting($this->builder(), 
+        return $this->dataTable->tableSetting($this->builder(), 
                 $this->getColumns(), 'subcategory');
     }
     
@@ -88,10 +77,7 @@ class SubcategoryDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('DT_RowIndex')
-            ->title('#')
-                ->searchable(false)
-                ->orderable(false),
+            $this->dataTable->getIndexCol(),
             Column::make('name')
             ->title('نام'),
             Column::make('status')
@@ -99,12 +85,7 @@ class SubcategoryDataTable extends DataTable
                 ->orderable(false),
             Column::make('category_id')
             ->title('دسته بندی اول'),
-            Column::computed('action') // This column is not in database
-            ->title('حذف | ویرایش')
-                ->exportable(false)
-                ->searchable(false)
-                ->printable(false)
-                ->orderable(false)
+            $this->dataTable->setActionCol('| ویرایش')
         ];
     }
 }

@@ -19,7 +19,9 @@ class UserController extends Controller
 {
     // User Dashboard(profile)
     public function show() {
+
         $vars['user'] = User::where('id', Auth::user()->id)->select('id','name','email','phone_number')->first();
+        
         return response()->json($vars);
     }
 
@@ -58,6 +60,7 @@ class UserController extends Controller
             $action = new Action();
 
             $imageUploader = Media::where('media_id', $id)->where('media_type', User::class)->first();
+
             $action->image($imageUploader, $request, $id, User::class);
         }
 

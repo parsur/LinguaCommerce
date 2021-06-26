@@ -4,12 +4,9 @@ namespace App\DataTables;
 
 use App\Models\Coupon;
 use App\Models\Status;
-use Yajra\DataTables\Html\Button;
-use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
-use Yajra\DataTables\Services\DataTable;
 use App\Datatables\GeneralDataTable;
+use Yajra\DataTables\Html\Column;
+use Yajra\DataTables\Services\DataTable;
 
 class CouponDataTable extends DataTable
 {
@@ -76,7 +73,7 @@ class CouponDataTable extends DataTable
      */
     public function html()
     {
-        return $dataTable->tableSetting($this->builder(), 
+        return $this->dataTable->tableSetting($this->builder(), 
                 $this->getColumns(), 'coupon');
     }
 

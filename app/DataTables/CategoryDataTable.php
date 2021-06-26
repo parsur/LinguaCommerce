@@ -4,12 +4,9 @@ namespace App\DataTables;
 
 use App\Models\Category;
 use App\Models\Status;
-use Yajra\DataTables\Html\Button;
-use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
-use Yajra\DataTables\Services\DataTable;
 use App\Datatables\GeneralDataTable;
+use Yajra\DataTables\Html\Column;
+use Yajra\DataTables\Services\DataTable;
 
 class CategoryDataTable extends DataTable
 {

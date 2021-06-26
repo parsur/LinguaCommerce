@@ -7,7 +7,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body text-center">
-                <h5 class="mb-0">{{ $title }}</h5>
+                <h5 class="mb-0">آیا مایل به حذف {{ $title }} هستید؟</h5>
             </div>
             <div class="modal-footer">
                 <button type="button" id="deleteSubmission" class="btn btn-danger">تایید</button>

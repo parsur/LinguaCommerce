@@ -47,7 +47,9 @@ class ConsultationController extends Controller
         try {
 
             if(!empty($request->get('description'))) {
+                
                 $consultation = Consultation::create(['user_id' => auth('sanctum')->user()->id]);
+
                 $consultation->description()->create(['description' => $request->get('description')]);
             } 
             else if($request->has('phone_number')) {

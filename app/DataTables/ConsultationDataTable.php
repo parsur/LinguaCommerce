@@ -3,12 +3,9 @@
 namespace App\DataTables;
 
 use App\Models\Consultation;
-use Yajra\DataTables\Html\Button;
-use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
-use Yajra\DataTables\Services\DataTable;
 use App\Datatables\GeneralDataTable;
+use Yajra\DataTables\Html\Column;
+use Yajra\DataTables\Services\DataTable;
 use \Illuminate\Support\Str;
 use URL;
 
@@ -42,6 +39,7 @@ class ConsultationDataTable extends DataTable
                 return Str::limit(optional($consultation->description)->description, 30, '(جزئیات)');
             })
             ->filterColumn('description', function($query, $keyword) {
+                
                 return $this->dataTable->filterColumn($query, 
                     'id in (select description_id from descriptions where description like ?)', $keyword);
             })

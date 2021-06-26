@@ -4,10 +4,7 @@ namespace App\DataTables\Article;
 
 use App\Models\Media;
 use App\Models\Article;
-use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 use App\Datatables\GeneralDataTable;
 
@@ -32,7 +29,7 @@ class ImageDataTable extends DataTable
             ->addIndexColumn()
             ->rawColumns(['action','url']) 
             ->editColumn('url', function(Media $image) {
-                return "<img src=/images/" . $image->url . " height='auto' width='80%' />";
+                return "<img src=/images/" . $image->url . " class='dataTableImage' />";
             })
             ->editColumn('media_id', function (Media $image) {
                 return $image->media->title;

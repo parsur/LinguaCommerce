@@ -12,6 +12,7 @@ class WhyMeController extends Controller
     public function new() {
 
         $vars['whyMe'] = Setting::where('name', 'whyMe')->select('value')->first();
+
         return view('whyMe', $vars);
     }
 
@@ -27,7 +28,9 @@ class WhyMeController extends Controller
 
     // Show whyMe
     public function show() {
+        
         $vars = Setting::where('name', 'whyMe')->select('value')->first();
+
         return response()->json($vars);
     }
 }

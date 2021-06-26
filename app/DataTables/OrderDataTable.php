@@ -4,13 +4,10 @@ namespace App\DataTables;
 
 use App\Models\Order;
 use App\Models\Status;
-use Yajra\DataTables\Html\Button;
+use App\Datatables\GeneralDataTable;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 use Illuminate\Support\Facades\URL;
-use App\Datatables\GeneralDataTable;
 use DataTables;
 
 
@@ -47,12 +44,15 @@ class OrderDataTable extends DataTable
                 return $order->user->phone_number;
             })
             ->filterColumn('phone_number', function($query, $keyword) {
-                $sql = 'user_id in (select id from users where phone_number like ?)';
-                $query->whereRaw($sql, ["%{$keyword}%"]);
+
+                return $this->dataTable->filterColumn($query, 
+                        'user_id in (select id from users where phone_number like ?)', $keyword);
             })
             ->addColumn('status', function (Order $order) {
-                if ($order->statuses->status == Status::PAID) return 'پرداخت شده';
-                else if ($order->statuses->status == Status::NOT_PAID) return 'پرداخت نشده';
+                return $this->dataTable->setStatusCol($order->statuses->status);
+            })
+            ->filterColumn('status', function($query, $keyword) {
+                return $this->dataTable->filterStatusCol($query, $keyword);
             })
             ->addColumn('action',function(Order $order) {
                 $details = URL::signedRoute('order.details', ['factor' => $order->factor, 'admin' => 'role']);
@@ -91,10 +91,7 @@ class OrderDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('DT_RowIndex')
-            ->title('#')
-                ->searchable(false)
-                ->orderable(false),
+            $this->dataTable->getIndexCol(),
             Column::make('user_name')
             ->title('نام کاربر')    
                 ->orderable(false),
@@ -108,7 +105,7 @@ class OrderDataTable extends DataTable
             Column::make('status')    
             ->title('وضعیت تراکنش')
                 ->orderable(false),
-            $this->dataTable->actionColumn('| ویرایش | جزئیات')
+            $this->dataTable->setActionCol('| ویرایش | جزئیات')
         ];
     }
 }

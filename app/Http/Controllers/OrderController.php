@@ -85,54 +85,44 @@ class OrderController extends Controller
         // User
         $user = User::find(Auth::user()->id); 
 
-        DB::beginTransaction();
-        try {
+        $order = new Order();
 
-            $order = new Order();
-
-            // Number of unpaid orders
-            if($order->hasExceededOrder()) {
-                return $this->failedResponse('شما اجازه داشتن بیش از چهار سفارش پرداخت نشده ندارید', Response::HTTP_FORBIDDEN);
-            }
-            // Factor
-            $factor = 'Rajabi-' . uniqid();
-
-            // Set order factor for all carts
-            $carts = Cart::where('user_id',  $user->id)
-                    ->whereNull('factor')->get();
-
-            foreach($carts as $cart) {
-                $cart->factor = $factor;
-                $cart->save();
-            }
-
-            // Summation
-            $summation = 0;
-            foreach($order->getCart($factor) as $cart) {
-                $summation += $cart->course->price;
-            } 
-            
-            // Coupon code
-            if($request->has('coupon_code')) {
-
-                $coupon = Coupon::where('code', $request->get('coupon_code'))->first();
-                $summation = $coupon->discount($summation);
-            }
-
-            $order->total_price = $summation;
-            // User id
-            $order->user_id = $user->id;
-            // Factor
-            $order->factor = $factor;
-
-            DB::commit();
-
-            return response()->json($summation);
-
-        } catch(Exception $e) {
-            throw $e;
-            DB::rollBack();
+        // Number of unpaid orders
+        if($order->hasExceededOrder()) {
+            return $this->failedResponse('شما اجازه داشتن بیش از چهار سفارش پرداخت نشده ندارید', Response::HTTP_FORBIDDEN);
         }
+        // Factor
+        $factor = 'Rajabi-' . uniqid();
+
+        // Set order factor for all carts
+        $carts = Cart::where('user_id',  $user->id)
+                ->whereNull('factor')->get();
+
+        foreach($carts as $cart) {
+            $cart->factor = $factor;
+            $cart->save();
+        }
+
+        // Summation
+        $summation = 0;
+        foreach($order->getCart($factor) as $cart) {
+            $summation += $cart->course->price;
+        } 
+        
+        // Coupon code
+        if($request->has('coupon_code')) {
+
+            $coupon = Coupon::where('code', $request->get('coupon_code'))->first();
+            $summation = $coupon->discount($summation);
+        }
+
+        $order->total_price = $summation;
+        // User id
+        $order->user_id = $user->id;
+        // Factor
+        $order->factor = $factor;
+
+        return response()->json($summation);
     }
 
     // Complete the unpaid order

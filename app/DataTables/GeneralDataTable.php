@@ -46,7 +46,7 @@ class GeneralDataTable
     }
 
     /**
-     * Get action column.
+     * Get index column(0 | 1 | 2 .....).
      */
     public function getIndexCol()
     {
@@ -159,8 +159,8 @@ class GeneralDataTable
     // Filter comment column
     public function filterCommentCol($query, $keyword) {
         
-        return $this->filterColumn($query, 'category_id in 
-                (select id from categories where name like ?)', $keyword);
+        return $this->filterColumn($query, 
+                        'id in (select commaentble_id from comments where comment like ? )', $keyword);
     }
 
     // Filter column

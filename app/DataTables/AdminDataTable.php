@@ -3,14 +3,10 @@
 namespace App\DataTables;
 
 use App\Models\User;
-use Yajra\DataTables\Html\Button;
-use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
-use Yajra\DataTables\Services\DataTable;
 use App\Datatables\GeneralDataTable;
+use Yajra\DataTables\Html\Column;
+use Yajra\DataTables\Services\DataTable;
 use Carbon\Carbon;
-
 
 class AdminDataTable extends DataTable
 {
@@ -37,7 +33,7 @@ class AdminDataTable extends DataTable
             })
             ->editColumn('updated_at', function(User $user){
                 return $this->dataTable->showJalaliTime($user->updated_at);
-
+                
             })->addColumn('action', function (User $user){
                 return $this->dataTable->setAction($user->id);
             });

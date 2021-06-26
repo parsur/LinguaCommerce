@@ -3,21 +3,19 @@
 namespace App\DataTables\Course;
 
 use App\Models\File;
-use Yajra\DataTables\Html\Button;
-use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
-use Yajra\DataTables\Services\DataTable;
 use App\Datatables\GeneralDataTable; 
+use Yajra\DataTables\Html\Column;
+use Yajra\DataTables\Services\DataTable;
 use Storage;
 
 class FileDataTable extends DataTable
 {
     public $dataTable;
 
-    public function ___construct() {
+    public function __construct() {
         $this->dataTable = new GeneralDataTable();
     }
+
     /**
      * Build DataTable class.
      *
@@ -34,8 +32,8 @@ class FileDataTable extends DataTable
                 return $file->course->name;
             })
             ->filterColumn('course_id', function($query, $keyword) {
-                $sql = 'course_id in (select id from courses where name like ?)';
-                $query->whereRaw($sql, ["%{$keyword}%"]);
+                return $this->dataTable->filterColumn($query, 
+                        'course_id in (select id from courses where name like ?)', $keyword);
             })
             ->editColumn('url', function(File $file) {
                 return "<a href='$file->url' target='_blank'>باز کردن آدرس</a>";
@@ -63,8 +61,8 @@ class FileDataTable extends DataTable
      */
     public function html()
     {
-        return $dataTable->tableSetting($this->builder(), 
-                $this->getColumns(), 'courseFile');
+        return $this->dataTable->tableSetting($this->builder(), 
+                $this->getColumns(), 'courseComment');
     }
 
     /**
@@ -75,10 +73,7 @@ class FileDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('DT_RowIndex')
-            ->title('#')
-                ->searchable(false)
-                ->orderable(false),
+            $this->dataTable->getIndexCol(),
             Column::make('title')
             ->title('عنوان'),
             Column::make('url')
@@ -86,12 +81,7 @@ class FileDataTable extends DataTable
             Column::make('course_id')
             ->title('دوره')
                 ->orderable(false),
-            Column::computed('action') // This Column is not in database
-                ->exportable(false)
-                ->searchable(false)
-                ->printable(false)
-                ->orderable(false)
-                ->title('حذف | ویرایش | جزئیات(توضیحات،رسانه)')
+            $this->dataTable->setActionCol('| ویرایش | جزئیات')
         ];
     }
 }

@@ -3,12 +3,9 @@
 namespace App\DataTables;
 
 use App\Models\User;
-use Yajra\DataTables\Html\Button;
-use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
-use Yajra\DataTables\Services\DataTable;
 use App\Datatables\GeneralDataTable;
+use Yajra\DataTables\Html\Column;
+use Yajra\DataTables\Services\DataTable;
 use Morilog\Jalali\Jalalian;
 use Carbon\Carbon;
 
@@ -31,12 +28,11 @@ class UserDataTable extends DataTable
             ->eloquent($query)
             ->addIndexColumn()
             ->rawColumns(['action'])
-            ->editColumn('created_at', function(User $user){
-                return Jalalian::forge($user->created_at);
+            ->editColumn('created_at', function(User $user) {
+                return $this->dataTable->showJalaliTime($user->created_at); 
             })
             ->editColumn('updated_at', function(User $user){
-                return Jalalian::forge($user->updated_at);
-                
+                return $this->dataTable->showJalaliTime($user->updated_at);
             })->addColumn('action', function (User $user){
                 return $this->dataTable->setAction($user->id);
             });
@@ -72,10 +68,7 @@ class UserDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('DT_RowIndex')
-            ->title('#')
-                ->searchable(false)
-                ->orderable(false),
+            $this->dataTable->getIndexCol(),
             Column::make('name')
             ->title('نام'),
             Column::make('email')
@@ -84,12 +77,7 @@ class UserDataTable extends DataTable
             ->title('ساخته شده در'),
             Column::make('updated_at')
             ->title('بروز شده در'),
-            Column::computed('action') // This Column is not in database
-                ->exportable(false)
-                ->searchable(false)
-                ->printable(false)
-                ->orderable(false)
-                ->title('حذف | ویرایش')
+            $this->dataTable->setActionCol('| ویرایش')
         ];
     }
 }

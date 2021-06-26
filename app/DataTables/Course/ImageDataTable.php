@@ -4,13 +4,9 @@ namespace App\DataTables\Course;
 
 use App\Models\Media;
 use App\Models\Course;
-use Yajra\DataTables\Html\Button;
-use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
-use Yajra\DataTables\Services\DataTable;
-use Yajra\Datatables\Facades\Datatables;
 use App\Datatables\GeneralDataTable;
+use Yajra\DataTables\Html\Column;
+use Yajra\DataTables\Services\DataTable;
 use File;
 
 class ImageDataTable extends DataTable

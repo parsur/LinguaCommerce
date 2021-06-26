@@ -5,10 +5,7 @@ namespace App\DataTables\Course;
 use App\Models\Comment;
 use App\Models\Course;
 use App\Datatables\GeneralDataTable; 
-use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable; 
 use \Illuminate\Support\Str;
 use Morilog\Jalali\Jalalian;
@@ -36,7 +33,7 @@ class CommentDataTable extends DataTable
             ->eloquent($query)
             ->addIndexColumn()
             ->editColumn('created_at', function(Comment $comment){
-                return Jalalian::forge($comment->created_at);
+                return $this->dataTable->showJalaliTime($comment->created_at); 
             })
             ->editColumn('comment', function(Comment $comment) {
                 return Str::limit(optional($comment)->comment, 15, '(جزئیات)');
@@ -45,8 +42,7 @@ class CommentDataTable extends DataTable
                 return $comment->commentable->name;
             })
             ->filterColumn('commentable_id', function ($query, $keyword) {
-                $sql = 'id in (select commentable_id from comments where comment like ?)';
-                $query->whereRaw($sql, ["%{$keyword}%"]);
+                return $this->dataTable->filterCommentCol($query, $keyword);
             })
             ->addColumn('action', function(Comment $comment){
                 $id = $comment->id;
@@ -98,10 +94,7 @@ class CommentDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('DT_RowIndex') // connect to 226 line columns
-            ->title('#')
-                ->searchable(false)
-                ->orderable(false),
+            $this->dataTable->getIndexCol(),
             Column::make('name')
             ->title('نام کاربر'),
             Column::make('comment')
@@ -111,12 +104,7 @@ class CommentDataTable extends DataTable
             Column::make('commentable_id')
             ->title('دوره مرتبط')
                 ->addClass('column-title'),
-            Column::computed('action') // This column is not in database
-                ->exportable(false)
-                ->searchable(false)
-                ->printable(false)
-                ->orderable(false)
-                ->title('حذف | تایید دیدگاه | جزئیات')
+            $this->dataTable->setActionCol('| جزئیات | تایید دیدگاه')
         ];
     }
 }

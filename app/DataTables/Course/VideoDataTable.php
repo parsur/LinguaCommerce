@@ -4,12 +4,9 @@ namespace App\DataTables\Course;
 
 use App\Models\Media;
 use App\Models\Course;
-use Yajra\DataTables\Html\Button;
-use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
-use Yajra\DataTables\Services\DataTable;
 use App\Datatables\GeneralDataTable;
+use Yajra\DataTables\Html\Column;
+use Yajra\DataTables\Services\DataTable;
 
 class VideoDataTable extends DataTable
 {
@@ -32,8 +29,7 @@ class VideoDataTable extends DataTable
             ->addIndexColumn()
             ->rawColumns(['action','url']) 
             ->editColumn('url', function(Media $video) {
-                return '<iframe src="'.$video->url.'"  width="50%" 
-                            allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>';
+                return '<iframe src="'.$video->url.'" width="50%"></iframe>';
             })
             ->addColumn('media_id', function (Media $video) {
                 return $video->media->name;
@@ -86,12 +82,7 @@ class VideoDataTable extends DataTable
             Column::make('media_id')
             ->title('دوره مرتبط')
                 ->orderable(false),
-            Column::computed('action') // This column is not in database
-                ->exportable(false)
-                ->searchable(false)
-                ->printable(false)
-                ->orderable(false)
-                ->title('حذف | ویرایش')
+            $this->dataTable->setActionCol('| ویرایش | تایید دیدگاه')
         ];
     }
 }

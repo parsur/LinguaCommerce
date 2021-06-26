@@ -45,6 +45,6 @@ class VideoController extends Controller
 
     // Edit
     public function edit(Action $action,Request $request) {
-        return $action->edit(Media::class,$request->get('id'));
+        return $action->edit(Media::class, $request->get('id'));
     }
 }

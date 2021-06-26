@@ -59,19 +59,11 @@ class CommentController extends Controller
 
     // Update
     public function update(StoreCommentRequest $request) {
-        DB::beginTransaction();
-        try {
-            $comment = Comment::where('id', $request->get('id'))->where('commentable_type', Course::class)
-                ->update(['comment' => $request->get('comment')]);
 
-            DB::commit();
+        $comment = Comment::where('id', $request->get('id'))->where('commentable_type', Course::class)
+            ->update(['comment' => $request->get('comment')]);
 
-            return $this->successfulResponse('دیدگاه مرتبط با دوره با موفقیت ویرایش شد');
-
-        } catch(Exception $e) {
-            throw $e;
-            DB::rollBack();
-        }
+        return $this->successfulResponse('دیدگاه مرتبط با دوره با موفقیت ویرایش شد');
     }
 
     // Delete

@@ -6,12 +6,9 @@ use App\Models\Article;
 use App\Models\Comment;
 use App\DataTables\GeneralDataTable;
 use App\DataTables\CourseDataTable;
-use Morilog\Jalali\Jalalian;
-use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
+use Morilog\Jalali\Jalalian;
 use \Illuminate\Support\Str;
 use URL;
 
@@ -43,8 +40,7 @@ class CommentDataTable extends DataTable
                 return $comment->commentable->title;
             })
             ->filterColumn('commentable_id', function ($query, $keyword) {
-                $sql = 'id in (select commaentble_id from comments where comment like ? )';
-                $query->whereRaw($sql, ["%{$keyword}%"]);
+                return $this->dataTable->filterCommentCol($query, $keyword);
             })
             ->addColumn('action', function(Comment $comment){
                 $id = $comment->id;
@@ -102,12 +98,7 @@ class CommentDataTable extends DataTable
             Column::make('commentable_id')
             ->title('مقاله مرتبط')
                 ->orderable(false),
-            Column::computed('action') // This column is not in database
-                ->exportable(false)
-                ->searchable(false)
-                ->printable(false)
-                ->orderable(false)
-                ->title('حذف | تایید دیدگاه')
+            $this->dataTable->setActionCol('| جزئیات | تایید دیدگاه')
         ];
     }
 }
