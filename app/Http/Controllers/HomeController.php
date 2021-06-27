@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 use App\Models\Setting;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Auth;
 use Artisan;
 

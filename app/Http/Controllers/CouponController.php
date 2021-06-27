@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 use App\DataTables\CouponDataTable;
 use App\Http\Requests\StoreCouponRequest;
 use App\Providers\Action;
 use App\Models\Coupon;
 use App\Models\Course;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 use DB;
 
 class CouponController extends Controller

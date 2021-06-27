@@ -23,7 +23,7 @@ class Course extends Model
      * Cascade On Delete.
      */
     use CascadesDeletes;
-    protected $cascadeDeletes = ['media','files', 'description', 'statuses', 'carts', 'comments'];
+    protected $cascadeDeletes = ['media','files', 'description', 'statuses', 'carts', 'comments', 'ratings'];
  
     /**
      * @var array
@@ -93,6 +93,14 @@ class Course extends Model
      */
     public function coupons() {
         return $this->hasMany('App\Models\Course');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function ratings()
+    {   
+        return $this->hasMany('App\Models\Rating');
     }
 
 }

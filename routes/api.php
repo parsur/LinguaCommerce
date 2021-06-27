@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['prefix' => 'v1', 'as' => 'v1.', 'middleware' => 'apiKey', 'Http2ServerPush'], function() {  
+Route::group(['prefix' => 'v1', 'as' => 'v1.', 'middleware' => 'apiKey'], function() {  
     // Auth sanctum middleware
     Route::middleware(['auth:sanctum', 'verified'])->group(function () { // verified
         // Cart
@@ -30,10 +30,10 @@ Route::group(['prefix' => 'v1', 'as' => 'v1.', 'middleware' => 'apiKey', 'Http2S
             Route::get('edit', 'UserController@edit');
             Route::get('delete/{id}', 'UserController@del679ete');
         });
-        // Logout
-        Route::post('logout', 'Auth\LoginController@logout');
         // Coupon activation
         Route::post('coupon/activate', 'CouponController@activate');
+        // Logout
+        Route::post('logout', 'Auth\LoginController@logout');
     });
     Route::group(['prefix' => 'order', 'as' => 'order.'], function() { 
         // Order
@@ -66,6 +66,8 @@ Route::group(['prefix' => 'v1', 'as' => 'v1.', 'middleware' => 'apiKey', 'Http2S
         Route::post('search', 'CourseController@search');
         // Course
         Route::get('download', 'CourseController@download')->middleware('auth:sanctum');
+        // Star rating
+        Route::post('setRating', 'CourseController@setRating');
     });
     // Course comment
     Route::group(['prefix' => 'courseComment', 'as' => 'courseComment.'], function() {

@@ -16,7 +16,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasApiTokens, HasFactory, Notifiable, CascadesDeletes;
 
     // Cascade On Delete
-    protected $cascadeDeletes = ['comments', 'orders', 'carts'];
+    protected $cascadeDeletes = ['comments', 'orders', 'carts', 'ratings'];
     
     const USER = 0;
     const ADMIN = 1;
@@ -92,6 +92,15 @@ class User extends Authenticatable implements MustVerifyEmail
     public function carts()
     {   
         return $this->hasMany('App\Models\Cart');
+    }
+
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function ratings()
+    {   
+        return $this->hasMany('App\Models\Rating');
     }
 
     /*

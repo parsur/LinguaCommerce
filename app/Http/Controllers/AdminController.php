@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\UserController;
 use App\DataTables\UserDataTable;
 use App\DataTables\AdminDataTable;
 use App\Http\Requests\StoreUserRequest;
 use App\Providers\Action;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {

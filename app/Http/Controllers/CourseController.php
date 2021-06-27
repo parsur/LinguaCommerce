@@ -6,16 +6,36 @@ use Illuminate\Http\Request;
 use App\Models\Course;
 use App\Models\Category;
 use App\Models\Subcategory;
+use App\Models\Rating;
 use App\Providers\Action;
 use App\Providers\CourseArticleAction;
 use App\DataTables\CourseDataTable;
 use App\Http\Requests\StoreCourseRequest;
-use Illuminate\Support\Facades\Mail;
 use App\Mail\FreeCourse;
+use Illuminate\Support\Facades\Mail;
+use Auth;
 use DB;
 
 class CourseController extends Controller
 {
+    public $categories;
+    public $subcategories;
+
+    public function __construct() {
+
+        $this->middleware('auth:sanctum')->only('setRating');
+
+        // Categories
+        $this->categories = Category::select('id', 'name')->whereHas('statuses', function($query) {
+            $query->active();
+        })->with('courses')->get();
+
+        // Subcategories
+        $this->subcategories = Subcategory::select('id', 'name')->whereHas('statuses', function($query) {
+            $query->active();
+        })->get();
+    }
+
     // Datatable To blade
     public function list() {
         // dataTable
@@ -43,14 +63,10 @@ class CourseController extends Controller
         }
 
         // Categories
-        $vars['categories'] = Category::select('id', 'name')->whereHas('statuses', function($query) {
-            $query->active();
-        })->with('courses')->get();
+        $vars['categories'] = $this->categories;
 
         // Subcategories
-        $vars['subcategories'] = Subcategory::select('id', 'name')->whereHas('statuses', function($query) {
-            $query->active();
-        })->with('courses')->get();
+        $vars['subcategories'] = $this->subcategories;
 
         return view('course.create', $vars);
     }
@@ -111,17 +127,21 @@ class CourseController extends Controller
             }])->get();
     
         // Categories
-        $vars['categories'] = Category::select('id', 'name')->whereHas('statuses', function($query) {
-            $query->active();
-        })->get();
+        $vars['categories'] = $this->categories;
 
         // Sub categories
-        $vars['subcategories'] = Subcategory::select('id', 'name')->whereHas('statuses', function($query) {
-            $query->active();
-        })->get();
+        $vars['subcategories'] = $this->subcategories;
  
         return response()->json($vars);
     } 
+
+
+    // Set rating
+    public function setRating(Request $request) {
+        return Rating::create( 
+            ['rating' => $request->get('rating'), 'course_id' => $request->get('course_id'), 'user_id' => Auth::user()->id]
+        );
+    }
 
     // Free courses
     public function download(Request $request) {
@@ -140,6 +160,6 @@ class CourseController extends Controller
 
     // Details
     public function details(Request $request, CourseArticleAction $action) {
-        return $action->details($request, 'App\Models\Course');
+        return $action->details($request, Course::class);
     }
 }
