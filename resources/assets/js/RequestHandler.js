@@ -56,10 +56,16 @@ class RequestHandler {
         });
     }
 
-    // Default edit data
+    // Reload form modal
     reloadModal() {
         $('#form_output').html('');
         $('#formModal').modal('show');
+    }
+
+
+    // Cleaning dropbox
+    cleanDropbox(name) {
+        $(name).val('').trigger('change');
     }
 
     // Edit on success

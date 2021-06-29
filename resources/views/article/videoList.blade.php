@@ -40,7 +40,7 @@
 
             // Record modal
             $('#create_record').click(function () {
-                $('#article').val('').trigger('change');
+                action.cleanDropbox('#article'); 
                 action.openModal();
             });
 

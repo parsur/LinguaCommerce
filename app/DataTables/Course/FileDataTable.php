@@ -62,7 +62,7 @@ class FileDataTable extends DataTable
     public function html()
     {
         return $this->dataTable->tableSetting($this->builder(), 
-                $this->getColumns(), 'courseComment');
+                $this->getColumns(), 'courseFile');
     }
 
     /**

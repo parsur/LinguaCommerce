@@ -15,7 +15,7 @@ use File;
 
 class FileController extends Controller
 {
-    public $file = 'App\Models\File';
+    public $file = \App\Models\File::class;
     
     // DataTable to blade
     public function list() {

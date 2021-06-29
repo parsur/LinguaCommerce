@@ -56,7 +56,7 @@
 
         // create modal
         $('#create_record').click(function () {
-          $('#courses').val('').trigger('change');
+          action.cleanDropbox('#article'); 
           action.openModal();
         });
 
