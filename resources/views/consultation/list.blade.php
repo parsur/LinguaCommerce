@@ -10,7 +10,7 @@
   </x-header>
 
   {{-- Delete --}}
-  <x-delete title="آیا مایل به حذف این درخواست مشاوره هستید؟"/>
+  <x-delete title="درخواست مشاوره"/>
 @endsection
 
 @section('scripts')

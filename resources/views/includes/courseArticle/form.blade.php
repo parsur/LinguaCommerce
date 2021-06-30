@@ -15,8 +15,8 @@
     </div>
     {{-- Subcategories --}}
     <div class="col-md-6 mb-3">
-        <label for="subCategories">دسته بندی سطح-۲:</label>
-        <select id="subCategories" name="subCategories" class="custom-select">
+        <label for="subcategories">دسته بندی سطح-۲:</label>
+        <select id="subcategories" name="subcategories" class="custom-select">
             <option value="">دسته بندی سطح-۲</option>
             @foreach($subcategories as $subcategory)
                 <option value="{{ $subcategory->id }}" {{ $subcategory->id == optional($table)->subcategory_id ? 'selected' : '' }}>{{ $subcategory->name }}</option>

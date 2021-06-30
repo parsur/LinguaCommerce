@@ -28,14 +28,6 @@
     let comment = new commentSubmission();
 
     $(document).ready(function () {
-      // Submission
-      window.showSubmissionModal = function showSubmissionModal(id) {
-        // Opening modal
-        comment.modal(id);
-        // comment confirmation
-        comment.submit('article');
-      }
-
       // Actions(DataTable,Form,Url)
       let dt = window.LaravelDataTables['articleCommentTable'];
       let action = new RequestHandler(dt,'','articleComment');
@@ -43,6 +35,14 @@
       // Delete
       window.showConfirmationModal = function showConfirmationModal(url) {
         action.delete(url);
+      }
+
+      // Submission
+      window.showSubmissionModal = function showSubmissionModal(id) {
+        // Opening modal
+        comment.modal(id);
+        // comment confirmation
+        comment.submit('article');
       }
     });
   </script>

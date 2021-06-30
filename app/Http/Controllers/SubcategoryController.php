@@ -34,10 +34,10 @@ class SubcategoryController extends Controller
     // Store or update 
     public function store(StoreSubcategoryRequest $request) {
 
-        $id = $request->get('id');
+        DB::transaction(function() use($request) {
 
-        DB::beginTransaction();
-        try {
+            $id = $request->get('id');
+
             $subcategory = Subcategory::updateOrCreate(
                 ['id' => $id],
                 ['name' => $request->get('name'), 'category_id' => $request->get('categories')]
@@ -49,12 +49,7 @@ class SubcategoryController extends Controller
                 ['status' => $request->get('status'), 'status_type' => Subcategory::class]
             );
 
-            DB::commit();
-            
-        } catch(Exception $e) {
-            throw $e;
-            DB::rollback();
-        }
+        });
 
         return $this->getAction($request->get('button_action'));
     }

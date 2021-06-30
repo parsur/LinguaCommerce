@@ -58,10 +58,10 @@ class ArticleController extends Controller
     // Store Course
     public function store(StoreArticleRequest $request) {
 
-        $id = $request->get('id');
-
-        DB::beginTransaction();
-        try {
+        DB::transaction(function() use($request) {
+            
+            $id = $request->get('id');
+            
             $article = Article::updateOrCreate(
                 ['id' => $id],
                 ['title' => $request->get('title'), 'category_id' => $request->get('categories'), 
@@ -79,11 +79,7 @@ class ArticleController extends Controller
                 ['description' => $request->get('description'), 'description_type' => Article::class]
             );
 
-            DB::commit();
-        } catch(Exception $e) {
-            throw $e;
-            DB::rollBack();
-        }
+        });
 
         return $this->getAction($request->get('button_action'));
     }

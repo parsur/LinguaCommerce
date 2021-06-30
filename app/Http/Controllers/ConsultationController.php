@@ -43,8 +43,7 @@ class ConsultationController extends Controller
     // Submit final order
     public function store(StoreConsultationRequest $request) {
 
-        DB::beginTransaction();
-        try {
+        DB::transaction(function() use($request) {
 
             if(!empty($request->get('description'))) {
                 
@@ -54,14 +53,8 @@ class ConsultationController extends Controller
             else if($request->has('phone_number')) {
                 Consultation::create(['phone_number' => $request->get('phone_number')]);
             }
-            
-            DB::commit();
-            
-            return $this->successfulResponse('درخواست مشاوره با موفقیت ثبت شد');
+        });
 
-        } catch(Exception $e) {
-            throw $e;
-            DB::rollBack();
-        }
+        return $this->successfulResponse('درخواست مشاوره با موفقیت ثبت شد');
     }
 }

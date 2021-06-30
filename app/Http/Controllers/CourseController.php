@@ -74,11 +74,10 @@ class CourseController extends Controller
     // Store course
     public function store(StoreCourseRequest $request) {
 
-        $id = $request->get('id');
-        
-        DB::beginTransaction();
+        DB::transaction(function() use($request)
+        {     
+            $id = $request->get('id');
 
-        try {
             $course = Course::updateOrCreate(
                 ['id' => $id],
                 ['name' => $request->get('name'), 'price' => $request->get('price'), 
@@ -96,13 +95,7 @@ class CourseController extends Controller
                 ['description_id' => $id],
                 ['description' => $request->get('description'), 'description_type' => Course::class]
             );
-
-            DB::commit();
-
-        } catch(Exception $e) {
-            throw $e;
-            DB::rollBack();
-        }
+        });
 
         return $this->getAction($request->get('button_action'));
     }

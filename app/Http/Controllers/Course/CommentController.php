@@ -34,22 +34,17 @@ class CommentController extends Controller
     // Store
     public function store(StoreCommentRequest $request) {
 
-        DB::beginTransaction();
-        try {
+        DB::transaction(function() use($request) {
+            
             $comment = Comment::create(['name' => $request->get('name'), 'comment' => $request->get('comment'), 
                 'commentable_id' => $request->get('course_id'), 'commentable_type' => Course::class]);
 
             // Set the course's comment inactive
             $comment->statuses()->create(['status' => Status::INACTIVE]);
 
-            DB::commit();
+        });
 
-            return $this->successfulResponse('دیدگاه مرتبط با دوره با موفقیت ثبت شد');
-
-        } catch(Exception $e) {
-            throw $e;
-            DB::rollBack();
-        }
+        return $this->successfulResponse('دیدگاه مرتبط با دوره با موفقیت ثبت شد');
     }
 
     // Edit

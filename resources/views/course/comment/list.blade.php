@@ -32,6 +32,7 @@
       // Actions(DataTable,Form,Url)
       let dt = window.LaravelDataTables['courseCommentTable'];
       let action = new RequestHandler(dt,'','courseComment');
+
       // Delete 
       window.showConfirmationModal = function showConfirmationModal(url) {
         action.delete(url);
@@ -40,7 +41,7 @@
       window.showSubmissionModal = function showSubmissionModal(id) {
         // Opening modal
         comment.modal(id);
-        // comment confirmation
+        // Comment confirmation
         comment.submit('course');
       }
     });

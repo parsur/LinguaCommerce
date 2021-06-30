@@ -35,7 +35,8 @@ class RequestHandler {
                     success(data);
                 },
                 error: function (data) {
-                    error(data);
+                    if(data)
+                        error(data);
                 }
             })
         });
@@ -43,7 +44,7 @@ class RequestHandler {
 
     // Delete
     delete(id) {
-        $('#confirmationModal').modal('show'); // Confirm
+        $('#confirmationModal').modal('show'); // Confirmation
         $('#deleteSubmission').click(function () {
             $.ajax({
                 url: "/" + window.url + "/delete/" + id,
@@ -61,7 +62,6 @@ class RequestHandler {
         $('#form_output').html('');
         $('#formModal').modal('show');
     }
-
 
     // Cleaning dropbox
     cleanDropbox(name) {

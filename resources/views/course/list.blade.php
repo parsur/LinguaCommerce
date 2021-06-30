@@ -10,7 +10,7 @@
   </x-header>
 
   {{-- Delete --}}
-  <x-delete title="آیا مایل به حذف دوره هستید؟"/>
+  <x-delete title="دوره"/>
 
 @endsection
 

@@ -17,7 +17,7 @@ class Controller extends BaseController
     public function getAction($action) {
         // Insert
         if($action == 'insert') {
-            $success_output = $this->getUpdateMessage();
+            $success_output = $this->getInsertionMessage();
         }
         
         // Update

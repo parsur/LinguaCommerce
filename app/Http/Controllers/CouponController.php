@@ -31,16 +31,14 @@ class CouponController extends Controller
         return $dataTable->render('couponList');
     }
 
-    // Store
-    public function store(StoreCouponRequest $request) {
+    // Store 
+    public function store(StoreCouponRequest $request) { 
+         
+        DB::transaction(function() use($request) {
+            
+            $id = $request->get('id'); 
 
-        $id = $request->get('id');
-        
-        DB::beginTransaction();
-
-        try {
             foreach($request->get('courses') as $course) {
-
                 // Store
                 $coupon = Coupon::updateOrCreate(
                     ['id' => $id],  
@@ -54,13 +52,7 @@ class CouponController extends Controller
                     ['status' => $request->get('status'), 'status_type' => Coupon::class]
                 );
             }
-
-            DB::commit();
-
-        } catch(Exception $e) {
-            throw $e;
-            DB::rollBack();
-        }
+        });
 
         return $this->getAction($request->get('button_action'));
     }

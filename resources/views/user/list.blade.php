@@ -15,14 +15,11 @@
       {{-- User form --}}
       <div class="row">
         {{-- Name --}}
-        <x-input key="name" name="نام" 
-            class="col-md-12 mb-2" />
+        <x-input key="name" name="نام" class="col-md-12 mb-2" />
         {{-- Email --}}
-        <x-input key="email" name="ایمیل" 
-            class="col-md-12 mb-3" />
+        <x-input key="email" name="ایمیل" class="col-md-12 mb-3" />
         {{-- Phone number --}}
-        <x-input key="phone_number" name="تلفن همراه" 
-          class="col-md-12 mb-3" />
+        <x-input type="number" key="phone_number" name="تلفن همراه" class="col-md-12 mb-3" />
         {{-- Passwords --}}
         <div class="col-md-12 mb-3">
           <label for="password">رمز جدید:</label>
@@ -39,7 +36,7 @@
   </x-insert>
 
   {{-- Delete --}}
-  <x-delete title="آیا از حذف کاربر مطمئن هستید؟"/>
+  <x-delete title="کاربر"/>
 @endsection
 
 
@@ -73,14 +70,14 @@
         edit(id);
       }
       function edit($id) {
-        action.edit();
+        action.reloadModal();
 
         $.ajax({
           url: "{{ url('user/edit') }}",
           method: "get",
           data: {id: $id},
           success: function(data) {
-            action.editData($id);
+            action.editOnSuccess($id);
             $('#name').val(data.name);
             $('#email').val(data.email);
             $('#phone_number').val(data.phone_number);

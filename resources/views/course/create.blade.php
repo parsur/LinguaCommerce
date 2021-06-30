@@ -11,7 +11,7 @@
                 {{-- Name --}}
                 <x-input key="name" name="نام" class="col-md-6 mb-3" />
                 {{-- Price --}}
-                <x-input key="price" name="هزینه" class="col-md-6 mb-3" />
+                <x-input type="number" key="price" name="هزینه" class="col-md-6 mb-3" />
             </div>
  
             {{-- Include Form --}}
@@ -48,14 +48,13 @@
                 url: "{{ url('course/edit') }}",
                 data: { id: $id },
                 success: function (data) {
+                    action.editOnSuccess(id);
                     displayData(data);
                 }
             })
         }
         // Display data for editing
         function displayData(data) {
-            $('#button_action').val('update');
-            $('#action').val('ویرایش');
             $('#name').val(data.name);
             $('#price').val(data.price);
             editor.setData(data.description.description);
