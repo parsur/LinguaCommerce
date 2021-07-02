@@ -1,10 +1,10 @@
 <h3>Project made for Sara Rajabi, conversational fluency instructor.</h3>
 
-## Learning Laravel
+## About this
 
 This project was coded on April for a rhetorical teacher. I have worked hard to be the best version of myself and optimized every single line of code to look simpler and more comfortable. my cooperation with a frontend developer helped me have a better aspect of team work which was a sensational experience.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Simple, fast].
 - [Powerful dependency injection container](https://laravel.com/docs/container).
 - Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
 - Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
