@@ -6,8 +6,8 @@ This project was coded on April for a rhetorical teacher. I have worked hard to 
 
 - Simple
 - Fast
-- Optimized.
-- Nice user interface.
+- Optimized
+- Nice user interface
 
 Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
