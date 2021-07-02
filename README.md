@@ -4,13 +4,10 @@
 
 This project was coded on April for a rhetorical teacher. I have worked hard to be the best version of myself and optimized every single line of code to look simpler and more comfortable. my cooperation with a frontend developer helped me have a better aspect of team work which was a sensational experience.
 
-- [Simple, fast].
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Simple
+- Fast
+- Optimized.
+- Nice user interface.
 
 Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
