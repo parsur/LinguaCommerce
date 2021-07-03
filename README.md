@@ -9,7 +9,7 @@ This project was coded on April for a rhetorical teacher. I have worked hard to 
 - Optimized
 - Nice user interface
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Sara Rajabi is accessible, powerful, and provides an easy tool to CRUD.
 
 ## Learning Laravel
 
