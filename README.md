@@ -7,7 +7,7 @@ This project was coded on April for a rhetorical teacher. I have worked hard to 
 - Optimized
 - Nice user interface
 
-Sara Rajabi is accessible, powerful, and provides an easy tool to CRUD.
+This is accessible, powerful, and provides an easy tool to CRUD.
 
 
 ## Contributing
