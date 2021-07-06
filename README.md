@@ -8,7 +8,7 @@ I have been trying to improve it any time I find a new optmized way.
 - Optimized
 - Nice user interface
 
-This is accessible, powerful, and provides an easy tool to CRUD.
+This project is accessible, powerful, and provides an easy tool to CRUD.
 
 
 ## Contributing
@@ -17,4 +17,4 @@ Thank you for considering contributing to the Laravel framework! The contributio
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
