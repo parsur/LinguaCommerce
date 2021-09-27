@@ -18,3 +18,7 @@ Thank you for considering contributing to the Laravel framework! The contributio
 ## License
 
 This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Add the .env file
+
+Do not forget to add the .env file. 
