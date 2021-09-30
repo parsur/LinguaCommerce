@@ -21,4 +21,4 @@ This project is open-sourced software licensed under the [MIT license](https://o
 
 ## Add the .env file
 
-Do not forget to add the .env file. 
+Do not forget to add the .env file, and migrate the database.
