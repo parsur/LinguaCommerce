@@ -76,9 +76,9 @@
                                     {{-- New Course --}}
                                     <x-url text="افزودن دوره" fontAwesome="null" route="{{ url('course/new') }}" />
                                     {{-- Image List --}}
-                                    <x-url text="تصاویر پوستر" fontAwesome="null" route="{{ url('courseImage/list') }}" />
+                                    <x-url text="تصاویر دوره" fontAwesome="null" route="{{ url('courseImage/list') }}" />
                                     {{-- Video List --}}
-                                    <x-url text="ویدئو های پوستر" fontAwesome="null" route="{{ url('courseVideo/list') }}" />
+                                    <x-url text="ویدئو های دوره" fontAwesome="null" route="{{ url('courseVideo/list') }}" />
                                     {{-- Content List --}}
                                     <x-url text="محتوا" fontAwesome="null" route="{{ url('courseFile/list ') }}" /> 
                                     {{-- Comment List --}}
@@ -94,9 +94,9 @@
                                     {{-- New Article --}}
                                     <x-url text="افزودن مقاله" fontAwesome="null" route="{{ url('article/new') }}" />
                                     {{-- Image List --}}
-                                    <x-url text="تصاویر پوستر" fontAwesome="null" route="{{ url('articleImage/list ') }}" />
+                                    <x-url text="تصاویر مثاله" fontAwesome="null" route="{{ url('articleImage/list ') }}" />
                                     {{-- Video List --}}
-                                    <x-url text="ویدئو های پوستر" fontAwesome="null" route="{{ url('articleVideo/list ') }}" /> 
+                                    <x-url text="ویدئو های مقاله" fontAwesome="null" route="{{ url('articleVideo/list ') }}" /> 
                                     {{-- Comment List --}}
                                     <x-url text="نظرات" fontAwesome="null" route="{{ url('articleComment/list ') }}" />        
                                 </x-slot>
