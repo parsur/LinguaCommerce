@@ -14,8 +14,15 @@ use App\Providers\CourseArticleAction;
 
 class VideoController extends Controller
 {
+    public $action;
+
+    public function __construct() {
+        $this->action = new Action();
+    }
+
     // DataTable to blade
     public function list() {
+
         $dataTable = new VideoDataTable;
 
         // Video Table
@@ -38,13 +45,13 @@ class VideoController extends Controller
 
     }
 
-    // Delete
-    public function delete(Action $action, $id) {
-        return $action->delete(Media::class,$id);
-    }
-
     // Edit
-    public function edit(Action $action,Request $request) {
-        return $action->edit(Media::class, $request->get('id'));
+    public function edit(Request $request) {
+        return $this->action->edit(Media::class, $request->get('id'));
+    }
+    
+    // Delete
+    public function delete($id) {
+        return $this->action->delete(Media::class,$id);
     }
 }

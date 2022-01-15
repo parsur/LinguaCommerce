@@ -26,7 +26,7 @@
   </x-insert>
 
   {{-- Delete --}}
-  <x-delete title="آیا مایل به حذف تصویر دوره هستید؟"/>
+  <x-delete title="تصویر دوره"/>
 
 @endsection
 
@@ -53,7 +53,7 @@
       // Record modal
       $('#create_record').click(function () {
         action.cleanDropbox('#course');
-        imageHandler.picture();
+        imageHandler.setPicture();
         action.openModal();
       });
 

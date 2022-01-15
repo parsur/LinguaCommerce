@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Subcategory;
@@ -10,12 +9,18 @@ use App\DataTables\SubcategoryDataTable;
 use App\Http\Requests\StoreSubcategoryRequest;
 use App\Providers\Action;
 use DB;
-use File;
 
 class SubcategoryController extends Controller
 {
-    // get category
+    public $action;
+
+    public function __construct() {
+        $this->action = new Action();
+    }
+
+    // Get category
     public function list(Request $request) {
+
         $datatable = new SubcategoryDataTable;
         
         // Subcategories
@@ -55,12 +60,12 @@ class SubcategoryController extends Controller
     }
 
     // Edit
-    public function edit(Action $action, Request $request) {
-        return $action->editWithStatus(Subcategory::class, $request->get('id'));
+    public function edit(Request $request) {
+        return $this->action->editWithStatus(Subcategory::class, $request->get('id'));
     }
 
     // Delete
-    public function delete(Action $action,$id) {
-        return $action->delete(Subcategory::class, $id);
+    public function delete($id) {
+        return $this->action->delete(Subcategory::class, $id);
     }
 }

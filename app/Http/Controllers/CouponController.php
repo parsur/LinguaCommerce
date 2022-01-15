@@ -13,6 +13,12 @@ use DB;
 
 class CouponController extends Controller
 {
+    public $action;
+
+    public function __construct() {
+        $this->action = new Action();
+    }
+
     // Datatable to blade
     public function list() {
         // dataTable
@@ -35,7 +41,7 @@ class CouponController extends Controller
     public function store(StoreCouponRequest $request) { 
          
         DB::transaction(function() use($request) {
-            
+
             $id = $request->get('id'); 
 
             foreach($request->get('courses') as $course) {
@@ -73,13 +79,13 @@ class CouponController extends Controller
     }
 
     // Edit 
-    public function edit(Action $action, Request $request) {
-        return $action->edit(Coupon::class, $request->get('id'));
+    public function edit(Request $request) {
+        return $this->action->edit(Coupon::class, $request->get('id'));
     }
     
     // Delete
-    public function delete(Action $action, $id) {
-        return $action->delete(Coupon::class,$id);
+    public function delete($id) {
+        return $this->action->delete(Coupon::class,$id);
     }
 
 }

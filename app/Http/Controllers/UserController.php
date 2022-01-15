@@ -17,10 +17,16 @@ use Hash;
 
 class UserController extends Controller
 {
+    public $action;
+
+    public function __construct() {
+        $this->action = new Action();
+    }
+
     // User Dashboard(profile)
     public function show() {
 
-        $vars['user'] = User::where('id', Auth::user()->id)->select('id','name','email','phone_number')->first();
+        $vars['user'] = User::where('id', Auth::user()->id)->first();
         
         return response()->json($vars);
     }
@@ -28,7 +34,6 @@ class UserController extends Controller
     // DataTable to blade
     public function list() {
 
-        // dataTable
         $dataTable = new UserDataTable();
 
         // User Table
@@ -68,13 +73,13 @@ class UserController extends Controller
     }
     
     // Edit 
-    public function edit(Action $action,Request $request) {
-        return $action->edit(User::class, $request->get('id'));
+    public function edit(Request $request) {
+        return $this->action->edit(User::class, $request->get('id'));
     }
     
     // Delete
-    public function delete(Action $action, $id) {
-        return $action->delete(User::class, $id);
+    public function delete($id) {
+        return $this->action->delete(User::class, $id);
     }
 
 }

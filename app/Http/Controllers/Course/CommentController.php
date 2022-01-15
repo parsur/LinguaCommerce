@@ -15,9 +15,15 @@ use DB;
 
 class CommentController extends Controller
 {
+    public $action;
+
+    public function __construct() {
+        $this->action = new Action();
+    }
+
     // Datatable To blade
     public function list() {
-        // dataTable
+        
         $dataTable = new CommentDataTable();
 
         // Course comment Table
@@ -35,7 +41,7 @@ class CommentController extends Controller
     public function store(StoreCommentRequest $request) {
 
         DB::transaction(function() use($request) {
-            
+
             $comment = Comment::create(['name' => $request->get('name'), 'comment' => $request->get('comment'), 
                 'commentable_id' => $request->get('course_id'), 'commentable_type' => Course::class]);
 
@@ -48,8 +54,8 @@ class CommentController extends Controller
     }
 
     // Edit
-    public function edit(Action $action, Request $request) {
-        $action->edit(Comment::class, $request->get('id')); 
+    public function edit(Request $request) {
+        $this->action->edit(Comment::class, $request->get('id')); 
     }
 
     // Update
@@ -62,8 +68,8 @@ class CommentController extends Controller
     }
 
     // Delete
-    public function delete($id,Action $action) {
-        return $action->delete(Comment::class, $id);
+    public function delete($id) {
+        return $this->action->delete(Comment::class, $id);
     }
 
     // Comment submitted by admin to be shown for user

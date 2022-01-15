@@ -15,9 +15,15 @@ use File;
 
 class ImageController extends Controller
 {
+    public $action;
+
+    public function __construct() {
+        $this->action = new Action();
+    }
+
     // DataTable to blade
     public function list() {
-        // dataTable
+      
         $dataTable = new ImageDataTable();
 
         // CourseImage Table
@@ -32,23 +38,23 @@ class ImageController extends Controller
     }
 
     // Store
-    public function store(StoreImageRequest $request, Action $action) {
+    public function store(StoreImageRequest $request) {
 
         // insert or update
         $imageUploader = Media::find($request->get('id'));
-        $action->image($imageUploader, $request, $request->get('course'), Course::class);
+        $this->action->image($imageUploader, $request, $request->get('course'), Course::class);
         
         return $this->getAction($request->get('button_action'));
     }
 
     // Edit
-    public function edit(Action $action,Request $request) {
-        return $action->edit(Media::class,$request->get('id'));
+    public function edit(Request $request) {
+        return $this->action->edit(Media::class,$request->get('id'));
     }
     
     // Delete
-    public function delete(Action $action, $id) {
-        return $action->deleteWithImage($id);
+    public function delete($id) {
+        return $this->action->deleteWithImage($id);
     }
 }
 

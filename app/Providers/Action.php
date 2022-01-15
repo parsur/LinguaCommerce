@@ -79,7 +79,6 @@ class Action {
 
                 $image->move(public_path('images'), $file);
                 $imageUploader->url = $file;
-                
             }
         }
         $imageUploader->save();

@@ -195,7 +195,7 @@ Route::view('/course/{id}', 'app');
 Route::view('/articlelists', 'app');
 Route::view('/cart', 'app');
 Route::view('/userpage', 'app');
-Route::view('/userpage/orders', 'app');
+Route::view('/userpage#/orders', 'app');
 Route::view('/login', 'app');
 Route::view('/register', 'app');
 

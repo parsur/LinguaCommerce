@@ -17,9 +17,27 @@ use DB;
 
 class ArticleController extends Controller
 {
-    // DataTable to blade
+    public $action;
+
+    public function __construct() {
+
+        $this->action = new CourseArticleAction();
+
+        // Categories
+        $this->categories = Category::select('id', 'name')->whereHas('statuses', function($query) {
+            $query->active();
+        })->with('courses')->get();
+
+        // Subcategories
+        $this->subcategories = Subcategory::select('id', 'name')->whereHas('statuses', function($query) {
+            $query->active();
+        })->get();
+        
+    }
+
+    // Datatable to blade
     public function list() {
-        // dataTable
+        
         $dataTable = new ArticleDataTable();
 
         // Article Table
@@ -34,7 +52,7 @@ class ArticleController extends Controller
     }
 
     // Get Course Description Page
-    public function new(Request $request, CourseArticleAction $action) {
+    public function new(Request $request) {
         // Edit
         if($request->get('id')) {
             $vars['article'] = Article::find($request->get('id'));
@@ -43,14 +61,10 @@ class ArticleController extends Controller
         }
     
         // Categories
-        $vars['categories'] = Category::select('id', 'name')->whereHas('statuses', function($query) {
-            $query->active();
-        })->get();
+        $vars['categories'] = $this->categories;
 
         // Sub Categories
-        $vars['subcategories'] = Subcategory::select('id', 'name')->whereHas('statuses', function($query) {
-            $query->active();
-        })->get();
+        $vars['subcategories'] = $this->subcategories;
 
         return view('article.create', $vars);
     }
@@ -61,7 +75,7 @@ class ArticleController extends Controller
         DB::transaction(function() use($request) {
             
             $id = $request->get('id');
-            
+
             $article = Article::updateOrCreate(
                 ['id' => $id],
                 ['title' => $request->get('title'), 'category_id' => $request->get('categories'), 
@@ -86,9 +100,9 @@ class ArticleController extends Controller
 
 
     // Edit Course
-    public function edit(CourseArticleAction $action, Request $request) {
+    public function edit(Request $request) {
         // Edit
-        return $action->edit(Article::class, $request->get('id'));
+        return $this->action->edit(Article::class, $request->get('id'));
     }
 
     // Delete
@@ -106,26 +120,22 @@ class ArticleController extends Controller
             }])->get();
         
         // Categories
-        $vars['categories'] = Category::select('id', 'name')->whereHas('statuses', function($query) {
-            $query->active();
-        })->get();
+        $vars['categories'] = $this->categories;
         
         // Sub Categories
-        $vars['subcategories'] = Subcategory::select('id', 'name')->whereHas('statuses', function($query) {
-            $query->active();
-        })->get();
+        $vars['subcategories'] = $this->subcategories;
 
         return response()->json($vars);
     }
 
     // Search
-    public function search(CourseArticleAction $action, SearchRequest $request) {
-        return $action->search($request, Article::class);
+    public function search(SearchRequest $request) {
+        return $this->action->search($request, Article::class);
     }
 
     // Details
-    public function details(CourseArticleAction $action, Request $request) {
-        return $action->details($request, 'App\Models\Article');
+    public function details(Request $request) {
+        return $this->action->details($request, 'App\Models\Article');
     }
 
 }

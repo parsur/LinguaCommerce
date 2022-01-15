@@ -11,13 +11,18 @@ use App\Models\Media;
 use App\Providers\Action;
 use App\Providers\CourseArticleAction;
 use File;
-use DB;
 
 class ImageController extends Controller
 {
+    public $action; 
+
+    public function __construct() {
+        $this->action = new Action();
+    }
+
     // DataTable to blade
     public function list() {
-        // dataTable
+      
         $dataTable = new ImageDataTable();
 
         // Article Image Table
@@ -34,22 +39,22 @@ class ImageController extends Controller
     }
 
     // Store
-    public function store(StoreImageRequest $request,Action $action) {
+    public function store(StoreImageRequest $request) {
 
         // insert or update
         $imageUploader = Media::find($request->get('id'));
-        $action->image($imageUploader, $request, $request->get('article'), Article::class);
+        $this->action->image($imageUploader, $request, $request->get('article'), Article::class);
 
         return $this->getAction($request->get('button_action'));
     }
 
     // Delete
-    public function delete(Action $action, $id) {
-        return $action->deleteWithImage($id);
+    public function delete($id) {
+        return $this->action->deleteWithImage($id);
     }
 
     // Edit
-    public function edit(Action $action,Request $request) {
-        return $action->edit(Media::class,$request->get('id'));
+    public function edit(Request $request) {
+        return $this->action->edit(Media::class,$request->get('id'));
     }
 }

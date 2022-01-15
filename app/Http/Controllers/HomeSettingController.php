@@ -5,12 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreHomeSettingRequest;
 use App\Models\Setting;
-use DB;
 
 class HomeSettingController extends Controller
 {
     // Show Setting Data
     public function new() {
+        
         $names = [
             'header',
             'subHeader',

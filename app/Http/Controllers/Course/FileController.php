@@ -15,11 +15,15 @@ use File;
 
 class FileController extends Controller
 {
-    public $file = \App\Models\File::class;
+    public $file = \App\Models\File::class, $action;
+
+    public function __construct() {
+        $this->action = new Action();
+    }
     
     // DataTable to blade
     public function list() {
-        // dataTable
+        
         $dataTable = new FileDataTable();
 
         // CourseFile Table
@@ -45,12 +49,12 @@ class FileController extends Controller
     }
 
     // Edit
-    public function edit(Action $action,Request $request) {
-        return $action->edit($this->file,$request->get('id'));
+    public function edit(Request $request) {
+        return $this->  action->edit($this->file, $request->get('id'));
     }
 
     // Delete
-    public function delete($id, Action $action) {
-        return $action->delete($this->file,$id);
+    public function delete($id) {
+        return $this->action->delete($this->file, $id);
     }
 }

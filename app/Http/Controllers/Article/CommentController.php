@@ -17,10 +17,10 @@ class CommentController extends Controller
 {
     // Datatable To blade
     public function list() {
-        // dataTable
+        
         $dataTable = new CommentDataTable();
 
-        // Article comment Table
+        // Article comment table
         $vars['articleCommentTable'] = $dataTable->html();
 
         return view('article.comment.list', $vars);

@@ -14,9 +14,6 @@ require( 'datatables.net-buttons-bs4');
 require( 'datatables.net-buttons/js/buttons.html5.js' );
 require( 'datatables.net-buttons/js/buttons.print.js' );
 require( 'datatables.net-buttons/js/buttons.colVis.js' );
-// require( 'pdfmake' );
-// window.pdfFonts = require('pdfmake/build/vfs_fonts');
-// pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 // Select 2
 require('select2/dist/js/select2');

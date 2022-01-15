@@ -18,12 +18,13 @@ use DB;
 
 class CourseController extends Controller
 {
-    public $categories;
-    public $subcategories;
+    public $categories, $subcategories, $action;
 
     public function __construct() {
 
         $this->middleware('auth:sanctum')->only('setRating');
+
+        $this->action = new CourseArticleAction();
 
         // Categories
         $this->categories = Category::select('id', 'name')->whereHas('statuses', function($query) {
@@ -34,11 +35,12 @@ class CourseController extends Controller
         $this->subcategories = Subcategory::select('id', 'name')->whereHas('statuses', function($query) {
             $query->active();
         })->get();
+
     }
 
     // Datatable To blade
     public function list() {
-        // dataTable
+
         $dataTable = new CourseDataTable();
 
         // Course Table
@@ -53,7 +55,7 @@ class CourseController extends Controller
     }
 
     // Get Course Page
-    public function new(Request $request, CourseArticleAction $action) {
+    public function new(Request $request) {
 
         // Edit
         if($request->get('id')) {
@@ -101,12 +103,12 @@ class CourseController extends Controller
     }
 
     // Edit
-    public function edit(CourseArticleAction $action, Request $request) {
-        return $action->edit(Course::class, $request->get('id'));
+    public function edit(Request $request) {
+        return $this->action->edit(Course::class, $request->get('id'));
     }
 
     // Delete
-    public function delete(Action $action,$id) {
+    public function delete(Action $action, $id) {
         return $action->delete(Course::class, $id);
     }
 
@@ -147,12 +149,12 @@ class CourseController extends Controller
     }
 
     // Search
-    public function search(CourseArticleAction $action, SearchRequest $request) {
-        return $action->search($request, Course::class);
+    public function search(SearchRequest $request) {
+        return $this->action->search($request, Course::class);
     }
 
     // Details
-    public function details(Request $request, CourseArticleAction $action) {
-        return $action->details($request, Course::class);
+    public function details(Request $request) {
+        return $this->action->details($request, Course::class);
     }
 }

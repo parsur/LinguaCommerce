@@ -102,6 +102,10 @@ select {
     background-color: #E2E6EA;
 }
 
+.btn-theme {
+    background-color: #CF4944;
+}
+
 /* dataTable image */
 .dataTableImage {
     height: auto;
@@ -118,7 +122,6 @@ select {
     margin-right: 45px;
     margin-left: 0;
 }
-
 
 /* sidebar */
 
@@ -294,6 +297,7 @@ select {
 
 
 /* ---------------------------------- Admin and DataTable ---------------------------------- */
+
 .admin_panel {
     text-align: center;
     padding: 10px;
@@ -322,12 +326,12 @@ div.dataTables_wrapper div.dataTables_paginate {
 }
 
 table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before, table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control:before {
-    background-color: #6C757D !important;
+    background-color: #CF4944 !important;
 }
 
 .page-item.active .page-link {
-    background-color:#6C757D !important;
-    border-color: #6C757D !important;
+    background-color: #CF4944 !important;
+    border-color: #CF4944 !important;
 }
 
 .dataTables_wrapper .dt-buttons.btn-group.flex-wrap {

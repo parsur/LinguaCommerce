@@ -25,13 +25,13 @@
   </x-insert>
 
   {{-- Delete --}}
-  <x-delete title="آیا مایل به حذف تصویر مقاله هستید؟"/>
+  <x-delete title="تصویر مقاله"/>
 
 @endsection
 
 @section('scripts')
   @parent
-  {{-- Article Image DataTable --}}
+  {{-- Article image DataTable --}}
   {!! $articleImageTable->scripts() !!}
 
   {{-- Image handler --}}
@@ -51,7 +51,8 @@
 
       // Record modal
       $('#create_record').click(function () {
-        imageHandler.picture();
+        action.cleanDropbox('#article');
+        imageHandler.setPicture();
         action.openModal();
       });
 

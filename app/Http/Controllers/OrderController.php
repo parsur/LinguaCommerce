@@ -19,11 +19,9 @@ use Shetabit\Multipay\Invoice;
 use Shetabit\Payment\Facade\Payment;
 use Shetabit\Multipay\Exceptions\InvalidPaymentException;
 use Auth;
-use DB;
 
 class OrderController extends Controller
 {   
-
     // Facing any error, fix here
     public function __construct() {
         $this->middleware(['auth:sanctum', 'verified'])->except(['list', 'orderTable', 'details', 'verify']);
@@ -31,7 +29,7 @@ class OrderController extends Controller
 
     // Datatable To blade
     public function list() {
-        // dataTable
+        
         $dataTable = new OrderDataTable();
 
         // Order table
@@ -46,7 +44,7 @@ class OrderController extends Controller
     }
 
     // Delete
-    public function delete(Action $action,$id) {
+    public function delete(Action $action, $id) {
         return $action->delete(Order::class, $id);
     }
 
@@ -59,6 +57,7 @@ class OrderController extends Controller
     public function showOrder() {
         $vars['orders'] = Order::where('user_id', auth()->user()->id)->select('id','factor', 'total_price')
                             ->with('user:name,phone_number,email', 'statuses:status_id,status')->get();
+
         return response()->json($vars);
     }
 
@@ -122,13 +121,14 @@ class OrderController extends Controller
         // Factor
         $order->factor = $factor;
 
-        return response()->json($summation);
+        return $this->pay($order);
     }
 
     // Complete the unpaid order
     public function completeUnpaidOrder(Request $request) {
         
         $order = Order::find($request->get('id'));
+        
         return $this->pay($order);
     }
 
@@ -187,5 +187,4 @@ class OrderController extends Controller
             return view('order.verification', ['error' =>  $exception->getMessage()]);
         }
     }
-
 }

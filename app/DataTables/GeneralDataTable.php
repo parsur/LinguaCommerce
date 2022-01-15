@@ -39,8 +39,8 @@ class GeneralDataTable
             ->dom('PBCfrtip')
             ->orderBy(1)
             ->buttons(
-                Button::make('print'),
-                Button::make('copy')
+                Button::make('print')->className('btn btn-theme'),     
+                Button::make('copy')->className('btn btn-theme')
             )
             ->language(asset('js/persian.json'));
     }
@@ -110,9 +110,7 @@ class GeneralDataTable
 
     // Set status column
     public function setStatusCol($status) {
-
-        if($status == Status::ACTIVE) return "موجود";
-        else if($status == Status::INACTIVE) return 'ناموجود';
+        return ($status == Status::ACTIVE) ? 'موجود' : 'ناموجود';
     }
 
     // Filter status column 

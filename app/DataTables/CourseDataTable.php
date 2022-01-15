@@ -3,13 +3,10 @@
 namespace App\DataTables;
 
 use App\Models\Course;
-use App\Models\Article;
-use App\Models\Status;
 use App\DataTables\GeneralDataTable;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 use Illuminate\Support\Facades\URL;
-
 
 class CourseDataTable extends DataTable
 {
@@ -57,6 +54,14 @@ class CourseDataTable extends DataTable
             })  
             ->filterColumn('status', function ($query, $keyword) {
                 return $this->dataTable->filterStatusCol($query, $keyword);
+            })
+            ->addColumn('rating', function(Course $course) { 
+                foreach($course->ratings as $rating) {
+                    return $rating->rating;
+                }
+            })  
+            ->filterColumn('rating', function ($query, $keyword) {
+                // return $this->dataTable->filterStatusCol($query, $keyword);
             })
             ->addColumn('action',function(Course $course) {
                 $id = $course->id;
@@ -121,6 +126,8 @@ class CourseDataTable extends DataTable
             ->title('دسته بندی اول'),
             Column::make('subcategory_id')
             ->title('دسته بندی دوم'),
+            Column::make('rating')
+            ->title('رتبه بندی'),
             $this->dataTable->setActionCol('| ویرایش | جزئیات')
         ];
     }

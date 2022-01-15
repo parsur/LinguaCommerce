@@ -27,7 +27,7 @@
             <div class="row">
                 {{-- First event --}}
                 <x-input key="firstEvent" name="رویداد اول" 
-                            value="{{ $firstEvent }}" class="col-md-6 mb-2" />
+                            value="{{ $setting_firstEvent }}" class="col-md-6 mb-2" />
 
                 {{-- First event url --}}
                 <x-textarea key="firstEventUrl" placeholder="لینک مربوط به رویداد اول" 

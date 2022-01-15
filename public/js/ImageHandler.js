@@ -5,7 +5,7 @@ class ImageHandler {
     }
 
     // Style of picture
-    picture() {
+    setPicture() {
         // Select2
         $('#' + window.model).val('').trigger('change');
         // Picture

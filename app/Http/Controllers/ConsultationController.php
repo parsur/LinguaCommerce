@@ -24,22 +24,6 @@ class ConsultationController extends Controller
         return view('consultation.list', $vars);
     }
 
-    // Get order
-    public function consultationTable(ConsultationDataTable $dataTable) {
-        return $dataTable->render('consultation.list');
-    }
-
-    // Details
-    public function details(Request $request) {
-        $vars['consultation'] = Consultation::find($request->get('id'));
-        return view('consultation.details', $vars);
-    }
-
-    // delete
-    public function delete(Action $action,$id) {
-        return $action->delete(Order::class, $id);
-    }
-
     // Submit final order
     public function store(StoreConsultationRequest $request) {
 
@@ -56,5 +40,21 @@ class ConsultationController extends Controller
         });
 
         return $this->successfulResponse('درخواست مشاوره با موفقیت ثبت شد');
+    }
+
+    // Get 
+    public function consultationTable(ConsultationDataTable $dataTable) {
+        return $dataTable->render('consultation.list');
+    }
+
+    // Details
+    public function details(Request $request) {
+        $vars['consultation'] = Consultation::find($request->get('id'));
+        return view('consultation.details', $vars);
+    }
+
+    // delete
+    public function delete(Action $action, $id) {
+        return $action->delete(Order::class, $id);
     }
 }

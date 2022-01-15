@@ -63,26 +63,26 @@
                     <nav class="mt-2">
                         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                             {{-- Admin --}}
-                            <x-urlAddress text="ادمین" fontAwesome="fas fa-user-plus" route="{{ url('admin/list') }}" />
+                            <x-url text="ادمین" fontAwesome="fas fa-user-plus" route="{{ url('admin/list') }}" />
 
                             {{-- User --}}
-                            <x-urlAddress text="کاربر" fontAwesome="fa fa-user" route="{{ url('user/list') }}" />
+                            <x-url text="کاربر" fontAwesome="fa fa-user" route="{{ url('user/list') }}" />
 
                             {{-- Courses --}}
                             <x-urlAddressParent text="دوره" fontAwesome="fas fa-graduation-cap">
                                 <x-slot name="content">
                                     {{-- List --}}
-                                    <x-urlAddress text="دوره ها" fontAwesome="null" route="{{ url('course/list') }}" />
+                                    <x-url text="دوره ها" fontAwesome="null" route="{{ url('course/list') }}" />
                                     {{-- New Course --}}
-                                    <x-urlAddress text="افزودن دوره" fontAwesome="null" route="{{ url('course/new') }}" />
+                                    <x-url text="افزودن دوره" fontAwesome="null" route="{{ url('course/new') }}" />
                                     {{-- Image List --}}
-                                    <x-urlAddress text="تصاویر پوستر" fontAwesome="null" route="{{ url('courseImage/list') }}" />
+                                    <x-url text="تصاویر پوستر" fontAwesome="null" route="{{ url('courseImage/list') }}" />
                                     {{-- Video List --}}
-                                    <x-urlAddress text="ویدئو های پوستر" fontAwesome="null" route="{{ url('courseVideo/list') }}" />
+                                    <x-url text="ویدئو های پوستر" fontAwesome="null" route="{{ url('courseVideo/list') }}" />
                                     {{-- Content List --}}
-                                    <x-urlAddress text="محتوا" fontAwesome="null" route="{{ url('courseFile/list ') }}" /> 
+                                    <x-url text="محتوا" fontAwesome="null" route="{{ url('courseFile/list ') }}" /> 
                                     {{-- Comment List --}}
-                                    <x-urlAddress text="نظرات" fontAwesome="null" route="{{ url('courseComment/list ') }}" /> 
+                                    <x-url text="نظرات" fontAwesome="null" route="{{ url('courseComment/list ') }}" /> 
                                 </x-slot>
                             </x-urlAddressParent>
 
@@ -90,15 +90,15 @@
                             <x-urlAddressParent text="مقاله" fontAwesome="fas fa-newspaper">
                                 <x-slot name="content">
                                     {{-- List --}}
-                                    <x-urlAddress text="مقالات" fontAwesome="null" route="{{ url('article/list') }}" />
+                                    <x-url text="مقالات" fontAwesome="null" route="{{ url('article/list') }}" />
                                     {{-- New Article --}}
-                                    <x-urlAddress text="افزودن مقاله" fontAwesome="null" route="{{ url('article/new') }}" />
+                                    <x-url text="افزودن مقاله" fontAwesome="null" route="{{ url('article/new') }}" />
                                     {{-- Image List --}}
-                                    <x-urlAddress text="تصاویر پوستر" fontAwesome="null" route="{{ url('articleImage/list ') }}" />
+                                    <x-url text="تصاویر پوستر" fontAwesome="null" route="{{ url('articleImage/list ') }}" />
                                     {{-- Video List --}}
-                                    <x-urlAddress text="ویدئو های پوستر" fontAwesome="null" route="{{ url('articleVideo/list ') }}" /> 
+                                    <x-url text="ویدئو های پوستر" fontAwesome="null" route="{{ url('articleVideo/list ') }}" /> 
                                     {{-- Comment List --}}
-                                    <x-urlAddress text="نظرات" fontAwesome="null" route="{{ url('articleComment/list ') }}" />        
+                                    <x-url text="نظرات" fontAwesome="null" route="{{ url('articleComment/list ') }}" />        
                                 </x-slot>
                             </x-urlAddressParent>
                             
@@ -106,26 +106,26 @@
                             <x-urlAddressParent Text="دسته بندی ها" fontAwesome="fa fa-list">
                                 <x-slot name="content">
                                     {{-- Categories --}}
-                                    <x-urlAddress text="دسته بندی اول" fontAwesome="null" route="{{ url('category/list') }}" />
+                                    <x-url text="دسته بندی اول" fontAwesome="null" route="{{ url('category/list') }}" />
                                     {{-- Sub Categories --}}
-                                    <x-urlAddress text="دسته بندی دوم" fontAwesome="null" route="{{ url('subcategory/list') }}" />
+                                    <x-url text="دسته بندی دوم" fontAwesome="null" route="{{ url('subcategory/list') }}" />
                                 </x-slot>
                             </x-admin.urlAddressParent>
 
-                            {{-- Why me --}}
-                            <x-urlAddress text="مشاوره" fontAwesome="fas fa-handshake" route="{{ url('consultation/list') }}"/>
+                            {{-- Consultation --}}
+                            <x-url text="مشاوره" fontAwesome="fas fa-handshake" route="{{ url('consultation/list') }}"/>
 
                             {{-- Why me --}}
-                            <x-urlAddress text="چرا من" fontAwesome="fa fa-question" route="{{ url('whyMe/new') }}"/>
+                            <x-url text="چرا من" fontAwesome="fa fa-question" route="{{ url('whyMe/new') }}"/>
 
                             {{-- Orders --}}
-                            <x-urlAddress text="سفارشات" fontAwesome="fab fa-first-order" route="{{ url('order/list') }}"/>
+                            <x-url text="سفارشات" fontAwesome="fab fa-first-order" route="{{ url('order/list') }}"/>
 
                             {{-- Discount --}}
-                            <x-urlAddress text="کد تخفیف" fontAwesome="fa fa-tag" route="{{ url('coupon/list') }}"/>
+                            <x-url text="کد تخفیف" fontAwesome="fa fa-tag" route="{{ url('coupon/list') }}"/>
 
                             {{-- Settings --}}
-                            <x-urlAddress text="تنظیمات صفحه اصلی" fontAwesome="fa fa-cog" route="{{ url('homeSetting/new') }}"/>
+                            <x-url text="تنظیمات صفحه اصلی" fontAwesome="fa fa-cog" route="{{ url('homeSetting/new') }}"/>
                         </ul>
                     </nav>
                 </div>

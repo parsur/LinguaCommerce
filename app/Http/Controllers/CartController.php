@@ -44,7 +44,7 @@ class CartController extends Controller
     }
 
     // delete
-    public function delete(Action $action,$id) {
+    public function delete(Action $action, $id) {
         return $action->delete(Cart::class, $id);
     }
 }
