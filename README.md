@@ -22,3 +22,7 @@ This project is open-sourced software licensed under the [MIT license](https://o
 ## Add the .env and migration files
 
 Do not forget to add the .env file, and migrate the database.
+
+## Copyright
+
+The Admin panel is copyrighted by <a href="https://github.com/badranawad/adminlte-rtl">AdminLTE</a>
