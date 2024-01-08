@@ -1,7 +1,6 @@
 ## About this
 
-This project was coded on April for a rhetorical teacher. I have worked hard to be the best version of myself and optimized every single line of code to look simpler and more comfortable. my cooperation with a frontend developer helped me have a better aspect of team work which was a sensational experience.
-I have been trying to improve it any time I find a new optmized way.
+In April, I undertook a project for a rhetorical teacher, investing considerable effort to refine every line of code, striving for simplicity and user-friendliness. Collaborating with a frontend developer enhanced my understanding of effective teamwork, creating a truly sensational experience. Since then, I've continuously sought opportunities to enhance the project, consistently exploring new optimized approaches. My commitment to self-improvement and dedication to delivering the best possible outcome reflect my ongoing journey towards excellence.
 
 - Simple
 - Fast
